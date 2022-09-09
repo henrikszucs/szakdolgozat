@@ -1,0 +1,2 @@
+# szakdolgozat
+Szakdolgozat repository
