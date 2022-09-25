@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Construct 3 - Addon Developer Host</title>
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+    <script src="index.js"></script>
+</head>
+
+<body>
+    <h1>Status: <strong id='status'>Offline</strong></h1>
+    <fieldset>
+        <legend>Server options:</legend>
+        <input type="button" value="Select addon folder" id="folder_select" />&nbsp;<span id="folder_info"></span><br><br>
+
+        <label for="port_select">Port: </label> <input type="number" value="8000" id="port_select"><br><br>
+
+        <input type="button" value="Select key" value="Select Key" id="key_select" />&nbsp;<span id="key_info"></span><br><br>
+
+        <input type="button" value="Select certificate" id="cert_select" />&nbsp;<span id="cert_info"></span><br><br>
+
+        <input type="button" value="Start" id="start_btn" />
+    </fieldset>
+</body>
+
+</html>

@@ -1,0 +1,3 @@
+Electron környezet nélküli program önmagában nem futtatható.
+A futtatható verzió letölthető:
+https://mega.nz/folder/4RVyVbjT#vCwp9ai8gw8TQYwHL4hgoA
