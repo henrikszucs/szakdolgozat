@@ -1,0 +1,528 @@
+{
+	"permission": {
+		"actions": [
+			{
+				"id": "request-permission",
+				"scriptName": "RequestPermission",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "type",
+						"type": "combo",
+						"initialValue": "clipboard-read",
+						"items": [
+							"clipboard-read",
+							"clipboard-write"
+						]
+					}
+				],
+				"isAsync": true
+			}
+		],
+		"conditions": [
+			{
+				"id": "on-permisson-granted",
+				"scriptName": "OnPermissonGranted",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "type",
+						"type": "combo",
+						"initialValue": "clipboard-read",
+						"items": [
+							"clipboard-read",
+							"clipboard-write"
+						]
+					}
+				],
+				"isTrigger": true,
+				"isFakeTrigger": false,
+				"isStatic": false,
+				"isLooping": false,
+				"isInvertible": false,
+				"isCompatibleWithTriggers": false
+			},
+			{
+				"id": "on-permisson-denied",
+				"scriptName": "OnPermissionDenied",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "type",
+						"type": "combo",
+						"initialValue": "clipboard-read",
+						"items": [
+							"clipboard-read",
+							"clipboard-write"
+						]
+					}
+				],
+				"isTrigger": true,
+				"isFakeTrigger": false,
+				"isStatic": false,
+				"isLooping": false,
+				"isInvertible": false,
+				"isCompatibleWithTriggers": false
+			}
+		],
+		"expressions": [
+			
+		]
+	},
+	"read": {
+		"actions": [
+			{
+				"id": "set-drop",
+				"scriptName": "SetDrop",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "mode",
+						"type": "combo",
+						"initialValue": "enabled",
+						"items": [
+							"enabled",
+							"disabled"
+						]
+					}
+				],
+				"isAsync": false
+			},
+			{
+				"id": "read",
+				"scriptName": "Read",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "tag",
+						"type": "string",
+						"initialValue": "\"\""
+					}
+				],
+				"isAsync": true
+			}
+        ],
+        "conditions": [
+			{
+				"id": "is-read-support",
+				"scriptName": "IsReadSupport",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "type",
+						"type": "combo",
+						"initialValue": "only-text",
+						"items": [
+							"only-text",
+							"text-and-data"
+						]
+					}
+				],
+				"isTrigger": false,
+				"isFakeTrigger": false,
+				"isStatic": false,
+				"isLooping": false,
+				"isInvertible": true,
+				"isCompatibleWithTriggers": true
+			},
+			{
+				"id": "on-any-read",
+				"scriptName": "OnAnyRead",
+				"isDeprecated": false,
+				"highlight": false,
+				"isTrigger": true,
+				"isFakeTrigger": false,
+				"isStatic": false,
+				"isLooping": false,
+				"isInvertible": false,
+				"isCompatibleWithTriggers": false
+			},
+			{
+				"id": "on-read",
+				"scriptName": "OnRead",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "tag",
+						"type": "string",
+						"initialValue": "\"\""
+					}
+				],
+				"isTrigger": true,
+				"isFakeTrigger": false,
+				"isStatic": false,
+				"isLooping": false,
+				"isInvertible": false,
+				"isCompatibleWithTriggers": false
+			},
+			{
+				"id": "on-any-read-error",
+				"scriptName": "OnAnyReadError",
+				"isDeprecated": false,
+				"highlight": false,
+				"isTrigger": true,
+				"isFakeTrigger": false,
+				"isStatic": false,
+				"isLooping": false,
+				"isInvertible": false,
+				"isCompatibleWithTriggers": false
+			},
+			{
+				"id": "on-read-error",
+				"scriptName": "OnReadError",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "tag",
+						"type": "string",
+						"initialValue": "\"\""
+					}
+				],
+				"isTrigger": true,
+				"isFakeTrigger": false,
+				"isStatic": false,
+				"isLooping": false,
+				"isInvertible": false,
+				"isCompatibleWithTriggers": false
+			},
+			{
+				"id": "on-user-paste",
+				"scriptName": "OnUserPaste",
+				"isDeprecated": false,
+				"highlight": false,
+				"isTrigger": true,
+				"isFakeTrigger": false,
+				"isStatic": false,
+				"isLooping": false,
+				"isInvertible": false,
+				"isCompatibleWithTriggers": false
+			},
+			{
+				"id": "is-drop-enabled",
+				"scriptName": "IsDropEnabled",
+				"isDeprecated": false,
+				"highlight": false,
+				"isTrigger": false,
+				"isFakeTrigger": false,
+				"isStatic": false,
+				"isLooping": false,
+				"isInvertible": true,
+				"isCompatibleWithTriggers": true
+			},
+			{
+				"id": "on-user-drop",
+				"scriptName": "OnUserDrop",
+				"isDeprecated": false,
+				"highlight": false,
+				"isTrigger": true,
+				"isFakeTrigger": false,
+				"isStatic": false,
+				"isLooping": false,
+				"isInvertible": false,
+				"isCompatibleWithTriggers": false
+			},
+			{
+				"id": "on-user-drag",
+				"scriptName": "OnUserDrag",
+				"isDeprecated": false,
+				"highlight": false,
+				"isTrigger": true,
+				"isFakeTrigger": false,
+				"isStatic": false,
+				"isLooping": false,
+				"isInvertible": false,
+				"isCompatibleWithTriggers": false
+			},
+			{
+				"id": "on-user-drag-end",
+				"scriptName": "OnUserDragEnd",
+				"isDeprecated": false,
+				"highlight": false,
+				"isTrigger": true,
+				"isFakeTrigger": false,
+				"isStatic": false,
+				"isLooping": false,
+				"isInvertible": false,
+				"isCompatibleWithTriggers": false
+			},
+			{
+				"id": "on-user-drag-start",
+				"scriptName": "OnUserDragStart",
+				"isDeprecated": false,
+				"highlight": false,
+				"isTrigger": true,
+				"isFakeTrigger": false,
+				"isStatic": false,
+				"isLooping": false,
+				"isInvertible": false,
+				"isCompatibleWithTriggers": false
+			},
+			{
+				"id": "has-type",
+				"scriptName": "HasType",
+				"isDeprecated": false,
+				"highlight": false,
+				"isTrigger": false,
+				"params": [
+					{
+						"id": "type",
+						"type": "combo",
+						"initialValue": "text-plain",
+						"items": [
+							"text-plain",
+							"text-html",
+							"image-png"
+						]
+					}
+				],
+				"isFakeTrigger": false,
+				"isStatic": false,
+				"isLooping": false,
+				"isInvertible": true,
+				"isCompatibleWithTriggers": true
+			}
+		],
+		"expressions": [
+			{
+				"id": "read-tag",
+				"expressionName": "ReadTag",
+				"isDeprecated": false,
+				"highlight": false,
+				"returnType": "string",
+				"isVariadicParameters": false
+			},
+			{
+				"id": "read-error",
+				"expressionName": "ReadError",
+				"isDeprecated": false,
+				"highlight": false,
+				"returnType": "string",
+				"isVariadicParameters": false
+			},
+			{
+				"id": "read-type-count",
+				"expressionName": "ReadTypeCount",
+				"isDeprecated": false,
+				"highlight": false,
+				"returnType": "number",
+				"isVariadicParameters": false
+			},
+			{
+				"id": "read-type-at",
+				"expressionName": "ReadTypeAt",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "at",
+						"type": "number",
+						"initialValue": "0"
+					}
+				],
+				"returnType": "string",
+				"isVariadicParameters": false
+			},
+			{
+				"id": "read-data",
+				"expressionName": "ReadData",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "type",
+						"type": "string",
+						"initialValue": "\"text/plain\""
+					}
+				],
+				"returnType": "string",
+				"isVariadicParameters": false
+			},
+			{
+				"id": "drag-position-x",
+				"expressionName": "DragPositionX",
+				"isDeprecated": false,
+				"highlight": false,
+				"returnType": "string",
+				"isVariadicParameters": false
+			},
+			{
+				"id": "drag-position-y",
+				"expressionName": "DragPositionY",
+				"isDeprecated": false,
+				"highlight": false,
+				"returnType": "string",
+				"isVariadicParameters": false
+			}
+		]
+	},
+	"write": {
+		"actions": [
+			{
+				"id": "write",
+				"scriptName": "Write",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "text-plain",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "text-html",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "image-png",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "tag",
+						"type": "string",
+						"initialValue": "\"\""
+					}
+				],
+				"isAsync": true
+			}
+        ],
+        "conditions": [
+			{
+				"id": "is-write-support",
+				"scriptName": "IsWriteSupport",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "type",
+						"type": "combo",
+						"initialValue": "only-text",
+						"items": [
+							"only-text",
+							"text-and-data"
+						]
+					}
+				],
+				"isTrigger": false,
+				"isFakeTrigger": false,
+				"isStatic": false,
+				"isLooping": false,
+				"isInvertible": true,
+				"isCompatibleWithTriggers": true
+			},
+			{
+				"id": "on-any-write",
+				"scriptName": "OnAnyWrite",
+				"isDeprecated": false,
+				"highlight": false,
+				"isTrigger": true,
+				"isFakeTrigger": false,
+				"isStatic": false,
+				"isLooping": false,
+				"isInvertible": false,
+				"isCompatibleWithTriggers": false
+			},
+			{
+				"id": "on-write",
+				"scriptName": "OnWrite",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "tag",
+						"type": "string",
+						"initialValue": "\"\""
+					}
+				],
+				"isTrigger": true,
+				"isFakeTrigger": false,
+				"isStatic": false,
+				"isLooping": false,
+				"isInvertible": false,
+				"isCompatibleWithTriggers": false
+			},
+			{
+				"id": "on-any-write-error",
+				"scriptName": "OnAnyWriteError",
+				"isDeprecated": false,
+				"highlight": false,
+				"isTrigger": true,
+				"isFakeTrigger": false,
+				"isStatic": false,
+				"isLooping": false,
+				"isInvertible": false,
+				"isCompatibleWithTriggers": false
+			},
+			{
+				"id": "on-write-error",
+				"scriptName": "OnWriteError",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "tag",
+						"type": "string",
+						"initialValue": "\"\""
+					}
+				],
+				"isTrigger": true,
+				"isFakeTrigger": false,
+				"isStatic": false,
+				"isLooping": false,
+				"isInvertible": false,
+				"isCompatibleWithTriggers": false
+			},
+			{
+				"id": "on-user-copy",
+				"scriptName": "OnUserCopy",
+				"isDeprecated": false,
+				"highlight": false,
+				"isTrigger": true,
+				"isFakeTrigger": false,
+				"isStatic": false,
+				"isLooping": false,
+				"isInvertible": false,
+				"isCompatibleWithTriggers": false
+			},
+			{
+				"id": "on-user-cut",
+				"scriptName": "OnUserCut",
+				"isDeprecated": false,
+				"highlight": false,
+				"isTrigger": true,
+				"isFakeTrigger": false,
+				"isStatic": false,
+				"isLooping": false,
+				"isInvertible": false,
+				"isCompatibleWithTriggers": false
+			}
+		],
+		"expressions": [
+			{
+				"id": "write-tag",
+				"expressionName": "WriteTag",
+				"isDeprecated": false,
+				"highlight": false,
+				"returnType": "string",
+				"isVariadicParameters": false
+			},
+			{
+				"id": "write-error",
+				"expressionName": "WriteError",
+				"isDeprecated": false,
+				"highlight": false,
+				"returnType": "string",
+				"isVariadicParameters": false
+			}
+		]
+	}
+}

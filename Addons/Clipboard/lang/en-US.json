@@ -1,0 +1,359 @@
+{
+	"languageTag": "en-US",
+	"fileDescription": "String for Clipboard plugin",
+	"text": {
+		"plugins": {
+			"robotkaposzta_clipboard": {
+				"name": "Clipboard",
+				"description": "Allow to manage the device's clipboard.",
+				"help-url": "https://epicsoft.hu/",
+				"properties": {
+					"enable-drop": {
+						"name": "Enable drop",
+						"desc": "Enable to users to drag and drop text data into the projects."
+					},
+					"read-permission": {
+						"name": "Read permission",
+						"desc": "Request clipboard read permission at start. Note: this will trigger and 'On permission granted' or 'On permission denied' trigger."
+					},
+					"write-permission": {
+						"name": "Write permission",
+						"desc": "Request clipboard write permission at start. Note: this will trigger 'On permission granted' or 'On permission denied' trigger."
+					}
+				},
+				"debugger": {
+					"name": "Clipboard",
+					"read": {
+						"name": "Clipboard read",
+						"enabled-drop": "Enabled drop",
+						"text-support": "Read text support",
+						"data-support": "Read data support",
+						"last-tag": "Last read tag",
+						"last-error": "Last read error",
+						"last-drag-x": "Last drag X",
+						"last-drag-y": "Last drag Y",
+						"last-text-plain": "Last text/plain",
+						"last-text-html": "Last text/html",
+						"last-image-png": "Last image/png"
+					},
+					"write": {
+						"name": "Clipboard write",
+						"text-support": "Write text support",
+						"data-support": "Write data support",
+						"last-tag": "Last write tag",
+						"last-error": "Last write error"
+					}
+				},
+				"aceCategories": {
+					"permission": "Permission",
+					"read": "Read",
+					"write": "Write"
+				},
+				"actions": {
+					"request-permission": {
+						"list-name": "Request permisson",
+						"display-text": "Request {0} permisson",
+						"description": "Request permission to read or write data to clipboard.",
+						"params":  {
+							"type": {
+								"name": "Type",
+								"desc": "Select the type of the permission.",
+								"items": {
+									"clipboard-read": "clipboard read",
+									"clipboard-write": "clipboard write"
+								}
+							}
+						}
+					},
+
+					"set-drop": {
+						"list-name": "Set drop",
+						"display-text": "{0} drop",
+						"description": "Enable or disable to user use drag and drop feature.",
+						"params":  {
+							"mode": {
+								"name": "Mode",
+								"desc": "Enable or disable drag and drop feature.",
+								"items": {
+									"enabled": "Enabled",
+									"disabled": "Disabled"
+								}
+							}
+						}
+					},
+					"read": {
+						"list-name": "Read clipboard",
+						"display-text": "Read clipboard (tag: [i]{0}[/i])",
+						"description": "Read the clipboard's text data.",
+						"params":  {
+							"tag": {
+								"name": "Tag",
+								"desc": "The name of the read process to identify it."
+							}
+						}
+					},
+
+					"write": {
+						"list-name": "Write clipboard",
+						"display-text": "Write clipboard (text/plain: [i]{0}[/i], text/html: [i]{1}[/i], image/png: [i]{2}[/i], tag: [i]{3}[/i])",
+						"description": "Write data to the clipboard.",
+						"params": {
+							"text-plain": {
+								"name": "text/plain",
+								"desc": "Plain text data that write to clipboard."
+							},
+							"text-html": {
+								"name": "text/html",
+								"desc": "HTML text data that write to clipboard."
+							},
+							"image-png": {
+								"name": "image/png",
+								"desc": "Base64 image data that write to clipboard."
+							},
+							"tag": {
+								"name": "Tag",
+								"desc": "The name of the read process to finish it."
+							}
+						}
+					}
+                },
+                "conditions": {
+                    "on-permisson-granted": {
+						"list-name": "On permission granted",
+						"display-text": "On {0} permission granted",
+						"description": "Triggers when granted a selected permission",
+						"params": {
+							"type": {
+								"name": "Type",
+								"desc": "Select the type of the permission.",
+								"items": {
+									"clipboard-read": "clipboard read",
+									"clipboard-write": "clipboard write"
+								}
+							}
+						}
+					},
+					"on-permisson-denied": {
+						"list-name": "On permission denied",
+						"display-text": "On {0} permission denied",
+						"description": "Triggers when denied a selected permission",
+						"params": {
+							"type": {
+								"name": "Type",
+								"desc": "Select the type of the permission.",
+								"items": {
+									"clipboard-read": "clipboard read",
+									"clipboard-write": "clipboard write"
+								}
+							}
+						}
+					},
+
+					"is-read-support": {
+						"list-name": "Is read support",
+						"display-text": "Is read support {0}",
+						"description": "Check if device support the clipboard read features.",
+						"params": {
+							"type": {
+								"name": "Type",
+								"desc": "The type of the support check.",
+								"items": {
+									"only-text": "only text",
+									"text-and-data": "text and data"
+								}
+							}
+						}
+					},
+					"on-any-read": {
+						"list-name": "On any read",
+						"display-text": "On any read",
+						"description": "Triggers when read any clipboard."
+					},
+					"on-read": {
+						"list-name": "On read",
+						"display-text": "On [b]{0}[/b] read",
+						"description": "Triggers when read a specific clipboard.",
+						"params": {
+							"tag": {
+								"name": "Tag",
+								"desc": "The name of the read process."
+							}
+						}
+					},
+					"on-any-read-error": {
+						"list-name": "On any read error",
+						"display-text": "On any read error",
+						"description": "Triggers when any clipboard read runs into error."
+					},
+					"on-read-error": {
+						"list-name": "On read error",
+						"display-text": "On [b]{0}[/b] read error",
+						"description": "Triggers when a specific clipboard read runs into error.",
+						"params": {
+							"tag": {
+								"name": "Tag",
+								"desc": "The name of the read process."
+							}
+						}
+					},
+					"on-user-paste": {
+						"list-name": "On user paste",
+						"display-text": "On user paste",
+						"description": "Triggers when user paste text data into the project."
+					},
+					"is-drop-enabled": {
+						"list-name": "Is drop enabled",
+						"display-text": "Is drop enabled",
+						"description": "Check if drop features is enabled."
+					},
+					"on-user-drop": {
+						"list-name": "On user drop",
+						"display-text": "On user drop",
+						"description": "Triggers when user drop text data into the project."
+					},
+					"on-user-drag": {
+						"list-name": "On user drag",
+						"display-text": "On user drag",
+						"description": "Triggers when user beging drag text data and enter cursor into the project."
+					},
+					"on-user-drag-start": {
+						"list-name": "On user drag start",
+						"display-text": "On user drag start",
+						"description": "Triggers when user start drag text data into the project."
+					},
+					"on-user-drag-end": {
+						"list-name": "On user drag end",
+						"display-text": "On user drag end",
+						"description": "Triggers when user end drag text data into the project. This action might be a cancel."
+					},
+					"has-type": {
+						"list-name": "Has type",
+						"display-text": "Has [i]{0}[/i] type",
+						"description": "True if in read, drag, drop, paste trigger the types conatins the selected type.",
+						"params": {
+							"type": {
+								"name": "MIME type",
+								"desc": "The MIME type to check.",
+								"items": {
+									"text-plain": "text/plain",
+									"text-html": "text/html",
+									"image-png": "image/png"
+								}
+							}
+						}
+					},
+
+					"is-write-support": {
+						"list-name": "Is write support",
+						"display-text": "Is write support {0}",
+						"description": "Check if device support write. Example firefox not support data write.",
+						"params": {
+							"type": {
+								"name": "Type",
+								"desc": "The type of the support check.",
+								"items": {
+									"only-text": "only text",
+									"text-and-data": "text and data"
+								}
+							}
+						}
+					},
+					"on-any-write": {
+						"list-name": "On any write",
+						"display-text": "On any write",
+						"description": "Triggers when write any data to the clipboard."
+					},
+					"on-write": {
+						"list-name": "On write",
+						"display-text": "On [b]{0}[/b] write",
+						"description": "Triggers when write a specific data to a clipboard.",
+						"params": {
+							"tag": {
+								"name": "Tag",
+								"desc": "The name of the read process."
+							}
+						}
+					},
+					"on-any-write-error": {
+						"list-name": "On any write error",
+						"display-text": "On any write error",
+						"description": "Triggers when any clipboard write runs into error."
+					},
+					"on-write-error": {
+						"list-name": "On write error",
+						"display-text": "On [b]{0}[/b] write error",
+						"description": "Triggers when a specific clipboard write runs into error.",
+						"params": {
+							"tag": {
+								"name": "Tag",
+								"desc": "The name of the write process."
+							}
+						}
+					},
+					"on-user-copy": {
+						"list-name": "On user copy",
+						"display-text": "On user copy",
+						"description": "Triggers when user copy a data from the project."
+					},
+					"on-user-cut": {
+						"list-name": "On user cut",
+						"display-text": "On user cut",
+						"description": "Triggers when user cut data from the project."
+					}
+                },
+                "expressions": {
+                    "read-tag": {
+						"translated-name": "ReadTag",
+						"description": "Get the read process tag in 'On read' trigger."
+					},
+					"read-error": {
+						"translated-name": "ReadError",
+						"description": "Get the read error 'On read error' trigger."
+					},
+					"read-type-count": {
+						"translated-name": "ReadTypeCount",
+						"description": "Get the number of the cipboard's type in 'On read', 'On user paste', 'On user drop', 'On user drag', 'On user drag start' triggers."
+					},
+					"read-type-at": {
+						"translated-name": "ReadTypeAt",
+						"description": "Get the clipboard's data type at zero based index in 'On read', 'On user paste', 'On user drop', 'On user drag', 'On user drag start' triggers.",
+						"params": {
+							"at": {
+								"name": "At",
+								"desc": "0-based index to get readed type name."
+							}
+						}
+					},
+					"read-data": {
+						"translated-name": "ReadData",
+						"description": "Get the clipboard's data in text format in 'On read', 'On user paste', 'On user drop', 'On user drag', 'On user drag start' triggers.",
+						"params": {
+							"type": {
+								"name": "Type",
+								"desc": "Type to get data."
+							}
+						}
+					},
+					"drag-position-x": {
+						"translated-name": "DragPositionX",
+						"description": "Get the drop x position in 'On drag', 'On drag start' trigger."
+					},
+					"drag-position-y": {
+						"translated-name": "DragPositionY",
+						"description": "Get the drop y position in 'On drag', 'On drag start' trigger."
+					},
+
+					"write-tag": {
+						"translated-name": "WriteTag",
+						"description": "Get the write process tag in 'On write' trigger."
+					},
+					"write-error": {
+						"translated-name": "WriteError",
+						"description": "Get the write error 'On write error' trigger."
+					}
+                }
+            }
+        }
+    }
+}
+

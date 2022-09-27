@@ -1,0 +1,625 @@
+{
+	"language": {
+		"actions": [
+			{
+				"id": "set-language",
+				"scriptName": "SetLanguage",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "language",
+						"type": "string",
+						"initialValue": "\"\""
+					}
+				],
+				"isAsync": false
+			},
+			{
+				"id": "add-language",
+				"scriptName": "AddLanguage",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "language",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "index",
+						"type": "number",
+						"initialValue": "0"
+					}
+				],
+				"isAsync": false
+			},
+			{
+				"id": "remove-language",
+				"scriptName": "RemoveLanguage",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "language",
+						"type": "string",
+						"initialValue": "\"\""
+					}
+				],
+				"isAsync": false
+			}
+		],
+		"conditions": [
+			{
+				"id": "on-language-change",
+				"scriptName": "OnLanguageChange",
+				"isDeprecated": false,
+				"highlight": false,
+				"isTrigger": true,
+				"isFakeTrigger": false,
+				"isStatic": false,
+				"isLooping": false,
+				"isInvertible": false,
+				"isCompatibleWithTriggers": false
+			},
+			{
+				"id": "on-device-language-change",
+				"scriptName": "OnDeviceLanguageChange",
+				"isDeprecated": false,
+				"highlight": false,
+				"isTrigger": true,
+				"isFakeTrigger": false,
+				"isStatic": false,
+				"isLooping": false,
+				"isInvertible": false,
+				"isCompatibleWithTriggers": false
+			},
+			{
+				"id": "is-language-support",
+				"scriptName": "IsLanguageSupport",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "type",
+						"type": "combo",
+						"initialValue": "full-support",
+						"items": [
+							"full-support",
+							"only-language",
+							"not-supported"
+						]
+					},
+					{
+						"id": "language",
+						"type": "string",
+						"initialValue": "\"\""
+					}
+				],
+				"isTrigger": false,
+				"isFakeTrigger": false,
+				"isStatic": false,
+				"isLooping": false,
+				"isInvertible": true,
+				"isCompatibleWithTriggers": true
+			}
+		],
+		"expressions": [
+			{
+				"id": "get-language-count",
+				"expressionName": "LanguageCount",
+				"isDeprecated": false,
+				"highlight": false,
+				"returnType": "number",
+				"isVariadicParameters": false
+			},
+			{
+				"id": "get-language",
+				"expressionName": "Language",
+				"isDeprecated": false,
+				"highlight": false,
+				"returnType": "string",
+				"isVariadicParameters": true
+			},
+			{
+				"id": "get-device-language-count",
+				"expressionName": "DeviceLanguageCount",
+				"isDeprecated": false,
+				"highlight": false,
+				"returnType": "number",
+				"isVariadicParameters": false
+			},
+			{
+				"id": "get-device-language-at",
+				"expressionName": "DeviceLanguageAt",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "at",
+						"type": "number",
+						"initialValue": "0"
+					}
+				],
+				"returnType": "string",
+				"isVariadicParameters": false
+			},
+			{
+				"id": "get-suggested-language",
+				"expressionName": "SuggestedLanguage",
+				"isDeprecated": false,
+				"highlight": false,
+				"returnType": "string",
+				"isVariadicParameters": true
+			},
+			
+			{
+				"id": "get-language-section",
+				"expressionName": "GetLanguageSection",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "string",
+						"type": "string",
+						"initialValue": "\"\""
+					}
+				],
+				"returnType": "string",
+				"isVariadicParameters": false
+			},
+			{
+				"id": "get-region-section",
+				"expressionName": "GetRegionSection",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "string",
+						"type": "string",
+						"initialValue": "\"\""
+					}
+				],
+				"returnType": "string",
+				"isVariadicParameters": false
+			}
+        ]
+    },
+	"language-data": {
+		"actions": [
+			{
+				"id": "load-language-data",
+				"scriptName": "LoadLanguageData",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "format",
+						"type": "combo",
+						"initialValue": "json-single",
+						"items": [
+							"json-single",
+							"json-multiple",
+							"csv",
+							"dictionary",
+							"array"
+						]
+					},
+					{
+						"id": "language",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "data",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "tag",
+						"type": "string",
+						"initialValue": "\"\""
+					}
+				],
+				"isAsync": false
+			},
+			{
+				"id": "load-language-file",
+				"scriptName": "LoadLanguageFile",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "format",
+						"type": "combo",
+						"initialValue": "json-single",
+						"items": [
+							"json-single",
+							"json-multiple",
+							"csv",
+							"dictionary",
+							"array"
+						]
+					},
+					{
+						"id": "language",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "file-name",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "tag",
+						"type": "string",
+						"initialValue": "\"\""
+					}
+				],
+				"isAsync": true
+			},
+			{
+				"id": "unload-language-by-tag",
+				"scriptName": "UnloadLanguageByTag",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "mode",
+						"type": "combo",
+						"initialValue": "clear",
+						"items": [
+							"clear",
+							"delete"
+						]
+					},
+					{
+						"id": "tag",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "lang",
+						"type": "string",
+						"initialValue": "\"\""
+					}
+				],
+				"isAsync": false
+			},
+			{
+				"id": "unload-language-by-key",
+				"scriptName": "UnloadLanguageByKey",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "key",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "lang",
+						"type": "string",
+						"initialValue": "\"\""
+					}
+				],
+				"isAsync": false
+			}
+		],
+		"conditions": [
+			{
+				"id": "on-data-load",
+				"scriptName": "OnDataLoad",
+				"isDeprecated": false,
+				"highlight": false,
+				"isTrigger": true,
+				"isFakeTrigger": false,
+				"isStatic": false,
+				"isLooping": false,
+				"isInvertible": false,
+				"isCompatibleWithTriggers": false
+			},
+			{
+				"id": "on-data-load-error",
+				"scriptName": "OnDataLoadError",
+				"isDeprecated": false,
+				"highlight": false,
+				"isTrigger": true,
+				"isFakeTrigger": false,
+				"isStatic": false,
+				"isLooping": false,
+				"isInvertible": false,
+				"isCompatibleWithTriggers": false
+			}
+		],
+		"expressions": [
+			{
+				"id": "load-tag",
+				"expressionName": "LoadTag",
+				"isDeprecated": false,
+				"highlight": false,
+				"returnType": "string",
+				"isVariadicParameters": false
+			},
+			{
+				"id": "load-error",
+				"expressionName": "LoadError",
+				"isDeprecated": false,
+				"highlight": false,
+				"returnType": "string",
+				"isVariadicParameters": false
+			},
+			{
+				"id": "tag-count",
+				"expressionName": "TagCount",
+				"isDeprecated": false,
+				"highlight": false,
+				"returnType": "number",
+				"isVariadicParameters": false
+			},
+			{
+				"id": "tag-at",
+				"expressionName": "TagAt",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "at",
+						"type": "number",
+						"initialValue": "0"
+					}
+				],
+				"returnType": "string",
+				"isVariadicParameters": false
+			},
+			{
+				"id": "key-count",
+				"expressionName": "KeyCount",
+				"isDeprecated": false,
+				"highlight": false,
+				"returnType": "number",
+				"isVariadicParameters": true
+			},
+			{
+				"id": "key-at",
+				"expressionName": "KeyAt",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "at",
+						"type": "number",
+						"initialValue": "0"
+					}
+				],
+				"returnType": "string",
+				"isVariadicParameters": true
+			},
+			{
+				"id": "translate",
+				"expressionName": "Translate",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "key",
+						"type": "string",
+						"initialValue": "\"key\""
+					}
+				],
+				"returnType": "string",
+				"isVariadicParameters": true
+			}
+		]
+	},
+	"parameters": {
+		"actions": [
+			
+		],
+		"conditions": [
+			{
+				"id": "is-param-valid",
+				"scriptName": "IsParamValid",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "text",
+						"type": "string",
+						"initialValue": "\"\""
+					}
+				],
+				"isTrigger": false,
+				"isFakeTrigger": false,
+				"isStatic": false,
+				"isLooping": false,
+				"isInvertible": true,
+				"isCompatibleWithTriggers": true
+			}
+		],
+		"expressions": [
+			{
+				"id": "param-key-count",
+				"expressionName": "ParamKeyCount",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "text",
+						"type": "string",
+						"initialValue": "\"\""
+					}
+				],
+				"returnType": "number",
+				"isVariadicParameters": false
+			},
+			{
+				"id": "param-key-at",
+				"expressionName": "ParamKeyAt",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "text",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "at",
+						"type": "number",
+						"initialValue": "0"
+					}
+				],
+				"returnType": "string",
+				"isVariadicParameters": false
+			},
+			{
+				"id": "param-key-count-at",
+				"expressionName": "ParamKeyCountAt",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "text",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "key",
+						"type": "string",
+						"initialValue": "\"\""
+					}
+				],
+				"returnType": "number",
+				"isVariadicParameters": false
+			},
+			{
+				"id": "param-key-start",
+				"expressionName": "ParamKeyStart",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "text",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "key",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "at",
+						"type": "number",
+						"initialValue": "0"
+					}
+				],
+				"returnType": "string",
+				"isVariadicParameters": false
+			},
+			{
+				"id": "param-key-end",
+				"expressionName": "ParamKeyEnd",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "text",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "key",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "at",
+						"type": "number",
+						"initialValue": "0"
+					}
+				],
+				"returnType": "string",
+				"isVariadicParameters": false
+			},
+			{
+				"id": "param-text-num",
+				"expressionName": "ParamTextNum",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "text",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "is-fill",
+						"type": "number",
+						"initialValue": "1"
+					},
+					{
+						"id": "is-string-params",
+						"type": "number",
+						"initialValue": "0"
+					}
+				],
+				"returnType": "string",
+				"isVariadicParameters": true
+			},
+			{
+				"id": "param-text-key",
+				"expressionName": "ParamTextKey",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "text",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "is-fill",
+						"type": "number",
+						"initialValue": "1"
+					},
+					{
+						"id": "is-string-params",
+						"type": "number",
+						"initialValue": "0"
+					}
+				],
+				"returnType": "string",
+				"isVariadicParameters": true
+			},
+			{
+				"id": "escaping",
+				"expressionName": "Escaping",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "text",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "is-descape",
+						"type": "number",
+						"initialValue": "0"
+					},
+					{
+						"id": "is-string-params",
+						"type": "number",
+						"initialValue": "0"
+					}
+				],
+				"returnType": "string",
+				"isVariadicParameters": true
+			}
+		]
+
+	}
+}

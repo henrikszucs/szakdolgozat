@@ -1,0 +1,128 @@
+[h1]Clipboard[/h1]
+The [i]Clipboard[/i] plugin allow to read and write the user's clipboard.
+
+[h2]Support:[/h2]
+For security reason the clipboard read function not work in firefox and in chrome based browser the user have to give access when project wants read the clipboard. For clipboard write the users have to interact with browser. NOTE: you do not have to gain permission at startup, the plugin will gain access when it's needed. Following three data types are avilable: text/plain, text/html, image/png. Check if the browser support the data types e.g firefox only can write text/plain format.
+
+[h2]Clipboard properties:[/h2]
+[dl sans-serif]
+	[dt]Enable drop[/dt]
+	[dd]Enable user drop funcion at the start of the project.[/dd]
+
+	[dt]Read permission[/dt]
+	[dd]Request clipboard read permission at start. Note: this will trigger and 'On permission granted' or 'On permission denied' trigger.[/dd]
+
+	[dt]Write permission[/dt]
+	[dd]Request clipboard write permission at start. Note: this will trigger 'On permission granted' or 'On permission denied' trigger.[/dd]
+[/dl]
+
+[h2]Clipboard conditions:[/h2]
+[dl sans-serif]
+	[dt]On permission granted[/dt]
+	[dt]On permission denied[/dt]
+	[dd]Trigger when granted/denied a selected permission.[/dd]
+
+	[dt]Is read support[/dt]
+	[dd][/dd]
+
+	[dt]On any read[/dt]
+	[dt]On read[/dt]
+	[dd]Triggers when any read or read with specific tag finished and ready to read data.[/dd]
+
+	[dt]On any read error[/dt]
+	[dt]On read error[/dt]
+	[dd]Triggers when any read or read with specific tag fail to read data.[/dd]
+
+	[dt]On user paste[/dt]
+	[dd]Triggers when user paste data and ready to read data.[/dd]
+
+	[dt]Is drop enabled[/dt]
+	[dd]Check if drop features is enabled.[/dd]
+
+	[dt]On user drop[/dt]
+	[dd]Triggers when user drops text data and ready to read data.[/dd]
+
+	[dt]On user drag[/dt]
+	[dd]Triggers when user drags data above the project window. This return DragPosX, DragPosY and data types. Note: this will trigger every millisecond.[/dd]
+
+	[dt]On user drag start[/dt]
+	[dd]Triggers when user begin the drag data above the project. This return DragPosX, DragPosY and data types.[/dd]
+
+	[dt]On user drag end[/dt]
+	[dd]Triggers when user end the drag data above the project.[/dd]
+
+	[dt]Has type[/dt]
+	[dd]True if in read, drag, drop, paste triggers the types conatins the selected type.[/dd]
+
+	[dt]Is write support[/dt]
+	[dd]Check if device support write. Example firefox not support data write.[/dd]
+
+	[dt]On any write[/dt]
+	[dt]On write[/dt]
+	[dd]Triggers when succesfully write any/with specific tag to the clipboard.[/dd]
+
+	[dt]On any write error[/dt]
+	[dt]On write error[/dt]
+	[dd]Triggers when any/specific clipboard write runs into error.[/dd]
+
+	[dt]On user copy[/dt]
+	[dd]Triggers when user copy a data from the project.[/dd]
+
+	[dt]On user cut[/dt]
+	[dd]Triggers when user cut data from the project.[/dd]
+[/dl]
+
+[h2]Clipboard actions:[/h2]
+[dl sans-serif]
+	[dt]Request permisson[/dt]
+	[dd]Request clipboard read/write permission. Note: this not requred for read/write actions.[/dd]
+
+	[dt]Set drop[/dt]
+	[dd]Enable or disable to user use drag and drop feature.[/dd]
+
+	[dt]Read clipboard[/dt]
+	[dd]Read the clipboard's text data. If do not have permission the action automatically request it.[/dd]
+
+	[dt]Write clipboard[/dt]
+	[dd]Write data to the clipboard. If do not have permission the action automatically request it.[/dd]
+[/dl]
+
+[h2]Clipboard expressions:[/h2]
+[dl sans-serif]
+	[dt]ReadTag[/dt]
+	[dd]Get the read process tag in 'On read' trigger.[/dd]
+
+	[dt]ReadError[/dt]
+	[dd]Get the read error in 'On read error' trigger.[/dd]
+
+	[dt]ReadTypeCount[/dt]
+	[dd]Get the number of the cipboard's type in 'On read', 'On user paste', 'On user drop', 'On user drag', 'On user drag start' triggers.[/dd]
+
+	[dt]ReadTypeAt[/dt]
+	[dd]Get the clipboard's data type at zero based index in 'On read', 'On user paste', 'On user drop', 'On user drag', 'On user drag start' triggers.[/dd]
+
+	[dt]ReadData[/dt]
+	[dd]Get the clipboard's data in text format in 'On read', 'On user paste', 'On user drop', 'On user drag', 'On user drag start' triggers.[/dd]
+
+	[dt]DragPositionX[/dt]
+	[dd]Get the drop x position in 'On drag', 'On drag start' trigger.[/dd]
+
+	[dt]DragPositionY[/dt]
+	[dd]Get the drop y position in 'On drag', 'On drag start' trigger.[/dd]
+
+	[dt]WriteTag[/dt]
+	[dd]Get the write process' tag in 'On write' trigger.[/dd]
+
+	[dt]WriteError[/dt]
+	[dd]Get the write error 'On write error' trigger.[/dd]
+[/dl]
+
+
+
+
+
+
+
+
+
+

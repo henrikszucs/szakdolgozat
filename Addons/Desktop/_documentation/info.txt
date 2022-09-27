@@ -1,0 +1,2 @@
+reformat
+	domside.js ből közvetlen átvitel main.js be

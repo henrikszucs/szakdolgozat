@@ -1,0 +1,122 @@
+{
+	"": {
+		"actions": [
+			{
+				"id": "set-key-value",
+				"scriptName": "SetKeyValue",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "key-value",
+						"type": "string",
+						"initialValue": "\"\""
+					}
+				],
+				"isAsync": false
+			},
+			{
+				"id": "set-lang-value",
+				"scriptName": "SetLangValue",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "lang-value",
+						"type": "string",
+						"initialValue": "\"\""
+					}
+				],
+				"isAsync": false
+			},
+			{
+				"id": "set-enabled",
+				"scriptName": "SetEnabled",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "state",
+						"type": "combo",
+						"initialValue": "enabled",
+						"items": [
+							"enabled",
+							"disabled"
+						]
+					}
+				],
+				"isAsync": false
+			}
+		],
+		"conditions": [
+			{
+				"id": "is-key-value",
+				"scriptName": "IsKeyValue",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "key-value",
+						"type": "string",
+						"initialValue": "\"\""
+					}
+				],
+				"isTrigger": false,
+				"isFakeTrigger": false,
+				"isStatic": false,
+				"isLooping": false,
+				"isInvertible": true,
+				"isCompatibleWithTriggers": true
+			},
+			{
+				"id": "is-lang-value",
+				"scriptName": "IsLangValue",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "lang-value",
+						"type": "string",
+						"initialValue": "\"\""
+					}
+				],
+				"isTrigger": false,
+				"isFakeTrigger": false,
+				"isStatic": false,
+				"isLooping": false,
+				"isInvertible": true,
+				"isCompatibleWithTriggers": true
+			},
+			{
+				"id": "is-enabled",
+				"scriptName": "IsEnabled",
+				"isDeprecated": false,
+				"highlight": false,
+				"isTrigger": false,
+				"isFakeTrigger": false,
+				"isStatic": false,
+				"isLooping": false,
+				"isInvertible": true,
+				"isCompatibleWithTriggers": true
+			}
+		],
+		"expressions": [
+			{
+				"id": "key-value",
+				"expressionName": "KeyValue",
+				"isDeprecated": false,
+				"highlight": false,
+				"returnType": "string",
+				"isVariadicParameters": false
+			},
+			{
+				"id": "lang-value",
+				"expressionName": "LanguageValue",
+				"isDeprecated": false,
+				"highlight": false,
+				"returnType": "string",
+				"isVariadicParameters": false
+			}
+		]
+	}
+}

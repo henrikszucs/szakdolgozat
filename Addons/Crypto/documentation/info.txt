@@ -1,0 +1,370 @@
+[h1]Crypto[/h1]
+The [i]Crypto[/i] plugin help to encrypt and decrypt data and other provide other fuctions what helps in data encryption. Most of the browser require secure context (https://) to use plugin. 
+
+[h2]Cryptographic concepts:[/h2]
+It is a very little introduce to the cryptograpic concepts. If you not familiary with general concepts pleas learn and experiment it. Good start [url=https://en.wikipedia.org/wiki/Cryptography]Wikipedia[/url], [url=https://developer.mozilla.org/en-US/docs/Web/API/Web_Crypto_API]MDN web docs[/url] or [url=https://www.crypto101.io/]Crypto 101[/url].
+Following three methods are the basic of the cryptographic:
+[ul]
+	[li]One way hash[/li]
+	[li]Symmetric cryptography[/li]
+	[li]Asymmetric cryptography[/li]
+[/ul]
+[dl sans-serif]
+	[dt]One way hash[/dt]
+	[dd]This method hash the data. It is one wayed that you cannot reverse the hash text. e.g. test => 098f6bcd4621d373cade4e832627b4f6. It is useful if do not matter what is the data just check that, like passwords because nobody want to see password but we have to check the validity.[/dd]
+
+	[dt]Symmetric cryptography[/dt]
+	[dd]This is the most classical cryptographic method. Encrypt/decrypt a text with a [b]secret key[/b]. e.g. data + secretkey1234567 => C5P7DhFRG/imUbJZe4LBjg==. And you can use reverse e.g. C5P7DhFRG/imUbJZe4LBjg== + secretkey1234567 => data[/dd]
+
+	[dt]Asymmetric cryptography[/dt]
+	[dd]Asymmetric method used the most in the web because you can encrypt trough unencrypted channel. Asymmetric method has 2 key type: [b]public key[/b] and [b]private key[/b]. [b]public key[/b] used to encrypt the data, [b]private key[/b] used to decrypt data: e.g. data + public key => C5P7DhFRGLBjg==. [b]private key[/b] used to decrypt data: e.g. AC5P7DhFRGLBjg== + private key => data[/dd]
+[/dl]
+
+
+[h2]Algorithm supports:[/h2]
+Every algorithm get data from Base64 text and result data as Base64 text. [warning]If you use wrong methods it cause vulnerability. If do not kwnow read about it e.g. [url=https://developer.mozilla.org/en-US/docs/Web/API/Web_Crypto_API]MDN web docs[/url][/warning]
+[table]
+	[thead]
+		[tr]
+			[td]Algorithm[/td]
+			[td]Usage[/td]
+			[td]Method[/td]
+		[/tr]
+	[/thead]
+	[tr]
+		[td]RSASSA-PKCS1-v1_5[/td]
+		[td]sign/verify[/td]
+		[td]Asymmetric[/td]
+	[/tr]
+	[tr]
+		[td]RSA-PSS[/td]
+		[td]sign/verify[/td]
+		[td]Asymmetric[/td]
+	[/tr]
+	[tr]
+		[td]ECDSA[/td]
+		[td]sign/verify[/td]
+		[td]Asymmetric[/td]
+	[/tr]
+	[tr]
+		[td]HMAC[/td]
+		[td]sign/verify[/td]
+		[td]Symmetric[/td]
+	[/tr]
+	[tr]
+		[td]RSA-OAEP[/td]
+		[td]encrypt/decrypt[/td]
+		[td]Asymmetric[/td]
+	[/tr]
+	[tr]
+		[td]AES-CTR[/td]
+		[td]encrypt/decrypt[/td]
+		[td]Symmetric[/td]
+	[/tr]
+	[tr]
+		[td]AES-CBC[/td]
+		[td]encrypt/decrypt[/td]
+		[td]Symmetric[/td]
+	[/tr]
+	[tr]
+		[td]AES-GCM[/td]
+		[td]encrypt/decrypt[/td]
+		[td]Symmetric[/td]
+	[/tr]
+	[tr]
+		[td]ECDH[/td]
+		[td]generate key/generate data[/td]
+		[td]Asymmetric[/td]
+	[/tr]
+	[tr]
+		[td]HKDF[/td]
+		[td]generate key/generate data[/td]
+		[td]Symmetric[/td]
+	[/tr]
+	[tr]
+		[td]PBKDF2[/td]
+		[td]generate key/generate data[/td]
+		[td]Symmetric[/td]
+	[/tr]
+[/table]
+
+
+[h2]Crypto conditions:[/h2]
+[dl sans-serif]
+	[dt]On encrypt[/dt]
+	[dt]On encrypt error[/dt]
+	[dd]Triggers when encrypt method finished/failed.[/dd]
+
+	[dt]On decrypt[/dt]
+	[dt]On decrypt error[/dt]
+	[dd]Triggers when decrypt method finished/failed.[/dd]
+
+	[dt]On export[/dt]
+	[dt]On export error[/dt]
+	[dd]Triggers when key export method finished/failed.[/dd]
+
+	[dt]On import[/dt]
+	[dt]On import error[/dt]
+	[dd]Triggers when key import method finished/failed.[/dd]
+
+	[dt]On key generate[/dt]
+	[dt]On key generate error[/dt]
+	[dd]Triggers when key generate method finished/failed.[/dd]
+
+	[dt]On data generated[/dt]
+	[dt]On data generate error[/dt]
+	[dd]Triggers when data generate method finished/failed.[/dd]
+
+	[dt]On hash[/dt]
+	[dt]On hash error[/dt]
+	[dd]Triggers when hash generate method finished/failed.[/dd]
+
+	[dt]On sign[/dt]
+	[dt]On sign error[/dt]
+	[dd]Triggers when sign method finished/failed.[/dd]
+	
+	[dt]On verify[/dt]
+	[dt]On verify error[/dt]
+	[dd]Triggers when verify method finished/failed.[/dd]
+
+	[dt]Is valid[/dt]
+	[dd]True if in the 'On verify' trigger the data is valid.[/dd]
+
+	[dt]Has key[/dt]
+	[dd]True if the key with filters is setted in the memory.[/dd]
+[/dl]
+
+[h2]Crypto actions:[/h2]
+[dl sans-serif]
+	[dt]Encrypt with RSA-OAEP[/dt]
+	[dd]Encrypt data with RSA-OAEP key and algorithm.[/dd]
+
+	[dt]Encrypt with AES-CRT[/dt]
+	[dd]Encrypt data with AES-CRT key and algorithm.[/dd]
+
+	[dt]Encrypt with AES-CBC[/dt]
+	[dd]Encrypt data with AES-CBC key and algorithm.[/dd]
+
+	[dt]Encrypt with AES-GCM[/dt]
+	[dd]Encrypt data with AES-GCM key and algorithm.[/dd]
+
+	[dt]Decrypt with RSA-OAEP[/dt]
+	[dd]Decrypt data with RSA-OAEP key and algorithm.[/dd]
+
+	[dt]Decrypt with AES-CRT[/dt]
+	[dd]Decrypt data with AES-CRT key and algorithm.[/dd]
+
+	[dt]Decrypt with AES-CBC[/dt]
+	[dd]Decrypt data with AES-CBC key and algorithm.[/dd]
+
+	[dt]Decrypt with AES-GCM[/dt]
+	[dd]Decrypt data with AES-GCM key and algorithm.[/dd]
+
+	[dt]Export key[/dt]
+	[dd]Export a specified key to a storable format. Cannot export HKDF and PBKDF2[/dd]
+
+	[dt]Import RSA[/dt]
+	[dd]Import RSA keypair to the memory.[/dd]
+
+	[dt]Import EC[/dt]
+	[dd]Import an EC keypair to the memory.[/dd]
+
+	[dt]Import HMAC[/dt]
+	[dd]mport a HMAC key and place it to the memory.[/dd]
+
+	[dt]Import AES[/dt]
+	[dd]Import an AES key and place it to the memory.[/dd]
+
+	[dt]Import HKDF[/dt]
+	[dd]Import HKDF key to the memory.[/dd]
+
+	[dt]Import PBKDF2[/dt]
+	[dd]Import PBKDF2 key to the memory. This very useful to generate key from low secure text like password.[/dd]
+
+	[dt]Generate RSA[/dt]
+	[dd]Generate a new RSA keypair to the memory.[/dd]
+
+	[dt]Generate EC[/dt]
+	[dd]Generate a new EC keypair to the memory.[/dd]
+
+	[dt]Generate HMAC[/dt]
+	[dd]Generate a new HMAC key to the memory.[/dd]
+
+	[dt]Generate AES[/dt]
+	[dd]Generate a new AES key to the memory.[/dd]
+
+	[dt]Generate HMAC from ECDH[/dt]
+	[dd]Generate HMAC key from ECDH key to the memory.[/dd]
+
+	[dt]Generate HMAC from HKDF[/dt]
+	[dd]Generate a new HMAC key from HKDF key to the memory.[/dd]
+
+	[dt]Generate HMAC from PBKDF2[/dt]
+	[dd]Generate HMAC key from PBKDF2 key to the memory.[/dd]
+
+	[dt]Generate AES from ECDH[/dt]
+	[dd]Generate a new AES key from ECDH keypair to the memory.[/dd]
+
+	[dt]Generate AES from HKDF[/dt]
+	[dd]Generate a new AES key from HKDF key to the memory.[/dd]
+
+	[dt]Generate AES from PBKDF2[/dt]
+	[dd]Generate a new AES key from PBKDF2 key to the memory.[/dd]
+
+	[dt]Generate data from ECDH[/dt]
+	[dd]Generate amount of bytes from ECDH keypair.[/dd]
+
+	[dt]Generate data from HKDF[/dt]
+	[dd]Generate amount of bytes from HKDF key.[/dd]
+
+	[dt]Generate data from PBKDF2[/dt]
+	[dd]Generate amount of bytes from PBKDF2 key.[/dd]
+
+	[dt]Hash text[/dt]
+	[dd]Hash a text data.[/dd]
+
+	[dt]Hash binary[/dt]
+	[dd]Hash a binary data object.[/dd]
+
+	[dt]Hash file[/dt]
+	[dd]Hash a file data.[/dd]
+
+	[dt]Rename key[/dt]
+	[dd]Rename a specified key in the memory.[/dd]
+
+	[dt]Delete key[/dt]
+	[dd]Delete a specified key from the memory.[/dd]
+
+	[dt]Clear keys[/dt]
+	[dd]Clear all keys from the memory.[/dd]
+
+	[dt]Sign with RSASSA-PKCS1-V1_5[/dt]
+	[dd]Sign data with RSASSA-PKCS1-V1_5 key and algorithm.[/dd]
+
+	[dt]Sign with RSA-PSS[/dt]
+	[dd]Sign data with RSA-PSS key and algorithm.[/dd]
+
+	[dt]Sign with ECDSA[/dt]
+	[dd]Sign data with ECDSA key and algorithm.[/dd]
+
+	[dt]Sign with HMAC[/dt]
+	[dd]Sign data with HMAC key and algorithm.[/dd]
+
+	[dt]Verify with RSASSA-PKCS1-V1_5[/dt]
+	[dd]Verify data with RSASSA-PKCS1-V1_5 key and algorithm.[/dd]
+
+	[dt]Verify with RSA-PSS[/dt]
+	[dd]Verify data with RSA-PSS key and algorithm.[/dd]
+
+	[dt]Verify with ECDSA[/dt]
+	[dd]Verify data with ECDSA key and algorithm.[/dd]
+
+	[dt]Verify with HMAC[/dt]
+	[dd]Verify data with HMAC key and algorithm.[/dd]
+[/dl]
+
+[h2]Crypto expressions:[/h2]
+[dl sans-serif]
+	[dt]EncryptTag[/dt]
+	[dd]In 'On encrypt' and 'On encrypt error' trigger get the name of the encrypt process.[/dd]
+
+	[dt]EncryptResult[/dt]
+	[dd]In 'On encrypt' trigger get the result of the encrypt process.[/dd]
+
+	[dt]EncryptError[/dt]
+	[dd]In 'On encrypt error' trigger get the error's code.[/dd]
+
+	[dt]DecryptTag[/dt]
+	[dd]In 'On decrypt' and 'On decrypt error' trigger get the name of the decrypt process.[/dd]
+
+	[dt]DecryptResult[/dt]
+	[dd]In 'On decrypt' trigger get the result of the decrypt process.[/dd]
+
+	[dt]DecryptError[/dt]
+	[dd]In 'On decrypt error' trigger get the error's code.[/dd]
+
+	[dt]ExportKeyName[/dt]
+	[dd]In 'On export' and 'On export error' trigger get the export key name.[/dd]
+
+	[dt]ExportSecretKey[/dt]
+	[dd]In 'On export' trigger get the secret key data if exist.[/dd]
+
+	[dt]ExportPublicKey[/dt]
+	[dd]In 'On export' trigger get the public key data if exist.[/dd]
+
+	[dt]ExportPrivateKey[/dt]
+	[dd]In 'On export' trigger get the private key data if exist.[/dd]
+
+	[dt]ExportError[/dt]
+	[dd]In 'On export error' trigger get the error's code.[/dd]
+
+	[dt]ImportKeyName[/dt]
+	[dd]In 'On import' and 'On import error' trigger get the import key name.[/dd]
+
+	[dt]ImportError[/dt]
+	[dd]In 'On import error' trigger get the error's code.[/dd]
+
+	[dt]RandomBase64[/dt]
+	[dd]Get random value in base64 format.[/dd]
+
+	[dt]RandomUUID[/dt]
+	[dd]Get random UUID value.[/dd]
+
+	[dt]GenerateKeyName[/dt]
+	[dd]In 'On key generate' and 'On generate error' trigger get the generated key name.[/dd]
+
+	[dt]GenerateKeyError[/dt]
+	[dd]In 'On key generate error' trigger get the the error code.[/dd]
+
+	[dt]GenerateDataTag[/dt]
+	[dd]In 'On data generate' and 'On data generate error' trigger get the generate tag name.[/dd]
+
+	[dt]GenerateData[/dt]
+	[dd]In 'On data generate' trigger get the generated data.[/dd]
+
+	[dt]GenerateDataError[/dt]
+	[dd]In 'On data generate error' trigger get the the error code.[/dd]
+
+	[dt]HashTag[/dt]
+	[dd]In 'On hash complete' trigger get the tag of the hash.[/dd]
+
+	[dt]HashAsHex[/dt]
+	[dd]In 'On hash complete' trigger get the hash in hexadecimal text.[/dd]
+
+	[dt]HashAsBase64[/dt]
+	[dd]In 'On hash complete' trigger get the hash in base64 format.[/dd]
+
+	[dt]HashError[/dt]
+	[dd]On hash error' trigger get the error.[/dd]
+
+	[dt]TextToBase64[/dt]
+	[dd]Convert text to base64 format.[/dd]
+
+	[dt]Base64ToText[/dt]
+	[dd]Convert base64 to text format. NOTE: base64 might not convertable to text.[/dd]
+
+	[dt]KeyCount[/dt]
+	[dd]Get the setted key count.[/dd]
+
+	[dt]KeyNameAt[/dt]
+	[dd]Get the key name at zero based index.[/dd]
+
+	[dt]KeyType[/dt]
+	[dd]Get the key type at key name.[/dd]
+
+	[dt]SignTag[/dt]
+	[dd]In 'On sign' and 'On sign error' trigger get the name of the sign process.[/dd]
+
+	[dt]Signature[/dt]
+	[dd]In 'On sign' trigger get the signature data.[/dd]
+
+	[dt]SignError[/dt]
+	[dd]In 'On sign error' trigger get the error's code.[/dd]
+
+	[dt]VerifyTag[/dt]
+	[dd]In 'On verify' trigger get the name of the verify process.[/dd]
+
+	[dt]VerifyError[/dt]
+	[dd]In 'On verify error' trigger get the error's code.[/dd]
+[/dl]
+

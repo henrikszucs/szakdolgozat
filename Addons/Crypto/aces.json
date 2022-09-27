@@ -1,0 +1,2234 @@
+{
+	"encryt-decrypt": {
+		"actions": [
+			{
+				"id": "encrypt-rsa-oaep",
+				"scriptName": "EncryptRSA_OAEP",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "public-key-name",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "data",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "label",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "tag",
+						"type": "string",
+						"initialValue": "\"\""
+					}
+				],
+				"isAsync": true
+			},
+			{
+				"id": "encrypt-aes-ctr",
+				"scriptName": "EncryptAES_CTR",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "secret-key-name",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "data",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "counter",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "length",
+						"type": "number",
+						"initialValue": "64"
+					},
+					{
+						"id": "tag",
+						"type": "string",
+						"initialValue": "\"\""
+					}
+				],
+				"isAsync": true
+			},
+			{
+				"id": "encrypt-aes-cbc",
+				"scriptName": "EncryptAES_CBC",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "secret-key-name",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "data",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "iv",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "tag",
+						"type": "string",
+						"initialValue": "\"\""
+					}
+				],
+				"isAsync": true
+			},
+			{
+				"id": "encrypt-aes-gcm",
+				"scriptName": "EncryptAES_GCM",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "secret-key-name",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "data",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "iv",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "additional-data",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "tag-length",
+						"type": "combo",
+						"initialValue": "128",
+						"items": [
+							"128",
+							"120",
+							"112",
+							"104",
+							"96",
+							"64",
+							"32"
+						]
+					},
+					{
+						"id": "tag",
+						"type": "string",
+						"initialValue": "\"\""
+					}
+				],
+				"isAsync": true
+			},
+			{
+				"id": "decrypt-rsa-oaep",
+				"scriptName": "DecryptRSA_OAEP",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "private-key-name",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "data",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "label",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "tag",
+						"type": "string",
+						"initialValue": "\"\""
+					}
+				],
+				"isAsync": true
+			},
+			{
+				"id": "decrypt-aes-ctr",
+				"scriptName": "DecryptAES_CTR",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "secret-key-name",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "data",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "counter",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "length",
+						"type": "number",
+						"initialValue": "64"
+					},
+					{
+						"id": "tag",
+						"type": "string",
+						"initialValue": "\"\""
+					}
+				],
+				"isAsync": true
+			},
+			{
+				"id": "decrypt-aes-cbc",
+				"scriptName": "DecryptAES_CBC",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "secret-key-name",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "data",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "iv",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "tag",
+						"type": "string",
+						"initialValue": "\"\""
+					}
+				],
+				"isAsync": true
+			},
+			{
+				"id": "decrypt-aes-gcm",
+				"scriptName": "DecryptAES_GCM",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "secret-key-name",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "data",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "iv",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "additional-data",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "tag-length",
+						"type": "combo",
+						"initialValue": "128",
+						"items": [
+							"128",
+							"120",
+							"112",
+							"104",
+							"96",
+							"64",
+							"32"
+						]
+					},
+					{
+						"id": "tag",
+						"type": "string",
+						"initialValue": "\"\""
+					}
+				],
+				"isAsync": true
+			}
+        ],
+        "conditions": [
+			{
+				"id": "on-encrypt",
+				"scriptName": "OnEncrypt",
+				"isDeprecated": false,
+				"highlight": false,
+				"isTrigger": true,
+				"isFakeTrigger": false,
+				"isStatic": false,
+				"isLooping": false,
+				"isInvertible": false,
+				"isCompatibleWithTriggers": false
+			},
+			{
+				"id": "on-encrypt-error",
+				"scriptName": "OnEncryptError",
+				"isDeprecated": false,
+				"highlight": false,
+				"isTrigger": true,
+				"isFakeTrigger": false,
+				"isStatic": false,
+				"isLooping": false,
+				"isInvertible": false,
+				"isCompatibleWithTriggers": false
+			},
+			{
+				"id": "on-decrypt",
+				"scriptName": "OnDecrypt",
+				"isDeprecated": false,
+				"highlight": false,
+				"isTrigger": true,
+				"isFakeTrigger": false,
+				"isStatic": false,
+				"isLooping": false,
+				"isInvertible": false,
+				"isCompatibleWithTriggers": false
+			},
+			{
+				"id": "on-decrypt-error",
+				"scriptName": "OnDecryptError",
+				"isDeprecated": false,
+				"highlight": false,
+				"isTrigger": true,
+				"isFakeTrigger": false,
+				"isStatic": false,
+				"isLooping": false,
+				"isInvertible": false,
+				"isCompatibleWithTriggers": false
+			}
+        ],
+        "expressions": [
+			{
+				"id": "encrypt-tag",
+				"expressionName": "EncryptTag",
+				"isDeprecated": false,
+				"highlight": false,
+				"returnType": "string",
+				"isVariadicParameters": false
+			},
+			{
+				"id": "encrypt-result",
+				"expressionName": "EncryptResult",
+				"isDeprecated": false,
+				"highlight": false,
+				"returnType": "string",
+				"isVariadicParameters": false
+			},
+			{
+				"id": "encrypt-error",
+				"expressionName": "EncryptError",
+				"isDeprecated": false,
+				"highlight": false,
+				"returnType": "string",
+				"isVariadicParameters": false
+			},
+			{
+				"id": "decrypt-tag",
+				"expressionName": "DecryptTag",
+				"isDeprecated": false,
+				"highlight": false,
+				"returnType": "string",
+				"isVariadicParameters": false
+			},
+			{
+				"id": "decrypt-result",
+				"expressionName": "DecryptResult",
+				"isDeprecated": false,
+				"highlight": false,
+				"returnType": "string",
+				"isVariadicParameters": false
+			},
+			{
+				"id": "decrypt-error",
+				"expressionName": "DecryptError",
+				"isDeprecated": false,
+				"highlight": false,
+				"returnType": "string",
+				"isVariadicParameters": false
+			}
+        ]
+    },
+	"export-import": {
+        "actions": [
+            {
+				"id": "export-key",
+				"scriptName": "ExportKey",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "key-name",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "secret-format",
+						"type": "combo",
+						"initialValue": "jwk",
+						"items": [
+							"raw",
+							"jwk"
+						]
+					},
+					{
+						"id": "public-format",
+						"type": "combo",
+						"initialValue": "jwk",
+						"items": [
+							"raw",
+							"spki-bin",
+							"spki-pem",
+							"jwk"
+						]
+					},
+					{
+						"id": "private-format",
+						"type": "combo",
+						"initialValue": "jwk",
+						"items": [
+							"pkcs8-bin",
+							"pkcs8-pem",
+							"jwk"
+						]
+					}
+				],
+				"isAsync": true
+			},
+			{
+				"id": "import-rsa",
+				"scriptName": "ImportRSA",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "key-name",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "rsa-type",
+						"type": "combo",
+						"initialValue": "rsa-oaep",
+						"items": [
+							"rsaassa-pkcs1-v1_5",
+							"rsa-pss",
+							"rsa-oaep"
+						]
+					},
+					{
+						"id": "allow-public-export",
+						"type": "boolean",
+						"initialValue": "true"
+					},
+					{
+						"id": "public-format",
+						"type": "combo",
+						"initialValue": "jwk",
+						"items": [
+							"spki-bin",
+							"spki-pem",
+							"jwk"
+						]
+					},
+					{
+						"id": "public-data",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "allow-private-export",
+						"type": "boolean",
+						"initialValue": "true"
+					},
+					{
+						"id": "private-format",
+						"type": "combo",
+						"initialValue": "jwk",
+						"items": [
+							"pkcs8-bin",
+							"pkcs8-pem",
+							"jwk"
+						]
+					},
+					{
+						"id": "private-data",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "hash",
+						"type": "combo",
+						"initialValue": "sha-256",
+						"items": [
+							"sha-256",
+							"sha-384",
+							"sha-512"
+						]
+					}
+				],
+				"isAsync": true
+			},
+			{
+				"id": "import-ec",
+				"scriptName": "ImportEC",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "key-name",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "ec-type",
+						"type": "combo",
+						"initialValue": "ecdsa",
+						"items": [
+							"ecdsa",
+							"ecdh"
+						]
+					},
+					{
+						"id": "allow-public-export",
+						"type": "boolean",
+						"initialValue": "true"
+					},
+					{
+						"id": "public-format",
+						"type": "combo",
+						"initialValue": "jwk",
+						"items": [
+							"raw",
+							"spki-bin",
+							"spki-pem",
+							"jwk"
+						]
+					},
+					{
+						"id": "public-data",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "allow-private-export",
+						"type": "boolean",
+						"initialValue": "true"
+					},
+					{
+						"id": "private-format",
+						"type": "combo",
+						"initialValue": "jwk",
+						"items": [
+							"pkcs8-bin",
+							"pkcs8-pem",
+							"jwk"
+						]
+					},
+					{
+						"id": "private-data",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "named-curve",
+						"type": "combo",
+						"initialValue": "p-256",
+						"items": [
+							"p-256",
+							"p-384",
+							"p-521"
+						]
+					}
+				],
+				"isAsync": true
+			},
+			{
+				"id": "import-hmac",
+				"scriptName": "ImportHMAC",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "key-name",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "allow-export",
+						"type": "boolean",
+						"initialValue": "true"
+					},
+					{
+						"id": "secret-format",
+						"type": "combo",
+						"initialValue": "jwk",
+						"items": [
+							"raw",
+							"jwk"
+						]
+					},
+					{
+						"id": "secret-data",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "hash",
+						"type": "combo",
+						"initialValue": "sha-256",
+						"items": [
+							"sha-1",
+							"sha-256",
+							"sha-384",
+							"sha-512"
+						]
+					},
+					{
+						"id": "length",
+						"type": "number",
+						"initialValue": "0"
+					}
+				],
+				"isAsync": true
+			},
+			{
+				"id": "import-aes",
+				"scriptName": "ImportAES",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "key-name",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "allow-export",
+						"type": "boolean",
+						"initialValue": "true"
+					},
+					{
+						"id": "aes-type",
+						"type": "combo",
+						"initialValue": "aes-ctr",
+						"items": [
+							"aes-ctr",
+							"aes-cbc",
+							"aes-gcm"
+						]
+					},
+					{
+						"id": "secret-format",
+						"type": "combo",
+						"initialValue": "jwk",
+						"items": [
+							"raw",
+							"jwk"
+						]
+					},
+					{
+						"id": "secret-data",
+						"type": "string",
+						"initialValue": "\"\""
+					}
+				],
+				"isAsync": true
+			},
+			{
+				"id": "import-hkdf",
+				"scriptName": "ImportHKDF",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "key-name",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "secret-data",
+						"type": "string",
+						"initialValue": "\"\""
+					}
+				],
+				"isAsync": true
+			},
+			{
+				"id": "import-pbkdf2",
+				"scriptName": "ImportPBKDF2",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "key-name",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "secret-data",
+						"type": "string",
+						"initialValue": "\"\""
+					}
+				],
+				"isAsync": true
+			}
+        ],
+        "conditions": [
+			{
+				"id": "on-export",
+				"scriptName": "OnExport",
+				"isDeprecated": false,
+				"highlight": false,
+				"isTrigger": true,
+				"isFakeTrigger": false,
+				"isStatic": false,
+				"isLooping": false,
+				"isInvertible": false,
+				"isCompatibleWithTriggers": false
+			},
+			{
+				"id": "on-export-error",
+				"scriptName": "OnExportError",
+				"isDeprecated": false,
+				"highlight": false,
+				"isTrigger": true,
+				"isFakeTrigger": false,
+				"isStatic": false,
+				"isLooping": false,
+				"isInvertible": false,
+				"isCompatibleWithTriggers": false
+			},
+			{
+				"id": "on-import",
+				"scriptName": "OnImport",
+				"isDeprecated": false,
+				"highlight": false,
+				"isTrigger": true,
+				"isFakeTrigger": false,
+				"isStatic": false,
+				"isLooping": false,
+				"isInvertible": false,
+				"isCompatibleWithTriggers": false
+			},
+			{
+				"id": "on-import-error",
+				"scriptName": "OnImportError",
+				"isDeprecated": false,
+				"highlight": false,
+				"isTrigger": true,
+				"isFakeTrigger": false,
+				"isStatic": false,
+				"isLooping": false,
+				"isInvertible": false,
+				"isCompatibleWithTriggers": false
+			}
+        ],
+        "expressions": [
+			{
+				"id": "export-key-name",
+				"expressionName": "ExportKeyName",
+				"isDeprecated": false,
+				"highlight": false,
+				"returnType": "string",
+				"isVariadicParameters": false
+			},
+			{
+				"id": "export-secret-key",
+				"expressionName": "ExportSecretKey",
+				"isDeprecated": false,
+				"highlight": false,
+				"returnType": "string",
+				"isVariadicParameters": false
+			},
+			{
+				"id": "export-public-key",
+				"expressionName": "ExportPublicKey",
+				"isDeprecated": false,
+				"highlight": false,
+				"returnType": "string",
+				"isVariadicParameters": false
+			},
+			{
+				"id": "export-private-key",
+				"expressionName": "ExportPrivateKey",
+				"isDeprecated": false,
+				"highlight": false,
+				"returnType": "string",
+				"isVariadicParameters": false
+			},
+			{
+				"id": "export-error",
+				"expressionName": "ExportError",
+				"isDeprecated": false,
+				"highlight": false,
+				"returnType": "string",
+				"isVariadicParameters": false
+			},
+			{
+				"id": "import-key-name",
+				"expressionName": "ImportKeyName",
+				"isDeprecated": false,
+				"highlight": false,
+				"returnType": "string",
+				"isVariadicParameters": false
+			},
+			{
+				"id": "import-error",
+				"expressionName": "ImportError",
+				"isDeprecated": false,
+				"highlight": false,
+				"returnType": "string",
+				"isVariadicParameters": false
+			}
+        ]
+    },
+	"generate": {
+        "actions": [
+			{
+				"id": "generate-rsa",
+				"scriptName": "GenerateRSA",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "key-name",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "allow-export",
+						"type": "boolean",
+						"initialValue": "true"
+					},
+					{
+						"id": "rsa-type",
+						"type": "combo",
+						"initialValue": "rsa-oaep",
+						"items": [
+							"rsaassa-pkcs1-v1_5",
+							"rsa-pss",
+							"rsa-oaep"
+						]
+					},
+					{
+						"id": "hash",
+						"type": "combo",
+						"initialValue": "sha-256",
+						"items": [
+							"sha-256",
+							"sha-384",
+							"sha-512"
+						]
+					},
+					{
+						"id": "modulus-length",
+						"type": "number",
+						"initialValue": "4096"
+					},
+					{
+						"id": "public-exponent",
+						"type": "string",
+						"initialValue": ""
+					}
+				],
+				"isAsync": true
+			},
+			{
+				"id": "generate-ec",
+				"scriptName": "GenerateEC",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "key-name",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "allow-export",
+						"type": "boolean",
+						"initialValue": "true"
+					},
+					{
+						"id": "ec-type",
+						"type": "combo",
+						"initialValue": "ecdsa",
+						"items": [
+							"ecdsa",
+							"ecdh"
+						]
+					},
+					{
+						"id": "named-curve",
+						"type": "combo",
+						"initialValue": "p-256",
+						"items": [
+							"p-256",
+							"p-384",
+							"p-521"
+						]
+					}
+				],
+				"isAsync": true
+			},
+			{
+				"id": "generate-hmac",
+				"scriptName": "GenerateHMAC",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "key-name",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "allow-export",
+						"type": "boolean",
+						"initialValue": "true"
+					},
+					{
+						"id": "hash",
+						"type": "combo",
+						"initialValue": "sha-256",
+						"items": [
+							"sha-1",
+							"sha-256",
+							"sha-384",
+							"sha-512"
+						]
+					},
+					{
+						"id": "length",
+						"type": "number",
+						"initialValue": "0"
+					}
+				],
+				"isAsync": true
+			},
+			{
+				"id": "generate-aes",
+				"scriptName": "GenerateAES",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "key-name",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "allow-export",
+						"type": "boolean",
+						"initialValue": "true"
+					},
+					{
+						"id": "aes-type",
+						"type": "combo",
+						"initialValue": "aes-ctr",
+						"items": [
+							"aes-ctr",
+							"aes-cbc",
+							"aes-gcm"
+						]
+					},
+					{
+						"id": "aes-length",
+						"type": "combo",
+						"initialValue": "256",
+						"items": [
+							"128",
+							"192",
+							"256"
+						]
+					}
+				],
+				"isAsync": true
+			},
+			{
+				"id": "derive-key-hmac-ecdh",
+				"scriptName": "DeriveKeyHMAC_ECDH",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "key-name",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "allow-export",
+						"type": "boolean",
+						"initialValue": "true"
+					},
+					{
+						"id": "hmac-hash",
+						"type": "combo",
+						"initialValue": "sha-256",
+						"items": [
+							"sha-1",
+							"sha-256",
+							"sha-384",
+							"sha-512"
+						]
+					},
+					{
+						"id": "hmac-length",
+						"type": "number",
+						"initialValue": "0"
+					},
+					{
+						"id": "ecdh-public-key-name",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "ecdh-private-key-name",
+						"type": "string",
+						"initialValue": "\"\""
+					}
+				],
+				"isAsync": true
+			},
+			{
+				"id": "derive-key-hmac-hkdf",
+				"scriptName": "DeriveKeyHMAC_HKDF",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "key-name",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "allow-export",
+						"type": "boolean",
+						"initialValue": "true"
+					},
+					{
+						"id": "hmac-hash",
+						"type": "combo",
+						"initialValue": "sha-256",
+						"items": [
+							"sha-1",
+							"sha-256",
+							"sha-384",
+							"sha-512"
+						]
+					},
+					{
+						"id": "hmac-length",
+						"type": "number",
+						"initialValue": "256"
+					},
+					{
+						"id": "hkdf-key-name",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "hkdf-hash",
+						"type": "combo",
+						"initialValue": "sha-256",
+						"items": [
+							"sha-1",
+							"sha-256",
+							"sha-384",
+							"sha-512"
+						]
+					},
+					{
+						"id": "hkdf-salt",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "hkdf-info",
+						"type": "string",
+						"initialValue": "\"\""
+					}
+				],
+				"isAsync": true
+			},
+			{
+				"id": "derive-key-hmac-pbkdf2",
+				"scriptName": "DeriveKeyHMAC_PBKDF2",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "key-name",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "allow-export",
+						"type": "boolean",
+						"initialValue": "true"
+					},
+					{
+						"id": "hmac-hash",
+						"type": "combo",
+						"initialValue": "sha-256",
+						"items": [
+							"sha-1",
+							"sha-256",
+							"sha-384",
+							"sha-512"
+						]
+					},
+					{
+						"id": "hmac-length",
+						"type": "number",
+						"initialValue": "0"
+					},
+					{
+						"id": "pbkdf2-key-name",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "pbkdf2-hash",
+						"type": "combo",
+						"initialValue": "sha-256",
+						"items": [
+							"sha-1",
+							"sha-256",
+							"sha-384",
+							"sha-512"
+						]
+					},
+					{
+						"id": "pbkdf2-salt",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "pbkdf2-iterations",
+						"type": "number",
+						"initialValue": "100000"
+					}
+				],
+				"isAsync": true
+			},
+			{
+				"id": "derive-key-aes-ecdh",
+				"scriptName": "DeriveKeyAES_ECDH",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "key-name",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "allow-export",
+						"type": "boolean",
+						"initialValue": "true"
+					},
+					{
+						"id": "aes-type",
+						"type": "combo",
+						"initialValue": "aes-cbc",
+						"items": [
+							"aes-ctr",
+							"aes-cbc",
+							"aes-gcm"
+						]
+					},
+					{
+						"id": "aes-length",
+						"type": "combo",
+						"initialValue": "256",
+						"items": [
+							"128",
+							"192",
+							"256"
+						]
+					},
+					{
+						"id": "ecdh-public-key-name",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "ecdh-private-key-name",
+						"type": "string",
+						"initialValue": "\"\""
+					}
+				],
+				"isAsync": true
+			},
+			{
+				"id": "derive-key-aes-hkdf",
+				"scriptName": "DeriveKeyAES_HKDF",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "key-name",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "allow-export",
+						"type": "boolean",
+						"initialValue": "true"
+					},
+					{
+						"id": "aes-type",
+						"type": "combo",
+						"initialValue": "aes-cbc",
+						"items": [
+							"aes-ctr",
+							"aes-cbc",
+							"aes-gcm"
+						]
+					},
+					{
+						"id": "aes-length",
+						"type": "combo",
+						"initialValue": "256",
+						"items": [
+							"128",
+							"192",
+							"256"
+						]
+					},
+					{
+						"id": "hkdf-key-name",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "hkdf-hash",
+						"type": "combo",
+						"initialValue": "sha-256",
+						"items": [
+							"sha-1",
+							"sha-256",
+							"sha-384",
+							"sha-512"
+						]
+					},
+					{
+						"id": "hkdf-salt",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "hkdf-info",
+						"type": "string",
+						"initialValue": "\"\""
+					}
+				],
+				"isAsync": true
+			},
+			{
+				"id": "derive-key-aes-pbkdf2",
+				"scriptName": "DeriveKeyAES_PBKDF2",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "key-name",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "allow-export",
+						"type": "boolean",
+						"initialValue": "true"
+					},
+					{
+						"id": "aes-type",
+						"type": "combo",
+						"initialValue": "aes-cbc",
+						"items": [
+							"aes-ctr",
+							"aes-cbc",
+							"aes-gcm"
+						]
+					},
+					{
+						"id": "aes-length",
+						"type": "combo",
+						"initialValue": "256",
+						"items": [
+							"128",
+							"192",
+							"256"
+						]
+					},
+					{
+						"id": "pbkdf2-key-name",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "pbkdf2-hash",
+						"type": "combo",
+						"initialValue": "sha-256",
+						"items": [
+							"sha-1",
+							"sha-256",
+							"sha-384",
+							"sha-512"
+						]
+					},
+					{
+						"id": "pbkdf2-salt",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "pbkdf2-iterations",
+						"type": "number",
+						"initialValue": "100000"
+					}
+				],
+				"isAsync": true
+			},
+			{
+				"id": "derive-bits-ecdh",
+				"scriptName": "DeriveBitsECDH",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "tag",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "length",
+						"type": "number",
+						"initialValue": "1"
+					},
+					{
+						"id": "ecdh-public-key-name",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "ecdh-private-key-name",
+						"type": "string",
+						"initialValue": "\"\""
+					}
+				],
+				"isAsync": true
+			},
+			{
+				"id": "derive-bits-hkdf",
+				"scriptName": "DeriveBitsHKDF",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "tag",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "length",
+						"type": "number",
+						"initialValue": "1"
+					},
+					{
+						"id": "hkdf-key-name",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "hkdf-hash",
+						"type": "combo",
+						"initialValue": "sha-256",
+						"items": [
+							"sha-1",
+							"sha-256",
+							"sha-384",
+							"sha-512"
+						]
+					},
+					{
+						"id": "hkdf-salt",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "hkdf-info",
+						"type": "string",
+						"initialValue": "\"\""
+					}
+				],
+				"isAsync": true
+			},
+			{
+				"id": "derive-bits-pbkdf2",
+				"scriptName": "DeriveBitsPBKDF2",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "tag",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "length",
+						"type": "number",
+						"initialValue": "1"
+					},
+					{
+						"id": "pbkdf2-key-name",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "pbkdf2-hash",
+						"type": "combo",
+						"initialValue": "sha-256",
+						"items": [
+							"sha-1",
+							"sha-256",
+							"sha-384",
+							"sha-512"
+						]
+					},
+					{
+						"id": "pbkdf2-salt",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "pbkdf2-iterations",
+						"type": "number",
+						"initialValue": "100000"
+					}
+				],
+				"isAsync": true
+			}
+        ],
+        "conditions": [
+			{
+				"id": "on-key-generate",
+				"scriptName": "OnKeyGenerate",
+				"isDeprecated": false,
+				"highlight": false,
+				"isTrigger": true,
+				"isFakeTrigger": false,
+				"isStatic": false,
+				"isLooping": false,
+				"isInvertible": false,
+				"isCompatibleWithTriggers": false
+			},
+			{
+				"id": "on-key-generate-error",
+				"scriptName": "OnKeyGenerateError",
+				"isDeprecated": false,
+				"highlight": false,
+				"isTrigger": true,
+				"isFakeTrigger": false,
+				"isStatic": false,
+				"isLooping": false,
+				"isInvertible": false,
+				"isCompatibleWithTriggers": false
+			},
+			{
+				"id": "on-data-generate",
+				"scriptName": "OnDataGenerate",
+				"isDeprecated": false,
+				"highlight": false,
+				"isTrigger": true,
+				"isFakeTrigger": false,
+				"isStatic": false,
+				"isLooping": false,
+				"isInvertible": false,
+				"isCompatibleWithTriggers": false
+			},
+			{
+				"id": "on-data-generate-error",
+				"scriptName": "OnDataGenerateError",
+				"isDeprecated": false,
+				"highlight": false,
+				"isTrigger": true,
+				"isFakeTrigger": false,
+				"isStatic": false,
+				"isLooping": false,
+				"isInvertible": false,
+				"isCompatibleWithTriggers": false
+			}
+        ],
+        "expressions": [
+			{
+				"id": "get-random-base64",
+				"expressionName": "RandomBase64",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "byte",
+						"type": "number",
+						"initialValue": "1"
+					}
+				],
+				"returnType": "string",
+				"isVariadicParameters": false
+			},
+            {
+				"id": "get-random-uuid",
+				"expressionName": "RandomUUID",
+				"isDeprecated": false,
+				"highlight": false,
+				"returnType": "string",
+				"isVariadicParameters": false
+			},
+			{
+				"id": "generate-key-name",
+				"expressionName": "GenerateKeyName",
+				"isDeprecated": false,
+				"highlight": false,
+				"returnType": "string",
+				"isVariadicParameters": false
+			},
+			{
+				"id": "generate-key-error",
+				"expressionName": "GenerateKeyError",
+				"isDeprecated": false,
+				"highlight": false,
+				"returnType": "string",
+				"isVariadicParameters": false
+			},
+			{
+				"id": "generate-data-tag",
+				"expressionName": "GenerateDataTag",
+				"isDeprecated": false,
+				"highlight": false,
+				"returnType": "string",
+				"isVariadicParameters": false
+			},
+			{
+				"id": "generate-data",
+				"expressionName": "GenerateData",
+				"isDeprecated": false,
+				"highlight": false,
+				"returnType": "string",
+				"isVariadicParameters": false
+			},
+			{
+				"id": "generate-data-error",
+				"expressionName": "GenerateDataError",
+				"isDeprecated": false,
+				"highlight": false,
+				"returnType": "string",
+				"isVariadicParameters": false
+			}
+        ]
+    },
+    "hash": {
+		"actions": [
+            {
+				"id": "hash-text",
+				"scriptName": "HashText",
+				"isDeprecated": false,
+				"highlight": true,
+				"params": [
+                    {
+						"id": "text",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+                    {
+						"id": "algorithm",
+						"type": "combo",
+						"items": [
+                            "md5",
+                            "sha-1",
+                            "sha-256",
+                            "sha-384",
+                            "sha-512"
+                        ]
+					},
+                    {
+						"id": "tag",
+						"type": "string",
+						"initialValue": "\"\""
+					}
+				],
+				"isAsync": true
+			},
+            {
+				"id": "hash-binary",
+				"scriptName": "HashBinary",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+                    {
+						"id": "binary",
+						"type": "object",
+						"allowedPluginIds": [
+                            "BinaryData"
+                        ]
+					},
+                    {
+						"id": "algorithm",
+						"type": "combo",
+						"items": [
+                            "md-5",
+                            "sha-1",
+                            "sha-256",
+                            "sha-384",
+                            "sha-512"
+                        ]
+					},
+                    {
+						"id": "tag",
+						"type": "string",
+						"initialValue": "\"\""
+					}
+				],
+				"isAsync": true
+			},
+			{
+				"id": "hash-file",
+				"scriptName": "HashFile",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+                    {
+						"id": "file",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+                    {
+						"id": "algorithm",
+						"type": "combo",
+						"items": [
+                            "md-5",
+                            "sha-1",
+                            "sha-256",
+                            "sha-384",
+                            "sha-512"
+                        ]
+					},
+                    {
+						"id": "tag",
+						"type": "string",
+						"initialValue": "\"\""
+					}
+				],
+				"isAsync": true
+			}
+        ],
+        "conditions": [
+            {
+				"id": "on-hash",
+				"scriptName": "OnHash",
+				"isDeprecated": false,
+				"highlight": false,
+				"isTrigger": true,
+				"isFakeTrigger": false,
+				"isStatic": false,
+				"isLooping": false,
+				"isInvertible": false,
+				"isCompatibleWithTriggers": false
+			},
+			{
+				"id": "on-hash-error",
+				"scriptName": "OnHashError",
+				"isDeprecated": false,
+				"highlight": false,
+				"isTrigger": true,
+				"isFakeTrigger": false,
+				"isStatic": false,
+				"isLooping": false,
+				"isInvertible": false,
+				"isCompatibleWithTriggers": false
+			}
+        ],
+        "expressions": [
+            {
+				"id": "hash-tag",
+				"expressionName": "HashTag",
+				"isDeprecated": false,
+				"highlight": false,
+				"returnType": "string",
+				"isVariadicParameters": false
+			},
+            {
+				"id": "hash-as-hex",
+				"expressionName": "HashAsHex",
+				"isDeprecated": false,
+				"highlight": false,
+				"returnType": "string",
+				"isVariadicParameters": false
+			},
+			{
+				"id": "hash-as-base64",
+				"expressionName": "HashAsBase64",
+				"isDeprecated": false,
+				"highlight": false,
+				"returnType": "string",
+				"isVariadicParameters": false
+			},
+			{
+				"id": "hash-error",
+				"expressionName": "HashError",
+				"isDeprecated": false,
+				"highlight": false,
+				"returnType": "string",
+				"isVariadicParameters": false
+			}
+        ]
+    },
+	"manage": {
+		"actions": [
+			{
+				"id": "rename-key",
+				"scriptName": "RenameKey",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+                    {
+						"id": "old-name",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "new-name",
+						"type": "string",
+						"initialValue": "\"\""
+					}
+				],
+				"isAsync": false
+			},
+			{
+				"id": "delete-key",
+				"scriptName": "DeleteKey",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+                    {
+						"id": "key-name",
+						"type": "string",
+						"initialValue": "\"\""
+					}
+				],
+				"isAsync": false
+			},
+			{
+				"id": "clear-keys",
+				"scriptName": "ClearKeys",
+				"isDeprecated": false,
+				"highlight": false,
+				"isAsync": false
+			}
+		],
+		"conditions": [
+			{
+				"id": "has-key",
+				"scriptName": "HasKey",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "key-name",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "key-type",
+						"type": "combo",
+						"initialValue": "any",
+						"items": [
+							"any",
+							"rsaassa-pkcs1-v1_5",
+							"rsa-pss",
+							"rsa-oaep",
+							"ecdsa",
+							"ecdh",
+							"hmac",
+							"aes-ctr",
+							"aes-cbc",
+							"aes-gcm"
+						]
+					},
+					{
+						"id": "key-data",
+						"type": "combo",
+						"initialValue": "any",
+						"items": [
+							"any",
+							"secret",
+							"public",
+							"private"
+						]
+					}
+				],
+				"isTrigger": false,
+				"isFakeTrigger": false,
+				"isStatic": false,
+				"isLooping": false,
+				"isInvertible": true,
+				"isCompatibleWithTriggers": true
+			}
+		],
+		"expressions": [
+			{
+				"id": "text-to-base64",
+				"expressionName": "TextToBase64",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "text",
+						"type": "string",
+						"initialValue": "\"\""
+					}
+				],
+				"returnType": "string",
+				"isVariadicParameters": false
+			},
+			{
+				"id": "base64-to-text",
+				"expressionName": "Base64ToText",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "base64",
+						"type": "string",
+						"initialValue": "\"\""
+					}
+				],
+				"returnType": "string",
+				"isVariadicParameters": false
+			},
+			{
+				"id": "key-count",
+				"expressionName": "KeyCount",
+				"isDeprecated": false,
+				"highlight": false,
+				"returnType": "number",
+				"isVariadicParameters": false
+			},
+			{
+				"id": "key-name-at",
+				"expressionName": "KeyNameAt",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "at",
+						"type": "number",
+						"initialValue": "0"
+					}
+				],
+				"returnType": "string",
+				"isVariadicParameters": false
+			},
+			{
+				"id": "key-type",
+				"expressionName": "KeyType",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "key-name",
+						"type": "string",
+						"initialValue": "\"\""
+					}
+				],
+				"returnType": "string",
+				"isVariadicParameters": false
+			}
+		]
+	},
+    "sign-verify": {
+		"actions": [
+			{
+				"id": "sign-rsassa-pkcs1-v1_5",
+				"scriptName": "SignRSASSA_PKCS1_V1_5",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "private-key-name",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "data",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "tag",
+						"type": "string",
+						"initialValue": "\"\""
+					}
+				],
+				"isAsync": true
+			},
+			{
+				"id": "sign-rsa-pss",
+				"scriptName": "SignRSA_PSS",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "private-key-name",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "data",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "salt-length",
+						"type": "number",
+						"initialValue": "0"
+					},
+					{
+						"id": "tag",
+						"type": "string",
+						"initialValue": "\"\""
+					}
+				],
+				"isAsync": true
+			},
+			{
+				"id": "sign-ecdsa",
+				"scriptName": "SignECDSA",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "private-key-name",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "data",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "hash",
+						"type": "combo",
+						"initialValue": "sha-256",
+						"items": [
+							"sha-256",
+							"sha-384",
+							"sha-512"
+						]
+					},
+					{
+						"id": "tag",
+						"type": "string",
+						"initialValue": "\"\""
+					}
+				],
+				"isAsync": true
+			},
+			{
+				"id": "sign-hmac",
+				"scriptName": "SignHMAC",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "secret-key-name",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "data",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "tag",
+						"type": "string",
+						"initialValue": "\"\""
+					}
+				],
+				"isAsync": true
+			},
+			{
+				"id": "verify-rsassa-pkcs1-v1_5",
+				"scriptName": "VerifyRSASSA_PKCS1_V1_5",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "public-key-name",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "signature",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "data",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "tag",
+						"type": "string",
+						"initialValue": "\"\""
+					}
+				],
+				"isAsync": true
+			},
+			{
+				"id": "verify-rsa-pss",
+				"scriptName": "VerifyRSA_PSS",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "public-key-name",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "signature",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "data",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "salt-length",
+						"type": "number",
+						"initialValue": "0"
+					},
+					{
+						"id": "tag",
+						"type": "string",
+						"initialValue": "\"\""
+					}
+				],
+				"isAsync": true
+			},
+			{
+				"id": "verify-ecdsa",
+				"scriptName": "VerifyECDSA",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "public-key-name",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "signature",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "data",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "hash",
+						"type": "combo",
+						"initialValue": "sha-256",
+						"items": [
+							"sha-256",
+							"sha-384",
+							"sha-512"
+						]
+					},
+					{
+						"id": "tag",
+						"type": "string",
+						"initialValue": "\"\""
+					}
+				],
+				"isAsync": true
+			},
+			{
+				"id": "verify-hmac",
+				"scriptName": "VerifyHMAC",
+				"isDeprecated": false,
+				"highlight": false,
+				"params": [
+					{
+						"id": "secret-key-name",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "signature",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "data",
+						"type": "string",
+						"initialValue": "\"\""
+					},
+					{
+						"id": "tag",
+						"type": "string",
+						"initialValue": "\"\""
+					}
+				],
+				"isAsync": true
+			}
+        ],
+        "conditions": [
+			{
+				"id": "on-sign",
+				"scriptName": "OnSign",
+				"isDeprecated": false,
+				"highlight": false,
+				"isTrigger": true,
+				"isFakeTrigger": false,
+				"isStatic": false,
+				"isLooping": false,
+				"isInvertible": false,
+				"isCompatibleWithTriggers": false
+			},
+			{
+				"id": "on-sign-error",
+				"scriptName": "OnSignError",
+				"isDeprecated": false,
+				"highlight": false,
+				"isTrigger": true,
+				"isFakeTrigger": false,
+				"isStatic": false,
+				"isLooping": false,
+				"isInvertible": false,
+				"isCompatibleWithTriggers": false
+			},
+			{
+				"id": "on-verify",
+				"scriptName": "OnVerify",
+				"isDeprecated": false,
+				"highlight": false,
+				"isTrigger": true,
+				"isFakeTrigger": false,
+				"isStatic": false,
+				"isLooping": false,
+				"isInvertible": false,
+				"isCompatibleWithTriggers": false
+			},
+			{
+				"id": "on-verify-error",
+				"scriptName": "OnVerifyError",
+				"isDeprecated": false,
+				"highlight": false,
+				"isTrigger": true,
+				"isFakeTrigger": false,
+				"isStatic": false,
+				"isLooping": false,
+				"isInvertible": false,
+				"isCompatibleWithTriggers": false
+			},
+			{
+				"id": "is-valid",
+				"scriptName": "IsValid",
+				"isDeprecated": false,
+				"highlight": false,
+				"isTrigger": false,
+				"isFakeTrigger": false,
+				"isStatic": false,
+				"isLooping": false,
+				"isInvertible": true,
+				"isCompatibleWithTriggers": true
+			}
+        ],
+        "expressions": [
+			{
+				"id": "sign-tag",
+				"expressionName": "SignTag",
+				"isDeprecated": false,
+				"highlight": false,
+				"returnType": "string",
+				"isVariadicParameters": false
+			},
+			{
+				"id": "signature",
+				"expressionName": "Signature",
+				"isDeprecated": false,
+				"highlight": false,
+				"returnType": "string",
+				"isVariadicParameters": false
+			},
+			{
+				"id": "sign-error",
+				"expressionName": "SignError",
+				"isDeprecated": false,
+				"highlight": false,
+				"returnType": "string",
+				"isVariadicParameters": false
+			},
+			{
+				"id": "verify-tag",
+				"expressionName": "VerifyTag",
+				"isDeprecated": false,
+				"highlight": false,
+				"returnType": "string",
+				"isVariadicParameters": false
+			},
+			{
+				"id": "verify-error",
+				"expressionName": "VerifyError",
+				"isDeprecated": false,
+				"highlight": false,
+				"returnType": "string",
+				"isVariadicParameters": false
+			}
+        ]
+    }
+}

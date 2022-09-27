@@ -1,0 +1,206 @@
+[h1]Browser2[/h1]
+The [b]Browser2[/b] object accesses features of the browser or platform running the project. It also provides features like switching to and from fullscreen mode, detecting if an update is available, and determining if the page is visible.
+
+Security limitations sometimes prevent browser actions. For example, the window Close action can only be used when the window was created by a JavaScript window.open call.
+
+[b]Javascript[/b]: Only use if necessary. Instead recommend to use [url=https://www.construct.net/en/make-games/manuals/construct-3/scripting/overview]scripting feature[/url] or [url=https://www.construct.net/en/make-games/manuals/addon-sdk]Addon SDK[/url]. Wherever possible, prefer to write your JavaScript code using one of the above options rather than using the Browser object.
+
+[h2]Browser2 conditions:[/h2]
+[dl sans-serif]
+	[dt]On back button[/dt]
+	[dd]Triggered when the user presses the device's Back button. Note not all devices have this button (e.g. iOS devices only have a Home button) and not all platforms support this trigger.[/dd]
+	
+	[dt]On went online[/dt]
+	[dt]On went offline[/dt]
+	[dd]Triggered when the browser thinks the connection to the Internet has become available or unavailable during the running of the game. This is common on mobile devices which may be moving in and out of signal areas. The Is online condition also changes to reflect the connection status.[warning]The "is online" detection of the Browser plugin is more or less a guess. It is actually difficult to categorically determine if an Internet connection is available. For example the user may have intermittent signal, and online features sometimes work and sometimes fail unpredictably. In this case the "Is online" detection is probably wrong, as it can't actually tell whether a connection will work. Rather than using this condition to check if online features will work, usually it's better to just go ahead and use online features anyway as if the user is online, and handle any errors that occur as a result.[/warning][/dd]
+	
+	[dt]Is online[/dt]
+	[dd]True if the browser thinks it currently has an active connection to the Internet. Construct games can work offline - see [url="https://www.construct.net/en/tutorials/offline-games-construct-8]Offline games[/url] for more information.[warning]See the caveat about online detection above.[/warning][/dd]
+
+	[dt]Is browser type[/dt]
+	[dd]True if project run in the selected browser type. [warning]The detection of the browser type is more or less a guess.[/warning][/dd]
+
+	[dt]On offline ready[/dt]
+	[dd]Triggers the first time the project runs when it has finished downloading and is ready to use offline.[/dd]
+
+	[dt]On update found[/dt]
+	[dd]Triggers when an update is detected. The update will download in the background and trigger [i]On update ready[/i] when it is ready to be used.[/dd]
+
+	[dt]On update ready[/dt]
+	[dd]Triggered when an updated version has finished downloading in the background. If the user is still on the game's menu or title screen, you may wish to prompt them to refresh the page (or just do it automatically) so the new version is loaded. See [url=https://www.construct.net/en/tutorials/offline-games-construct-8]Offline games[/url] for more information.[/dd]
+
+	[dt]On color scheme change[/dt]
+	[dd]Triggered when color scheme changed on the user's device.[/dd]
+	
+	[dt]Is color scheme[/dt]
+	[dd]True if the color scheme is match the selected parameter.[/dd]
+
+	[dt]On close prevent[/dt]
+	[dd]Triggered when user try to close the project window and prevention was successful.[/dd]
+
+	[dt]Is close prevent[/dt]
+	[dd]True if the project will notify the user on window close.[/dd]
+
+	[dt]On execute javascript[/dt]
+	[dd]Triggered when the javascript code execute finished.[/dd]
+
+	[dt]On navigation[/dt]
+	[dd]Triggered when user navigate in history session. Press back or forward button.[/dd]
+
+	[dt]Is scroll restoration[/dt]
+	[dd]Check the current scroll restoration mode.[/dd]
+
+	[dt]Is URL valid[/dt]
+	[dd]True if the URL is in valid format.[/dd]
+
+	[dt]On resize[/dt]
+	[dd]Triggered when the browser window displaying the game is resized. This includes when changing orientation on a mobile device.[/dd]
+
+	[dt]Is fullscreen[/dt]
+	[dd]Determine if the current display is portrait (height is greater than width) or landscape (width is greater than height). This is performed by making a simple check on the window size of the browser, so also returns accordingly on a desktop browser depending on its dimensions.[/dd]
+
+	[dt]Is fullscreen[/dt]
+	[dd]True if the page is currently in fullscreen mode.[/dd]
+[/dl]
+
+[h2]Browser2 actions:[/h2]
+[dl sans-serif]
+	[dt]Log[/dt]
+	[dd]Log a message, warning or error to the browser console. This can be useful for debugging, testing and diagnostics. For the format use '%c' chars in text and CSS style in JSON array for stype e.g. Text: "%cRed %cGreen" Style: "['background-color:white;color:red;', 'background-color:black;color:green;']\"[/dd]
+
+	[dt]Count[/dt]
+	[dt]Count reset[/dt]
+	[dd]Write or Reset a counter and write to the browser console, which can be useful for debugging.[/dd]
+
+	[dt]Timer start[/dt]
+	[dt]Timer log[/dt]
+	[dt]Timer end[/dt]
+	[dd]Start, log or stop a specific timer, which can be useful for debugging. With name you can create multiple timers.[/dd]
+	
+	[dt]Table[/dt]
+	[dd]Format a JSON data to a table and write it to the browser console, which can be useful for debugging.[/dd]
+
+	[dt]Group start[/dt]
+	[dt]Group end[/dt]
+	[dd]Start or end a group in the browser console. Groups appear indented, and the browser may give the option to expand/collapse the group easily. Groups can optionally be named. To create a group, use Start group, then a series of Log actions, then the End group action.[/dd]
+
+	[dt]Clear[/dt]
+	[dd]Clear the browser console.[/dd]
+
+	[dt]Set title[/dt]
+	[dd]Set browser tab's title.[/dd]
+
+	[dt]Set favicon[/dt]
+	[dd]Set browser tab's favicon.[/dd]
+
+	[dt]Set theme color[/dt]
+	[dd]Set browser's theme color. It is only affect mobile browser[/dd]
+
+	[dt]Set close prevent[/dt]
+	[dd]Set that the browser prevent the user to close the window.[/dd]
+
+	[dt]Load stylesheet[/dt]
+	[dd]Load a Cascading Style Sheet (CSS) from a URL and apply it to the document.[/dd]
+
+	[dt]Unload stylesheet[/dt]
+	[dd]Unload a Cascading Style Sheet (CSS) from a URL and remove it from the document.[/dd]
+
+	[dt]Execute Javascript[/dt]
+	[dd]Execute a string of javascript in the browser. In runtime context might cannot use window features, use instead document context. [warning]Use with care, read the usage below.[/warning][/dd]
+
+	[dt]Go[/dt]
+	[dd]Navigate through the browser window's history. In absule direction negative value means backward positive forward.[/dd]
+
+	[dt]Push URL[/dt]
+	[dd]Add an entry to the browser's session history stack without reload. Only edit the subadress and it will delete the all history after it. e.g https://localhost/folder/index.html will edited to https://localhost/folder/edited_path[/dd]
+
+	[dt]Replace URL[/dt]
+	[dd]Replace the current entry int the browser's session history stack without reload. Only edit the subadress. e.g https://localhost/folder/index.html will edited to https://localhost/folder/edited_path[/dd]
+
+	[dt]Open URL[/dt]
+	[dd]Navigate to a URL. If window exist with secified name that window will be modified. Open behave differently:
+		[ul]
+			[li][b]Window:[/b] open in a new window.[/li]
+			[li][b]Parent:[/b] redirect the parent frame.[/li]
+			[li][b]Self:[/b] redirect only the frame that is currently showing the game.[/li]
+			[li][b]Top:[/b] redirect the top level frame (only different to the parent if more than one frame is used)[/li]
+		[/ul]
+	[/dd]
+
+	[dt]Set scroll restoration[/dt]
+	[dd]Set the history session's scroll restoration mode to automatic or manual.[/dd]
+
+	[dt]Close[/dt]
+	[dd]Close a browser window or tab. The browser may prompt the user to confirm.[/dd]
+
+	[dt]Reload[/dt]
+	[dd]Reload the current page. Also updates if an [i]On update ready[/i] event has triggered.[/dd]
+
+	[dt]Focus[/dt]
+	[dt]Blur[/dt]
+	[dd]Focus or unfocus a browser window.[/dd]
+
+	[dt]Request fullscreen[/dt]
+	[dt]Cancel fullscreen[/dt]
+	[dd]Request fullscreen or return to windowed mode if the browser is currently in fullscreen mode. Note the browser may ignore this request unless the action is in a user-initiated event, such as a mouse click, key press, touch event or button press. The fullscreen modes that can be entered correspond to the Fullscreen mode [url=https://www.construct.net/en/make-games/manuals/construct-3/project-primitives/projects]project property[/url]. [i]Navigation UI[/i] where supported sets whether the browser should show browser elements such as back buttons or the address bar, or hide them (for a true fullscreen experience). Typically this setting only affects mobile browsers.[/dd]
+
+	[dt]Lock orientation[/dt]
+	[dt]Unlock orientation[/dt]
+	[dd]Lock the display of the game to a portrait or landscape mode only, if the current platform supports this. This only has effect on mobile devices. The game may have to already be displaying in fullscreen (using the [i]Request fullscreen[/i] action) before the orientation can be locked. Unlocking the orientation restores whatever behavior was set before locking, such as automatically changing orientation depending on the way the device is being held.[/dd]
+
+[/dl]
+
+[h2]Browser2 expressions:[/h2]
+[dl sans-serif]
+	
+	[dt]Platform[/dt]
+	[dd]Get the browser platform (e.g. Windows, Mac).[/dd]
+
+	[dt]UserAgent[/dt]
+	[dd]Get the full browser user agent string.[/dd]
+
+	[dt]Platform[/dt]
+	[dd]Get the browser's vendor string.[/dd]
+
+	[dt]Title[/dt]
+	[dd]Get the page's title.[/dd]
+
+	[dt]ThemeColor[/dt]
+	[dd]Get the page's theme color in hexadecimal format. e.g #0189ef[/dd]
+
+	[dt]ExecJsResult[/dt]
+	[dd]In 'On execute javascript' trigger get the string of the javascript code result that run. Wherever possible, prefer to use Construct 3's Javascript SDK instead.[/dd]
+
+	[dt]HistoryLength[/dt]
+	[dd]Get the history stack's current lenght.[/dd]
+
+	[dt]Url[/dt]
+	[dd]Get the current page's full URL.[/dd]
+
+	[dt]UrlHash[/dt]
+	[dt]UrlHost[/dt]
+	[dt]UrlHostname[/dt]
+	[dt]UrlUsername[/dt]
+	[dt]UrlPassword[/dt]
+	[dt]UrlPathname[/dt]
+	[dt]UrlPort[/dt]
+	[dt]UrlProtocol[/dt]
+	[dt]UrlSearch[/dt]
+	[dd]Expressions to read or modify the URL's different part. You can find more of the URL's sections: [url=https://en.wikipedia.org/wiki/URL]https://en.wikipedia.org/wiki/URL[/url].
+	Following parameters can use:
+		[ul]
+			[li][b]First parameter:[/b] this parameter is base URL. If not use or use empty string ("") expression will use the window URL as base url.[/li]
+			[li][b]Secon parameter:[/b] this parameter is replace function. If not use the expression will return the selected section e.g Port, Pathname etc. If use the expression will replace the section to the parameter value and return the new full URL.[/li]
+		[/ul]
+		
+	[/dd]
+
+	[dt]UrlSearchCount[/dt]
+	[dd]Get the URL's search query keys count. If the first parameter in use and not an empty string, that will be a base url in the expression.[/dd]
+
+	[dt]UrlSearchParamKeyAt[/dt]
+	[dd]Get the URL's search query key name at an index. If the first parameter not an empty string, that will be a base url in the expression. Second parameter is a zero-based index of the key.[/dd]
+
+	[dt]UrlSearchParamString[/dt]
+	[dd]Get or set the URL's search query at key. If the first parameter not an empty string, that will be a base url in the expression. Second parameter is a name of the parameter key. Third parameter is replace function. If not use the expression will return the key value. If use the third parameter expression will replace the key value to the parameter value and return the new full URL.[/dd]
+[/dl]

@@ -1,0 +1,2384 @@
+{
+    "command-line": {
+        "actions": [
+            {
+                "id": "exec-command",
+                "scriptName": "ExecCommand",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "tag",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    },
+                    {
+                        "id": "command",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    },
+                    {
+                        "id": "args",
+                        "type": "string",
+                        "initialValue": "\"Menu item\""
+                    },
+                    {
+                        "id": "windows-hide",
+                        "type": "boolean",
+                        "initialValue": "true"
+                    },
+                    {
+                        "id": "timeout",
+                        "type": "number",
+                        "initialValue": "-1"
+                    },
+                    {
+                        "id": "detached",
+                        "type": "boolean",
+                        "initialValue": "false"
+                    },
+                    {
+                        "id": "cwd",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    },
+                    {
+                        "id": "env",
+                        "type": "string",
+                        "initialValue": ""
+                    },
+                    {
+                        "id": "argv0",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    },
+                    {
+                        "id": "shell",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    },
+                    {
+                        "id": "kill-signal",
+                        "type": "any",
+                        "initialValue": "\"SIGTERM\""
+                    }
+                ],
+                "isAsync": false
+            },
+            {
+                "id": "exec-message",
+                "scriptName": "ExecMessage",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "tag",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    },
+                    {
+                        "id": "message",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    }
+                ]
+            },
+            {
+                "id": "exec-stop",
+                "scriptName": "ExecStop",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "tag",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    },
+                    {
+                        "id": "message",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    }
+                ]
+            }
+        ],
+        "conditions": [
+            {
+                "id": "on-exec-message",
+                "scriptName": "OnExecMessage",
+                "isDeprecated": false,
+                "highlight": false,
+                "isTrigger": true,
+                "isFakeTrigger": false,
+                "isStatic": false,
+                "isLooping": false,
+                "isInvertible": false,
+                "isCompatibleWithTriggers": false
+            },
+            {
+                "id": "on-exec-error",
+                "scriptName": "OnExecError",
+                "isDeprecated": false,
+                "highlight": false,
+                "isTrigger": true,
+                "isFakeTrigger": false,
+                "isStatic": false,
+                "isLooping": false,
+                "isInvertible": false,
+                "isCompatibleWithTriggers": false
+            },
+            {
+                "id": "on-exec-stop",
+                "scriptName": "OnExecStop",
+                "isDeprecated": false,
+                "highlight": false,
+                "isTrigger": true,
+                "isFakeTrigger": false,
+                "isStatic": false,
+                "isLooping": false,
+                "isInvertible": false,
+                "isCompatibleWithTriggers": false
+            }
+        ],
+        "expressions": [
+            {
+                "id": "argv-count",
+                "expressionName": "ArgumentCount",
+                "isDeprecated": false,
+                "highlight": false,
+                "returnType": "number",
+                "isVariadicParameters": false
+            },
+            {
+                "id": "argv-at",
+                "expressionName": "ArgumentAt",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "at",
+                        "type": "number",
+                        "initialValue": "0"
+                    }
+                ],
+                "returnType": "string",
+                "isVariadicParameters": false
+            },
+            {
+                "id": "exec-count",
+                "expressionName": "ExecuteCount",
+                "isDeprecated": false,
+                "highlight": false,
+                "returnType": "number",
+                "isVariadicParameters": false
+            },
+            {
+                "id": "exec-tag-at",
+                "expressionName": "ExecuteTagAt",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "at",
+                        "type": "number",
+                        "initialValue": "0"
+                    }
+                ],
+                "returnType": "string",
+                "isVariadicParameters": false
+            },
+            {
+                "id": "command-tag",
+                "expressionName": "CommandTag",
+                "isDeprecated": false,
+                "highlight": false,
+                "returnType": "number",
+                "isVariadicParameters": false
+            },
+            {
+                "id": "command-messsage",
+                "expressionName": "CommandMessage",
+                "isDeprecated": false,
+                "highlight": false,
+                "returnType": "number",
+                "isVariadicParameters": false
+            }
+        ]
+    },
+    "menu": {
+        "actions": [
+            {
+                "id": "open-context-menu",
+                "scriptName": "OpenContextMenu",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "path",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    },
+                    {
+                        "id": "position-x",
+                        "type": "number",
+                        "initialValue": "0"
+                    },
+                    {
+                        "id": "position-y",
+                        "type": "number",
+                        "initialValue": "0"
+                    }
+                ],
+                "isAsync": false
+            },
+            {
+                "id": "close-context-menu",
+                "scriptName": "CloseContextMenu",
+                "isDeprecated": false,
+                "highlight": false,
+                "isAsync": false
+            },
+            {
+                "id": "set-window-menu",
+                "scriptName": "SetWindowMenu",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "path",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    }
+                ],
+                "isAsync": false
+            },
+            {
+                "id": "remove-window-menu",
+                "scriptName": "RemoveWindowMenu",
+                "isDeprecated": false,
+                "highlight": false,
+                "isAsync": false
+            },
+            {
+                "id": "set-tray-menu",
+                "scriptName": "SetTrayMenu",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "tag",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    },
+                    {
+                        "id": "path",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    },
+                    {
+                        "id": "icon",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    },
+                    {
+                        "id": "tooltip",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    }
+                ],
+                "isAsync": false
+            },
+            {
+                "id": "remove-tray-menu",
+                "scriptName": "RemoveTrayMenu",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "tag",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    }
+                ],
+                "isAsync": false
+            },
+            {
+                "id": "set-dock-menu",
+                "scriptName": "SetDockMenu",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "path",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    }
+                ],
+                "isAsync": false
+            },
+            {
+                "id": "remove-dock-menu",
+                "scriptName": "RemoveDockMenu",
+                "isDeprecated": false,
+                "highlight": false,
+                "isAsync": false
+            },
+            {
+                "id": "set-thumbar-menu",
+                "scriptName": "SetThumbarMenu",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "path",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    }
+                ],
+                "isAsync": false
+            },
+            {
+                "id": "remove-thumbar-menu",
+                "scriptName": "RemoveThumbarMenu",
+                "isDeprecated": false,
+                "highlight": false,
+                "isAsync": false
+            }
+        ],
+        "conditions": [
+            
+        ],
+        "expressions": [
+            {
+                "id": "tray-count",
+                "expressionName": "TrayCount",
+                "isDeprecated": false,
+                "highlight": false,
+                "returnType": "string",
+                "isVariadicParameters": false
+            },
+            {
+                "id": "tray-tag-at",
+                "expressionName": "TrayTagAt",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "at",
+                        "type": "number",
+                        "initialValue": "\"\""
+                    }
+                ],
+                "returnType": "string",
+                "isVariadicParameters": false
+            },
+            {
+                "id": "tray-path",
+                "expressionName": "TrayPath",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "tag",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    }
+                ],
+                "returnType": "string",
+                "isVariadicParameters": false
+            },
+            {
+                "id": "tray-icon",
+                "expressionName": "TrayIcon",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "tag",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    }
+                ],
+                "returnType": "string",
+                "isVariadicParameters": false
+            },
+            {
+                "id": "tray-tooltip",
+                "expressionName": "TrayTooltip",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "tag",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    }
+                ],
+                "returnType": "string",
+                "isVariadicParameters": false
+            }
+        ]
+    },
+    "menu-item": {
+        "actions": [
+            {
+                "id": "set-menu-item",
+                "scriptName": "SetMenuItem",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "path",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    },
+                    {
+                        "id": "index",
+                        "type": "number",
+                        "initialValue": "0"
+                    },
+                    {
+                        "id": "type",
+                        "type": "combo",
+                        "initialValue": "normal",
+                        "items": [
+                            "normal",
+                            "separator",
+                            "checkbox",
+                            "radio"
+                        ]
+                    },
+                    {
+                        "id": "text",
+                        "type": "string",
+                        "initialValue": "\"Menu item\""
+                    },
+                    {
+                        "id": "subtext",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    },
+                    {
+                        "id": "icon",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    },
+                    {
+                        "id": "enable",
+                        "type": "boolean",
+                        "initialValue": "true"
+                    },
+                    {
+                        "id": "checked",
+                        "type": "boolean",
+                        "initialValue": "false"
+                    },
+                    {
+                        "id": "visibility",
+                        "type": "combo",
+                        "initialValue": "visible",
+                        "items": [
+                            "visible",
+                            "hidden"
+                        ]
+                    },
+                    {
+                        "id": "hotkey",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    }
+                ],
+                "isAsync": false
+            },
+            {
+                "id": "set-menu-item-type",
+                "scriptName": "SetMenuItemType",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "path",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    },
+                    {
+                        "id": "type",
+                        "type": "combo",
+                        "initialValue": "normal",
+                        "items": [
+                            "normal",
+                            "separator",
+                            "checkbox",
+                            "radio"
+                        ]
+                    }
+                ],
+                "isAsync": false
+            },
+            {
+                "id": "set-menu-item-index",
+                "scriptName": "SetMenuItemIndex",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "path",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    },
+                    {
+                        "id": "index",
+                        "type": "number",
+                        "initialValue": "0"
+                    }
+                ],
+                "isAsync": false
+            },
+            {
+                "id": "set-menu-item-text",
+                "scriptName": "SetMenuItemText",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "path",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    },
+                    {
+                        "id": "text",
+                        "type": "string",
+                        "initialValue": "\"Menu item\""
+                    }
+                ],
+                "isAsync": false
+            },
+            {
+                "id": "set-menu-item-subtext",
+                "scriptName": "SetMenuItemSubtext",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "path",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    },
+                    {
+                        "id": "subtext",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    }
+                ],
+                "isAsync": false
+            },
+            {
+                "id": "set-menu-item-icon",
+                "scriptName": "SetMenuItemIcon",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "path",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    },
+                    {
+                        "id": "icon",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    }
+                ],
+                "isAsync": false
+            },
+            {
+                "id": "set-menu-item-enabled",
+                "scriptName": "SetMenuItemEnabled",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "path",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    },
+                    {
+                        "id": "mode",
+                        "type": "combo",
+                        "initialValue": "enable",
+                        "items": [
+                            "enable",
+                            "disable"
+                        ]
+                    }
+                ],
+                "isAsync": false
+            },
+            {
+                "id": "set-menu-item-checked",
+                "scriptName": "SetMenuItemChecked",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "path",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    },
+                    {
+                        "id": "state",
+                        "type": "boolean",
+                        "initialValue": "unchecked",
+                        "items": [
+                            "checked",
+                            "unchecked"
+                        ]
+                    }
+                ],
+                "isAsync": false
+            },
+            {
+                "id": "set-menu-item-visible",
+                "scriptName": "SetMenuItemVisible",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "path",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    },
+                    {
+                        "id": "visibility",
+                        "type": "combo",
+                        "initialValue": "visible",
+                        "items": [
+                            "visible",
+                            "hidden"
+                        ]
+                    }
+                ],
+                "isAsync": false
+            },
+            {
+                "id": "set-menu-item-hotkey",
+                "scriptName": "SetMenuItemHotkey",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "path",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    },
+                    {
+                        "id": "hotkey",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    }
+                ],
+                "isAsync": false
+            },
+            {
+                "id": "copy-menu-item",
+                "scriptName": "CopyMenuItem",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "origin-path",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    },
+                    {
+                        "id": "dest-path",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    },
+                    {
+                        "id": "mode",
+                        "type": "combo",
+                        "initialValue": "copy-reference",
+                        "items": [
+                            "copy-content",
+                            "copy-reference"
+                        ]
+                    }
+                ],
+                "isAsync": false
+            },
+            {
+                "id": "remove-menu-item",
+                "scriptName": "RemoveMenuItem",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "path",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    }
+                ],
+                "isAsync": false
+            }
+        ],
+        "conditions": [
+            {
+                "id": "is-menu-item-exist",
+                "scriptName": "IsMenuItemExist",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "path",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    }
+                ],
+                "isTrigger": false,
+                "isFakeTrigger": false,
+                "isStatic": false,
+                "isLooping": false,
+                "isInvertible": true,
+                "isCompatibleWithTriggers": true
+            },
+            {
+                "id": "is-menu-item-type",
+                "scriptName": "IsMenuItemType",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "path",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    },
+                    {
+                        "id": "type",
+                        "type": "combo",
+                        "initialValue": "normal",
+                        "items": [
+                            "normal",
+                            "submenu",
+                            "separator",
+                            "checkbox",
+                            "radio"
+                        ]
+                    }
+                ],
+                "isTrigger": false,
+                "isFakeTrigger": false,
+                "isStatic": false,
+                "isLooping": false,
+                "isInvertible": true,
+                "isCompatibleWithTriggers": true
+            },
+            {
+                "id": "is-menu-item-enabled",
+                "scriptName": "IsMenuItemEnabled",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "path",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    }
+                ],
+                "isTrigger": false,
+                "isFakeTrigger": false,
+                "isStatic": false,
+                "isLooping": false,
+                "isInvertible": true,
+                "isCompatibleWithTriggers": true
+            },
+            {
+                "id": "is-menu-item-checked",
+                "scriptName": "IsMenuItemChecked",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "path",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    }
+                ],
+                "isTrigger": false,
+                "isFakeTrigger": false,
+                "isStatic": false,
+                "isLooping": false,
+                "isInvertible": true,
+                "isCompatibleWithTriggers": true
+            },
+            {
+                "id": "is-menu-item-visible",
+                "scriptName": "IsMenuItemVisible",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "path",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    }
+                ],
+                "isTrigger": false,
+                "isFakeTrigger": false,
+                "isStatic": false,
+                "isLooping": false,
+                "isInvertible": true,
+                "isCompatibleWithTriggers": true
+            },
+            {
+                "id": "on-any-menu-item-clicked",
+                "scriptName": "OnAnyMenuItemClicked",
+                "isDeprecated": false,
+                "highlight": false,
+                "isTrigger": true,
+                "isFakeTrigger": false,
+                "isStatic": false,
+                "isLooping": false,
+                "isInvertible": false,
+                "isCompatibleWithTriggers": false
+            },
+            {
+                "id": "on-menu-item-clicked",
+                "scriptName": "OnMenuItemClicked",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "path-compare",
+                        "type": "combo",
+                        "initialValue": "equal",
+                        "items": [
+                            "equal",
+                            "start-with",
+                            "contain",
+                            "end-with"
+                        ]
+                    },
+                    {
+                        "id": "path",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    },
+                    {
+                        "id": "menu-check",
+                        "type": "combo",
+                        "initialValue": "instance",
+                        "items": [
+                            "instance",
+                            "references"
+                        ]
+                    }
+                ],
+                "isTrigger": true,
+                "isFakeTrigger": false,
+                "isStatic": false,
+                "isLooping": false,
+                "isInvertible": false,
+                "isCompatibleWithTriggers": false
+            }
+        ],
+        "expressions": [
+            {
+                "id": "menu-item-count",
+                "expressionName": "MenuItemCount",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "path",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    }
+                ],
+                "returnType": "string",
+                "isVariadicParameters": false
+            },
+            {
+                "id": "menu-item-at",
+                "expressionName": "MenuItemAt",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "path",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    },
+                    {
+                        "id": "at",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    }
+                ],
+                "returnType": "string",
+                "isVariadicParameters": false
+            },
+            {
+                "id": "menu-item-text",
+                "expressionName": "MenuItemText",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "path",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    }
+                ],
+                "returnType": "string",
+                "isVariadicParameters": false
+            },
+            {
+                "id": "menu-item-subtext",
+                "expressionName": "MenuItemSubtext",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "path",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    }
+                ],
+                "returnType": "string",
+                "isVariadicParameters": false
+            },
+            {
+                "id": "menu-item-icon",
+                "expressionName": "MenuItemIcon",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "path",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    }
+                ],
+                "returnType": "string",
+                "isVariadicParameters": false
+            },
+            {
+                "id": "menu-item-hotkey",
+                "expressionName": "MenuItemHotkey",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "path",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    }
+                ],
+                "returnType": "string",
+                "isVariadicParameters": false
+            },
+            {
+                "id": "clicked-menu-item-path",
+                "expressionName": "ClickedMenuPath",
+                "isDeprecated": false,
+                "highlight": false,
+                "returnType": "string",
+                "isVariadicParameters": false
+            },
+            {
+                "id": "clicked-menu-item-id",
+                "expressionName": "ClickedMenuID",
+                "isDeprecated": false,
+                "highlight": false,
+                "returnType": "string",
+                "isVariadicParameters": false
+            }
+        ]
+    },
+    "screen": {
+        "actions": [
+
+        ],
+        "conditions": [
+            {
+                "id": "on-screen-added",
+                "scriptName": "OnScreenAdded",
+                "isDeprecated": false,
+                "highlight": false,
+                "isTrigger": true,
+                "isFakeTrigger": false,
+                "isStatic": false,
+                "isLooping": false,
+                "isInvertible": false,
+                "isCompatibleWithTriggers": false
+            },
+            {
+                "id": "on-screen-removed",
+                "scriptName": "OnScreenRemoved",
+                "isDeprecated": false,
+                "highlight": false,
+                "isTrigger": true,
+                "isFakeTrigger": false,
+                "isStatic": false,
+                "isLooping": false,
+                "isInvertible": false,
+                "isCompatibleWithTriggers": false
+            },
+            {
+                "id": "on-screen-changed",
+                "scriptName": "OnScreenChanged",
+                "isDeprecated": false,
+                "highlight": false,
+                "isTrigger": true,
+                "isFakeTrigger": false,
+                "isStatic": false,
+                "isLooping": false,
+                "isInvertible": false,
+                "isCompatibleWithTriggers": false
+            },
+            {
+                "id": "is-screen-monochrome",
+                "scriptName": "IsScreenMonochrome",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "id",
+                        "type": "number",
+                        "initialValue": "0"
+                    }
+                ],
+                "isTrigger": false,
+                "isFakeTrigger": false,
+                "isStatic": false,
+                "isLooping": false,
+                "isInvertible": true,
+                "isCompatibleWithTriggers": true
+            },
+            {
+                "id": "is-screen-touch-support",
+                "scriptName": "IsScreenTouchSupport",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "id",
+                        "type": "number",
+                        "initialValue": "0"
+                    },
+                    {
+                        "id": "type",
+                        "type": "combo",
+                        "initialValue": "available",
+                        "items": [
+                            "available",
+                            "unavailable",
+                            "unknown"
+                        ]
+                    }
+                ],
+                "isTrigger": false,
+                "isFakeTrigger": false,
+                "isStatic": false,
+                "isLooping": false,
+                "isInvertible": true,
+                "isCompatibleWithTriggers": true
+            },
+            {
+                "id": "is-screen-accelometer",
+                "scriptName": "IsScreenAccelometer",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "id",
+                        "type": "number",
+                        "initialValue": "0"
+                    },
+                    {
+                        "id": "type",
+                        "type": "combo",
+                        "initialValue": "available",
+                        "items": [
+                            "available",
+                            "unavailable",
+                            "unknown"
+                        ]
+                    }
+                ],
+                "isTrigger": false,
+                "isFakeTrigger": false,
+                "isStatic": false,
+                "isLooping": false,
+                "isInvertible": true,
+                "isCompatibleWithTriggers": true
+            }
+        ],
+        "expressions": [
+            {
+                "id": "screen-count",
+                "expressionName": "ScreenCount",
+                "isDeprecated": false,
+                "highlight": false,
+                "returnType": "number",
+                "isVariadicParameters": false
+            },
+            {
+                "id": "screen-id-at",
+                "expressionName": "ScreenIDAt",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "at",
+                        "type": "number",
+                        "initialValue": "0"
+                    }
+                ],
+                "returnType": "number",
+                "isVariadicParameters": false
+            },
+            {
+                "id": "screen-rotation",
+                "expressionName": "ScreenRotation",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "id",
+                        "type": "number",
+                        "initialValue": "0"
+                    }
+                ],
+                "returnType": "number",
+                "isVariadicParameters": false
+            },
+            {
+                "id": "screen-scale-factor",
+                "expressionName": "ScreenScaleFactor",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "id",
+                        "type": "number",
+                        "initialValue": "0"
+                    }
+                ],
+                "returnType": "number",
+                "isVariadicParameters": false
+            },
+            {
+                "id": "screen-color-space",
+                "expressionName": "ScreenColorSpace",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "id",
+                        "type": "number",
+                        "initialValue": "0"
+                    }
+                ],
+                "returnType": "number",
+                "isVariadicParameters": false
+            },
+            {
+                "id": "screen-color-depth",
+                "expressionName": "ScreenColorDepth",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "id",
+                        "type": "number",
+                        "initialValue": "0"
+                    }
+                ],
+                "returnType": "number",
+                "isVariadicParameters": false
+            },
+            {
+                "id": "screen-frequency",
+                "expressionName": "ScreenFrequency",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "id",
+                        "type": "number",
+                        "initialValue": "0"
+                    }
+                ],
+                "returnType": "number",
+                "isVariadicParameters": false
+            },
+            {
+                "id": "screen-physical-x",
+                "expressionName": "ScreenPhysicalX",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "id",
+                        "type": "number",
+                        "initialValue": "0"
+                    }
+                ],
+                "returnType": "number",
+                "isVariadicParameters": false
+            },
+            {
+                "id": "screen-physical-y",
+                "expressionName": "ScreenPhysicalY",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "id",
+                        "type": "number",
+                        "initialValue": "0"
+                    }
+                ],
+                "returnType": "number",
+                "isVariadicParameters": false
+            },
+            {
+                "id": "screen-physical-width",
+                "expressionName": "ScreenPhysicalWidth",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "id",
+                        "type": "number",
+                        "initialValue": "0"
+                    }
+                ],
+                "returnType": "number",
+                "isVariadicParameters": false
+            },
+            {
+                "id": "screen-physical-height",
+                "expressionName": "ScreenPhysicalHeight",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "id",
+                        "type": "number",
+                        "initialValue": "0"
+                    }
+                ],
+                "returnType": "number",
+                "isVariadicParameters": false
+            },
+            {
+                "id": "screen-workarea-x",
+                "expressionName": "ScreenWorkareaX",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "id",
+                        "type": "number",
+                        "initialValue": "0"
+                    }
+                ],
+                "returnType": "number",
+                "isVariadicParameters": false
+            },
+            {
+                "id": "screen-workarea-y",
+                "expressionName": "ScreenWorkareaY",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "id",
+                        "type": "number",
+                        "initialValue": "0"
+                    }
+                ],
+                "returnType": "number",
+                "isVariadicParameters": false
+            },
+            {
+                "id": "screen-workarea-width",
+                "expressionName": "ScreenWorkareaWidth",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "id",
+                        "type": "number",
+                        "initialValue": "0"
+                    }
+                ],
+                "returnType": "number",
+                "isVariadicParameters": false
+            },
+            {
+                "id": "screen-workarea-height",
+                "expressionName": "ScreenWorkareaHeight",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "id",
+                        "type": "number",
+                        "initialValue": "0"
+                    }
+                ],
+                "returnType": "number",
+                "isVariadicParameters": false
+            }
+        ]
+    },
+    "window": {
+        "actions": [
+            {
+                "id": "maximize",
+                "scriptName": "Maximize",
+                "isDeprecated": false,
+                "highlight": false,
+                "isAsync": false
+            },
+            {
+                "id": "unmaximize",
+                "scriptName": "Unmaximize",
+                "isDeprecated": false,
+                "highlight": false,
+                "isAsync": false
+            },
+            {
+                "id": "minimize",
+                "scriptName": "Minimize",
+                "isDeprecated": false,
+                "highlight": false,
+                "isAsync": false
+            },
+            {
+                "id": "restore",
+                "scriptName": "Restore",
+                "isDeprecated": false,
+                "highlight": false,
+                "isAsync": false
+            },
+            {
+                "id": "set-size",
+                "scriptName": "SetSize",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "width",
+                        "type": "number",
+                        "initialValue": "0"
+                    },
+                    {
+                        "id": "height",
+                        "type": "number",
+                        "initialValue": "0"
+                    },
+                    {
+                        "id": "mode",
+                        "type": "combo",
+                        "initialValue": "content",
+                        "items": [
+                            "window",
+                            "content"
+                        ]
+                    },
+                    {
+                        "id": "animate",
+                        "type": "boolean",
+                        "initialValue": "false"
+                    }
+                ],
+                "isAsync": false
+            },
+            {
+                "id": "set-position",
+                "scriptName": "SetPosition",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "x",
+                        "type": "number",
+                        "initialValue": "0"
+                    },
+                    {
+                        "id": "y",
+                        "type": "number",
+                        "initialValue": "0"
+                    },
+                    {
+                        "id": "animate",
+                        "type": "boolean",
+                        "initialValue": "false"
+                    }
+                ],
+                "isAsync": false
+            },
+            {
+                "id": "set-max-size",
+                "scriptName": "SetMaximumSize",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "width",
+                        "type": "number",
+                        "initialValue": "0"
+                    },
+                    {
+                        "id": "height",
+                        "type": "number",
+                        "initialValue": "0"
+                    }
+                ],
+                "isAsync": false
+            },
+            {
+                "id": "set-min-size",
+                "scriptName": "SetMinimumSize",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "width",
+                        "type": "number",
+                        "initialValue": "0"
+                    },
+                    {
+                        "id": "height",
+                        "type": "number",
+                        "initialValue": "0"
+                    }
+                ],
+                "isAsync": false
+            },
+            {
+                "id": "set-opacity",
+                "scriptName": "SetOpacity",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "opacity",
+                        "type": "number",
+                        "initialValue": "1"
+                    }
+                ],
+                "isAsync": false
+            },
+            {
+                "id": "set-visible",
+                "scriptName": "SetVisible",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "visibility",
+                        "type": "combo",
+                        "initialValue": "hidden",
+                        "items": [
+                            "visible",
+                            "hidden"
+                        ]
+                    }
+                ],
+                "isAsync": false
+            },
+            {
+                "id": "move-top",
+                "scriptName": "MoveTop",
+                "isDeprecated": false,
+                "highlight": false,
+                "isAsync": false
+            },
+            {
+                "id": "request-attention",
+                "scriptName": "RequestAttention",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "mode",
+                        "type": "combo",
+                        "initialValue": "request",
+                        "items": [
+                            "request",
+                            "stop-request"
+                        ]
+                    }
+                ],
+                "isAsync": false
+            },
+            {
+                "id": "set-progress",
+                "scriptName": "SetProgress",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "progress",
+                        "type": "number",
+                        "initialValue": "0"
+                    },
+                    {
+                        "id": "type",
+                        "type": "combo",
+                        "initialValue": "normal",
+                        "items": [
+                            "none",
+                            "normal",
+                            "indeterminate",
+                            "error",
+                            "paused"
+                        ]
+                    }
+                ],
+                "isAsync": false
+            },
+            {
+                "id": "show-dev-tool",
+                "scriptName": "ShowDevTools",
+                "isDeprecated": false,
+                "highlight": false,
+                "isAsync": false,
+                "params": [
+                    {
+                        "id": "mode",
+                        "type": "combo",
+                        "initialValue": "right",
+                        "items": [
+                            "right",
+                            "bottom",
+                            "left",
+                            "undocked"
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "open-window",
+                "scriptName": "OpenWindow",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "message",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    },
+                    {
+                        "id": "show-frame",
+                        "type": "boolean",
+                        "initialValue": "\"\""
+                    }
+                ],
+                "isAsync": false
+            },
+            {
+                "id": "send-window-message",
+                "scriptName": "SendWindowMessage",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "id",
+                        "type": "number",
+                        "initialValue": "0"
+                    },
+                    {
+                        "id": "tag",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    },
+                    {
+                        "id": "message",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    }
+                ],
+                "isAsync": false
+            },
+            {
+                "id": "close-window",
+                "scriptName": "CloseWindow",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "id",
+                        "type": "number",
+                        "initialValue": "0"
+                    }
+                ],
+                "isAsync": false
+            }
+        ],
+        "conditions": [
+            {
+                "id": "on-maximized",
+                "scriptName": "OnMaximized",
+                "isDeprecated": false,
+                "highlight": false,
+                "isTrigger": true,
+                "isFakeTrigger": false,
+                "isStatic": false,
+                "isLooping": false,
+                "isInvertible": false,
+                "isCompatibleWithTriggers": false
+            },
+            {
+                "id": "is-maximized",
+                "scriptName": "IsMaximized",
+                "isDeprecated": false,
+                "highlight": false,
+                "isTrigger": false,
+                "isFakeTrigger": false,
+                "isStatic": false,
+                "isLooping": false,
+                "isInvertible": true,
+                "isCompatibleWithTriggers": true
+            },
+            {
+                "id": "on-unmaximized",
+                "scriptName": "OnUnmaximized",
+                "isDeprecated": false,
+                "highlight": false,
+                "isTrigger": true,
+                "isFakeTrigger": false,
+                "isStatic": false,
+                "isLooping": false,
+                "isInvertible": false,
+                "isCompatibleWithTriggers": false
+            },
+            {
+                "id": "on-minimized",
+                "scriptName": "OnMinimized",
+                "isDeprecated": false,
+                "highlight": false,
+                "isTrigger": true,
+                "isFakeTrigger": false,
+                "isStatic": false,
+                "isLooping": false,
+                "isInvertible": false,
+                "isCompatibleWithTriggers": false
+            },
+            {
+                "id": "is-minimized",
+                "scriptName": "IsMinimized",
+                "isDeprecated": false,
+                "highlight": false,
+                "isTrigger": false,
+                "isFakeTrigger": false,
+                "isStatic": false,
+                "isLooping": false,
+                "isInvertible": true,
+                "isCompatibleWithTriggers": true
+            },
+            {
+                "id": "on-restored",
+                "scriptName": "OnRestored",
+                "isDeprecated": false,
+                "highlight": false,
+                "isTrigger": true,
+                "isFakeTrigger": false,
+                "isStatic": false,
+                "isLooping": false,
+                "isInvertible": false,
+                "isCompatibleWithTriggers": false
+            },
+            {
+                "id": "on-move",
+                "scriptName": "OnMove",
+                "isDeprecated": false,
+                "highlight": false,
+                "isTrigger": true,
+                "isFakeTrigger": false,
+                "isStatic": false,
+                "isLooping": false,
+                "isInvertible": false,
+                "isCompatibleWithTriggers": false
+            },
+            {
+                "id": "is-visible",
+                "scriptName": "IsVisible",
+                "isDeprecated": false,
+                "highlight": false,
+                "isTrigger": false,
+                "isFakeTrigger": false,
+                "isStatic": false,
+                "isLooping": false,
+                "isInvertible": true,
+                "isCompatibleWithTriggers": true
+            },
+            {
+                "id": "on-window-open",
+                "scriptName": "OnWindowOpen",
+                "isDeprecated": false,
+                "highlight": false,
+                "isTrigger": true,
+                "isFakeTrigger": false,
+                "isStatic": false,
+                "isLooping": false,
+                "isInvertible": false,
+                "isCompatibleWithTriggers": false
+            },
+            {
+                "id": "on-window-message",
+                "scriptName": "OnWindowMessage",
+                "isDeprecated": false,
+                "highlight": false,
+                "isTrigger": true,
+                "isFakeTrigger": false,
+                "isStatic": false,
+                "isLooping": false,
+                "isInvertible": false,
+                "isCompatibleWithTriggers": false
+            },
+            {
+                "id": "on-window-closed",
+                "scriptName": "OnWindowClosed",
+                "isDeprecated": false,
+                "highlight": false,
+                "isTrigger": true,
+                "isFakeTrigger": false,
+                "isStatic": false,
+                "isLooping": false,
+                "isInvertible": false,
+                "isCompatibleWithTriggers": false
+            }
+        ],
+        "expressions": [
+            {
+                "id": "window-width",
+                "expressionName": "WindowWidth",
+                "isDeprecated": false,
+                "highlight": false,
+                "returnType": "number",
+                "isVariadicParameters": false
+            },
+            {
+                "id": "window-height",
+                "expressionName": "WindowHeight",
+                "isDeprecated": false,
+                "highlight": false,
+                "returnType": "number",
+                "isVariadicParameters": false
+            },
+            {
+                "id": "window-x",
+                "expressionName": "WindowX",
+                "isDeprecated": false,
+                "highlight": false,
+                "returnType": "number",
+                "isVariadicParameters": false
+            },
+            {
+                "id": "window-y",
+                "expressionName": "WindowY",
+                "isDeprecated": false,
+                "highlight": false,
+                "returnType": "number",
+                "isVariadicParameters": false
+            },
+            {
+                "id": "window-my-id",
+                "expressionName": "WindowMyID",
+                "isDeprecated": false,
+                "highlight": false,
+                "returnType": "number",
+                "isVariadicParameters": false
+            },
+            {
+                "id": "window-count",
+                "expressionName": "WindowCount",
+                "isDeprecated": false,
+                "highlight": false,
+                "returnType": "number",
+                "isVariadicParameters": false
+            },
+            {
+                "id": "window-id-at",
+                "expressionName": "WindowIDAt",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "at",
+                        "type": "number",
+                        "initialValue": "0"
+                    }
+                ],
+                "returnType": "number",
+                "isVariadicParameters": false
+            },
+            {
+                "id": "window-message-id",
+                "expressionName": "WindowMessageID",
+                "isDeprecated": false,
+                "highlight": false,
+                "returnType": "number",
+                "isVariadicParameters": false
+            },
+            {
+                "id": "window-message-tag",
+                "expressionName": "WindowMessageTag",
+                "isDeprecated": false,
+                "highlight": false,
+                "returnType": "string",
+                "isVariadicParameters": false
+            },
+            {
+                "id": "window-message",
+                "expressionName": "WindowMessage",
+                "isDeprecated": false,
+                "highlight": false,
+                "returnType": "string",
+                "isVariadicParameters": false
+            }
+        ]
+    },
+    "window-accessibility": {
+        "actions": [
+            {
+                "id": "set-window-frame",
+                "scriptName": "SetWindowFrame",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "visibility",
+                        "type": "combo",
+                        "initialValue": "visible",
+                        "items": [
+                            "visible",
+                            "hidden"
+                        ]
+                    },
+                    {
+                        "id": "message",
+                        "type": "string",
+                        "initialValue": "\"RESTARTED\""
+                    }
+                ],
+                "isAsync": false
+            },
+            {
+                "id": "set-taskbar",
+                "scriptName": "SetTaskbar",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "visibility",
+                        "type": "combo",
+                        "initialValue": "visible",
+                        "items": [
+                            "visible",
+                            "hidden"
+                        ]
+                    }
+                ],
+                "isAsync": false
+            },
+            {
+                "id": "set-kiosk",
+                "scriptName": "SetKiosk",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "state",
+                        "type": "combo",
+                        "initialValue": "enable",
+                        "items": [
+                            "enable",
+                            "disable"
+                        ]
+                    }
+                ],
+                "isAsync": false
+            },
+            {
+                "id": "set-always-on-top",
+                "scriptName": "SetAlwaysOnTop",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "state",
+                        "type": "combo",
+                        "initialValue": "enabled",
+                        "items": [
+                            "enabled",
+                            "disabled"
+                        ]
+                    },
+                    {
+                        "id": "level",
+                        "type": "combo",
+                        "initialValue": "floating",
+                        "items": [
+                            "floating",
+                            "torn-off-menu",
+                            "modal-panel",
+                            "main-menu",
+                            "status",
+                            "pop-up-menu",
+                            "screen-saver"
+                        ]
+                    },
+                    {
+                        "id": "relative-level",
+                        "type": "number",
+                        "initialValue": "0"
+                    }
+                ],
+                "isAsync": false
+            },
+            {
+                "id": "set-visible-on-all-workspaces",
+                "scriptName": "SetVisibleOnAllWorkspaces",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "visibility",
+                        "type": "combo",
+                        "initialValue": "visible",
+                        "items": [
+                            "visible",
+                            "not-visible"
+                        ]
+                    },
+                    {
+                        "id": "visible-on-fullscreen",
+                        "type": "combo",
+                        "initialValue": "visible",
+                        "items": [
+                            "visible",
+                            "not-visible"
+                        ]
+                    }
+                ],
+                "isAsync": false
+            },
+            {
+                "id": "set-protection",
+                "scriptName": "SetProtection",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "state",
+                        "type": "combo",
+                        "initialValue": "protected",
+                        "items": [
+                            "protected",
+                            "not-protected"
+                        ]
+                    }
+                ],
+                "isAsync": false
+            },
+            {
+                "id": "set-enabled",
+                "scriptName": "SetEnabled",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "state",
+                        "type": "combo",
+                        "initialValue": "disabled",
+                        "items": [
+                            "enabled",
+                            "disabled"
+                        ]
+                    }
+                ],
+                "isAsync": false
+            },
+            {
+                "id": "set-closable",
+                "scriptName": "SetClosable",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "state",
+                        "type": "combo",
+                        "initialValue": "closable",
+                        "items": [
+                            "closable",
+                            "not-closable"
+                        ]
+                    }
+                ],
+                "isAsync": false
+            },
+            {
+                "id": "set-resizable",
+                "scriptName": "SetResizable",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "state",
+                        "type": "combo",
+                        "initialValue": "resizable",
+                        "items": [
+                            "resizable",
+                            "not-resizable"
+                        ]
+                    }
+                ],
+                "isAsync": false
+            },
+            {
+                "id": "set-movable",
+                "scriptName": "SetMovable",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "state",
+                        "type": "combo",
+                        "initialValue": "movable",
+                        "items": [
+                            "movable",
+                            "not-movable"
+                        ]
+                    }
+                ],
+                "isAsync": false
+            },
+            {
+                "id": "set-maximizable",
+                "scriptName": "SetMaximizable",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "state",
+                        "type": "combo",
+                        "initialValue": "maximizable",
+                        "items": [
+                            "maximizable",
+                            "not-maximizable"
+                        ]
+                    }
+                ],
+                "isAsync": false
+            },
+            {
+                "id": "set-minimizable",
+                "scriptName": "SetMinimizable",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "state",
+                        "type": "combo",
+                        "initialValue": "minimizable",
+                        "items": [
+                            "minimizable",
+                            "not-minimizable"
+                        ]
+                    }
+                ],
+                "isAsync": false
+            },
+            {
+                "id": "set-fullscreenable",
+                "scriptName": "SetFullscreenable",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "state",
+                        "type": "combo",
+                        "initialValue": "fullscreenable",
+                        "items": [
+                            "fullscreenable",
+                            "not-fullscreenable"
+                        ]
+                    }
+                ],
+                "isAsync": false
+            },
+            {
+                "id": "set-close-prevent",
+                "scriptName": "SetClosePrevent",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "prevent",
+                        "type": "combo",
+                        "initialValue": "prenvent",
+                        "items": [
+                            "prenvent",
+                            "not-prenvent"
+                        ]
+                    }
+                ],
+                "isAsync": false
+            },
+            {
+                "id": "set-instance-prevent",
+                "scriptName": "SetInstancePrevent",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "prevent",
+                        "type": "combo",
+                        "initialValue": "prevent",
+                        "items": [
+                            "prevent",
+                            "not-prevent"
+                        ]
+                    }
+                ],
+                "isAsync": false
+            }
+        ],
+        "conditions": [
+            {
+                "id": "is-window-frame-visible",
+                "scriptName": "IsWindowFrameVisible",
+                "isDeprecated": false,
+                "highlight": false,
+                "isTrigger": false,
+                "isFakeTrigger": false,
+                "isStatic": false,
+                "isLooping": false,
+                "isInvertible": true,
+                "isCompatibleWithTriggers": true
+            },
+            {
+                "id": "is-taskbar-visible",
+                "scriptName": "IsTaskbarVisible",
+                "isDeprecated": false,
+                "highlight": false,
+                "isTrigger": false,
+                "isFakeTrigger": false,
+                "isStatic": false,
+                "isLooping": false,
+                "isInvertible": true,
+                "isCompatibleWithTriggers": true
+            },
+            {
+                "id": "is-kiosk",
+                "scriptName": "IsKiosk",
+                "isDeprecated": false,
+                "highlight": false,
+                "isTrigger": false,
+                "isFakeTrigger": false,
+                "isStatic": false,
+                "isLooping": false,
+                "isInvertible": true,
+                "isCompatibleWithTriggers": true
+            },
+            {
+                "id": "is-always-on-top",
+                "scriptName": "IsAlwaysOnTop",
+                "isDeprecated": false,
+                "highlight": false,
+                "isTrigger": false,
+                "isFakeTrigger": false,
+                "isStatic": false,
+                "isLooping": false,
+                "isInvertible": true,
+                "isCompatibleWithTriggers": true
+            },
+            {
+                "id": "is-visible-on-all-workspaces",
+                "scriptName": "IsVisibleOnAllWorkspaces",
+                "isDeprecated": false,
+                "highlight": false,
+                "isTrigger": false,
+                "isFakeTrigger": false,
+                "isStatic": false,
+                "isLooping": false,
+                "isInvertible": true,
+                "isCompatibleWithTriggers": true
+            },
+            {
+                "id": "is-protected",
+                "scriptName": "IsProtected",
+                "isDeprecated": false,
+                "highlight": false,
+                "isTrigger": false,
+                "isFakeTrigger": false,
+                "isStatic": false,
+                "isLooping": false,
+                "isInvertible": true,
+                "isCompatibleWithTriggers": true
+            },
+            {
+                "id": "is-enabled",
+                "scriptName": "IsEnabled",
+                "isDeprecated": false,
+                "highlight": false,
+                "isTrigger": false,
+                "isFakeTrigger": false,
+                "isStatic": false,
+                "isLooping": false,
+                "isInvertible": true,
+                "isCompatibleWithTriggers": true
+            },
+            {
+                "id": "is-closable",
+                "scriptName": "IsClosable",
+                "isDeprecated": false,
+                "highlight": false,
+                "isTrigger": false,
+                "isFakeTrigger": false,
+                "isStatic": false,
+                "isLooping": false,
+                "isInvertible": true,
+                "isCompatibleWithTriggers": true
+            },
+            {
+                "id": "is-resizable",
+                "scriptName": "IsResizable",
+                "isDeprecated": false,
+                "highlight": false,
+                "isTrigger": false,
+                "isFakeTrigger": false,
+                "isStatic": false,
+                "isLooping": false,
+                "isInvertible": true,
+                "isCompatibleWithTriggers": true
+            },
+            {
+                "id": "is-movable",
+                "scriptName": "IsMovable",
+                "isDeprecated": false,
+                "highlight": false,
+                "isTrigger": false,
+                "isFakeTrigger": false,
+                "isStatic": false,
+                "isLooping": false,
+                "isInvertible": true,
+                "isCompatibleWithTriggers": true
+            },
+            {
+                "id": "is-maximizable",
+                "scriptName": "IsMaximizable",
+                "isDeprecated": false,
+                "highlight": false,
+                "isTrigger": false,
+                "isFakeTrigger": false,
+                "isStatic": false,
+                "isLooping": false,
+                "isInvertible": true,
+                "isCompatibleWithTriggers": true
+            },
+            {
+                "id": "is-minimizable",
+                "scriptName": "IsMinimizable",
+                "isDeprecated": false,
+                "highlight": false,
+                "isTrigger": false,
+                "isFakeTrigger": false,
+                "isStatic": false,
+                "isLooping": false,
+                "isInvertible": true,
+                "isCompatibleWithTriggers": true
+            },
+            {
+                "id": "is-fullscreenable",
+                "scriptName": "IsFullscreenable",
+                "isDeprecated": false,
+                "highlight": false,
+                "isTrigger": false,
+                "isFakeTrigger": false,
+                "isStatic": false,
+                "isLooping": false,
+                "isInvertible": true,
+                "isCompatibleWithTriggers": true
+            },
+            {
+                "id": "is-close-prevent",
+                "scriptName": "IsClosePrevent",
+                "isDeprecated": false,
+                "highlight": false,
+                "isTrigger": false,
+                "isFakeTrigger": false,
+                "isStatic": false,
+                "isLooping": false,
+                "isInvertible": true,
+                "isCompatibleWithTriggers": true
+            },
+            {
+                "id": "on-close-prevent",
+                "scriptName": "OnClosePrevent",
+                "isDeprecated": false,
+                "highlight": false,
+                "isTrigger": true,
+                "isFakeTrigger": false,
+                "isStatic": false,
+                "isLooping": false,
+                "isInvertible": false,
+                "isCompatibleWithTriggers": false
+            },
+            {
+                "id": "on-close-critical",
+                "scriptName": "OnCloseCritical",
+                "isDeprecated": false,
+                "highlight": false,
+                "isTrigger": true,
+                "isFakeTrigger": false,
+                "isStatic": false,
+                "isLooping": false,
+                "isInvertible": false,
+                "isCompatibleWithTriggers": false
+            },
+            {
+                "id": "is-instance-prevent",
+                "scriptName": "IsInstancePrevent",
+                "isDeprecated": false,
+                "highlight": false,
+                "isTrigger": false,
+                "isFakeTrigger": false,
+                "isStatic": false,
+                "isLooping": false,
+                "isInvertible": true,
+                "isCompatibleWithTriggers": true
+            },
+            {
+                "id": "on-instance-prevent",
+                "scriptName": "OnInstancePrevent",
+                "isDeprecated": false,
+                "highlight": false,
+                "isTrigger": true,
+                "isFakeTrigger": false,
+                "isStatic": false,
+                "isLooping": false,
+                "isInvertible": false,
+                "isCompatibleWithTriggers": false
+            }
+        ],
+        "expressions": [
+            {
+                "id": "frame-reload-message",
+                "expressionName": "FrameReloadMessage",
+                "isDeprecated": false,
+                "highlight": false,
+                "returnType": "string",
+                "isVariadicParameters": false
+            }
+        ]
+    }
+}

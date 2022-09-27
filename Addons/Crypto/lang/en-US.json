@@ -1,0 +1,1668 @@
+{
+	"languageTag": "en-US",
+	"fileDescription": "String for Crypto plugin",
+	"text": {
+		"plugins": {
+			"robotkaposzta_crypto": {
+				"name": "Crypto",
+				"description": "Plugin that help to encrypt and decrypt data.",
+				"help-url": "https://epicsoft.hu/",
+				"properties": {
+					
+				},
+				"debugger": {
+					"name": "Crypto keys"
+				},
+				"aceCategories": {
+					"encryt-decrypt": "Encrypt/Decrypt",
+					"export-import": "Export/Import",
+					"generate": "Generate",
+					"hash": "Hash",
+					"manage": "Manage",
+					"sign-verify": "Sign/Verify"
+				},
+				"actions": {
+					"encrypt-rsa-oaep": {
+						"list-name": "Encrypt with RSA-OAEP",
+						"display-text": "Encrypt [i]{1}[/i] with [i]{0}[/i] RSA-OAEP key (label: [i]{2}[/i], tag: [i]{3}[/i])",
+						"description": "Encrypt data with RSA-OAEP.",
+						"params": {
+							"public-key-name": {
+								"name": "Public key name",
+								"desc": "Name of the RSA-OAEP public key's name."
+							},
+							"data": {
+								"name": "Data",
+								"desc": "Base64 data to encrypt."
+							},
+							"label": {
+								"name": "Label",
+								"desc": "Optional base64 data that does not itself need to be encrypted but which should be bound to the ciphertext."
+							},
+							"tag": {
+								"name": "Tag",
+								"desc": "Optional tag that can identify the encrypt process."
+							}
+						}
+					},
+					"encrypt-aes-ctr": {
+						"list-name": "Encrypt with AES-CRT",
+						"display-text": "Encrypt [i]{1}[/i] with [i]{0}[/i] AES-CRT key (counter: [i]{2}[/i], length: [i]{3}[/i], tag: [i]{4}[/i])",
+						"description": "Encrypt data with AES-CRT key and algorithm.",
+						"params": {
+							"secret-key-name": {
+								"name": "Secret key name",
+								"desc": "Name of the AES-CRT secret key's name."
+							},
+							"data": {
+								"name": "Data",
+								"desc": "Base64 data to encrypt."
+							},
+							"counter": {
+								"name": "Counter",
+								"desc": "Base64 data the initial value of the counter block. This must be 16 bytes long."
+							},
+							"length": {
+								"name": "Length",
+								"desc": "The number of bits in the counter block that are used for the actual counter."
+							},
+							"tag": {
+								"name": "Tag",
+								"desc": "Optional tag that can identify the encrypt process."
+							}
+						}
+					},
+					"encrypt-aes-cbc": {
+						"list-name": "Encrypt with AES-CBC",
+						"display-text": "Encrypt [i]{1}[/i] with [i]{0}[/i] AES-CBC key (iv: [i]{2}[/i], tag: [i]{3}[/i])",
+						"description": "Encrypt data with AES-CBC key and algorithm.",
+						"params": {
+							"secret-key-name": {
+								"name": "Secret key name",
+								"desc": "Name of the AES-CBC secret key's name."
+							},
+							"data": {
+								"name": "Data",
+								"desc": "Base64 data to encrypt."
+							},
+							"iv": {
+								"name": "IV",
+								"desc": "Base64 data of the initialization vector. Must be 16 bytes, unpredictable, and preferably cryptographically random."
+							},
+							"tag": {
+								"name": "Tag",
+								"desc": "Optional tag that can identify the encrypt process."
+							}
+						}
+					},
+					"encrypt-aes-gcm": {
+						"list-name": "Encrypt with AES-GCM",
+						"display-text": "Encrypt [i]{1}[/i] with [i]{0}[/i] AES-GCM key (iv: [i]{2}[/i], additional data: [i]{3}[/i], AES tag length: [i]{4}[/i], tag: [i]{5}[/i])",
+						"description": "Encrypt data with AES-GCM key and algorithm.",
+						"params": {
+							"secret-key-name": {
+								"name": "Secret key name",
+								"desc": "Name of the AES-GCM secret key's name."
+							},
+							"data": {
+								"name": "Data",
+								"desc": "Base64 data to encrypt."
+							},
+							"iv": {
+								"name": "IV",
+								"desc": "Base64 data of the initialization vector. Must be 12 bytes, unpredictable, and preferably cryptographically random."
+							},
+							"additional-data": {
+								"name": "Additional data",
+								"desc": "Base64 data that contains additional data that will not be encrypted but will be authenticated along with the encrypted data. "
+							},
+							"tag-length": {
+								"name": "AES tag length",
+								"desc": "This determines the size in bits of the authentication tag generated in the encryption operation and used for authentication in the corresponding decryption.",
+								"items": {
+									"128": "128",
+									"120": "120",
+									"112": "112",
+									"104": "104",
+									"96": "96",
+									"64": "64",
+									"32": "32"
+								}
+							},
+							"tag": {
+								"name": "Tag",
+								"desc": "Optional tag that can identify the encrypt process."
+							}
+						}
+					},
+					"decrypt-rsa-oaep": {
+						"list-name": "Decrypt with RSA-OAEP",
+						"display-text": "Decrypt [i]{1}[/i] with [i]{0}[/i] RSA-OAEP key (label: [i]{2}[/i], tag: [i]{3}[/i])",
+						"description": "Decrypt data with RSA-OAEP key and algorithm.",
+						"params": {
+							"private-key-name": {
+								"name": "Private key name",
+								"desc": "Name of the RSA-OAEP public key's name."
+							},
+							"data": {
+								"name": "Data",
+								"desc": "Base64 data to decrypt."
+							},
+							"label": {
+								"name": "Label",
+								"desc": "Base64 data that does not itself need to be encrypted but which should be bound to the ciphertext. NOTE: this must be same as an encrypted label"
+							},
+							"tag": {
+								"name": "Tag",
+								"desc": "Optional tag that can identify the decrypt process."
+							}
+						}
+					},
+					"decrypt-aes-ctr": {
+						"list-name": "Decrypt with AES-CRT",
+						"display-text": "Decrypt [i]{1}[/i] with [i]{0}[/i] AES-CRT key (counter: [i]{2}[/i], length: [i]{3}[/i], tag: [i]{4}[/i])",
+						"description": "Decrypt data with AES-CRT key and algorithm.",
+						"params": {
+							"secret-key-name": {
+								"name": "Secret key name",
+								"desc": "Name of the AES-CRT secret key's name."
+							},
+							"data": {
+								"name": "Data",
+								"desc": "Base64 data to decrypt."
+							},
+							"counter": {
+								"name": "Counter",
+								"desc": "Base64 data the initial value of the counter block. NOTE: this must same as encrpt method."
+							},
+							"length": {
+								"name": "Length",
+								"desc": "The number of bits in the counter block that are used for the actual counter."
+							},
+							"tag": {
+								"name": "Tag",
+								"desc": "Optional tag that can identify the decrypt process."
+							}
+						}
+					},
+					"decrypt-aes-cbc": {
+						"list-name": "Decrypt with AES-CBC",
+						"display-text": "Decrypt [i]{1}[/i] with [i]{0}[/i] AES-CBC key (iv: [i]{2}[/i], tag: [i]{3}[/i])",
+						"description": "Decrypt data with AES-CBC key and algorithm.",
+						"params": {
+							"secret-key-name": {
+								"name": "Secret key name",
+								"desc": "Name of the AES-CBC secret key's name."
+							},
+							"data": {
+								"name": "Data",
+								"desc": "Base64 data to decrypt."
+							},
+							"iv": {
+								"name": "IV",
+								"desc": "Base64 data of the initialization vector. NOTE: must be same as used in encrypt."
+							},
+							"tag": {
+								"name": "Tag",
+								"desc": "Optional tag that can identify the decrypt process."
+							}
+						}
+					},
+					"decrypt-aes-gcm": {
+						"list-name": "Decrypt with AES-GCM",
+						"display-text": "Decrypt [i]{1}[/i] with [i]{0}[/i] AES-GCM key (iv: [i]{2}[/i], additional data: [i]{3}[/i], AES tag length: [i]{4}[/i], tag: [i]{5}[/i])",
+						"description": "Decrypt data with AES-GCM key and algorithm.",
+						"params": {
+							"secret-key-name": {
+								"name": "Secret key name",
+								"desc": "Name of the AES-GCM secret key's name."
+							},
+							"data": {
+								"name": "Data",
+								"desc": "Base64 data to decrypt."
+							},
+							"iv": {
+								"name": "IV",
+								"desc": "Base64 data of the initialization vector. Must be 12 bytes, unpredictable, and preferably cryptographically random. NOTE: It must be a same data as in encrypt action."
+							},
+							"additional-data": {
+								"name": "Additional data",
+								"desc": "Base64 data that contains additional data that will not be encrypted. NOTE: It must be a same data as in encrypt action."
+							},
+							"tag-length": {
+								"name": "AES tag length",
+								"desc": "This determines the size in bits of the authentication tag generated in the encryption operation and used for authentication in the corresponding decryption. NOTE: It must be a same data as in encrypt action.",
+								"items": {
+									"128": "128",
+									"120": "120",
+									"112": "112",
+									"104": "104",
+									"96": "96",
+									"64": "64",
+									"32": "32"
+								}
+							},
+							"tag": {
+								"name": "Tag",
+								"desc": "Optional tag that can identify the decrypt process."
+							}
+						}
+					},
+
+					"export-key": {
+						"list-name": "Export key",
+						"display-text": "Export [b]{0}[/b] key (secret format: [i]{1}[/i], public format: [i]{2}[/i], private format: [i]{3}[/i])",
+						"description": "Export a specified key to a storable format. NOTE: cannot export HKDF and PBKDF2",
+						"params": {
+							"key-name": {
+								"name": "Key name",
+								"desc": "Key name to export."
+							},
+							"secret-format": {
+								"name": "Secret format",
+								"desc": "Which format export the secret key. NOTE: It will ignore it is not exists.",
+								"items":{
+									"raw": "raw",
+									"jwk": "JWK"
+								}
+							},
+							"public-format": {
+								"name": "Public format",
+								"desc": "Which format export the public key. NOTE: It will ignore it is not exists. RSA public key ignore raw format, it will use SPKI - PEM instead.",
+								"items":{
+									"raw": "raw",
+									"spki-bin": "SPKI - Binary",
+									"spki-pem": "SPKI - PEM",
+									"jwk": "JWK"
+								}
+							},
+							"private-format": {
+								"name": "Private format",
+								"desc": "Which format export the public key. NOTE: It will ignore it is not exists.",
+								"items":{
+									"pkcs8-bin": "PKCS8 - Binary",
+									"pkcs8-pem": "PKCS8 - PEM",
+									"jwk": "JWK"
+								}
+							}
+						}
+					},
+					"import-rsa": {
+						"list-name": "Import RSA",
+						"display-text": "Import [b]{0}[/b] {1} keypair (public export: [i]{2}[/i], public format: [i]{3}[/i], public data: [i]{4}[/i], public export: [i]{5}[/i], private format: [i]{6}[/i], private data: [i]{7}[/i], RSA hash: [i]{8}[/i])",
+						"description": "Import RSA keypair to the memory. RSASSA-PKCS1-v1_5 and RSA-PSS public key use in [b]verify[/b], RSA-OAEP use for [b]encrypt[/b].",
+						"params": {
+							"key-name": {
+								"name": "Key name",
+								"desc": "Key name to export."
+							},
+							"rsa-type": {
+								"name": "RSA type",
+								"desc": "Choose name which type RSA key export. [b]RSASSA-PKCS1-v1_5[/b] and [b]RSA-PSS[/b] public key use in [b]verify[/b], RSA-OAEP use for [b]encrypt[/b].",
+								"items": {
+									"rsaassa-pkcs1-v1_5": "RSASSA-PKCS1-v1_5",
+									"rsa-pss": "RSA-PSS",
+									"rsa-oaep": "RSA-OAEP"
+								}
+							},
+							"allow-public-export": {
+								"name": "Public key export",
+								"desc": "Check the box if allow the exportation of the public key."
+							},
+							"public-format": {
+								"name": "Public format",
+								"desc": "Which format use for the public key import.",
+								"items":{
+									"spki-bin": "SPKI - Binary",
+									"spki-pem": "SPKI - PEM",
+									"jwk": "JWK"
+								}
+							},
+							"public-data": {
+								"name": "Public key data",
+								"desc": "The public key's data."
+							},
+							"allow-private-export": {
+								"name": "Private key export",
+								"desc": "Check the box if allow the exportation of private the key."
+							},
+							"private-format": {
+								"name": "Private format",
+								"desc": "Which format use for the private key import.",
+								"items":{
+									"pkcs8-bin": "PKCS8 - Binary",
+									"pkcs8-pem": "PKCS8 - PEM",
+									"jwk": "JWK"
+								}
+							},
+							"private-data": {
+								"name": "Private key data",
+								"desc": "The private key's data."
+							},
+							"hash": {
+								"name": "Hash",
+								"desc": "Choose which hash algorithm use.",
+								"items": {
+									"sha-256": "SHA-256",
+									"sha-384": "SHA-384",
+									"sha-512": "SHA-512"
+								}
+							}
+						}
+					},
+					"import-ec": {
+						"list-name": "Import EC",
+						"display-text": "Import [b]{0}[/b] {1} keypair (public export: [i]{2}[/i], public format: [i]{3}[/i], public data: [i]{4}[/i], private export: [i]{5}[/i], public format: [i]{6}[/i], public data: [i]{7}[/i], named curve: [i]{8}[/i])",
+						"description": "Import an EC keypair to the memory. ECDSA for [b]sign/verify[/b], ECDH for [b]generate[/b] other keys.",
+						"params": {
+							"key-name": {
+								"name": "Key name",
+								"desc": "Key name to export."
+							},
+							"ec-type": {
+								"name": "EC type",
+								"desc": "Select the type of the EC to generate. [b]ECDSA[/b] for [b]sign/verify[/b], [b]ECDH[/b] for [b]generate[/b] other keys",
+								"items": {
+									"ecdsa": "ECDSA",
+									"ecdh": "ECDH"
+								}
+							},
+							"allow-public-export": {
+								"name": "Public key export",
+								"desc": "Check the box if allow the exportation of the public key."
+							},
+							"public-format": {
+								"name": "Public format",
+								"desc": "Which format use for the public key import. This for [b]verify[/b].",
+								"items":{
+									"raw": "raw",
+									"spki-bin": "SPKI - Binary",
+									"spki-pem": "SPKI - PEM",
+									"jwk": "JWK"
+								}
+							},
+							"public-data": {
+								"name": "Public key data",
+								"desc": "The public key's data."
+							},
+							"allow-private-export": {
+								"name": "Private key export",
+								"desc": "Check the box if allow the exportation of private the key."
+							},
+							"private-format": {
+								"name": "Private format",
+								"desc": "Which format use for the private key import. This for [b]sign[/b].",
+								"items":{
+									"pkcs8-bin": "PKCS8 - Binary",
+									"pkcs8-pem": "PKCS8 - PEM",
+									"jwk": "JWK"
+								}
+							},
+							"private-data": {
+								"name": "Private key data",
+								"desc": "The private key's data."
+							},
+							"named-curve": {
+								"name": "Named curve",
+								"desc": "Select the name of the elliptic curve to use.",
+								"items": {
+									"p-256": "P-256",
+									"p-384": "P-384",
+									"p-521": "P-521"
+								}
+							}
+						}
+					},
+					"import-hmac": {
+						"list-name": "Import HMAC",
+						"display-text": "Import [b]{0}[/b] HMAC key (export: [i]{1}[/i], secret format: [i]{2}[/i], secret data: [i]{3}[/i], hash: [i]{4}[/i], length: [i]{5}[/i])",
+						"description": "Import a HMAC key to the memory. You can use for [b]sign/verify[/b].",
+						"params": {
+							"key-name": {
+								"name": "Key name",
+								"desc": "Key name to export."
+							},
+							"allow-export": {
+								"name": "Allow export",
+								"desc": "Check the box if allow the exportation of the key."
+							},
+							"secret-format": {
+								"name": "Secret key format",
+								"desc": "Which format use for the secret key import.",
+								"items":{
+									"raw": "raw",
+									"jwk": "JWK"
+								}
+							},
+							"secret-data": {
+								"name": "Secret key data",
+								"desc": "The secret key's data."
+							},
+							"hash": {
+								"name": "Hash",
+								"desc": "Select the hash algorithm to use.",
+								"items": {
+									"sha-1": "SHA-1",
+									"sha-256": "SHA-256",
+									"sha-384": "SHA-384",
+									"sha-512": "SHA-512"
+								}
+							},
+							"length": {
+								"name": "Length",
+								"desc": "The length in bits of the key. [b]Caution:[/b] Leave default data unless you have good reason to change it."
+							}
+						}
+					},
+					"import-aes": {
+						"list-name": "Import AES",
+						"display-text": "Import [b]{0}[/b] {2} key (export: [i]{1}[/i], secret format: [i]{3}[/i], secret data: [i]{4}[/i])",
+						"description": "Import an AES key to the memory. AES keys use to [b]encrypt/decrypt[/b].",
+						"params": {
+							"key-name": {
+								"name": "Key name",
+								"desc": "Key name to export."
+							},
+							"allow-export": {
+								"name": "Allow export",
+								"desc": "Check the box if allow the exportation of the key."
+							},
+							"aes-type": {
+								"name": "AES type",
+								"desc": "Choose the AES type. AES keys use to to [b]encrypt/decrypt[/b].",
+								"items": {
+									"aes-ctr": "AES-CTR",
+									"aes-cbc": "AES-CBC",
+									"aes-gcm": "AES-GCM"
+								}
+							},
+							"secret-format": {
+								"name": "Secret key format",
+								"desc": "Which format use for the secret key import.",
+								"items":{
+									"raw": "raw",
+									"jwk": "JWK"
+								}
+							},
+							"secret-data": {
+								"name": "Secret key data",
+								"desc": "The secret key's data."
+							}
+						}
+					},
+					"import-hkdf": {
+						"list-name": "Import HKDF",
+						"display-text": "Import [b]{0}[/b] HKDF key (secret data: [i]{1}[/i])",
+						"description": "Import HKDF key to the memory. NOTE: cannot export/generate HKDF key.",
+						"params": {
+							"key-name": {
+								"name": "Key name",
+								"desc": "Key name to export."
+							},
+							"secret-data": {
+								"name": "Key data",
+								"desc": "The secret key's data."
+							}
+						}
+					},
+					"import-pbkdf2": {
+						"list-name": "Import PBKDF2",
+						"display-text": "Import [b]{0}[/b] PBKDF2 key (secret data: [i]{1}[/i])",
+						"description": "Import PBKDF2 key to the memory. This very useful to generate key from low secure text like password. NOTE: cannot export/generate PBKDF2 key.",
+						"params": {
+							"key-name": {
+								"name": "Key name",
+								"desc": "Key name to export."
+							},
+							"secret-data": {
+								"name": "Key data",
+								"desc": "The secret key's data."
+							}
+						}
+					},
+
+					"generate-rsa": {
+						"list-name": "Generate RSA",
+						"display-text": "Generate [b]{0}[/b] {2} keypair (export: [i]{1}[/i], RSA hash: [i]{3}[/i], RSA modulus: [i]{4}[/i], RSA exponent: [i]{5}[/i])",
+						"description": "Generate a new RSA keypair to the memory. RSASSA-PKCS1-v1_5 and RSA-PSS use in [b]sign/verify[/b], RSA-OAEP use for [b]encrypt/decrypt[/b]",
+						"params": {
+							"key-name": {
+								"name": "Key name",
+								"desc": "Choose name for the generated key. Later you can use in other actions."
+							},
+							"allow-export": {
+								"name": "Allow export",
+								"desc": "Check the box if allow the exportation of the key pair."
+							},
+							"rsa-type": {
+								"name": "RSA type",
+								"desc": "Choose name which type RSA key generate. [b]RSASSA-PKCS1-v1_5[/b] and [b]RSA-PSS[/b] use in [b]sign/verify[/b], [b]RSA-OAEP[/b] use for [b]encrypt/decrypt[/b]",
+								"items": {
+									"rsaassa-pkcs1-v1_5": "RSASSA-PKCS1-v1_5",
+									"rsa-pss": "RSA-PSS",
+									"rsa-oaep": "RSA-OAEP"
+								}
+							},
+							"hash": {
+								"name": "Hash",
+								"desc": "Choose which hash algorithm use.",
+								"items": {
+									"sha-256": "SHA-256",
+									"sha-384": "SHA-384",
+									"sha-512": "SHA-512"
+								}
+							},
+							"modulus-length": {
+								"name": "Modulus length",
+								"desc": "The length in bits of the RSA modulus. [b]Caution:[/b] Leave default data unless you have good reason to change it."
+							},
+							"public-exponent": {
+								"name": "Public exponent",
+								"desc": "The public exponent. [b]Caution:[/b] Leave default data unless you have good reason to change it."
+							}
+						}
+					},
+					"generate-ec": {
+						"list-name": "Generate EC",
+						"display-text": "Generate [b]{0}[/b] {2} key with (export: [i]{1}[/i], named curve: [i]{3}[/i])",
+						"description": "Generate a new EC keypair to the memory. ECDSA for [b]sign/verify[/b], ECDH for [b]generate[/b] other keys.",
+						"params": {
+							"key-name": {
+								"name": "Key name",
+								"desc": "Choose name for the key. Later you can use in other actions."
+							},
+							"allow-export": {
+								"name": "Allow export",
+								"desc": "Check the box if allow the exportation of the key pair."
+							},
+							"ec-type": {
+								"name": "EC type",
+								"desc": "Select the type of the EC to generate. [b]ECDSA[/b] for [b]sign/verify[/b], [b]ECDH[/b] for [b]generate[/b] other keys",
+								"items": {
+									"ecdsa": "ECDSA",
+									"ecdh": "ECDH"
+								}
+							},
+							"named-curve": {
+								"name": "Named curve",
+								"desc": "Select the name of the elliptic curve to use.",
+								"items": {
+									"p-256": "P-256",
+									"p-384": "P-384",
+									"p-521": "P-521"
+								}
+							}
+						}
+					},
+					"generate-hmac": {
+						"list-name": "Generate HMAC",
+						"display-text": "Generate [b]{0}[/b] HMAC key (exportable: [i]{1}[/i], hash: [i]{2}[/i], length: [i]{3}[/i])",
+						"description": "Generate a new HMAC key to the memory. You can use for [b]sign/verify[/b].",
+						"params": {
+							"key-name": {
+								"name": "Key name",
+								"desc": "Choose name for the key. Later you can use in other actions."
+							},
+							"allow-export": {
+								"name": "Allow export",
+								"desc": "Check the box if allow the exportation of the key."
+							},
+							"hash": {
+								"name": "Hash",
+								"desc": "Select the name of the elliptic curve to use.",
+								"items": {
+									"sha-1": "SHA-1",
+									"sha-256": "SHA-256",
+									"sha-384": "SHA-384",
+									"sha-512": "SHA-512"
+								}
+							},
+							"length": {
+								"name": "Length",
+								"desc": "The length in bits of the key. [b]Caution:[/b] Leave default data unless you have good reason to change it."
+							}
+						}
+					},
+					"generate-aes": {
+						"list-name": "Generate AES",
+						"display-text": "Generate [b]{0}[/b] {2} key (export: [i]{1}[/i], key length:[i]{3}[/i])",
+						"description": "Generate a new AES key to the memory. AES keys use to [b]encrypt/decrypt[/b].",
+						"params": {
+							"key-name": {
+								"name": "Key name",
+								"desc": "Choose name for the key. Later you can use in other actions."
+							},
+							"allow-export": {
+								"name": "Allow export",
+								"desc": "Check the box if allow the exportation of the key."
+							},
+							"aes-type": {
+								"name": "AES type",
+								"desc": "Choose the AES type. AES keys use to to [b]encrypt/decrypt[/b].",
+								"items": {
+									"aes-ctr": "AES-CTR",
+									"aes-cbc": "AES-CBC",
+									"aes-gcm": "AES-GCM"
+								}
+							},
+							"aes-length": {
+								"name": "Length",
+								"desc": "The length in bits of the key to generate.",
+								"items": {
+									"128": "128",
+									"192": "192",
+									"256": "256"
+								}
+							}
+						}
+					},
+					"derive-key-hmac-ecdh": {
+						"list-name": "Generate HMAC from ECDH",
+						"display-text": "Generate [b]{0}[/b] HMAC from ECDH (export: [i]{1}[/i],  HMAC hash:[i]{2}[/i], HMAC length: [i]{3}[/i], ECDH public key: [i]{4}[/i] ECDH private key: [i]{5}[/i])",
+						"description": "Generate HMAC key from ECDH keypair to the memory.",
+						"params": {
+							"key-name": {
+								"name": "New key name",
+								"desc": "The name of the new key that later identify it."
+							},
+							"allow-export": {
+								"name": "Allow export",
+								"desc": "Check if you allow the key's export."
+							},
+							"hmac-hash": {
+								"name": "HMAC hash",
+								"desc": "Choose which type use the HMAC",
+								"items": {
+									"sha-1": "SHA-1",
+									"sha-256": "SHA-256",
+									"sha-384": "SHA-384",
+									"sha-512": "SHA-512"
+								}
+							},
+							"hmac-length": {
+								"name": "HMAC length",
+								"desc": "Length of the HMAC"
+							},
+							"ecdh-public-key-name": {
+								"name": "ECDH public key name",
+								"desc": "Type the ECDH public key name"
+							},
+							"ecdh-private-key-name": {
+								"name": "ECDH private key name",
+								"desc": "Type the ECDH private key name"
+							}
+						}
+					},
+					"derive-key-hmac-hkdf": {
+						"list-name": "Generate HMAC from HKDF",
+						"display-text": "Generate [b]{0}[/b] HMAC from [i]{4}[/i] HKDF (export: [i]{1}[/i], HMAC hash:[i]{2}[/i], HMAC length: [i]{3}[/i], HKDF hash: [i]{5}[/i], HKDF salt: [i]{6}[/i], HKDF info: [i]{7}[/i])",
+						"description": "Generate a new HMAC key from HKDF key to the memory.",
+						"params": {
+							"key-name": {
+								"name": "New key name",
+								"desc": "The name of the new key that later identify it."
+							},
+							"allow-export": {
+								"name": "Allow export",
+								"desc": "Check if you allow the key's export."
+							},
+							"hmac-hash": {
+								"name": "HMAC hash",
+								"desc": "Choose which type use the HMAC key.",
+								"items": {
+									"sha-1": "SHA-1",
+									"sha-256": "SHA-256",
+									"sha-384": "SHA-384",
+									"sha-512": "SHA-512"
+								}
+							},
+							"hmac-length": {
+								"name": "HMAC length",
+								"desc": "Length of the new HMAC key."
+							},
+							"hkdf-key-name": {
+								"name": "HKDF key name",
+								"desc": "The HKDF key's name."
+							},
+							"hkdf-hash": {
+								"name": "HKDF hash",
+								"desc": "Type the HKDF public key name.",
+								"items": {
+									"sha-1": "SHA-1",
+									"sha-256": "SHA-256",
+									"sha-384": "SHA-384",
+									"sha-512": "SHA-512"
+								}
+							},
+							"hkdf-salt": {
+								"name": "HKDF salt",
+								"desc": "Optional, the HKDF salt value."
+							},
+							"hkdf-info": {
+								"name": "HKDF info",
+								"desc": "Optional, the HKDF info value."
+							}
+						}
+					},
+					"derive-key-hmac-pbkdf2": {
+						"list-name": "Generate HMAC from PBKDF2",
+						"display-text": "Generate [b]{0}[/b] HMAC from [i]{4}[/i] PBKDF2 (export: [i]{1}[/i], MAC hash:[i]{2}[/i], HMAC length: [i]{3}[/i], PBKDF2 hash:[i]{5}[/i], PBKDF2 salt: [i]{6}[/i], PBKDF2 iterations: [i]{7}[/i])",
+						"description": "Generate HMAC key from PBKDF2 key to the memory. NOTE: It's designed to derive key material from some relatively low-entropy input, such as a password.",
+						"params": {
+							"key-name": {
+								"name": "New key name",
+								"desc": "The name of the new key that later identify it."
+							},
+							"allow-export": {
+								"name": "Allow export",
+								"desc": "Check if you allow the key's export."
+							},
+							"hmac-hash": {
+								"name": "HMAC hash",
+								"desc": "Choose which type use the HMAC",
+								"items": {
+									"sha-1": "SHA-1",
+									"sha-256": "SHA-256",
+									"sha-384": "SHA-384",
+									"sha-512": "SHA-512"
+								}
+							},
+							"hmac-length": {
+								"name": "HMAC length",
+								"desc": "Length of the HMAC"
+							},
+							"pbkdf2-key-name": {
+								"name": "pbkdf2 key name",
+								"desc": "Type the PBKDF2 key name"
+							},
+							"pbkdf2-hash": {
+								"name": "PBKDF2 hash",
+								"desc": "Type the PBKDF2 public key name",
+								"items": {
+									"sha-1": "SHA-1",
+									"sha-256": "SHA-256",
+									"sha-384": "SHA-384",
+									"sha-512": "SHA-512"
+								}
+							},
+							"pbkdf2-salt": {
+								"name": "PBKDF2 salt",
+								"desc": "PBKDF2 salt value. This should be a random or pseudo-random value of at least 16 bytes. Salt does not need to be kept secret but it [b]might needed[/b] in other actions."
+							},
+							"pbkdf2-iterations": {
+								"name": "PBKDF2 iteration",
+								"desc": "A number representing the number of times the hash function will be executed."
+							}
+						}
+					},
+					"derive-key-aes-ecdh": {
+						"list-name": "Generate AES from ECDH",
+						"display-text": "Generate [b]{0}[/b] {2} from ECDH (export: [i]{1}[/i], key length:[i]{3}[/i], ECDH public key: [i]{4}[/i], ECDH private key: [i]{5}[/i])",
+						"description": "Generate a new AES key from ECDH keypair to the memory. AES keys use to [b]encrypt/decrypt[/b].",
+						"params": {
+							"key-name": {
+								"name": "New key name",
+								"desc": "The name of the new key that later identify it."
+							},
+							"allow-export": {
+								"name": "Allow export",
+								"desc": "Check the box if allow the exportation of the key."
+							},
+							"aes-type": {
+								"name": "AES type",
+								"desc": "Choose which AES type to use.",
+								"items": {
+									"aes-ctr": "AES-CTR",
+									"aes-cbc": "AES-CBC",
+									"aes-gcm": "AES-GCM"
+								}
+							},
+							"aes-length": {
+								"name": "AES length",
+								"desc": "The length in AES bits of the key to generate.",
+								"items": {
+									"128": "128",
+									"192": "192",
+									"256": "256"
+								}
+							},
+							"ecdh-public-key-name": {
+								"name": "ECDH public key name",
+								"desc": "Type the ECDH public key name"
+							},
+							"ecdh-private-key-name": {
+								"name": "ECDH private key name",
+								"desc": "Type the ECDH private key name"
+							}
+						}
+					},
+					"derive-key-aes-hkdf": {
+						"list-name": "Generate AES from HKDF",
+						"display-text": "Generate [b]{0}[/b] {2} from [i]{4}[/i] HKDF (export: [i]{1}[/i], key length:[i]{3}[/i], HKDF hash: [i]{5}[/i], HKDF salt: [i]{6}[/i], HKDF info: [i]{7}[/i])",
+						"description": "Generate a new AES key from HKDF key to the memory. AES keys use to [b]encrypt/decrypt[/b].",
+						"params": {
+							"key-name": {
+								"name": "New key name",
+								"desc": "The name of the new key that later identify it."
+							},
+							"allow-export": {
+								"name": "Allow export",
+								"desc": "Check the box if allow the exportation of the key."
+							},
+							"aes-type": {
+								"name": "AES type",
+								"desc": "Choose which AES type to use. AES keys use to [b]encrypt/decrypt[/b].",
+								"items": {
+									"aes-ctr": "AES-CTR",
+									"aes-cbc": "AES-CBC",
+									"aes-gcm": "AES-GCM"
+								}
+							},
+							"aes-length": {
+								"name": "AES length",
+								"desc": "The length in AES bits of the key to generate.",
+								"items": {
+									"128": "128",
+									"192": "192",
+									"256": "256"
+								}
+							},
+							"hkdf-key-name": {
+								"name": "HKDF key name",
+								"desc": "The HKDF key name."
+							},
+							"hkdf-hash": {
+								"name": "HKDF hash",
+								"desc": "Type the HKDF public key name",
+								"items": {
+									"sha-1": "SHA-1",
+									"sha-256": "SHA-256",
+									"sha-384": "SHA-384",
+									"sha-512": "SHA-512"
+								}
+							},
+							"hkdf-salt": {
+								"name": "HKDF salt",
+								"desc": "Optional, the HKDF salt value."
+							},
+							"hkdf-info": {
+								"name": "HKDF info",
+								"desc": "Optional, the HKDF info value."
+							}
+						}
+					},
+					"derive-key-aes-pbkdf2": {
+						"list-name": "Generate AES from PBKDF2",
+						"display-text": "Generate [b]{0}[/b] {2} from [i]{4}[/i] PBKDF2 (export: [i]{1}[/i], key length:[i]{3}[/i], PBKDF2 hash:[i]{5}[/i], PBKDF2 salt: [i]{6}[/i], PBKDF2 iterations: [i]{7}[/i])",
+						"description": "Generate a new AES key from PBKDF2 key to the memory. AES keys use to [b]encrypt/decrypt[/b].",
+						"params": {
+							"key-name": {
+								"name": "New key name",
+								"desc": "The name of the new key that later identify it."
+							},
+							"allow-export": {
+								"name": "Allow export",
+								"desc": "Check the box if allow the exportation of the key."
+							},
+							"aes-type": {
+								"name": "AES type",
+								"desc": "Choose which AES type to use.",
+								"items": {
+									"aes-ctr": "AES-CTR",
+									"aes-cbc": "AES-CBC",
+									"aes-gcm": "AES-GCM"
+								}
+							},
+							"aes-length": {
+								"name": "AES length",
+								"desc": "The length in AES bits of the key to generate.",
+								"items": {
+									"128": "128",
+									"192": "192",
+									"256": "256"
+								}
+							},
+							"pbkdf2-key-name": {
+								"name": "HKDF key name",
+								"desc": "Type the PBKDF2 private key name."
+							},
+							"pbkdf2-hash": {
+								"name": "PBKDF2 hash",
+								"desc": "Type the PBKDF2 public key name.",
+								"items": {
+									"sha-1": "SHA-1",
+									"sha-256": "SHA-256",
+									"sha-384": "SHA-384",
+									"sha-512": "SHA-512"
+								}
+							},
+							"pbkdf2-salt": {
+								"name": "PBKDF2 salt",
+								"desc": "PBKDF2 salt value. This should be a random or pseudo-random value of at least 16 bytes. Salt does not need to be kept secret but it [b]might needed[/b] in other actions."
+							},
+							"pbkdf2-iterations": {
+								"name": "PBKDF2 iteration",
+								"desc": "A number representing the number of times the hash function will be executed."
+							}
+						}
+					},
+					"derive-bits-ecdh": {
+						"list-name": "Generate data from ECDH",
+						"display-text": "Generate [i]{1}[/i] bytes from ECDH keypair (tag: [i]{0}[/i], ECHD public key: [i]{2}[/i], ECHD private key: [i]{3}[/i])",
+						"description": "Generate amount of bytes from ECDH keypair.",
+						"params": {
+							"tag": {
+								"name": "Tag",
+								"desc": "Tag of the generation process."
+							},
+							"length": {
+								"name": "Length",
+								"desc": "Length of the generated bytes."
+							},
+							"ecdh-public-key-name": {
+								"name": "ECDH public key name",
+								"desc": "Type the ECDH public key name."
+							},
+							"ecdh-private-key-name": {
+								"name": "ECDH private key name",
+								"desc": "Type the ECDH private key name."
+							}
+						}
+					},
+					"derive-bits-hkdf": {
+						"list-name": "Generate data from HKDF",
+						"display-text": "Generate [i]{1}[/i] bytes from [i]{2}[/i] HKDF key (tag: [i]{0}[/i], HKDF hash: [i]{3}[/i], HKDF salt: [i]{4}[/i], HKDF info: [i]{5}[/i])",
+						"description": "Generate amount of bytes from HKDF key.",
+						"params": {
+							"tag": {
+								"name": "Tag",
+								"desc": "Tag of the generation process."
+							},
+							"length": {
+								"name": "Length",
+								"desc": "Length of the generated bytes."
+							},
+							"hkdf-key-name": {
+								"name": "HKDF key name",
+								"desc": "The HKDF key name."
+							},
+							"hkdf-hash": {
+								"name": "HKDF hash",
+								"desc": "Type the HKDF public key name",
+								"items": {
+									"sha-1": "SHA-1",
+									"sha-256": "SHA-256",
+									"sha-384": "SHA-384",
+									"sha-512": "SHA-512"
+								}
+							},
+							"hkdf-salt": {
+								"name": "HKDF salt",
+								"desc": "Optional, the HKDF salt value."
+							},
+							"hkdf-info": {
+								"name": "HKDF info",
+								"desc": "Optional, the HKDF info value."
+							}
+						}
+					},
+					"derive-bits-pbkdf2": {
+						"list-name": "Generate data from PBKDF2",
+						"display-text": "Generate [i]{1}[/i] bytes from [i]{2}[/i] PBKDF2 key (tag: [i]{0}[/i], PBKDF2 hash: [i]{3}[/i], PBKDF2 salt: [i]{4}[/i], PBKDF2 iterations: [i]{5}[/i])",
+						"description": "Generate amount of bytes from PBKDF2 key.",
+						"params": {
+							"tag": {
+								"name": "Tag",
+								"desc": "Tag of the generation process."
+							},
+							"length": {
+								"name": "Length",
+								"desc": "Length of the generated bytes."
+							},
+							"pbkdf2-key-name": {
+								"name": "PBKDF2 key name",
+								"desc": "Type the PBKDF2 private key name"
+							},
+							"pbkdf2-hash": {
+								"name": "PBKDF2 hash",
+								"desc": "Type the PBKDF2 public key name",
+								"items": {
+									"sha-1": "SHA-1",
+									"sha-256": "SHA-256",
+									"sha-384": "SHA-384",
+									"sha-512": "SHA-512"
+								}
+							},
+							"pbkdf2-salt": {
+								"name": "PBKDF2 salt",
+								"desc": "Type the PBKDF2 salt."
+							},
+							"pbkdf2-iterations": {
+								"name": "PBKDF2 iteration",
+								"desc": "A number representing the number of times the hash function will be executed."
+							}
+						}
+					},
+
+					"hash-text": {
+						"list-name": "Hash text",
+						"display-text": "Hash [i]{0}[/i] text (algorithm: [i]{1}[/i], tag: [i]{2}[/i]))",
+						"description": "Hash a text data.",
+						"params": {
+							"text": {
+								"name": "Text",
+								"desc": "The text to hash."
+							},
+							"algorithm": {
+								"name": "Algorithm",
+								"desc": "Choose the hash algorithym type. Note: MD5 and SHA-1 just a legacy option, not use for crypting.",
+								"items": {
+									"md5": "MD5",
+									"sha-1": "SHA-1",
+									"sha-256": "SHA-256",
+									"sha-384": "SHA-384",
+									"sha-512": "SHA-512"
+								}
+							},
+							"tag": {
+								"name": "Tag",
+								"desc": "The process name to indentify it."
+							}
+						}
+					},
+					"hash-binary": {
+						"list-name": "Hash binary",
+						"display-text": "Hash [i]{0}[/i] binary (algorithm: [i]{1}[/i], tag: [i]{2}[/i]))",
+						"description": "Hash a binary data object.",
+						"params": {
+							"binary": {
+								"name": "Binary",
+								"desc": "The binary object to hash."
+							},
+							"algorithm": {
+								"name": "Algorithm",
+								"desc": "Choose the hash algorithym type. Note: MD5 and SHA-1 just a legacy option, not use for crypting.",
+								"items": {
+									"md-5": "MD-5",
+									"sha-1": "SHA-1",
+									"sha-256": "SHA-256",
+									"sha-384": "SHA-384",
+									"sha-512": "SHA-512"
+								}
+							},
+							"tag": {
+								"name": "Tag",
+								"desc": "The process name to indentify it."
+							}
+						}
+					},
+					"hash-file": {
+						"list-name": "Hash file",
+						"display-text": "Hash [i]{0}[/i] file (algorithm: [i]{1}[/i], tag: [i]{2}[/i]))",
+						"description": "Hash a file data.",
+						"params": {
+							"file": {
+								"name": "Filename or URL",
+								"desc": "The file to hash."
+							},
+							"algorithm": {
+								"name": "Algorithm",
+								"desc": "Choose the hash algorithym type. Note: MD5 and SHA-1 just a legacy option, not use for crypting.",
+								"items": {
+									"md-5": "MD-5",
+									"sha-1": "SHA-1",
+									"sha-256": "SHA-256",
+									"sha-384": "SHA-384",
+									"sha-512": "SHA-512"
+								}
+							},
+							"tag": {
+								"name": "Tag",
+								"desc": "The process name to indentify it."
+							}
+						}
+					},
+
+					"rename-key": {
+						"list-name": "Rename key",
+						"display-text": "Rename [b]{0}[/b] key to [b]{1}[/b]",
+						"description": "Rename a specified key in the memory.",
+						"params": {
+							"old-name": {
+								"name": "Old name",
+								"desc": "Which key want to rename."
+							},
+							"new-name": {
+								"name": "New name",
+								"desc": "Add the new name of the key."
+							}
+						}
+					},
+					"delete-key": {
+						"list-name": "Delete key",
+						"display-text": "Delete [b]{0}[/b] key",
+						"description": "Delete a specified key from the memory.",
+						"params": {
+							"key-name": {
+								"name": "Key name",
+								"desc": "Which key want to delete."
+							}
+						}
+					},
+					"clear-keys": {
+						"list-name": "Clear keys",
+						"display-text": "Clear keys",
+						"description": "Clear all keys from the memory."
+					},
+
+					"sign-rsassa-pkcs1-v1_5": {
+						"list-name": "Sign with RSASSA-PKCS1-V1_5",
+						"display-text": "Sign [i]{1}[/i] with [b]{0}[/b] RSASSA-PKCS1-V1_5 key (tag: [i]{2}[/i])",
+						"description": "Sign data with RSASSA-PKCS1-V1_5 key and algorithm.",
+						"params": {
+							"private-key-name": {
+								"name": "Private key name",
+								"desc": "Name of the RSASSA-PKCS1-V1_5 private key's name."
+							},
+							"data": {
+								"name": "Data",
+								"desc": "Data to sign."
+							},
+							"tag": {
+								"name": "Tag",
+								"desc": "Optional tag that can identify the encrypt process."
+							}
+						}
+					},
+					"sign-rsa-pss": {
+						"list-name": "Sign with RSA-PSS",
+						"display-text": "Sign [i]{1}[/i] with [b]{0}[/b] RSA-PSS key (RSA-PSS salt: [i]{2}[/i], tag: [i]{3}[/i])",
+						"description": "Sign data with RSA-PSS key and algorithm.",
+						"params": {
+							"private-key-name": {
+								"name": "Private key name",
+								"desc": "Name of the RSA-PSS private key's name."
+							},
+							"data": {
+								"name": "Data",
+								"desc": "Data to sign."
+							},
+							"salt-length": {
+								"name": "Salt length",
+								"desc": "Salt length to use in RSA-PSS."
+							},
+							"tag": {
+								"name": "Tag",
+								"desc": "Optional tag that can identify the encrypt process."
+							}
+						}
+					},
+					"sign-ecdsa": {
+						"list-name": "Sign with ECDSA",
+						"display-text": "Sign [i]{1}[/i] with [b]{0}[/b] ECDSA key (hash: [i]{2}[/i], tag: [i]{3}[/i])",
+						"description": "Sign data with ECDSA key and algorithm.",
+						"params": {
+							"private-key-name": {
+								"name": "Private key name",
+								"desc": "Name of the ECDSA private key's name."
+							},
+							"data": {
+								"name": "Data",
+								"desc": "Data to sign."
+							},
+							"hash": {
+								"name": "Hash",
+								"desc": "The hash algorithm to use.",
+								"items": {
+									"sha-256": "SHA-256",
+									"sha-384": "SHA-384",
+									"sha-512": "SHA-512"
+								}
+							},
+							"tag": {
+								"name": "Tag",
+								"desc": "Optional tag that can identify the encrypt process."
+							}
+						}
+					},
+					"sign-hmac": {
+						"list-name": "Sign with HMAC",
+						"display-text": "Sign [i]{1}[/i] with [b]{0}[/b] HMAC key (tag: [i]{2}[/i])",
+						"description": "Sign data with HMAC key and algorithm.",
+						"params": {
+							"secret-key-name": {
+								"name": "Secret key name",
+								"desc": "Name of the HMAC secret key's name."
+							},
+							"data": {
+								"name": "Data",
+								"desc": "Data to sign."
+							},
+							"tag": {
+								"name": "Tag",
+								"desc": "Optional tag that can identify the encrypt process."
+							}
+						}
+					},
+					"verify-rsassa-pkcs1-v1_5": {
+						"list-name": "Verify with RSASSA-PKCS1-V1_5",
+						"display-text": "Verify [i]{2}[/i] with [b]{0}[/b] RSASSA-PKCS1-V1_5 key (signature: [i]{1}[/i], tag: [i]{3}[/i])",
+						"description": "Verify data with RSASSA-PKCS1-V1_5 key and algorithm.",
+						"params": {
+							"public-key-name": {
+								"name": "Public key name",
+								"desc": "Name of the RSASSA-PKCS1-V1_5 public key's name."
+							},
+							"signature": {
+								"name": "Signature",
+								"desc": "Signature for verify."
+							},
+							"data": {
+								"name": "Data",
+								"desc": "Data to verify."
+							},
+							"tag": {
+								"name": "Tag",
+								"desc": "Optional tag that can identify the encrypt process."
+							}
+						}
+					},
+					"verify-rsa-pss": {
+						"list-name": "Verify with RSA-PSS",
+						"display-text": "Verify [i]{2}[/i] with [b]{0}[/b] RSA-PSS key (signature: [i]{1}[/i], RSA-PSS salt: [i]{3}[/i], tag: [i]{4}[/i])",
+						"description": "Verify data with RSA-PSS key and algorithm.",
+						"params": {
+							"public-key-name": {
+								"name": "Public key name",
+								"desc": "Name of the RSA-PSS public key's name."
+							},
+							"signature": {
+								"name": "Signature",
+								"desc": "Signature for verify."
+							},
+							"data": {
+								"name": "Data",
+								"desc": "Data to verify."
+							},
+							"salt-length": {
+								"name": "Salt length",
+								"desc": "Salt length to use in RSA-PSS."
+							},
+							"tag": {
+								"name": "Tag",
+								"desc": "Optional tag that can identify the encrypt process."
+							}
+						}
+					},
+					"verify-ecdsa": {
+						"list-name": "Verify with ECDSA",
+						"display-text": "Verify [i]{2}[/i] with [b]{0}[/b] ECDSA key (signature: [i]{1}[/i], hash: [i]{3}[/i], tag: [i]{4}[/i])",
+						"description": "Verify data with ECDSA key and algorithm.",
+						"params": {
+							"public-key-name": {
+								"name": "Public key name",
+								"desc": "Name of the ECDSA public key's name."
+							},
+							"signature": {
+								"name": "Signature",
+								"desc": "Signature for verify."
+							},
+							"data": {
+								"name": "Data",
+								"desc": "Data to verify."
+							},
+							"hash": {
+								"name": "Hash",
+								"desc": "The hash algorithm to use.",
+								"items": {
+									"sha-256": "SHA-256",
+									"sha-384": "SHA-384",
+									"sha-512": "SHA-512"
+								}
+							},
+							"tag": {
+								"name": "Tag",
+								"desc": "Optional tag that can identify the encrypt process."
+							}
+						}
+					},
+					"verify-hmac": {
+						"list-name": "Verify with HMAC",
+						"display-text": "Verify [i]{2}[/i] with [b]{0}[/b] HMAC key (signature: [i]{1}[/i], tag: [i]{3}[/i])",
+						"description": "Verify data with HMAC key and algorithm.",
+						"params": {
+							"secret-key-name": {
+								"name": "Secret key name",
+								"desc": "Name of the HMAC secret key's name."
+							},
+							"signature": {
+								"name": "Signature",
+								"desc": "Signature for verify."
+							},
+							"data": {
+								"name": "Data",
+								"desc": "Data to verify."
+							},
+							"tag": {
+								"name": "Tag",
+								"desc": "Optional tag that can identify the encrypt process."
+							}
+						}
+					}
+				},
+				"conditions": {
+					"on-encrypt":{
+						"list-name": "On encrypt",
+						"display-text": "On encrypt",
+						"description": "Triggers when finished any encrypt and ready to get the data."
+					},
+					"on-encrypt-error":{
+						"list-name": "On encrypt error",
+						"display-text": "On encrypt error",
+						"description": "Triggers when runs to error when encrypting."
+					},
+					"on-decrypt":{
+						"list-name": "On decrypt",
+						"display-text": "On decrypt",
+						"description": "Triggers when finished any decrypt and ready to get it."
+					},
+					"on-decrypt-error":{
+						"list-name": "On decrypt error",
+						"display-text": "On decrypt error",
+						"description": "Triggers when runs to error when decrypting."
+					},
+
+					"on-export":{
+						"list-name": "On export",
+						"display-text": "On export",
+						"description": "Triggers when finished any key export and ready to get it."
+					},
+					"on-export-error":{
+						"list-name": "On export error",
+						"display-text": "On export error",
+						"description": "Triggers when runs to error when exporting."
+					},
+					"on-import":{
+						"list-name": "On import",
+						"display-text": "On import",
+						"description": "Triggers when finished any key import and ready to use it."
+					},
+					"on-import-error":{
+						"list-name": "On import error",
+						"display-text": "On import error",
+						"description": "Triggers when runs to error when importing."
+					},
+
+					"on-key-generate": {
+						"list-name": "On key generate",
+						"display-text": "On key generate",
+						"description": "Triggers when key generation completed."
+					},
+					"on-key-generate-error": {
+						"list-name": "On key generate error",
+						"display-text": "On key generate error",
+						"description": "Triggers when generation runs into error."
+					},
+					"on-data-generate": {
+						"list-name": "On data generated",
+						"display-text": "On data generated",
+						"description": "Triggers when data generation complete and ready to get."
+					},
+					"on-data-generate-error": {
+						"list-name": "On data generate error",
+						"display-text": "On data generate error",
+						"description": "Triggers when data generation runs into error."
+					},
+
+					"on-hash": {
+						"list-name": "On hash",
+						"display-text": "On hash",
+						"description": "Triggers when hashing finish and get result."
+					},
+					"on-hash-error": {
+						"list-name": "On hash error",
+						"display-text": "On hash error",
+						"description": "Triggers when hashing runs into error."
+					},
+
+					"has-key": {
+						"list-name": "Has key",
+						"display-text": "Has [b]{0}[/b] key (type: [b]{1}[/b], data: [b]{2}[/b])",
+						"description": "True if the key setted in the memory.",
+						"params": {
+							"key-name": {
+								"name": "Key name",
+								"desc": "The key name to test."
+							},
+							"key-type": {
+								"name": "Key type",
+								"desc": "Optional, the key type to test. Select 'Any' to ignore type.",
+								"items": {
+									"any" : "Any",
+									"rsaassa-pkcs1-v1_5": "RSASSA-PKCS1-v1_5",
+									"rsa-pss": "RSA-PSS",
+									"rsa-oaep" :"RSA-OAEP",
+									"ecdsa": "ECDSA",
+									"ecdh": "ECDH",
+									"hmac": "HMAC",
+									"aes-ctr": "AES-CTR",
+									"aes-cbc": "AES-CBC",
+									"aes-gcm": "AES-GCM"
+								}
+							},
+							"key-data": {
+								"name": "Key data",
+								"desc": "Optional, the key data to test. Select 'Any' to ignore type.",
+								"items": {
+									"any" : "Any",
+									"secret": "Secret key",
+									"public" : "Public key",
+									"private": "Private key"
+								}
+							}
+						}
+					},
+
+					"on-sign":{
+						"list-name": "On sign",
+						"display-text": "On sign",
+						"description": "Triggers when finished any sign and ready to get the signature data."
+					},
+					"on-sign-error":{
+						"list-name": "On sign error",
+						"display-text": "On sign error",
+						"description": "Triggers when runs to error when sign."
+					},
+					"on-verify":{
+						"list-name": "On verify",
+						"display-text": "On verify",
+						"description": "Triggers when finished the specified verify with tag and ready to check it."
+					},
+					"on-verify-error":{
+						"list-name": "On verify error",
+						"display-text": "On verify error",
+						"description": "Triggers when runs to error when verifying."
+					},
+					"is-valid": {
+						"list-name": "Is valid",
+						"display-text": "Is valid",
+						"description": "In 'On verify' trigger it will true if the validation correct."
+					}
+				},
+				"expressions": {
+					"encrypt-tag": {
+						"translated-name": "EncryptTag",
+						"description": "In 'On encrypt' and 'On encrypt error' trigger get the name of the encrypt process."
+					},
+					"encrypt-result": {
+						"translated-name": "EncryptResult",
+						"description": "In 'On encrypt' trigger get the result of the encrypt process."
+					},
+					"encrypt-error": {
+						"translated-name": "EncryptError",
+						"description": "In 'On encrypt error' trigger get the error's code."
+					},
+					"decrypt-tag": {
+						"translated-name": "DecryptTag",
+						"description": "In 'On decrypt' and 'On decrypt error' trigger get the name of the decrypt process."
+					},
+					"decrypt-result": {
+						"translated-name": "DecryptResult",
+						"description": "In 'On decrypt' trigger get the result of the decrypt process."
+					},
+					"decrypt-error": {
+						"translated-name": "DecryptError",
+						"description": "In 'On decrypt error' trigger get the error's code."
+					},
+
+					"export-key-name": {
+						"translated-name": "ExportKeyName",
+						"description": "In 'On export' and 'On export error' trigger get the export key name."					
+					},
+					"export-secret-key": {
+						"translated-name": "ExportSecretKey",
+						"description": "In 'On export' trigger get the secret key data if exist."
+					},
+					"export-public-key": {
+						"translated-name": "ExportPublicKey",
+						"description": "In 'On export' trigger get the public key data if exist."
+					},
+					"export-private-key": {
+						"translated-name": "ExportPrivateKey",
+						"description": "In 'On export' trigger get the private key data if exist."
+					},
+					"export-error": {
+						"translated-name": "ExportError",
+						"description": "In 'On export error' trigger get the error's code."
+					},
+					"import-key-name": {
+						"translated-name": "ImportKeyName",
+						"description": "In 'On import' and 'On import error' trigger get the import key name."
+					},
+					"import-error": {
+						"translated-name": "ImportError",
+						"description": "In 'On import error' trigger get the error's code."
+					},
+
+					"get-random-base64": {
+						"translated-name": "RandomBase64",
+						"description": "Get random value in base64 format.",
+						"params": {
+							"byte": {
+								"name": "Byte",
+								"desc": "Byte count to generate."
+							}
+						}
+					},
+					"get-random-uuid": {
+						"translated-name": "RandomUUID",
+						"description": "Get random UUID value."
+					},
+					"generate-key-name": {
+						"translated-name": "GenerateKeyName",
+						"description": "In 'On key generate' and 'On generate error' trigger get the generated key name."
+					},
+					"generate-key-error": {
+						"translated-name": "GenerateKeyError",
+						"description": "In 'On key generate error' trigger get the the error code."
+					},
+					"generate-data-tag": {
+						"translated-name": "GenerateDataTag",
+						"description": "In 'On data generate' and 'On data generate error' trigger get the generate tag name."
+					},
+					"generate-data": {
+						"translated-name": "GenerateData",
+						"description": "In 'On data generate' trigger get the generated data."
+					},
+					"generate-data-error": {
+						"translated-name": "GenerateDataError",
+						"description": "In 'On data generate error' trigger get the the error code."
+					},
+
+					"hash-tag": {
+						"translated-name": "HashTag",
+						"description": "In 'On hash complete' trigger get the tag of the hash."
+					},
+					"hash-as-hex": {
+						"translated-name": "HashAsHex",
+						"description": "In 'On hash complete' trigger get the hash in hexadecimal text."
+					},
+					"hash-as-base64": {
+						"translated-name": "HashAsBase64",
+						"description": "In 'On hash complete' trigger get the hash in base64 format."
+					},
+					"hash-error": {
+						"translated-name": "HashError",
+						"description": "In 'On hash error' trigger get the error."
+					},
+
+					"text-to-base64": {
+						"translated-name": "TextToBase64",
+						"description": "Convert text to base64 format.",
+						"params": {
+							"text": {
+								"name": "Text",
+								"desc": "Text that convert to base64."
+							}
+						}
+					},
+					"base64-to-text": {
+						"translated-name": "Base64ToText",
+						"description": "Convert base64 to text format. NOTE: base64 might not convertable to text.",
+						"params": {
+							"base64": {
+								"name": "Base64",
+								"desc": "Base64 that convert to text."
+							}
+						}
+					},
+					"key-count": {
+						"translated-name": "KeyCount",
+						"description": "Get the setted key count."
+					},
+					"key-name-at": {
+						"translated-name": "KeyNameAt",
+						"description": "Get the key name at zero based index.",
+						"params": {
+							"at": {
+								"name": "At",
+								"desc": "0-based index to get key name."
+							}
+						}
+					},
+					"key-type": {
+						"translated-name": "KeyType",
+						"description": "Get the key type at key name.",
+						"params": {
+							"key-name": {
+								"name": "KeyName",
+								"desc": "Key name to get type."
+							}
+						}
+					},
+
+					"sign-tag": {
+						"translated-name": "SignTag",
+						"description": "In 'On sign' and 'On sign error' trigger get the name of the sign process."
+					},
+					"signature": {
+						"translated-name": "Signature",
+						"description": "In 'On sign' trigger get the signature data."
+					},
+					"sign-error": {
+						"translated-name": "SignError",
+						"description": "In 'On sign error' trigger get the error's code."
+					},
+					"verify-tag": {
+						"translated-name": "VerifyTag",
+						"description": "In 'On verify' trigger get the name of the verify process."
+					},
+					"verify-error": {
+						"translated-name": "VerifyError",
+						"description": "In 'On verify error' trigger get the error's code."
+					}
+				}
+			}
+		}
+	}
+}

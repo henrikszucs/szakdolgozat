@@ -1,0 +1,543 @@
+{
+	"languageTag": "en-US",
+	"fileDescription": "String for Text Manager plugin",
+	"text": {
+		"plugins": {
+			"robotkaposzta_textmanager": {
+				"name": "Text Manager",
+				"description": "Utilities to work with text parameters, manage and change languages.",
+				"help-url": "https://epicsoft.hu/",
+				"properties": {
+					"default-language": {
+						"name": "Default language",
+						"desc": "The default language that the project use."
+					},
+					"all-language": {
+						"name": "All language",
+						"desc": "Which languages available for this project."
+					},
+					"save-language": {
+						"name": "Language save/load",
+						"desc": "Enable or disable to save and load the language setting from LocalStorage."
+					},
+					"save-state": {
+						"name": "Data save/load",
+						"desc": "Enable or disable to save and load the language data when construct saves or load. Note: this might cause big save files."
+					},
+					"import-group": {
+						"name": "Initial import",
+						"desc": "Import initial language data when project start."
+					},
+					"import-format" : {
+						"name": "Import format",
+						"desc": "The language import data format.",
+						"items": {
+							"json-single": "JSON (single)",
+							"json-multiple": "JSON (multiple)",
+							"csv": "CSV",
+							"dictionary": "Dictionary",
+							"array": "Array"
+						}
+					},
+					"import-mode" : {
+						"name": "Import mode",
+						"desc": "How import the language data.",
+						"items": {
+							"file": "File",
+							"data": "Data"
+						}
+					},
+					"import-source" : {
+						"name": "Import source",
+						"desc": "The language data or enter separated file list (if mode set to File) to import."
+					},
+					"import-language": {
+						"name": "Import language",
+						"desc": "The imported language. Only JSON (single) and Dictionary format need."
+					},
+					"import-tag": {
+						"name": "Import tag",
+						"desc": "The language import tag."
+					},
+					"convert-group": {
+						"name": "Convert tool",
+						"desc": "Tool that help convert to differnet language formats."
+					},
+					"convert-input-format": {
+						"name": "Input format",
+						"desc": "The data format that have to convert.",
+						"items": {
+							"json-single": "JSON (single)",
+							"json-multiple": "JSON (multiple)",
+							"csv": "CSV",
+							"dictionary": "Dictionary",
+							"array": "Array"
+						}
+					},
+					"convert-input-source": {
+						"name": "Input",
+						"desc": "The data that have to convert."
+					},
+					"convert-input-language": {
+						"name": "Input language",
+						"desc": "The language of the input. If convert from JSON (single) and Dictionary it will be input language. If convert to JSON (single) and Dictionary ti will be the output language."
+					},
+					"convert-output-format": {
+						"name": "Output format",
+						"desc": "The data type that convert from.",
+						"items": {
+							"json-single": "JSON (single)",
+							"json-multiple": "JSON (multiple)",
+							"csv": "CSV",
+							"dictionary": "Dictionary",
+							"array": "Array"
+						}
+					},
+					"convert-start": {
+						"name": "Start",
+						"desc": "Start the conversion.",
+						"link-text": "Convert"
+					},
+					"convert-output-source": {
+						"name": "Output",
+						"desc": "The final result of the conversion."
+					}
+				},
+				"debugger": {
+					"language": {
+						"name": "Language",
+						"language-list": "Language list",
+						"device-language-list": "Device languages",
+						"current-language": "Current language"
+					},
+					"load": {
+						"tag": "Last data tag",
+						"error": "Last error"
+					}
+				},
+				"aceCategories": {
+					"language": "Language",
+					"language-data": "Language data",
+                    "parameters": "Parameters"
+				},
+				"actions": {
+					"set-language": {
+						"list-name": "Set language",
+						"display-text": "Set language to [i]{0}[/i]",
+						"description": "Set the project's language.",
+						"params": {
+							"language": {
+								"name": "Language",
+								"desc": "Language to set."
+							}
+						}
+					},
+					"add-language": {
+						"list-name": "Add language",
+						"display-text": "Add [i]{0}[/i] language at [i]{1}[/i]",
+						"description": "Add language to the project.",
+						"params": {
+							"language": {
+								"name": "Language",
+								"desc": "Language to add."
+							},
+							"index": {
+								"name": "Index",
+								"desc": "Language's index."
+							}
+						}
+					},
+					"remove-language": {
+						"list-name": "Remove language",
+						"display-text": "Remove [i]{0}[/i] language",
+						"description": "Remove language from the project.",
+						"params": {
+							"language": {
+								"name": "Language",
+								"desc": "Language to remove."
+							}
+						}
+					},
+
+					"load-language-data": {
+						"list-name": "Load data",
+						"display-text": "Load [i]{0}[/i] data from [i]{2}[/i] (type: [i]{1}[/i] tag: [i]{3}[/i])",
+						"description": "Load language data from string.",
+						"params": {
+							"format": {
+								"name": "Format",
+								"desc": "Which format use to load the language data.",
+								"items": {
+									"json-single": "JSON (single)",
+									"json-multiple": "JSON (multiple)",
+									"csv": "CSV",
+									"dictionary": "Dictionary",
+									"array": "Array"
+								}
+							},
+							"language": {
+								"name": "Language",
+								"desc": "Language to load. Only for [b]JSON (single)[/b] and [b]Dictionary[/b]."
+							},
+							"data": {
+								"name": "Data",
+								"desc": "data to load language from."
+							},
+							"tag": {
+								"name": "Tag",
+								"desc": "Optional, comma separated tag to identify the loaded content."
+							}
+						}
+					},
+					"load-language-file": {
+						"list-name": "Load data file",
+						"display-text": "Load [i]{0}[/i] data file from [i]{2}[/i] (type: [i]{1}[/i] tag: [i]{3}[/i])",
+						"description": "Load language data from file.",
+						"params": {
+							"format": {
+								"name": "Format",
+								"desc": "Which format use to load the language data.",
+								"items": {
+									"json-single": "JSON (single)",
+									"json-multiple": "JSON (multiple)",
+									"csv": "CSV",
+									"dictionary": "Dictionary",
+									"array": "Array"
+								}
+							},
+							"language": {
+								"name": "Language",
+								"desc": "Language to load. Only for [b]JSON (single)[/b] and [b]Dictionary[/b]."
+							},
+							"file-name": {
+								"name": "Filename",
+								"desc": "URL or filename to load language from."
+							},
+							"tag": {
+								"name": "Tag",
+								"desc": "Optional, comma separated tag to identify the loaded content."
+							}
+						}
+					},
+					"unload-language-by-tag": {
+						"list-name": "Unload by tag",
+						"display-text": "Unload by [i]{1}[/i] tag (mode: [i]{0}[/i], language: [i]{2}[/i])",
+						"description": "Unload data on the selected tags.",
+						"params": {
+							"mode": {
+								"name": "Delete mode",
+								"desc": "Comma separated tag to remove the loaded content. Note: 'Delete anyway' might cause tags with zero data.",
+								"items": {
+									"clear": "Delete anyway",
+									"delete": "Delete only tag" 
+								}
+							},
+							"tag": {
+								"name": "Tag",
+								"desc": "Comma separated tag to remove the loaded content."
+							},
+							"lang": {
+								"name": "Language",
+								"desc": "Language to unload. Leave empty to unload all language. It will ignore if mode set 'Only tag'"
+							}
+						}
+					},
+					"unload-language-by-key": {
+						"list-name": "Unload by key",
+						"display-text": "Unload by [i]{0}[/i] key (language: [i]{1}[/i])",
+						"description": "Unload data az key value. Note: Might cause tags with zero data.",
+						"params": {
+							"key": {
+								"name": "Key",
+								"desc": "Language data's key to remove."
+							},
+							"lang": {
+								"name": "Language",
+								"desc": "Language to unload. Leave empty to unload all language. It will ignore if mode set 'Only tag'"
+							}
+						}
+					}
+                },
+                "conditions": {
+					"on-language-change": {
+						"list-name": "On language change",
+						"display-text": "On language change",
+						"description": "Triggered when project's language changed."
+					},
+					"on-device-language-change": {
+						"list-name": "On device language change",
+						"display-text": "On device language change",
+						"description": "Triggered when user change the language in device."
+					},
+					"is-language-support": {
+						"list-name": "Is language supported",
+						"display-text": "Is [i]{0}[/i] language [i]{1}[/i]",
+						"description": "True if language supported.",
+						"params": {
+							"type": {
+								"name": "Support type",
+								"desc": "Select which type supported.",
+								"items": {
+									"full-support": "full supported",
+									"only-language": "only language supported",
+									"not-supported": "not supported"
+								}
+							},
+							"language": {
+								"name": "Language",
+								"desc": "Optional, you can add space separated languages to check."
+							}
+						}
+					},
+
+					"on-data-load": {
+						"list-name": "On data load",
+						"display-text": "On data load",
+						"description": "Triggered when data loaded succesfully."
+					},
+					"on-data-load-error": {
+						"list-name": "On data load error",
+						"display-text": "On data load error",
+						"description": "Triggered when data load runs into error."
+					},
+
+					"is-param-valid": {
+						"list-name": "Is parameter text valid",
+						"display-text": "Is [i]{0}[/i] text in valid parameter format",
+						"description": "True if the text has correct parameter format.",
+						"params": {
+							"text": {
+								"name": "Text",
+								"desc": "Text which want to check."
+							}
+						}
+					}
+                },
+                "expressions": {
+					"get-language-count": {
+						"translated-name": "LanguageCount",
+						"description": "Get the supported language count."
+					},
+					"get-language": {
+						"translated-name": "Language",
+						"description": "Get the current language or get language at zero-based index."
+					},
+					"get-device-language-count": {
+						"translated-name": "DeviceLanguageCount",
+						"description": "Get the device's avaliable languages count."
+					},
+					"get-device-language-at": {
+						"translated-name": "DeviceLanguageAt",
+						"description": "Get the user's avaliable language in priority order.",
+						"params": {
+							"at": {
+								"name": "At",
+								"desc": "Zero based index to get language."
+							}
+						}
+					},
+					"get-suggested-language": {
+						"translated-name": "SuggestedLanguage",
+						"description": "Get the suggested language when user change the device's language."
+					},
+					"get-language-section": {
+						"translated-name": "GetLanguageSection",
+						"description": "Get the language code from full language string.",
+						"params": {
+							"string": {
+								"name": "LanguageString",
+								"desc": "The full language string."
+							}
+						}
+					},
+					"get-region-section": {
+						"translated-name": "GetRegionSection",
+						"description": "Get the region code from full language string.",
+						"params": {
+							"string": {
+								"name": "LanguageString",
+								"desc": "The full language string."
+							}
+						}
+					},
+
+					"load-tag": {
+						"translated-name": "LoadTag",
+						"description": "In 'On data load' or 'On data load error' trigger get tag name"
+					},
+					"load-error": {
+						"translated-name": "LoadError",
+						"description": "In 'On data load error' trigger get the error name"
+					},
+					"tag-count": {
+						"translated-name": "TagCount",
+						"description": "Get the translation tag count."
+					},
+					"tag-at": {
+						"translated-name": "TagAt",
+						"description": "Get the translation tag at an index.",
+						"params": {
+							"at": {
+								"name": "At",
+								"desc": "Index to get the translation tag."
+							}
+						}
+					},
+					"key-count": {
+						"translated-name": "KeyCount",
+						"description": "Get the translation key count."
+					},
+					"key-at": {
+						"translated-name": "KeyAt",
+						"description": "Get the translation key at an index.",
+						"params": {
+							"at": {
+								"name": "At",
+								"desc": "Index to get the translation key."
+							}
+						}
+					},
+					"translate": {
+						"translated-name": "Translate",
+						"description": "Get the translation. Optional you can get other language's translations. GetText(key, lang(optional))",
+						"params": {
+							"key": {
+								"name": "Key",
+								"desc": "Get the translation at key."
+							}
+						}
+					},
+
+					"param-key-count": {
+						"translated-name": "ParamKeyCount",
+						"description": "Get numbers of the keys.",
+						"params": {
+							"text": {
+								"name": "Text",
+								"desc": "The text to insert parameters."
+							}
+						}
+					},
+					"param-key-at": {
+						"translated-name": "ParamKeyAt",
+						"description": "Get the keys at index.",
+						"params": {
+							"text": {
+								"name": "Text",
+								"desc": "The text."
+							},
+							"at": {
+								"name": "At",
+								"desc": "Zero based index."
+							}
+						}
+					},
+					"param-key-count-at": {
+						"translated-name": "ParamKeyCountAt",
+						"description": "Get the number of the keys in the text.",
+						"params": {
+							"text": {
+								"name": "Text",
+								"desc": "The text."
+							},
+							"key": {
+								"name": "Key",
+								"desc": "Key that want to count."
+							}
+						}
+					},
+					"param-key-start": {
+						"translated-name": "ParamKeyStart",
+						"description": "Get the start of the key in the text.",
+						"params": {
+							"text": {
+								"name": "Text",
+								"desc": "The text."
+							},
+							"key": {
+								"name": "Key",
+								"desc": "Param name to get."
+							},
+							"at": {
+								"name": "At",
+								"desc": "Zero based index if have multiple key number."
+							}
+						}
+					},
+					"param-key-end": {
+						"translated-name": "ParamKeyEnd",
+						"description": "Get the end of the key in the text.",
+						"params": {
+							"text": {
+								"name": "Text",
+								"desc": "The text."
+							},
+							"key": {
+								"name": "Key",
+								"desc": "Zero based index."
+							},
+							"at": {
+								"name": "At",
+								"desc": "Zero based index if have multiple key number."
+							}
+						}
+					},
+					"param-text-num": {
+						"translated-name": "ParamTextNum",
+						"description": "Set numbered parameters values.",
+						"params": {
+							"text": {
+								"name": "Text",
+								"desc": "The text to insert parameters."
+							},
+							"is-fill": {
+								"name": "IsFill",
+								"desc": "0 if fill empty params, 1 to leave param string"
+							},
+							"is-string-params": {
+								"name": "IsStringParams",
+								"desc": "0 if add parameter data separatly, 1 to add multiple parameter in one string."
+							}
+						}
+					},
+					"param-text-key": {
+						"translated-name": "ParamTextKey",
+						"description": "Set named parameters values.",
+						"params": {
+							"text": {
+								"name": "Text",
+								"desc": "The text to insert parameters."
+							},
+							"is-fill": {
+								"name": "IsFill",
+								"desc": "0 if fill empty params, 1 to leave param string"
+							},
+							"is-string-params": {
+								"name": "IsStringParams",
+								"desc": "0 if add parameter data separatly, 1 to add multiple parameter in one string."
+							}
+						}
+					},
+					"escaping": {
+						"translated-name": "Escaping",
+						"description": "Add or remove escape strings from text.",
+						"params": {
+							"text": {
+								"name": "Text",
+								"desc": "The text for escaping."
+							},
+							"is-descape": {
+								"name": "isDescape",
+								"desc": "Pass 1 if want remove escape from the text."
+							},
+							"is-string-params": {
+								"name": "IsStringParams",
+								"desc": "0 if add parameter data separatly, 1 to add multiple parameter in one string."
+							}
+						}
+					}
+                }
+            }
+        }
+    }
+}

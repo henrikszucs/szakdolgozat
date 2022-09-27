@@ -1,0 +1,114 @@
+{
+	"languageTag": "en-US",
+	"fileDescription": "Strings for TextManager behavior.",
+	"text": {
+		"behaviors": {
+			"robotkaposzta_textmanagerbehavior": {
+				"name": "Text Manager",
+				"description": "Behavior to load language data from Text Manager plugin.",
+				"help-url": "https://epicsoft.hu/",
+				"properties": {
+					"key": {
+						"name": "Key",
+						"desc": "A key name to load language data."
+					},
+					"lang": {
+						"name": "Language",
+						"desc": "Optional the language to load language data."
+					},
+					"enabled": {
+						"name": "Enabled",
+						"desc": "Whether the behavior is initally enabled"
+					}
+				},
+				"debugger": {
+					"name": "Text Manager",
+					"key": "Key",
+					"lang": "Language",
+					"is-enable": "Is enable"
+				},
+				"aceCategories": {
+					"": ""
+				},
+				"actions": {
+					"set-key-value": {
+						"list-name": "Set key value",
+						"display-text": "Set {my} key value to [i]{0}[/i]",
+						"description": "Add a character to coding scheme.",
+						"params": {
+							"key-value": {
+								"name": "Key value",
+								"desc": "The key new value. Note: language data will change too."
+							}
+						}
+					},
+					"set-lang-value": {
+						"list-name": "Set language value",
+						"display-text": "Set {my} language value to [i]{0}[/i]",
+						"description": "Add a character to coding scheme.",
+						"params": {
+							"lang-value": {
+								"name": "Language value",
+								"desc": "The language new value. Note: language data will change too."
+							}
+						}
+					},
+					"set-enabled": {
+						"list-name": "Set enabled",
+						"display-text": "Set {my} [b]{0}[/b]",
+						"description": "Set whether this behavior is enabled.",
+						"params": {
+							"state": {
+								"name": "State",
+								"desc": "The key new value. Note: language data will change too.",
+								"items": {
+									"enabled": "Enabled",
+									"disabled": "Disabled"
+								}
+							}
+						}
+					}
+				},
+				"conditions": {
+					"is-key-value": {
+						"list-name": "Is key value",
+						"display-text": "Is {my} key value [i]{0}[/i]",
+						"description": "Compare the object's key value.",
+						"params": {
+							"key-value": {
+								"name": "Key value",
+								"desc": "The key value to compare."
+							}
+						}
+					},
+					"is-lang-value": {
+						"list-name": "Is language value",
+						"display-text": "Is {my} language value [i]{0}[/i]",
+						"description": "Compare the object's language value.",
+						"params": {
+							"lang-value": {
+								"name": "Language value",
+								"desc": "The language value to compare."
+							}
+						}
+					},
+					"is-enabled": {
+						"list-name": "Is enabled",
+						"display-text": "{my} is enabled",
+						"description": "Test if the behavior enabled."
+					}
+				},
+				"expressions": {
+					"key-value": {
+						"translated-name": "KeyValue",
+						"description": "Return a value of the translation key."
+					},
+					"lang-value": {
+						"translated-name": "LanguageValue",
+						"description": "Return a value of the translation language."
+					}
+				}
+			}
+		}
+	}
+}
