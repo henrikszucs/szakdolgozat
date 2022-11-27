@@ -14,4 +14,4 @@ Szakdolgozat repository a szakdolgozat anyagainak összesítéséhez.
 
 | Kiegészítő | Link |
 | ----------- | ----------- |
-| TextManager plugin | https://henrikszucs.github.io/szakdolgozat/Documentation/TextManagerPlugin/TextManagerEditorInstance.html#_ExportDictionary |
+| TextManager plugin | https://henrikszucs.github.io/szakdolgozat/Documentation/TextManagerPlugin/ |
