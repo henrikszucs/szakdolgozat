@@ -1,10 +1,23 @@
 "use strict";
 {
 	const SDK = self.SDK;
-
 	const PLUGIN_CLASS = SDK.Plugins.RobotKaposzta_TextManager;
 
-	PLUGIN_CLASS.Instance = class TextManagerInstance extends SDK.IInstanceBase {
+	/**
+	 * @external IInstanceBase
+	 * @see https://www.construct.net/en/make-games/manuals/addon-sdk/reference/base-classes/iinstancebase
+	 */
+	/**
+	 * @class
+	 * @classdesc TextManager editor instance class.
+	 * @extends external:IInstanceBase
+	 */
+	class TextManagerEditorInstance extends SDK.IInstanceBase {
+		/**
+		 * @desc Create class.
+		 * @param {object} sdkType - The title of the book.
+		 * @param {object} inst - The author of the book.
+		 */
 		constructor(sdkType, inst) {
 			super(sdkType, inst);
 
@@ -12,14 +25,12 @@
 			this._currentLanguage = "en-US";
 		}
 
-		Release() {
-			super.Release();
-		}
-
-		OnCreate() {
-
-		}
-
+		/**
+		 * @override
+		 * @desc Event change method.
+		 * @param {string} id - The title of the book.
+		 * @param {string} value - The author of the book.
+		 */
 		OnPropertyChanged(id, value) {
 			if (id === "all-language") {
 				const data = value.split(new RegExp("(?:\n|,|;| )+", "g"));
@@ -60,6 +71,10 @@
 			}
 		}
 
+		/**
+		 * @desc Convert data from inpunt fields.
+		 * @return {undefined}
+		 */
 		_Convert() {
 			let data;
 			const inputFormat = this.GetInstance().GetPropertyValue("convert-input-format");
@@ -114,6 +129,12 @@
 			this.GetInstance().SetPropertyValue("convert-output-source", outStr);
 		}
 
+		/**
+		 * @desc Convert data from inpunt fields.
+		 * @param {object} obj - The title of the book.
+		 * @param {string} language - The author of the book.
+		 * @return {object} language data map
+		 */
 		_LoadJSONSimple(obj, lang) {
             const JSONSimpleParser = (obj, lang, result, path="") => {
                 if (typeof obj === "string" || typeof obj === "number" || typeof obj === "boolean") {
@@ -143,6 +164,11 @@
             JSONSimpleParser(obj, lang, result);
             return result;
         }
+		/**
+		 * @desc Convert data from inpunt fields.
+		 * @param {object} obj - The title of the book.
+		 * @return {object} language data map
+		 */
         _LoadJSONMultiple(obj) {
             const result = new Map();
             const JSONMultipleParser = (obj, result, path="") => {
@@ -193,6 +219,11 @@
             JSONMultipleParser(obj, result);
             return result;
         }
+		/**
+		 * @desc Convert data from inpunt fields.
+		 * @param {string} str - The author of the book.
+		 * @return {object} language data map
+		 */
         _LoadCSV(str) {
             const result = new Map();
             const pattern = /(\,|\r?\n|\r|^)(?:"([^"]*(?:""[^"]*)*)"|([^\,\r\n]*))/gi;
@@ -277,6 +308,12 @@
             }
             return result;
         }
+		/**
+		 * @desc Convert data from inpunt fields.
+		 * @param {object} obj - The author of the book.
+		 * @param {string} lang - The author of the book.
+		 * @return {object} language data map
+		 */
         _LoadDictionary(obj, lang) {
             const result = new Map();
             if (!obj["data"] || !lang) {
@@ -290,6 +327,11 @@
             }
             return result;
         }
+		/**
+		 * @desc Convert data from inpunt fields.
+		 * @param {object} obj - The author of the book.
+		 * @return {object} language data map
+		 */
         _LoadArray(obj) {
             const result = new Map();
             if (!obj["data"] || typeof (obj["data"]) !== "object" || typeof (obj["data"][0]) !== "object" || typeof (obj["data"][0][0]) !== "object") {
@@ -340,6 +382,12 @@
             return result;
         }
 
+		/**
+		 * @desc Export data from language map.
+		 * @param {object} map - The author of the book.
+		 * @param {string} lang - The author of the book.
+		 * @return {string} string of the data
+		 */
 		_ExportJSONSimple(map, lang) {
 			const result = {};
 			const iterator = map[Symbol.iterator]();
@@ -365,6 +413,11 @@
 			}
 			return JSON.stringify(result);
 		}
+		/**
+		 * @desc Export data from language map.
+		 * @param {object} map - The author of the book.
+		 * @return {string} string of the data
+		 */
 		_ExportJSONMultiple(map) {
 			const result = {};
 			const iterator = map[Symbol.iterator]();
@@ -383,6 +436,11 @@
 			}
 			return JSON.stringify(result);
 		}
+		/**
+		 * @desc Export data from language map.
+		 * @param {object} map - The author of the book.
+		 * @return {string} string of the data
+		 */
 		_ExportCSV(map) {
 			let result = "";
 
@@ -420,6 +478,12 @@
 			}
 			return result;
 		}
+		/**
+		 * @desc Export data from language map.
+		 * @param {object} map - The author of the book.
+		 * @param {string} lang - The author of the book.
+		 * @return {string} string of the data
+		 */
 		_ExportDictionary(map, lang) {
 			const resultData = {};
 			const iterator = map[Symbol.iterator]();
@@ -437,6 +501,11 @@
 			};
 			return JSON.stringify(result);
 		}
+		/**
+		 * @desc Export data from language map.
+		 * @param {object} map - The author of the book.
+		 * @return {string} string of the data
+		 */
 		_ExportArray(map) {
 			const resultData = [];
 			let width = 0;
@@ -483,9 +552,7 @@
 			};
 			return JSON.stringify(result);
 		}
-
-		LoadC2Property(name, valueString) {
-			return false; // not handled
-		}
 	};
+
+	PLUGIN_CLASS.Instance = TextManagerEditorInstance;
 };

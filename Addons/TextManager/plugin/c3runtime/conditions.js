@@ -1,6 +1,7 @@
 "use strict";
 {
     const C3 = self.C3;
+    /** @namespace */
     C3.Plugins.RobotKaposzta_TextManager.Cnds = {
         OnLanguageChange() {
             return true;

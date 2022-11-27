@@ -1,0 +1,1196 @@
+<!DOCTYPE html><html lang="en" style="font-size:16px"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>c3runtime/instance.js</title><!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]--><script src="scripts/third-party/hljs.js" defer="defer"></script><script src="scripts/third-party/hljs-line-num.js" defer="defer"></script><script src="scripts/third-party/popper.js" defer="defer"></script><script src="scripts/third-party/tippy.js" defer="defer"></script><script src="scripts/third-party/tocbot.min.js"></script><script>var baseURL="/",locationPathname="",baseURL=(locationPathname=document.location.pathname).substr(0,locationPathname.lastIndexOf("/")+1)</script><link rel="stylesheet" href="styles/clean-jsdoc-theme.min.css"><svg aria-hidden="true" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="display:none"><defs><symbol id="copy-icon" viewbox="0 0 488.3 488.3"><g><path d="M314.25,85.4h-227c-21.3,0-38.6,17.3-38.6,38.6v325.7c0,21.3,17.3,38.6,38.6,38.6h227c21.3,0,38.6-17.3,38.6-38.6V124    C352.75,102.7,335.45,85.4,314.25,85.4z M325.75,449.6c0,6.4-5.2,11.6-11.6,11.6h-227c-6.4,0-11.6-5.2-11.6-11.6V124    c0-6.4,5.2-11.6,11.6-11.6h227c6.4,0,11.6,5.2,11.6,11.6V449.6z"/><path d="M401.05,0h-227c-21.3,0-38.6,17.3-38.6,38.6c0,7.5,6,13.5,13.5,13.5s13.5-6,13.5-13.5c0-6.4,5.2-11.6,11.6-11.6h227    c6.4,0,11.6,5.2,11.6,11.6v325.7c0,6.4-5.2,11.6-11.6,11.6c-7.5,0-13.5,6-13.5,13.5s6,13.5,13.5,13.5c21.3,0,38.6-17.3,38.6-38.6    V38.6C439.65,17.3,422.35,0,401.05,0z"/></g></symbol><symbol id="search-icon" viewBox="0 0 512 512"><g><g><path d="M225.474,0C101.151,0,0,101.151,0,225.474c0,124.33,101.151,225.474,225.474,225.474    c124.33,0,225.474-101.144,225.474-225.474C450.948,101.151,349.804,0,225.474,0z M225.474,409.323    c-101.373,0-183.848-82.475-183.848-183.848S124.101,41.626,225.474,41.626s183.848,82.475,183.848,183.848    S326.847,409.323,225.474,409.323z"/></g></g><g><g><path d="M505.902,476.472L386.574,357.144c-8.131-8.131-21.299-8.131-29.43,0c-8.131,8.124-8.131,21.306,0,29.43l119.328,119.328    c4.065,4.065,9.387,6.098,14.715,6.098c5.321,0,10.649-2.033,14.715-6.098C514.033,497.778,514.033,484.596,505.902,476.472z"/></g></g></symbol><symbol id="font-size-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M11.246 15H4.754l-2 5H.6L7 4h2l6.4 16h-2.154l-2-5zm-.8-2L8 6.885 5.554 13h4.892zM21 12.535V12h2v8h-2v-.535a4 4 0 1 1 0-6.93zM19 18a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/></symbol><symbol id="add-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z"/></symbol><symbol id="minus-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M5 11h14v2H5z"/></symbol><symbol id="dark-theme-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M10 7a7 7 0 0 0 12 4.9v.1c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2h.1A6.979 6.979 0 0 0 10 7zm-6 5a8 8 0 0 0 15.062 3.762A9 9 0 0 1 8.238 4.938 7.999 7.999 0 0 0 4 12z"/></symbol><symbol id="light-theme-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M12 18a6 6 0 1 1 0-12 6 6 0 0 1 0 12zm0-2a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM11 1h2v3h-2V1zm0 19h2v3h-2v-3zM3.515 4.929l1.414-1.414L7.05 5.636 5.636 7.05 3.515 4.93zM16.95 18.364l1.414-1.414 2.121 2.121-1.414 1.414-2.121-2.121zm2.121-14.85l1.414 1.415-2.121 2.121-1.414-1.414 2.121-2.121zM5.636 16.95l1.414 1.414-2.121 2.121-1.414-1.414 2.121-2.121zM23 11v2h-3v-2h3zM4 11v2H1v-2h3z"/></symbol><symbol id="reset-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M18.537 19.567A9.961 9.961 0 0 1 12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10c0 2.136-.67 4.116-1.81 5.74L17 12h3a8 8 0 1 0-2.46 5.772l.997 1.795z"/></symbol><symbol id="down-icon" viewBox="0 0 16 16"><path fill-rule="evenodd" clip-rule="evenodd" d="M12.7803 6.21967C13.0732 6.51256 13.0732 6.98744 12.7803 7.28033L8.53033 11.5303C8.23744 11.8232 7.76256 11.8232 7.46967 11.5303L3.21967 7.28033C2.92678 6.98744 2.92678 6.51256 3.21967 6.21967C3.51256 5.92678 3.98744 5.92678 4.28033 6.21967L8 9.93934L11.7197 6.21967C12.0126 5.92678 12.4874 5.92678 12.7803 6.21967Z"></path></symbol><symbol id="codepen-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M16.5 13.202L13 15.535v3.596L19.197 15 16.5 13.202zM14.697 12L12 10.202 9.303 12 12 13.798 14.697 12zM20 10.869L18.303 12 20 13.131V10.87zM19.197 9L13 4.869v3.596l3.5 2.333L19.197 9zM7.5 10.798L11 8.465V4.869L4.803 9 7.5 10.798zM4.803 15L11 19.131v-3.596l-3.5-2.333L4.803 15zM4 13.131L5.697 12 4 10.869v2.262zM2 9a1 1 0 0 1 .445-.832l9-6a1 1 0 0 1 1.11 0l9 6A1 1 0 0 1 22 9v6a1 1 0 0 1-.445.832l-9 6a1 1 0 0 1-1.11 0l-9-6A1 1 0 0 1 2 15V9z"/></symbol><symbol id="close-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M12 10.586l4.95-4.95 1.414 1.414-4.95 4.95 4.95 4.95-1.414 1.414-4.95-4.95-4.95 4.95-1.414-1.414 4.95-4.95-4.95-4.95L7.05 5.636z"/></symbol><symbol id="menu-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z"/></symbol></defs></svg></head><body class="dark" data-theme="dark"><div class="sidebar-container"><div class="sidebar" id="sidebar"><a href="/" class="sidebar-title sidebar-title-anchor">Home</a><div class="sidebar-items-container"><div class="sidebar-section-title with-arrow" data-isopen="false" id="xXStfKGdOkG94vV3cq2y5"><div>Classes</div><svg><use xlink:href="#down-icon"></use></svg></div><div class="sidebar-section-children-container"><div class="sidebar-section-children"><a href="TextManagerEditorInstance.html">TextManagerEditorInstance</a></div><div class="sidebar-section-children"><a href="TextManagerEditorPlugin.html">TextManagerEditorPlugin</a></div><div class="sidebar-section-children"><a href="TextManagerEditorType.html">TextManagerEditorType</a></div><div class="sidebar-section-children"><a href="TextManagerRuntimeDOMHandler.html">TextManagerRuntimeDOMHandler</a></div><div class="sidebar-section-children"><a href="TextManagerRuntimeInstance.html">TextManagerRuntimeInstance</a></div><div class="sidebar-section-children"><a href="TextManagerRuntimePlugin.html">TextManagerRuntimePlugin</a></div><div class="sidebar-section-children"><a href="TextManagerRuntimeType.html">TextManagerRuntimeType</a></div></div><div class="sidebar-section-title with-arrow" data-isopen="false" id="Fnc4SJAn1Mb3k5hp1VMIf"><div>Externals</div><svg><use xlink:href="#down-icon"></use></svg></div><div class="sidebar-section-children-container"><div class="sidebar-section-children"><a href="external-DOMHandler.html">DOMHandler</a></div><div class="sidebar-section-children"><a href="external-IInstanceBase.html">IInstanceBase</a></div><div class="sidebar-section-children"><a href="external-IPluginBase.html">IPluginBase</a></div><div class="sidebar-section-children"><a href="external-ITypeBase.html">ITypeBase</a></div><div class="sidebar-section-children"><a href="external-SDKInstanceBase.html">SDKInstanceBase</a></div><div class="sidebar-section-children"><a href="external-SDKPluginBase.html">SDKPluginBase</a></div><div class="sidebar-section-children"><a href="external-SDKTypeBase.html">SDKTypeBase</a></div></div><div class="sidebar-section-title with-arrow" data-isopen="false" id="KKwJhg77iHx6-ST0501lk"><div>Namespaces</div><svg><use xlink:href="#down-icon"></use></svg></div><div class="sidebar-section-children-container"><div class="sidebar-section-children"><a href="C3.Plugins.RobotKaposzta_TextManager.Acts.html">Acts</a></div><div class="sidebar-section-children"><a href="C3.Plugins.RobotKaposzta_TextManager.Cnds.html">Cnds</a></div><div class="sidebar-section-children"><a href="C3.Plugins.RobotKaposzta_TextManager.Exps.html">Exps</a></div></div></div></div></div><div class="navbar-container" id="VuAckcnZhf"><nav class="navbar"><div class="navbar-left-items"></div><div class="navbar-right-items"><div class="navbar-right-item"><button class="icon-button search-button" aria-label="open-search"><svg><use xlink:href="#search-icon"></use></svg></button></div><div class="navbar-right-item"><button class="icon-button theme-toggle" aria-label="toggle-theme"><svg><use class="theme-svg-use" xlink:href="#light-theme-icon"></use></svg></button></div><div class="navbar-right-item"><button class="icon-button font-size" aria-label="change-font-size"><svg><use xlink:href="#font-size-icon"></use></svg></button></div></div><nav></nav></nav></div><div class="toc-container"><div class="toc-content"><span class="bold">On this page</span><div id="eed4d2a0bfd64539bb9df78095dec881"></div></div></div><div class="body-wrapper"><div class="main-content"><div class="main-wrapper"><section id="source-page" class="source-page"><header><h1 id="title" class="has-anchor">c3runtime_instance.js</h1></header><article><pre class="prettyprint source lang-js"><code>"use strict";
+{
+    // 1 UNDOCUMENTED FEATURE new C3.CompositeDisposable();
+    /*
+    Language data scheme:
+    Keys: {
+        "key": {
+            "tags": [[],[]],
+            "langs": {
+                "en-US": "hello",
+                "hu-HU": "helló"
+            }
+        }
+    }
+    Tags: {
+        "name": [],
+        "name2": []
+    }
+    */
+    const C3 = self.C3;
+    const DOM_COMPONENT_ID = "RobotKaposzta_TextManager";
+    let PLUGIN = null;
+
+    /**
+	 * @external SDKInstanceBase
+	 * @see https://www.construct.net/en/make-games/manuals/addon-sdk/runtime-reference/base-classes/sdkinstancebase
+	 */
+    /**
+	 * @classdesc TextManager editor class.
+	 * @extends external:SDKInstanceBase
+	 */
+    class TextManagerRuntimeInstance extends C3.SDKInstanceBase {
+        /**
+		 * @desc create class.
+		 * @param {object} inst - The title of the book.
+		 * @param {array} properties - The author of the book.
+		 */
+        constructor(inst, properties) {
+            super(inst, DOM_COMPONENT_ID);
+            PLUGIN = this;
+
+            this._availableLanguages = ["en-US"];
+            this._deviceLanguages = [];
+            this._currentLanguage = "en-US";
+            this._isSaveLang = false;
+            this._isSaveData = false;
+            this._languagesDataByTags = new Map();
+            this._languagesDataByKeys = new Map();
+            
+            this._startDataLoadList = [];
+            this._lastDataTag = "";
+            this._lastDataError = "";
+
+            this._behaviorList = new Set();
+
+            this._paramSchemes = {
+                "default": {
+                    start: "{",
+                    startEscape: "\\{",
+                    end: "}",
+                    endEscape: "\\}"
+                }
+            };
+
+            if (properties) {
+                if (typeof (properties[0]) === "string") {
+                    const data = properties[0].split(new RegExp("(?:\n|,|;| )+", "g"));
+                    if (data[0] === "") data.shift();
+                    if (data[data.length - 1] === "") data.pop();
+                    if (data.length === 0) data.push("en-US");
+                    this._availableLanguages = data;
+                }
+                if (typeof (properties[1]) === "string") {
+                    const find = this._availableLanguages.find((el) => el === properties[1]);
+                    if (!find) {
+                        const codes = properties[1].split("-");
+                        let langCode = "";
+                        if (codes.length === 1 || codes.length === 2) {
+                            langCode = codes[0];
+                        } else {
+                            langCode = codes[0] + "-" + codes[1];
+                        }
+                        const regex2 = new RegExp("^(" + langCode + ")", "gi");
+                        const find2 = this._availableLanguages.find((el) => regex2.test(el));
+                        if (!find2) {
+                            const regex3 = new RegExp("^(en)", "gi");
+                            const find3 = this._availableLanguages.find((el) => regex3.test(el));
+                            if (!find3) {
+                                this._currentLanguage = this._availableLanguages[0];
+                            } else {
+                                this._currentLanguage = find3;
+                            }
+                        } else {
+                            this._currentLanguage = find2;
+                        }
+                    } else {
+                        this._currentLanguage = properties[1];
+                    }
+                }
+                if (typeof (properties[2]) === "boolean") {
+                    this._isSaveLang = properties[2];
+                }
+                if (typeof (properties[3]) === "boolean") {
+                    this._isSaveData = properties[3];
+                }
+                if (typeof (properties[6]) === "string" &amp;&amp; properties[6] !== "") {
+                    let format = properties[4]; // JSON single, JSON multiple, CSV, Dictionary, Array
+                    let mode = properties[5]; // file, data
+                    let source = properties[6];
+                    let language = properties[7];
+                    let tag = properties[8];
+                    // Mode
+                    if (mode === 0) {
+                        source = source.split("\n").map((x, i) => {
+                            return x.replace(/\r?\n|\r/gim, "");
+                        });
+                        language = language.split("\n").map((el) => {
+                            return this._FormatLang(el.replace(/\r?\n|\r/gim, ""));
+                        });
+                        tag = tag.split("\n").map((el) => {
+                            return el.replace(/\r?\n|\r/gim, "");
+                        });
+                    } else {
+                        source = [source];
+                        language = [this._FormatLang(language)];
+                        tag = [tag];
+                    }
+                    // Language (Only for JSON single, Dictionary)
+                    if (format === 0 || format === 3) {
+                        if (!language[0]) {
+                            language[0] = "en-US";
+                        }
+                        source.forEach((el, index) => {
+                            if (!language[index]) {
+                                language[index] = language[0];
+                            }
+                        });
+                    }
+                    // Tag
+                    source.forEach((el, index) => {
+                        if (typeof (tag[index]) === "undefined") {
+                            tag[index] = tag[0];
+                        }
+                    });
+
+                    // Load
+                    if (mode === 0) {
+                        source.forEach((el, index) => {
+                            this._runtime.AddLoadPromise(
+                                this._LoadFile(el, format, language[index], tag[index]).then(
+                                (success) => {
+                                    const res = {
+                                        "tag": tag[index]
+                                    };
+                                    this._startDataLoadList.push(res);
+                                },
+                                (rejected) => {
+                                    const res = {
+                                        "tag": tag[index],
+                                        "error": rejected
+                                    };
+                                    this._startDataLoadList.push(res);
+                                })
+                            );
+                        });
+                    } else {
+                        source.forEach((el, index) => {
+                            this._Load(el, format, language[index], tag[index]);
+                        });
+                    }
+
+                    //!!!!Undocumented (for startup after load)
+                    const rt = this._runtime.Dispatcher();
+                    this._disposables = new C3.CompositeDisposable(
+                        C3.Disposable.From(
+                            rt,
+                            "afterfirstlayoutstart",
+                            () => this._OnAfterFirstLayoutStart()
+                        )
+                    );
+                }
+            }
+
+            this._deviceLanguages = [...navigator.languages];
+            this._deviceLanguages.splice(this._deviceLanguages.indexOf(navigator.language), 1);
+            this._deviceLanguages.unshift(navigator.language);
+            const [check, lang] = this._LanguageSupportCheck();
+            this._currentLanguage = lang;
+
+            this._runtime.AddLoadPromise(
+                this.PostToDOMAsync("get-init", {
+                    "is-save-lang": this._isSaveLang,
+                    "current-language": this._currentLanguage
+                }).then((data) => {
+                    if (this._isSaveLang) {
+                        const backLang = data["current-language"];
+                        const find = this._availableLanguages.find((el) => el === backLang);
+                        if (find) {
+                            this._currentLanguage = backLang;
+                        }
+                    }
+                    this.PostToDOM("change-lang", {
+                        "lang": this._currentLanguage
+                    });
+                })
+            );
+
+            this.AddDOMMessageHandlers([
+                ["on-device-language-change", () => this._OnDeviceLanguageChange()]
+            ]);
+        }
+        
+        SaveToJson() {
+            if (this._isSaveData) {
+                const tags = Object.fromEntries(this._languagesDataByTags);
+                const keys = Object.fromEntries(this._languagesDataByKeys);
+                for (const key in keys) {
+                    for (const tag in tags) {
+                        const index = keys[key]["tags"].indexOf(tags[tag]);
+                        if (index !== -1) {
+                            keys[key]["tags"][index] = tag;
+                        }
+                    }
+                }
+                return keys;
+            }
+            return {};
+        }
+        LoadFromJson(entries) {
+            if (this._isSaveData) {
+                const newTags = new Map();
+                const newKeys = new Map();
+                for (const entry in entries) {
+                    const tags = entries[entry]["tags"];
+                    for (let i = 0, length = tags.length; i &lt; length; i++) {
+                        let stored = newTags.get(tags[i]);
+                        if (!stored) {
+                            let newTagPtr = [];
+                            newTags.set(tags[i], newTagPtr);
+                            stored = newTagPtr;
+                        }
+                        tags[i] = stored;
+                    }
+                    newKeys.set(entry, entries[entry]);
+                }
+                this._languagesDataByTags = newTags;
+                this._languagesDataByKeys = newKeys;
+            }
+        }
+        GetDebuggerProperties() {
+            const prefix = "plugins.robotkaposzta_textmanager.debugger";
+            const tagGroup = [];
+            const iterator = this._languagesDataByTags[Symbol.iterator]();
+            for (const [key, value] of iterator) {
+                const newGroup = {
+                    "title": "$" + key,
+                    "properties": []
+                };
+                const iterator2 = this._languagesDataByKeys[Symbol.iterator]();
+                for (const [key2, value2] of iterator2) {
+                    if (value2["tags"].includes(value)) {
+                        newGroup["properties"].push({
+                            "name": "$" + key2,
+                            "value": JSON.stringify(value2["langs"])
+                        });
+                    }
+                }
+                tagGroup.push(newGroup);
+            }
+            return [
+                {
+                    "title": prefix + ".language.name",
+                    "properties": [
+                        {
+                            "name": prefix + ".language.language-list",
+                            "value": this._availableLanguages.join(",")
+                        },
+                        {
+                            "name": prefix + ".language.device-language-list",
+                            "value": this._deviceLanguages.join(",")
+                        },
+                        {
+                            "name": prefix + ".language.current-language",
+                            "value": this._currentLanguage
+                        },
+                        {
+                            "name": prefix + ".load.tag",
+                            "value": this._lastDataTag
+                        },
+                        {
+                            "name": prefix + ".load.error",
+                            "value": this._lastDataError
+                        }
+                    ]
+                },
+                ...tagGroup
+            ];
+        }
+
+        /**
+		 * @desc Event change method.
+		 * @param {string} id - The title of the book.
+		 * @param {string} value - The author of the book.
+		 */
+        _OnAfterFirstLayoutStart() {
+            this._startDataLoadList.forEach((element) => {
+                if (typeof element["error"] === "undefined") {
+                    this._lastDataTag = element["tag"];
+                    this._lastDataError = "";
+                    this.Trigger(C3.Plugins.RobotKaposzta_TextManager.Cnds.OnDataLoad);
+                } else {
+                    this._lastDataTag = element["tag"];
+                    this._lastDataError = element["error"];
+                    this.Trigger(C3.Plugins.RobotKaposzta_TextManager.OnDataLoadError);
+                }
+            });
+        }
+
+        _OnDeviceLanguageChange() {
+            this._deviceLanguages = [...navigator.languages];
+            this._deviceLanguages.splice(this._deviceLanguages.indexOf(navigator.language), 1);
+            this._deviceLanguages.unshift(navigator.language);
+            this._BehaviorUpdate();
+            this.Trigger(C3.Plugins.RobotKaposzta_TextManager.Cnds.OnDeviceLanguageChange);
+        }
+
+        _LanguageSupportCheck(lang = "") {
+            let availableLanguages;
+            if (lang !== "") {
+                availableLanguages = [...lang.split(",")];
+            } else {
+                availableLanguages = [...this._availableLanguages];
+            }
+
+            //Most preferable
+            let mostLang = this._deviceLanguages[0];
+            const mostCodes = mostLang.split("-");
+            let mostLangCode = "";
+            if (mostCodes.length === 1 || mostCodes.length === 2) {
+                mostLangCode = mostCodes[0];
+            } else {
+                mostLangCode = mostCodes[0] + "-" + mostCodes[1];
+            }
+            const mostRegex = new RegExp("^(" + mostLangCode + ")", "gi");
+            const mostFind = availableLanguages.find((el) => {
+                return mostRegex.test(el);
+            });
+            if (mostFind) {
+                return [2, mostFind];
+            }
+            //preferable
+            let find = false;
+            let findIndex = 0;
+            let findLength = this._deviceLanguages.length;
+            while (!find &amp;&amp; findIndex &lt; findLength) {
+                const find2 = availableLanguages.find((el) => el === this._deviceLanguages[findIndex]);
+                if (find2) {
+                    return [2, find2];
+                }
+                findIndex++;
+            }
+            //preferable but not in region
+            if (!find) {
+                findIndex = 0;
+                findLength = this._deviceLanguages.length;
+                while (!find &amp;&amp; findIndex &lt; findLength) {
+                    const find2 = availableLanguages.find((el) => {
+                        const codes = el.split("-");
+                        let langCode = "";
+                        if (codes.length === 1 || codes.length === 2) {
+                            langCode = codes[0];
+                        } else {
+                            langCode = codes[0] + "-" + codes[1];
+                        }
+                        const regex = new RegExp("^(" + langCode + ")", "gi");
+                        return regex.test(this._deviceLanguages[findIndex]);
+                    });
+                    if (find2) {
+                        return [1, find2];
+                    }
+                    findIndex++;
+                }
+            }
+            return [0, ""];
+        }
+
+        _FormatLang(str) {
+            const regex = new RegExp("^(zh-hans|zh-hant)", "gi");
+            const arr = str.toUpperCase().split("-");
+            if (regex.test(str)) {
+                arr[0] = arr[0].toLowerCase();
+                arr[1] = arr[1].toLowerCase();
+            } else {
+                arr[0] = arr[0].toLowerCase();
+            }
+            return arr.join("-");
+        }
+        _GetLangCode(str) {
+            const el = str.split("-");
+            const regex = new RegExp("^(zh-hans|zh-hant)", "gi");
+            if (regex.test(str)) {
+                return el[0] + "-" + el[1];
+            }
+            return el[0];
+        }
+        _GetRegionCode(str) {
+            const el = str.split("-");
+            const regex = new RegExp("^(zh-hans|zh-hant)", "gi");
+            if (regex.test(str)) {
+                return (el[2] ? el[2] : "");
+            }
+            return (el[1] ? el[1] : "");
+        }
+
+        async _LoadFile(filename, format, lang, tag) {
+            return new Promise(async (resolve, reject) => {
+                const assetManager = this._runtime.GetAssetManager();
+                let blob;
+                try {
+                    blob = await assetManager.FetchBlob(filename);
+                } catch (error) {
+                    console.warn("Failed to load file: " + filename);
+                }
+                if (!blob) {
+                    reject();
+                    return;
+                }
+                const data = await blob.text();
+                this._Load(data, format, lang, tag, filename);
+                resolve();
+                return;
+            });
+        }
+        _Load(data, format, lang, tag, filename = "") {
+            if (format === 0) {
+                let dataObj;
+                try {
+                    dataObj = JSON.parse(data);
+                } catch (error) {
+                    console.warn("Failed to parse JSON: " + (filename ? filename : data));
+                    return false;
+                }
+                if (dataObj) {
+                    this._LoadJSONSimple(dataObj, lang, tag);
+                }
+            } else if (format === 1) {
+                let dataObj;
+                try {
+                    dataObj = JSON.parse(data);
+                } catch (error) {
+                    console.warn("Failed to parse JSON: " + (filename ? filename : data));
+                    return false;
+                }
+                if (dataObj) {
+                    this._LoadJSONMultiple(dataObj, tag);
+                }
+            } else if (format === 2) {
+                this._LoadCSV(data, tag);
+            } else if (format === 3) {
+                let dataObj;
+                try {
+                    dataObj = JSON.parse(data);
+                } catch (error) {
+                    console.warn("Failed to parse JSON: " + (filename ? filename : data));
+                    return false;
+                }
+                if (dataObj) {
+                    this._LoadDictionary(dataObj, lang, tag);
+                }
+            } else if (format === 4) {
+                let dataObj;
+                try {
+                    dataObj = JSON.parse(data);
+                } catch (error) {
+                    console.warn("Failed to parse JSON: " + (filename ? filename : data));
+                    return false;
+                }
+                if (dataObj) {
+                    this._LoadArray(dataObj, tag);
+                }
+            }
+            this._BehaviorUpdate();
+            return true;
+        }
+        _LoadJSONSimple(obj, lang, tag) {
+            if (!lang) {
+                return false;
+            }
+
+            const tags = tag.split(",").map((tag) => {
+                let existTag = this._languagesDataByTags.get(tag);
+                if (!existTag) {
+                    existTag = [];
+                    this._languagesDataByTags.set(tag, existTag);
+                }
+                return existTag;
+            });
+
+            const JSONSimpleParser = (obj, lang, path = "") => {
+                if (typeof obj === "string" || typeof obj === "number" || typeof obj === "boolean") {
+                    const value = {
+                        [lang]: String(obj)
+                    };
+                    this._AddLanguageData(path, value, tags);
+                    return;
+                }
+                const keys = Object.keys(obj);
+                if (keys.length === 0) {
+                    return;
+                }
+                keys.forEach((key) => {
+                    let newPath;
+                    if (path) {
+                        newPath = [path, key].join(".");
+                    } else {
+                        newPath = key;
+                    }
+                    JSONSimpleParser(obj[key], lang, newPath);
+                });
+            };
+            JSONSimpleParser(obj, lang);
+            return true;
+        }
+        _LoadJSONMultiple(obj, tag) {
+            const tags = tag.split(",").map((tag) => {
+                let existTag = this._languagesDataByTags.get(tag);
+                if (!existTag) {
+                    existTag = [];
+                    this._languagesDataByTags.set(tag, existTag);
+                }
+                return existTag;
+            });
+
+            const JSONMultipleParser = (obj, path = "") => {
+                const keys = Object.keys(obj);
+                if (keys.length === 0) {
+                    return;
+                }
+                const isEveryString = keys.every((key) => {
+                    if (typeof obj[key] === "string" || typeof obj[key] === "number" || typeof obj[key] === "boolean") {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                });
+                if (isEveryString) {
+                    let values = {};
+                    keys.forEach(key => {
+                        values[key] = String(obj[key]);
+                    });
+                    this._AddLanguageData(path, values, tags);
+                    return;
+                }
+                const isEveryObject = keys.every((key) => {
+                    if (typeof obj[key] === "object") {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                });
+                if (!isEveryObject) {
+                    console.warn("TextManager: Invalid JSON (multiple) format in " + path);
+                    return;
+                }
+                keys.forEach((key) => {
+                    let newPath;
+                    if (path) {
+                        newPath = [path, key].join(".");
+                    } else {
+                        newPath = key;
+                    }
+                    JSONMultipleParser(obj[key], newPath);
+                });
+            };
+            JSONMultipleParser(obj);
+            return true;
+        }
+        _LoadCSV(str, tag) {
+            const result = new Map();
+            const pattern = /(\,|\r?\n|\r|^)(?:"([^"]*(?:""[^"]*)*)"|([^\,\r\n]*))/gi;
+            const replaceEscape = /""/g;
+
+            let headers = [];
+            let headerIndex = 1;
+            let lastKey = "";
+            let lastResult = {};
+            let matches;
+            let data;
+
+            if (str === "") {
+                return false;
+            }
+
+            const tags = tag.split(",").map((tag) => {
+                let existTag = this._languagesDataByTags.get(tag);
+                if (!existTag) {
+                    existTag = [];
+                    this._languagesDataByTags.set(tag, existTag);
+                }
+                return existTag;
+            });
+
+            //header first el (key)
+            if (matches = pattern.exec(str)) {
+                if (matches[2]) {
+                    data = matches[2].replace(replaceEscape);
+                } else {
+                    data = matches[3];
+                }
+                headers.push(data);
+            }
+
+            //header other el (languages)
+            while (matches = pattern.exec(str)) {
+                if (matches[1].length !== 0 &amp;&amp; matches[1] !== ",") {
+                    if (matches[2]) {
+                        data = matches[2].replace(replaceEscape);
+                    } else {
+                        data = matches[3];
+                    }
+                    lastKey = data;
+                    break;
+                } else {
+                    if (matches[2]) {
+                        data = matches[2].replace(replaceEscape);
+                    } else {
+                        data = matches[3];
+                    }
+                    headers.push(data);
+                }
+            }
+            const headersLength = headers.length;
+
+            //parsing data
+            while (matches = pattern.exec(str)) {
+                if (matches[1].length !== 0 &amp;&amp; matches[1] !== ",") {
+                    this._AddLanguageData(lastKey, lastResult, tags);
+                    if (matches[2]) {
+                        data = matches[2].replace(replaceEscape);
+                    } else {
+                        data = matches[3];
+                    }
+                    headerIndex = 0;
+                    lastKey = data;
+                    lastResult = {};
+                } else {
+                    if (matches[2]) {
+                        data = matches[2].replace(replaceEscape);
+                    } else {
+                        data = matches[3];
+                    }
+                    if (headerIndex &lt; headersLength &amp;&amp; data !== "") {
+                        lastResult[headers[headerIndex]] = data;
+                    }
+                }
+                headerIndex++;
+            }
+            if (lastKey !== "") {
+                this._AddLanguageData(lastKey, lastResult, tags);
+            }
+            return result;
+        }
+        _LoadDictionary(obj, lang, tag) {
+            if (!obj["data"] || !lang) {
+                return false;
+            }
+
+            const tags = tag.split(",").map((tag) => {
+                let existTag = this._languagesDataByTags.get(tag);
+                if (!existTag) {
+                    existTag = [];
+                    this._languagesDataByTags.set(tag, existTag);
+                }
+                return existTag;
+            });
+
+            const iterator = Object.entries(obj["data"]);
+            for (const [key, langValue] of iterator) {
+                const value = {
+                    [lang]: String(langValue)
+                };
+                this._AddLanguageData(key, value, tags);
+            }
+            return true;
+        }
+        _LoadArray(obj, tag) {
+            const result = new Map();
+            if (!obj["data"] || typeof (obj["data"]) !== "object" || typeof (obj["data"][0]) !== "object" || typeof (obj["data"][0][0]) !== "object") {
+                return result;
+            }
+
+            const tags = tag.split(",").map((tag) => {
+                let existTag = this._languagesDataByTags.get(tag);
+                if (!existTag) {
+                    existTag = [];
+                    this._languagesDataByTags.set(tag, existTag);
+                }
+                return existTag;
+            });
+
+            const data = obj["data"];
+            const width = data.length;
+            const height = data[0].length;
+            const depth = data[0][0].length;
+            let widthIndex = 0;
+            let heightIndex = 0;
+            let depthIndex = 0;
+            //Sheet
+            while (depthIndex &lt; depth) {
+                heightIndex = 0;
+
+                //First row
+                widthIndex = 0;
+                let headers = [];
+                while (widthIndex &lt; width) {
+                    headers.push(data[widthIndex][heightIndex][depthIndex]);
+                    widthIndex++;
+                }
+                heightIndex++;
+
+                //Parse rows
+                while (heightIndex &lt; height) {
+                    let langKey;
+                    let langData = {};
+                    langKey = data[0][heightIndex][depthIndex];
+                    widthIndex = 1;
+                    while (widthIndex &lt; width) {
+                        const currData = data[widthIndex][heightIndex][depthIndex];
+                        if (currData !== "") {
+                            langData[headers[widthIndex]] = String(currData);
+                        }
+                        widthIndex++;
+                    }
+                    this._AddLanguageData(langKey, langData, tags);
+                    heightIndex++;
+                }
+                depthIndex++;
+            }
+            return result;
+        }
+        _AddLanguageData(key, values, tags) {
+            if (key === "") return;
+            const exist = this._languagesDataByKeys.get(key);
+            if (exist) {
+                tags.forEach((tag) => {
+                    if (!exist["tags"].includes(tag)) {
+                        exist["tags"].push(tag);
+                    }
+                });
+                exist["langs"] = {
+                    ...exist["langs"],
+                    ...values
+                };
+            } else {
+                const value = {
+                    "tags": [...tags],
+                    "langs": {
+                        ...values
+                    }
+                };
+                this._languagesDataByKeys.set(key, value);
+            }
+        }
+
+        _UnloadByTag(mode, tag, lang) {
+            //tags
+            //tagMode 0 - Hard delete; 1 - Soft delete
+            let tags = [];
+            tag = String(tag);
+            tag.split(",").reduce((tags, tag) => {
+                let existTag = this._languagesDataByTags.get(tag);
+                this._languagesDataByTags.delete(tag);
+                if (existTag) {
+                    tags.push(existTag);
+                }
+                    return tags;
+            }, tags);
+            if (tags.length === 0) {
+                return;
+            }
+            //lang
+            let isLang = false;
+            if (lang !== "") {
+                isLang = true;
+            }
+            const iterator = this._languagesDataByKeys[Symbol.iterator]();
+            for (const [key, value] of iterator) {
+                if (value["tags"].some((tag) => { return tags.includes(tag); })) {
+                    if (!isLang || typeof (value["langs"][lang]) !== "undefined") {
+                        if (mode === 0) {
+                            if (isLang) {
+                                tags.forEach((tag) => {
+                                    const i = value["tags"].indexOf(tag);
+                                    if (i !== -1) {
+                                        value["tags"].splice(i, 1);
+                                    }
+                                });
+                                delete value["langs"][lang];
+                                if (value["tags"].length === 0 || Object.entries(value["langs"]).length === 0) {
+                                    this._languagesDataByKeys.delete(key);  
+                                }
+                            } else {
+                                this._languagesDataByKeys.delete(key);
+                            }
+                        } else {
+                            tags.forEach((tag) => {
+                                const i = value["tags"].indexOf(tag);
+                                if (i !== -1) {
+                                    value["tags"].splice(i, 1);
+                                }
+                            });
+                            if (value["tags"].length === 0) {
+                                this._languagesDataByKeys.delete(key);  
+                            }
+                        }
+                    }
+                }
+            }
+            this._BehaviorUpdate();
+        }
+        _UnloadByKey(keyVal, lang) {
+            //lang
+            let isLang = false;
+            if (lang !== "") {
+                isLang = true;
+            }
+
+            const iterator = this._languagesDataByKeys[Symbol.iterator]();
+            for (const [key, value] of iterator) {
+                if (key === keyVal) {
+                    if (!isLang || typeof (value["langs"][lang]) !== "undefined") {
+                        if (isLang) {
+                            delete value["langs"][lang];
+                            if (Object.entries(value["langs"]).length === 0) {
+                                this._languagesDataByKeys.delete(key);  
+                            }
+                        } else {
+                            this._languagesDataByKeys.delete(key);
+                        }
+                    }
+                }
+            }
+            this._BehaviorUpdate();
+        }
+
+        _ExportJSONSimple(lang, tag) {
+            const result = {};
+
+            let isTag = false;
+            let tags = [];
+            if (typeof (tag) !== "undefined") {
+                isTag = true;
+                tag = String(tag);
+                tag.split(",").reduce((tags, tag) => {
+                    let existTag = this._languagesDataByTags.get(tag);
+                    if (existTag) {
+                        tags.push(existTag);
+                    }
+                    return tags;
+                }, tags);
+                if (tags.length === 0) {
+                    return JSON.stringify(result);
+                }
+            }
+
+            const iterator = this._languagesDataByKeys[Symbol.iterator]();
+            for (const [key, value] of iterator) {
+                if (!isTag || (isTag &amp;&amp; value["tags"].some((tag) => { return tags.includes(tag); }))) {
+                    const data = value["langs"][lang];
+                    if (data) {
+                        const path = key.split('.');
+                        const pathLength = path.length;
+                        path.reduce(function (previous, current, currentIndex) {
+                            if (currentIndex >= pathLength - 1) {
+                                if (data) {
+                                    return previous[current] = data;
+                                } else {
+                                    return previous[current] = "";
+                                }
+                            } else if (typeof (previous[current]) !== "object") {
+                                return previous[current] = {};
+                            } else {
+                                return previous[current];
+                            }
+                        }, result);
+                    }
+                }
+            }
+            return JSON.stringify(result);
+        }
+        _ExportJSONMultiple(tag) {
+            const result = {};
+
+            let isTag = false;
+            let tags = [];
+            if (typeof (tag) !== "undefined") {
+                isTag = true;
+                tag = String(tag);
+                tag.split(",").reduce((tags, tag) => {
+                    let existTag = this._languagesDataByTags.get(tag);
+                    if (existTag) {
+                        tags.push(existTag);
+                    }
+                    return tags;
+                }, tags);
+                if (tags.length === 0) {
+                    return JSON.stringify(result);
+                }
+            }
+
+            const iterator = this._languagesDataByKeys[Symbol.iterator]();
+            for (const [key, value] of iterator) {
+                if (!isTag || (isTag &amp;&amp; value["tags"].some((tag) => { return tags.includes(tag); }))) {
+                    const path = key.split('.');
+                    const pathLength = path.length;
+                    path.reduce(function (previous, current, currentIndex) {
+                        if (currentIndex >= pathLength - 1) {
+                            return previous[current] = value["langs"];
+                        } else if (typeof (previous[current]) !== "object") {
+                            return previous[current] = {};
+                        } else {
+                            return previous[current];
+                        }
+                    }, result);
+                }
+            }
+            return JSON.stringify(result);
+        }
+        _ExportCSV(tag) {
+            let result = "";
+            const map = this._languagesDataByKeys;
+
+            let isTag = false;
+            let tags = [];
+            if (typeof (tag) !== "undefined") {
+                isTag = true;
+                tag = String(tag);
+                tag.split(",").reduce((tags, tag) => {
+                    let existTag = this._languagesDataByTags.get(tag);
+                    if (existTag) {
+                        tags.push(existTag);
+                    }
+                    return tags;
+                }, tags);
+                if (tags.length === 0) {
+                    return JSON.stringify(result);
+                }
+            }
+
+            //collect all languages
+            const allLang = [];
+            const iterator = map[Symbol.iterator]();
+            for (const [key, value] of iterator) {
+                const difference = Object.keys(value["langs"]).filter(x => !allLang.includes(x));
+                allLang.push(...difference);
+            }
+
+            //write header
+            result += "\"" + ["key", ...allLang].map((head) => {
+                return head.replaceAll("\"", "\"\"");
+            }).join("\",\"") + "\"";
+            result += "\n";
+
+            //write data
+            const iterator2 = map[Symbol.iterator]();
+            for (const [key, value] of iterator2) {
+                if (!isTag || (isTag &amp;&amp; value["tags"].some((tag) => { return tags.includes(tag); }))) {
+                    const data = [];
+                    data.push(key);
+                    for (const lang of allLang) {
+                        const langVal = value["langs"][lang];
+                        if (langVal) {
+                            data.push(langVal);
+                        } else {
+                            data.push("");
+                        }
+                    }
+                    result += "\"" + data.map((data) => {
+                        return data.replaceAll("\"", "\"\"");
+                    }).join("\",\"") + "\"";
+                    result += "\n";
+                }
+            }
+            return result;
+        }
+        _ExportDictionary(lang, tag) {
+            const result = {
+                "c2dictionary": true,
+                "data": {
+                    "": ""
+                }
+            };
+
+            let isTag = false;
+            let tags = [];
+            if (typeof (tag) !== "undefined") {
+                isTag = true;
+                tag = String(tag);
+                tag.split(",").reduce((tags, tag) => {
+                    let existTag = this._languagesDataByTags.get(tag);
+                    if (existTag) {
+                        tags.push(existTag);
+                    }
+                    return tags;
+                }, tags);
+                if (tags.length === 0) {
+                    return JSON.stringify(result);
+                }
+            }
+
+            const resultData = {};
+            const iterator = this._languagesDataByKeys[Symbol.iterator]();
+            for (const [key, value] of iterator) {
+                if (!isTag || (isTag &amp;&amp; value["tags"].some((tag) => { return tags.includes(tag); }))) {
+                    const data = value["langs"][lang];
+                    if (data) {
+                        resultData[key] = data;
+                    } else {
+                        resultData[key] = "";
+                    }
+                }
+            }
+            result["data"] = resultData;
+
+            return JSON.stringify(result);
+        }
+        _ExportArray(tag) {
+            const result = {
+                "c2array": true,
+                "size": [1, 1, 1],
+                "data": [
+                    [
+                        [
+                            ""
+                        ]
+                    ]
+                ]
+            };
+
+            const resultData = [];
+            let width = 0;
+            let height = 0;
+            let depth = 1;
+
+            const map = this._languagesDataByKeys;
+            let isTag = false;
+            let tags = [];
+            if (typeof (tag) !== "undefined") {
+                isTag = true;
+                tag = String(tag);
+                tag.split(",").reduce((tags, tag) => {
+                    let existTag = this._languagesDataByTags.get(tag);
+                    if (existTag) {
+                        tags.push(existTag);
+                    }
+                    return tags;
+                }, tags);
+                if (tags.length === 0) {
+                    return JSON.stringify(result);
+                }
+            }
+
+            //collect all languages
+            const allLang = [];
+            const iterator = map[Symbol.iterator]();
+            for (const [key, value] of iterator) {
+                const difference = Object.keys(value["langs"]).filter(x => !allLang.includes(x));
+                allLang.push(...difference);
+            }
+
+            //write header
+            ["key", ...allLang].forEach((el) => {
+                resultData.push([
+                    [el]
+                ]);
+                width++;
+            });
+            height++;
+
+            //write data
+            const iterator2 = map[Symbol.iterator]();
+            for (const [key, value] of iterator2) {
+                if (!isTag || (isTag &amp;&amp; value["tags"].some((tag) => { return tags.includes(tag); }))) {
+                    let widthIndex = 0;
+                    resultData[widthIndex].push([key]);
+                    widthIndex++;
+                    for (const lang of allLang) {
+                        const langVal = value["langs"][lang];
+                        if (langVal) {
+                            resultData[widthIndex].push([langVal]);
+                        } else {
+                            resultData[widthIndex].push([""]);
+                        }
+                        widthIndex++;
+                    }
+                    height++;
+                }
+            }
+            result["size"] = [width, height, depth];
+            result["data"] = resultData;
+
+            return JSON.stringify(result);
+        }
+
+        _ParamAnalyze(text) {
+            const scheme = "default";
+            if (typeof (this._paramSchemes[scheme]) === "undefined") return {};
+            const startCharEscape = this._paramSchemes[scheme].startEscape;
+            const startCharEscapeLength = startCharEscape.length;
+            const startChar = this._paramSchemes[scheme].start;
+            const startCharLength = startChar.length;
+            const endCharEscape = this._paramSchemes[scheme].endEscape;
+            const endCharEscapeLength = endCharEscape.length;
+            const endChar = this._paramSchemes[scheme].end;
+            const endCharLength = endChar.length;
+
+            const paramsObj = {};
+
+            const textLength = text.length;
+            let startIndex = -1;
+            let endIndex = 0;
+            let param = "";
+            let j = 0;
+            while (j &lt; textLength) {
+                if (startIndex === -1) {
+                    if (text.substring(j, j + startCharEscapeLength) === startCharEscape) {
+                        j += startCharEscapeLength;
+                    } else if (text.substring(j, j + startCharLength) === startChar) {
+                        startIndex = j;
+                        j += startCharLength;
+                    } else {
+                        j++;
+                    }
+                } else {
+                    if (text.substring(j, j + endCharEscapeLength) === endCharEscape) {
+                        j += endCharEscapeLength;
+                    } else if (text.substring(j, j + endCharLength) === endChar) {
+                        param = text.substring(startIndex + startCharLength, j);
+                        if (typeof (paramsObj[param]) === "undefined") {
+                            paramsObj[param] = [];
+                        }
+                        paramsObj[param].push({
+                            "startIndex": startIndex,
+                            "endIndex": j
+                        });
+                        j += endCharLength;
+                        startIndex = -1;
+                        endIndex = j;
+                    } else {
+                        j++;
+                    }
+                }
+            }
+            return paramsObj;
+        }
+        _RegExpEscape(text) {
+            return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&amp;");
+        }
+
+        _BehaviorUpdate() {
+            this._behaviorList.forEach((value) => {
+                let text;
+                let lang = value._lang;
+                if (!lang) lang = this._currentLanguage;
+                let langObj = this._languagesDataByKeys.get(value._key);
+                if (!langObj || !langObj["langs"][lang]) {
+                    text = "";
+                } else {
+                    text = langObj["langs"][lang];
+                }
+                value._SetText(text);
+            });
+        }
+    };
+    C3.Plugins.RobotKaposzta_TextManager.Instance = TextManagerRuntimeInstance;
+
+    //Behavior interface
+    C3.Plugins.RobotKaposzta_TextManager.Behavior = {
+        GetText(key, lang) {
+            if (!lang) lang = PLUGIN._currentLanguage;
+            let langObj = PLUGIN._languagesDataByKeys.get(key);
+            if (!langObj || !langObj["langs"][lang]) {
+                return "";
+            }
+            return langObj["langs"][lang];
+        },
+        AddListener(obj) {
+            PLUGIN._behaviorList.add(obj);
+        },
+        RemoveListener(obj) {
+            PLUGIN._behaviorList.delete(obj);
+        }
+    }
+};</code></pre></article></section></div></div></div><div class="search-container" id="PkfLWpAbet" style="display:none"><div class="wrapper" id="iCxFxjkHbP"><button class="icon-button search-close-button" id="VjLlGakifb" aria-label="close search"><svg><use xlink:href="#close-icon"></use></svg></button><div class="search-box-c"><svg><use xlink:href="#search-icon"></use></svg> <input type="text" id="vpcKVYIppa" class="search-input" placeholder="Search..." autofocus></div><div class="search-result-c" id="fWwVHRuDuN"><span class="search-result-c-text">Type anything to view search result</span></div></div></div><div class="mobile-menu-icon-container"><button class="icon-button" id="mobile-menu" data-isopen="false" aria-label="menu"><svg><use xlink:href="#menu-icon"></use></svg></button></div><div id="mobile-sidebar" class="mobile-sidebar-container"><div class="mobile-sidebar-wrapper"><a href="/" class="sidebar-title sidebar-title-anchor">Home</a><div class="mobile-nav-links"></div><div class="mobile-sidebar-items-c"><div class="sidebar-section-title with-arrow" data-isopen="false" id="xXStfKGdOkG94vV3cq2y5"><div>Classes</div><svg><use xlink:href="#down-icon"></use></svg></div><div class="sidebar-section-children-container"><div class="sidebar-section-children"><a href="TextManagerEditorInstance.html">TextManagerEditorInstance</a></div><div class="sidebar-section-children"><a href="TextManagerEditorPlugin.html">TextManagerEditorPlugin</a></div><div class="sidebar-section-children"><a href="TextManagerEditorType.html">TextManagerEditorType</a></div><div class="sidebar-section-children"><a href="TextManagerRuntimeDOMHandler.html">TextManagerRuntimeDOMHandler</a></div><div class="sidebar-section-children"><a href="TextManagerRuntimeInstance.html">TextManagerRuntimeInstance</a></div><div class="sidebar-section-children"><a href="TextManagerRuntimePlugin.html">TextManagerRuntimePlugin</a></div><div class="sidebar-section-children"><a href="TextManagerRuntimeType.html">TextManagerRuntimeType</a></div></div><div class="sidebar-section-title with-arrow" data-isopen="false" id="Fnc4SJAn1Mb3k5hp1VMIf"><div>Externals</div><svg><use xlink:href="#down-icon"></use></svg></div><div class="sidebar-section-children-container"><div class="sidebar-section-children"><a href="external-DOMHandler.html">DOMHandler</a></div><div class="sidebar-section-children"><a href="external-IInstanceBase.html">IInstanceBase</a></div><div class="sidebar-section-children"><a href="external-IPluginBase.html">IPluginBase</a></div><div class="sidebar-section-children"><a href="external-ITypeBase.html">ITypeBase</a></div><div class="sidebar-section-children"><a href="external-SDKInstanceBase.html">SDKInstanceBase</a></div><div class="sidebar-section-children"><a href="external-SDKPluginBase.html">SDKPluginBase</a></div><div class="sidebar-section-children"><a href="external-SDKTypeBase.html">SDKTypeBase</a></div></div><div class="sidebar-section-title with-arrow" data-isopen="false" id="KKwJhg77iHx6-ST0501lk"><div>Namespaces</div><svg><use xlink:href="#down-icon"></use></svg></div><div class="sidebar-section-children-container"><div class="sidebar-section-children"><a href="C3.Plugins.RobotKaposzta_TextManager.Acts.html">Acts</a></div><div class="sidebar-section-children"><a href="C3.Plugins.RobotKaposzta_TextManager.Cnds.html">Cnds</a></div><div class="sidebar-section-children"><a href="C3.Plugins.RobotKaposzta_TextManager.Exps.html">Exps</a></div></div></div><div class="mobile-navbar-actions"><div class="navbar-right-item"><button class="icon-button search-button" aria-label="open-search"><svg><use xlink:href="#search-icon"></use></svg></button></div><div class="navbar-right-item"><button class="icon-button theme-toggle" aria-label="toggle-theme"><svg><use class="theme-svg-use" xlink:href="#light-theme-icon"></use></svg></button></div><div class="navbar-right-item"><button class="icon-button font-size" aria-label="change-font-size"><svg><use xlink:href="#font-size-icon"></use></svg></button></div></div></div></div><script type="text/javascript" src="scripts/core.min.js"></script><script src="scripts/search.min.js" defer="defer"></script><script src="scripts/third-party/fuse.js" defer="defer"></script><script type="text/javascript">var tocbotInstance=tocbot.init({tocSelector:"#eed4d2a0bfd64539bb9df78095dec881",contentSelector:".main-content",headingSelector:"h1, h2, h3",hasInnerContainers:!0,scrollContainer:".main-content",headingsOffset:130,onClick:bringLinkToView})</script></body></html>

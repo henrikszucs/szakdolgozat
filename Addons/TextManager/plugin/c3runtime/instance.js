@@ -20,7 +20,21 @@
     const C3 = self.C3;
     const DOM_COMPONENT_ID = "RobotKaposzta_TextManager";
     let PLUGIN = null;
-    C3.Plugins.RobotKaposzta_TextManager.Instance = class TextManagerInstance extends C3.SDKInstanceBase {
+
+    /**
+	 * @external SDKInstanceBase
+	 * @see https://www.construct.net/en/make-games/manuals/addon-sdk/runtime-reference/base-classes/sdkinstancebase
+	 */
+    /**
+	 * @classdesc TextManager editor class.
+	 * @extends external:SDKInstanceBase
+	 */
+    class TextManagerRuntimeInstance extends C3.SDKInstanceBase {
+        /**
+		 * @desc create class.
+		 * @param {object} inst - The title of the book.
+		 * @param {array} properties - The author of the book.
+		 */
         constructor(inst, properties) {
             super(inst, DOM_COMPONENT_ID);
             PLUGIN = this;
@@ -195,10 +209,7 @@
                 ["on-device-language-change", () => this._OnDeviceLanguageChange()]
             ]);
         }
-
-        Release() {
-            super.Release();
-        }
+        
         SaveToJson() {
             if (this._isSaveData) {
                 const tags = Object.fromEntries(this._languagesDataByTags);
@@ -286,6 +297,11 @@
             ];
         }
 
+        /**
+		 * @desc Event change method.
+		 * @param {string} id - The title of the book.
+		 * @param {string} value - The author of the book.
+		 */
         _OnAfterFirstLayoutStart() {
             this._startDataLoadList.forEach((element) => {
                 if (typeof element["error"] === "undefined") {
@@ -1156,6 +1172,7 @@
             });
         }
     };
+    C3.Plugins.RobotKaposzta_TextManager.Instance = TextManagerRuntimeInstance;
 
     //Behavior interface
     C3.Plugins.RobotKaposzta_TextManager.Behavior = {

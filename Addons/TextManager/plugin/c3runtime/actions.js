@@ -1,7 +1,15 @@
 "use strict";
 {
     const C3 = self.C3;
+    /** @namespace */
     C3.Plugins.RobotKaposzta_TextManager.Acts = {
+        /**
+         * foo is now MyNamespace~foo rather than MyNamespace.foo.
+         * @inner
+         * @example
+         * // returns 2
+         * globalNS.method1(5, 10);
+         */
         SetLanguage(lang) {
             const find = this._availableLanguages.find((el) => el === lang);
             if (find) {

@@ -1,11 +1,23 @@
 "use strict";
 {
 	const SDK = self.SDK;
-
 	const PLUGIN_ID = "RobotKaposzta_TextManager";
 	const PLUGIN_VERSION = "0.0.1.0";
 	const PLUGIN_CATEGORY = "other";
-	const PLUGIN_CLASS = SDK.Plugins.RobotKaposzta_TextManager = class TextManagerPlugin extends SDK.IPluginBase {
+
+	/**
+	 * @external IPluginBase
+	 * @see https://www.construct.net/en/make-games/manuals/addon-sdk/reference/iplugininfo
+	 * @see https://www.construct.net/en/make-games/manuals/addon-sdk/reference/pluginproperty
+	 */
+	/**
+	 * @classdesc TextManager plugin configurator.
+	 * @extends external:IPluginBase
+	 */
+	class TextManagerEditorPlugin extends SDK.IPluginBase {
+		/**
+		 * @desc create class.
+		 */
 		constructor() {
 			super(PLUGIN_ID);
 			
@@ -48,5 +60,7 @@
 			SDK.Lang.PopContext();
 		}
 	};
-	PLUGIN_CLASS.Register(PLUGIN_ID, PLUGIN_CLASS);
+
+	SDK.Plugins.RobotKaposzta_TextManager = TextManagerEditorPlugin;
+	TextManagerEditorPlugin.Register(PLUGIN_ID, TextManagerEditorPlugin);
 };
