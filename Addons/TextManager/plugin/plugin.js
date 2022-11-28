@@ -3,10 +3,11 @@
 	const SDK = self.SDK;
 	const PLUGIN_ID = "RobotKaposzta_TextManager";
 	const PLUGIN_VERSION = "0.0.1.0";
-	const PLUGIN_CATEGORY = "other";
 
 	/**
 	 * @external IPluginBase
+	 * @desc The main configuration for a plugin.
+	 * @see https://www.construct.net/en/make-games/manuals/addon-sdk/guide/configuring-plugins
 	 * @see https://www.construct.net/en/make-games/manuals/addon-sdk/reference/iplugininfo
 	 * @see https://www.construct.net/en/make-games/manuals/addon-sdk/reference/pluginproperty
 	 */
@@ -16,7 +17,7 @@
 	 */
 	class TextManagerEditorPlugin extends SDK.IPluginBase {
 		/**
-		 * @desc create class.
+		 * @desc Create plugin's basic editor settings.
 		 */
 		constructor() {
 			super(PLUGIN_ID);
@@ -26,7 +27,7 @@
 			this._info.SetName(SDK.Lang.Get(".name"));
 			this._info.SetDescription(SDK.Lang.Get(".description"));
 			this._info.SetVersion(PLUGIN_VERSION);
-			this._info.SetCategory(PLUGIN_CATEGORY);
+			this._info.SetCategory("other");
 			this._info.SetAuthor("Szűcs Henrik");
 			this._info.SetHelpUrl(SDK.Lang.Get(".help-url"));
 			this._info.SetPluginType("object");

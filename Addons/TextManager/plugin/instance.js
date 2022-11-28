@@ -5,6 +5,7 @@
 
 	/**
 	 * @external IInstanceBase
+	 * @desc The IInstanceBase interface is used as the base class for instances in the SDK. For "world" type plugins, instances instead derive from IWorldInstanceBase, which itself derives from IInstanceBase. <br><br> IInstanceBase cannot be directly constructed; it should only be used as a base class.
 	 * @see https://www.construct.net/en/make-games/manuals/addon-sdk/reference/base-classes/iinstancebase
 	 */
 	/**
@@ -15,8 +16,8 @@
 	class TextManagerEditorInstance extends SDK.IInstanceBase {
 		/**
 		 * @desc Create class.
-		 * @param {object} sdkType - The title of the book.
-		 * @param {object} inst - The author of the book.
+		 * @param {object} sdkType - Reference to the associated SDK type class.
+		 * @param {object} inst - Reference to the IObjectInstance interface, or IWorldInstance interface for "world" type plugins, representing this instance in the editor. This allows access to Construct's built-in features for instances.
 		 */
 		constructor(sdkType, inst) {
 			super(sdkType, inst);
@@ -27,9 +28,9 @@
 
 		/**
 		 * @override
-		 * @desc Event change method.
-		 * @param {string} id - The title of the book.
-		 * @param {string} value - The author of the book.
+		 * @desc Plugin's property change handler.
+		 * @param {string} id - The id of the propery field.
+		 * @param {string} value - The current value of the propery field.
 		 */
 		OnPropertyChanged(id, value) {
 			if (id === "all-language") {
@@ -72,7 +73,7 @@
 		}
 
 		/**
-		 * @desc Convert data from inpunt fields.
+		 * @desc Start conversion.
 		 * @return {undefined}
 		 */
 		_Convert() {
@@ -130,10 +131,10 @@
 		}
 
 		/**
-		 * @desc Convert data from inpunt fields.
-		 * @param {object} obj - The title of the book.
-		 * @param {string} language - The author of the book.
-		 * @return {object} language data map
+		 * @desc Convert Simple JSON to language Map.
+		 * @param {object} obj - Single JSON object to convert.
+		 * @param {string} lang - The object's language.
+		 * @return {object} Language map
 		 */
 		_LoadJSONSimple(obj, lang) {
             const JSONSimpleParser = (obj, lang, result, path="") => {
@@ -165,9 +166,9 @@
             return result;
         }
 		/**
-		 * @desc Convert data from inpunt fields.
-		 * @param {object} obj - The title of the book.
-		 * @return {object} language data map
+		 * @desc Convert Multiple JSON to language Map.
+		 * @param {object} obj - Multiple JSON object to convert.
+		 * @return {object} Language map
 		 */
         _LoadJSONMultiple(obj) {
             const result = new Map();
@@ -220,9 +221,9 @@
             return result;
         }
 		/**
-		 * @desc Convert data from inpunt fields.
-		 * @param {string} str - The author of the book.
-		 * @return {object} language data map
+		 * @desc Convert CSV data to language Map.
+		 * @param {string} str - The CSV data in string.
+		 * @return {object} Language map
 		 */
         _LoadCSV(str) {
             const result = new Map();
@@ -309,10 +310,10 @@
             return result;
         }
 		/**
-		 * @desc Convert data from inpunt fields.
-		 * @param {object} obj - The author of the book.
-		 * @param {string} lang - The author of the book.
-		 * @return {object} language data map
+		 * @desc Convert Construct 3 dictionary JSON to language Map.
+		 * @param {object} obj - The Construct 3 dictionary JSON object to convert.
+		 * @param {string} lang - The object's language.
+		 * @return {object} Language map
 		 */
         _LoadDictionary(obj, lang) {
             const result = new Map();
@@ -328,9 +329,9 @@
             return result;
         }
 		/**
-		 * @desc Convert data from inpunt fields.
-		 * @param {object} obj - The author of the book.
-		 * @return {object} language data map
+		 * @desc Convert Construct 3 array JSON to language Map.
+		 * @param {object} obj - The Construct 3 array JSON object to convert.
+		 * @return {object} Language map
 		 */
         _LoadArray(obj) {
             const result = new Map();
@@ -383,10 +384,10 @@
         }
 
 		/**
-		 * @desc Export data from language map.
-		 * @param {object} map - The author of the book.
-		 * @param {string} lang - The author of the book.
-		 * @return {string} string of the data
+		 * @desc Export language map to Simple JSON format.
+		 * @param {object} map - Language map to convert.
+		 * @param {string} lang - The language that select during conversion.
+		 * @return {string} language data in Simple JSON string format
 		 */
 		_ExportJSONSimple(map, lang) {
 			const result = {};
@@ -414,9 +415,9 @@
 			return JSON.stringify(result);
 		}
 		/**
-		 * @desc Export data from language map.
-		 * @param {object} map - The author of the book.
-		 * @return {string} string of the data
+		 * @desc Export language map to Multiple JSON format.
+		 * @param {object} map - Language map to convert.
+		 * @return {string} language data in Multiple JSON string format
 		 */
 		_ExportJSONMultiple(map) {
 			const result = {};
@@ -437,9 +438,9 @@
 			return JSON.stringify(result);
 		}
 		/**
-		 * @desc Export data from language map.
-		 * @param {object} map - The author of the book.
-		 * @return {string} string of the data
+		 * @desc Export data from language map to CSV format.
+		 * @param {object} map - Language map to convert.
+		 * @return {string} language data in CSV string format
 		 */
 		_ExportCSV(map) {
 			let result = "";
@@ -479,10 +480,10 @@
 			return result;
 		}
 		/**
-		 * @desc Export data from language map.
-		 * @param {object} map - The author of the book.
-		 * @param {string} lang - The author of the book.
-		 * @return {string} string of the data
+		 * @desc Export data from language map to Construct 3 dictionary format.
+		 * @param {object} map - Language map to convert.
+		 * @param {string} lang - The language that select during conversion.
+		 * @return {string} language data in Construct 3 dictionary JSON string format
 		 */
 		_ExportDictionary(map, lang) {
 			const resultData = {};
@@ -502,9 +503,9 @@
 			return JSON.stringify(result);
 		}
 		/**
-		 * @desc Export data from language map.
-		 * @param {object} map - The author of the book.
-		 * @return {string} string of the data
+		 * @desc Export data from language map to Construct 3 array format.
+		 * @param {object} map - Language map to convert.
+		 * @return {string} language data in Construct 3 array JSON string format
 		 */
 		_ExportArray(map) {
 			const resultData = [];
