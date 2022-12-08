@@ -304,7 +304,12 @@
                         return isRecursive(element);
                     });
                 } else if (item["reference"].length !== 0) {
-                    return this._IsPathSelf(item["reference"], destPathArray);
+                    if (this._IsPathSelf(item["reference"], destPathArray)) {
+                        return true;
+                    } else {
+                        const item = this._MenuItemGet(item["reference"], false)["selectObj"];
+                        return isRecursive(item);
+                    }
                 } else {
                     return false;
                 }
@@ -325,23 +330,25 @@
                 }
             } else {
                 const clone = JSON.parse(JSON.stringify(srcPathData["selectObj"]));
-                const refClone = (item) => {
+                const refClone = (item, parent) => {
                     if (item["submenu"].length !== 0) {
                         item["submenu"].forEach((submenu) => {
-                            refClone(submenu);
+                            refClone(submenu, item);
                         });
                     } else if (item["reference"].length !== 0) {
-                        const ref = this._MenuItemGet(item["reference"], false, false);
-                        item = JSON.parse(JSON.stringify(ref["selectObj"]));
-                        refClone(item);
+                        let ref = this._MenuItemGet(item["reference"], false);
+                        ref = JSON.parse(JSON.stringify(ref["selectObj"]));
+                        parent["submenu"].splice(parent["submenu"].indexOf(item), 1, ref);
+                        item = ref;
+                        refClone(item, parent);
                     }
                 };
-                refClone(clone);
+                refClone(clone, null);
                 clone["id"] = destPathData["selectObj"]["id"];
                 const i = destPathData["parentObj"]["submenu"].indexOf(destPathData["selectObj"]);
                 destPathData["parentObj"]["submenu"].splice(i, 1);
-                if (typeof index === "undefined") {
-                    index = i;
+                if (typeof index !== "undefined") {
+                    i = index;
                 }
                 destPathData["parentObj"]["submenu"].splice(index, 0, clone);
             }
@@ -364,10 +371,12 @@
                     const index = pathData["parentObj"]["submenu"].indexOf(pathData["selectObj"]);
                     pathData["parentObj"]["submenu"].splice(index, 1);
                 }
+            } else {
+                return false;
             }
             //send below
             this.PostToDOM("remove-menu-item", {
-                "path": path
+                "path-array": pathArray
             });
             return true;
         }

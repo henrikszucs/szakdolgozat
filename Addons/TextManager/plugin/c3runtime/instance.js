@@ -1,76 +1,144 @@
 "use strict";
 {
     // 1 UNDOCUMENTED FEATURE new C3.CompositeDisposable();
-    /*
-    Language data scheme:
-    Keys: {
-        "key": {
-            "tags": [[],[]],
-            "langs": {
-                "en-US": "hello",
-                "hu-HU": "helló"
-            }
-        }
-    }
-    Tags: {
-        "name": [],
-        "name2": []
-    }
-    */
     const C3 = self.C3;
     const DOM_COMPONENT_ID = "RobotKaposzta_TextManager";
     let PLUGIN = null;
 
     /**
-	 * @external SDKInstanceBase
-	 * @see https://www.construct.net/en/make-games/manuals/addon-sdk/runtime-reference/base-classes/sdkinstancebase
-	 */
+     * @external SDKInstanceBase
+     * @desc The SDKInstanceBase interface is used as the base class for runtime instances in the SDK. For "world" type plugins, instances instead derive from SDKWorldInstanceBase which itself derives from SDKInstanceBase.
+     * @see https://www.construct.net/en/make-games/manuals/addon-sdk/runtime-reference/base-classes/sdkinstancebase
+     */
     /**
-	 * @classdesc TextManager editor class.
-	 * @extends external:SDKInstanceBase
-	 */
+     * @classdesc TextManager editor class. 1 UNDOCUMENTED FEATURE new C3.CompositeDisposable();
+     * @extends external:SDKInstanceBase
+     */
     class TextManagerRuntimeInstance extends C3.SDKInstanceBase {
         /**
-		 * @desc create class.
-		 * @param {object} inst - The title of the book.
-		 * @param {array} properties - The author of the book.
-		 */
+         * @desc Available project languages' code (ISO 639-1 and ISO 3166-1 alpha-2 code with hyphen separated eg. hu-HU) in string array.
+         * @type {Array.<string>} 
+         * @public
+         */
+        _availableLanguages = ["en-US"];
+        /**
+         * @desc Available device languages' code (ISO 639-1 and ISO 3166-1 alpha-2 code with hyphen separated eg. hu-HU) in string array.
+         * @type {Array.<string>} 
+         * @public
+         */
+        _deviceLanguages = [];
+        /**
+         * @desc The project's main language's code.
+         * @type {string}
+         * @public
+         */
+        _currentLanguage = "en-US";
+        /**
+         * @desc Setting that indicate that the setted language have to save.
+         * @type {boolean}
+         * @public
+         */
+        _isSaveLang = false;
+        /**
+         * @desc Setting that indicate that the load language data have to save.
+         * @type {boolean}
+         * @public
+         */
+        _isSaveData = false;
+
+        /**
+         * @desc Loaded data's tag list.
+         * @type {Map.<string, Object>}
+         * @public
+         */
+        _languagesDataByTags = new Map();
+        /**
+         * WordObject type definition
+         * @typedef {Object} WordObject
+         * @property {Array.<Object>} tag - The tag object pointer
+         * @property {Object.<string, string>} langs - lang code and translation key value pair
+         */
+        /**
+         * @desc Loaded language data storage.
+         * @type {Map.<string, WordObject>}
+         * @public
+         * @example
+         * "key": {
+         *     "tags": [[object Object], [object Object]],
+         *     "langs": {
+         *         "en-US": "hello",
+         *         "hu-HU": "helló"
+         *     }
+         *  }
+         */
+        _languagesDataByKeys = new Map();
+
+        /**
+         * @desc Startup loading states
+         * @type {Map.<string, Object>}
+         * @public
+         */
+        _startDataLoadList = [];
+        /**
+         * @desc The last triggered tag's name.
+         * @type {string}
+         * @public
+         */
+        _lastDataTag = "";
+        /**
+         * @desc The last triggered error message. Now this always empty.
+         * @type {string}
+         * @public
+         */
+        _lastDataError = "";
+
+        /**
+         * @desc Set of the TexManager behavior instances.
+         * @type {Set.<Object>}
+         * @public
+         */
+        _behaviorList = new Set();
+
+        /**
+         * ParamScheme type definition
+         * @typedef {Object} ParamScheme
+         * @property {string} start - The parametre's start string.
+         * @property {string} startEscape - The parameter's escaped start string.
+         * @property {string} end - The parametre's end string.
+         * @property {string} endEscape - The parameter's escaped end string.
+         */
+        /**
+         * @desc  The parameter insert's schemes
+         * @type {Object.<string, ParamScheme>}
+         * @public
+         */
+        _paramSchemes = {
+            "default": {
+                "start": "{",
+                "startEscape": "\\{",
+                "end": "}",
+                "endEscape": "\\}"
+            }
+        };
+
+        /**
+         * @desc create class.
+         * @param {object} inst - The instance object that gives to the parent's constructor.
+         * @param {Array.<string|number|boolean>} properties - The initial parameters in array.
+         */
         constructor(inst, properties) {
             super(inst, DOM_COMPONENT_ID);
             PLUGIN = this;
 
-            this._availableLanguages = ["en-US"];
-            this._deviceLanguages = [];
-            this._currentLanguage = "en-US";
-            this._isSaveLang = false;
-            this._isSaveData = false;
-            this._languagesDataByTags = new Map();
-            this._languagesDataByKeys = new Map();
-            
-            this._startDataLoadList = [];
-            this._lastDataTag = "";
-            this._lastDataError = "";
-
-            this._behaviorList = new Set();
-
-            this._paramSchemes = {
-                "default": {
-                    start: "{",
-                    startEscape: "\\{",
-                    end: "}",
-                    endEscape: "\\}"
-                }
-            };
-
             if (properties) {
-                if (typeof (properties[0]) === "string") {
+                if (typeof(properties[0]) === "string") {
                     const data = properties[0].split(new RegExp("(?:\n|,|;| )+", "g"));
                     if (data[0] === "") data.shift();
                     if (data[data.length - 1] === "") data.pop();
                     if (data.length === 0) data.push("en-US");
                     this._availableLanguages = data;
                 }
-                if (typeof (properties[1]) === "string") {
+                if (typeof(properties[1]) === "string") {
                     const find = this._availableLanguages.find((el) => el === properties[1]);
                     if (!find) {
                         const codes = properties[1].split("-");
@@ -97,13 +165,13 @@
                         this._currentLanguage = properties[1];
                     }
                 }
-                if (typeof (properties[2]) === "boolean") {
+                if (typeof(properties[2]) === "boolean") {
                     this._isSaveLang = properties[2];
                 }
-                if (typeof (properties[3]) === "boolean") {
+                if (typeof(properties[3]) === "boolean") {
                     this._isSaveData = properties[3];
                 }
-                if (typeof (properties[6]) === "string" && properties[6] !== "") {
+                if (typeof(properties[6]) === "string" && properties[6] !== "") {
                     let format = properties[4]; // JSON single, JSON multiple, CSV, Dictionary, Array
                     let mode = properties[5]; // file, data
                     let source = properties[6];
@@ -138,7 +206,7 @@
                     }
                     // Tag
                     source.forEach((el, index) => {
-                        if (typeof (tag[index]) === "undefined") {
+                        if (typeof(tag[index]) === "undefined") {
                             tag[index] = tag[0];
                         }
                     });
@@ -148,19 +216,19 @@
                         source.forEach((el, index) => {
                             this._runtime.AddLoadPromise(
                                 this._LoadFile(el, format, language[index], tag[index]).then(
-                                (success) => {
-                                    const res = {
-                                        "tag": tag[index]
-                                    };
-                                    this._startDataLoadList.push(res);
-                                },
-                                (rejected) => {
-                                    const res = {
-                                        "tag": tag[index],
-                                        "error": rejected
-                                    };
-                                    this._startDataLoadList.push(res);
-                                })
+                                    (success) => {
+                                        const res = {
+                                            "tag": tag[index]
+                                        };
+                                        this._startDataLoadList.push(res);
+                                    },
+                                    (rejected) => {
+                                        const res = {
+                                            "tag": tag[index],
+                                            "error": rejected
+                                        };
+                                        this._startDataLoadList.push(res);
+                                    })
                             );
                         });
                     } else {
@@ -209,7 +277,7 @@
                 ["on-device-language-change", () => this._OnDeviceLanguageChange()]
             ]);
         }
-        
+
         SaveToJson() {
             if (this._isSaveData) {
                 const tags = Object.fromEntries(this._languagesDataByTags);
@@ -235,7 +303,7 @@
                     for (let i = 0, length = tags.length; i < length; i++) {
                         let stored = newTags.get(tags[i]);
                         if (!stored) {
-                            let newTagPtr = [];
+                            let newTagPtr = new Object();
                             newTags.set(tags[i], newTagPtr);
                             stored = newTagPtr;
                         }
@@ -267,11 +335,9 @@
                 }
                 tagGroup.push(newGroup);
             }
-            return [
-                {
+            return [{
                     "title": prefix + ".language.name",
-                    "properties": [
-                        {
+                    "properties": [{
                             "name": prefix + ".language.language-list",
                             "value": this._availableLanguages.join(",")
                         },
@@ -298,10 +364,10 @@
         }
 
         /**
-		 * @desc Event change method.
-		 * @param {string} id - The title of the book.
-		 * @param {string} value - The author of the book.
-		 */
+         * @desc Event change method.
+         * @param {string} id - The title of the book.
+         * @param {string} value - The author of the book.
+         */
         _OnAfterFirstLayoutStart() {
             this._startDataLoadList.forEach((element) => {
                 if (typeof element["error"] === "undefined") {
@@ -490,7 +556,7 @@
             const tags = tag.split(",").map((tag) => {
                 let existTag = this._languagesDataByTags.get(tag);
                 if (!existTag) {
-                    existTag = [];
+                    existTag = new Object();
                     this._languagesDataByTags.set(tag, existTag);
                 }
                 return existTag;
@@ -522,10 +588,11 @@
             return true;
         }
         _LoadJSONMultiple(obj, tag) {
+            existTag
             const tags = tag.split(",").map((tag) => {
                 let existTag = this._languagesDataByTags.get(tag);
                 if (!existTag) {
-                    existTag = [];
+                    existTag = new Object();
                     this._languagesDataByTags.set(tag, existTag);
                 }
                 return existTag;
@@ -594,7 +661,7 @@
             const tags = tag.split(",").map((tag) => {
                 let existTag = this._languagesDataByTags.get(tag);
                 if (!existTag) {
-                    existTag = [];
+                    existTag = new Object();
                     this._languagesDataByTags.set(tag, existTag);
                 }
                 return existTag;
@@ -668,7 +735,7 @@
             const tags = tag.split(",").map((tag) => {
                 let existTag = this._languagesDataByTags.get(tag);
                 if (!existTag) {
-                    existTag = [];
+                    existTag = new Object();
                     this._languagesDataByTags.set(tag, existTag);
                 }
                 return existTag;
@@ -685,14 +752,14 @@
         }
         _LoadArray(obj, tag) {
             const result = new Map();
-            if (!obj["data"] || typeof (obj["data"]) !== "object" || typeof (obj["data"][0]) !== "object" || typeof (obj["data"][0][0]) !== "object") {
+            if (!obj["data"] || typeof(obj["data"]) !== "object" || typeof(obj["data"][0]) !== "object" || typeof(obj["data"][0][0]) !== "object") {
                 return result;
             }
 
             const tags = tag.split(",").map((tag) => {
                 let existTag = this._languagesDataByTags.get(tag);
                 if (!existTag) {
-                    existTag = [];
+                    existTag = new Object();;
                     this._languagesDataByTags.set(tag, existTag);
                 }
                 return existTag;
@@ -773,7 +840,7 @@
                 if (existTag) {
                     tags.push(existTag);
                 }
-                    return tags;
+                return tags;
             }, tags);
             if (tags.length === 0) {
                 return;
@@ -785,8 +852,10 @@
             }
             const iterator = this._languagesDataByKeys[Symbol.iterator]();
             for (const [key, value] of iterator) {
-                if (value["tags"].some((tag) => { return tags.includes(tag); })) {
-                    if (!isLang || typeof (value["langs"][lang]) !== "undefined") {
+                if (value["tags"].some((tag) => {
+                        return tags.includes(tag);
+                    })) {
+                    if (!isLang || typeof(value["langs"][lang]) !== "undefined") {
                         if (mode === 0) {
                             if (isLang) {
                                 tags.forEach((tag) => {
@@ -797,7 +866,7 @@
                                 });
                                 delete value["langs"][lang];
                                 if (value["tags"].length === 0 || Object.entries(value["langs"]).length === 0) {
-                                    this._languagesDataByKeys.delete(key);  
+                                    this._languagesDataByKeys.delete(key);
                                 }
                             } else {
                                 this._languagesDataByKeys.delete(key);
@@ -810,7 +879,7 @@
                                 }
                             });
                             if (value["tags"].length === 0) {
-                                this._languagesDataByKeys.delete(key);  
+                                this._languagesDataByKeys.delete(key);
                             }
                         }
                     }
@@ -828,11 +897,11 @@
             const iterator = this._languagesDataByKeys[Symbol.iterator]();
             for (const [key, value] of iterator) {
                 if (key === keyVal) {
-                    if (!isLang || typeof (value["langs"][lang]) !== "undefined") {
+                    if (!isLang || typeof(value["langs"][lang]) !== "undefined") {
                         if (isLang) {
                             delete value["langs"][lang];
                             if (Object.entries(value["langs"]).length === 0) {
-                                this._languagesDataByKeys.delete(key);  
+                                this._languagesDataByKeys.delete(key);
                             }
                         } else {
                             this._languagesDataByKeys.delete(key);
@@ -848,7 +917,7 @@
 
             let isTag = false;
             let tags = [];
-            if (typeof (tag) !== "undefined") {
+            if (typeof(tag) !== "undefined") {
                 isTag = true;
                 tag = String(tag);
                 tag.split(",").reduce((tags, tag) => {
@@ -865,19 +934,21 @@
 
             const iterator = this._languagesDataByKeys[Symbol.iterator]();
             for (const [key, value] of iterator) {
-                if (!isTag || (isTag && value["tags"].some((tag) => { return tags.includes(tag); }))) {
+                if (!isTag || (isTag && value["tags"].some((tag) => {
+                        return tags.includes(tag);
+                    }))) {
                     const data = value["langs"][lang];
                     if (data) {
                         const path = key.split('.');
                         const pathLength = path.length;
-                        path.reduce(function (previous, current, currentIndex) {
+                        path.reduce(function(previous, current, currentIndex) {
                             if (currentIndex >= pathLength - 1) {
                                 if (data) {
                                     return previous[current] = data;
                                 } else {
                                     return previous[current] = "";
                                 }
-                            } else if (typeof (previous[current]) !== "object") {
+                            } else if (typeof(previous[current]) !== "object") {
                                 return previous[current] = {};
                             } else {
                                 return previous[current];
@@ -893,7 +964,7 @@
 
             let isTag = false;
             let tags = [];
-            if (typeof (tag) !== "undefined") {
+            if (typeof(tag) !== "undefined") {
                 isTag = true;
                 tag = String(tag);
                 tag.split(",").reduce((tags, tag) => {
@@ -910,13 +981,15 @@
 
             const iterator = this._languagesDataByKeys[Symbol.iterator]();
             for (const [key, value] of iterator) {
-                if (!isTag || (isTag && value["tags"].some((tag) => { return tags.includes(tag); }))) {
+                if (!isTag || (isTag && value["tags"].some((tag) => {
+                        return tags.includes(tag);
+                    }))) {
                     const path = key.split('.');
                     const pathLength = path.length;
-                    path.reduce(function (previous, current, currentIndex) {
+                    path.reduce(function(previous, current, currentIndex) {
                         if (currentIndex >= pathLength - 1) {
                             return previous[current] = value["langs"];
-                        } else if (typeof (previous[current]) !== "object") {
+                        } else if (typeof(previous[current]) !== "object") {
                             return previous[current] = {};
                         } else {
                             return previous[current];
@@ -932,7 +1005,7 @@
 
             let isTag = false;
             let tags = [];
-            if (typeof (tag) !== "undefined") {
+            if (typeof(tag) !== "undefined") {
                 isTag = true;
                 tag = String(tag);
                 tag.split(",").reduce((tags, tag) => {
@@ -964,7 +1037,9 @@
             //write data
             const iterator2 = map[Symbol.iterator]();
             for (const [key, value] of iterator2) {
-                if (!isTag || (isTag && value["tags"].some((tag) => { return tags.includes(tag); }))) {
+                if (!isTag || (isTag && value["tags"].some((tag) => {
+                        return tags.includes(tag);
+                    }))) {
                     const data = [];
                     data.push(key);
                     for (const lang of allLang) {
@@ -993,7 +1068,7 @@
 
             let isTag = false;
             let tags = [];
-            if (typeof (tag) !== "undefined") {
+            if (typeof(tag) !== "undefined") {
                 isTag = true;
                 tag = String(tag);
                 tag.split(",").reduce((tags, tag) => {
@@ -1011,7 +1086,9 @@
             const resultData = {};
             const iterator = this._languagesDataByKeys[Symbol.iterator]();
             for (const [key, value] of iterator) {
-                if (!isTag || (isTag && value["tags"].some((tag) => { return tags.includes(tag); }))) {
+                if (!isTag || (isTag && value["tags"].some((tag) => {
+                        return tags.includes(tag);
+                    }))) {
                     const data = value["langs"][lang];
                     if (data) {
                         resultData[key] = data;
@@ -1045,7 +1122,7 @@
             const map = this._languagesDataByKeys;
             let isTag = false;
             let tags = [];
-            if (typeof (tag) !== "undefined") {
+            if (typeof(tag) !== "undefined") {
                 isTag = true;
                 tag = String(tag);
                 tag.split(",").reduce((tags, tag) => {
@@ -1080,7 +1157,9 @@
             //write data
             const iterator2 = map[Symbol.iterator]();
             for (const [key, value] of iterator2) {
-                if (!isTag || (isTag && value["tags"].some((tag) => { return tags.includes(tag); }))) {
+                if (!isTag || (isTag && value["tags"].some((tag) => {
+                        return tags.includes(tag);
+                    }))) {
                     let widthIndex = 0;
                     resultData[widthIndex].push([key]);
                     widthIndex++;
@@ -1104,14 +1183,14 @@
 
         _ParamAnalyze(text) {
             const scheme = "default";
-            if (typeof (this._paramSchemes[scheme]) === "undefined") return {};
-            const startCharEscape = this._paramSchemes[scheme].startEscape;
+            if (typeof(this._paramSchemes[scheme]) === "undefined") return {};
+            const startCharEscape = this._paramSchemes[scheme]["startEscape"];
             const startCharEscapeLength = startCharEscape.length;
-            const startChar = this._paramSchemes[scheme].start;
+            const startChar = this._paramSchemes[scheme]["start"];
             const startCharLength = startChar.length;
-            const endCharEscape = this._paramSchemes[scheme].endEscape;
+            const endCharEscape = this._paramSchemes[scheme]["endEscape"];
             const endCharEscapeLength = endCharEscape.length;
-            const endChar = this._paramSchemes[scheme].end;
+            const endChar = this._paramSchemes[scheme]["end"];
             const endCharLength = endChar.length;
 
             const paramsObj = {};
@@ -1136,7 +1215,7 @@
                         j += endCharEscapeLength;
                     } else if (text.substring(j, j + endCharLength) === endChar) {
                         param = text.substring(startIndex + startCharLength, j);
-                        if (typeof (paramsObj[param]) === "undefined") {
+                        if (typeof(paramsObj[param]) === "undefined") {
                             paramsObj[param] = [];
                         }
                         paramsObj[param].push({

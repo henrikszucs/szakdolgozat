@@ -1,15 +1,13 @@
 "use strict";
 {
 	const SDK = self.SDK;
-	const PLUGIN_CLASS = SDK.Plugins.RobotKaposzta_TextManager;
 
 	/**
 	 * @external IInstanceBase
-	 * @desc The IInstanceBase interface is used as the base class for instances in the SDK. For "world" type plugins, instances instead derive from IWorldInstanceBase, which itself derives from IInstanceBase. <br><br> IInstanceBase cannot be directly constructed; it should only be used as a base class.
+	 * @desc The IInstanceBase interface is used as the base class for instances in the SDK. For "world" type plugins, instances instead derive from IWorldInstanceBase, which itself derives from IInstanceBase.
 	 * @see https://www.construct.net/en/make-games/manuals/addon-sdk/reference/base-classes/iinstancebase
 	 */
 	/**
-	 * @class
 	 * @classdesc TextManager editor instance class.
 	 * @extends external:IInstanceBase
 	 */
@@ -22,7 +20,13 @@
 		constructor(sdkType, inst) {
 			super(sdkType, inst);
 
+			/**
+			 * @property {Array.<string>} _availableLanguages - Available languages' code (ISO 639-1 and ISO 3166-1 alpha-2 code with hyphen separated eg. hu-HU) in string array.
+			 */
 			this._availableLanguages = ["en-US"];
+			/**
+			 * @property {string} _currentLanguage - The project's main language's (ISO 639-1 and ISO 3166-1 alpha-2 code with hyphen separated eg. hu-HU) code.
+			 */
 			this._currentLanguage = "en-US";
 		}
 
@@ -555,5 +559,5 @@
 		}
 	};
 
-	PLUGIN_CLASS.Instance = TextManagerEditorInstance;
+	SDK.Plugins.RobotKaposzta_TextManager.Instance = TextManagerEditorInstance;
 };

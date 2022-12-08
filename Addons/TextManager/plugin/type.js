@@ -1,7 +1,6 @@
 "use strict";
 {
 	const SDK = self.SDK;
-	const PLUGIN_CLASS = SDK.Plugins.RobotKaposzta_TextManager;
 	
 	/**
 	 * @external ITypeBase
@@ -15,13 +14,13 @@
 	class TextManagerEditorType extends SDK.ITypeBase {
 		/**
 		 * @desc create class.
-		 * @param {object} sdkPlugin - The SDK plugin object calls from editor.
-		 * @param {object} iObjectType - The plugin type from editor.
+		 * @param {object} sdkPlugin - The SDK plugin from editor call.
+		 * @param {object} iObjectType - The plugin type from editor call.
 		 */
 		constructor(sdkPlugin, iObjectType) {
 			super(sdkPlugin, iObjectType);
 		}
 	};
 	
-	PLUGIN_CLASS.Type = TextManagerEditorType;
+	SDK.Plugins.RobotKaposzta_TextManager.Type = TextManagerEditorType;
 };
