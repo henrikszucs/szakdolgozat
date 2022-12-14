@@ -3,9 +3,18 @@
     const C3 = self.C3;
     /** @namespace */
     C3.Plugins.RobotKaposzta_TextManager.Exps = {
+        /**
+         * Returns the added language count.
+         * @returns {number} integer
+         */
         LanguageCount() {
             return this._availableLanguages.length;
         },
+        /**
+         * Returns the added language at an index.
+         * @param {number} the language integer index.
+         * @returns {string} language string
+         */
         Language(at) {
             if (typeof at === "undefined") return this._currentLanguage;
             at = Number(at);
@@ -13,22 +22,45 @@
             else if (at >= this._availableLanguages.length) at = this._availableLanguages.length - 1;
             return this._availableLanguages[at];
         },
+        /**
+         * Returns the device language count.
+         * @returns {number} integer
+         */
         DeviceLanguageCount() {
             return this._deviceLanguages.length;
         },
+        /**
+         * Returns device language at an index.
+         * @param {number} the language integer index.
+         * @returns {string} language string
+         */
         DeviceLanguageAt(at) {
             if (at < 0) at = 0;
             else if (at >= this._deviceLanguages.length) at = this._deviceLanguages.length - 1;
             return this._deviceLanguages[at];
         },
+        /**
+         * Returns the suggested language.
+         * @returns {string} language string
+         */
         SuggestedLanguage() {
             let allLang = Array.from(arguments).join(",");
             const [check, suggested] = this._LanguageSupportCheck(allLang);
             return suggested;
         },
+        /**
+         * Returns the language code from language string
+         * @param {str} the language string.
+         * @returns {string} language section string
+         */
         GetLanguageSection(str) {
             return this._GetLangCode(str);
         },
+        /**
+         * Returns the region code from language string
+         * @param {str} the language string.
+         * @returns {string} region code string
+         */
         GetRegionSection(str) {
             return this._GetRegionCode(str);
         },

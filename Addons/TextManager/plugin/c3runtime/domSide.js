@@ -23,7 +23,7 @@
                 ["change-lang", (e) => this._ChangeLang(e)]
             ]);
 
-            window.addEventListener('languagechange', () => this._OnDeviceLanguageChange());
+            window.addEventListener("languagechange", () => this._OnDeviceLanguageChange());
         }
 
         _GetInit(e) {

@@ -13,21 +13,20 @@
 	 */
 	class TextManagerEditorInstance extends SDK.IInstanceBase {
 		/**
+		 * @property {Array.<string>} _availableLanguages - Available languages' code (ISO 639-1 and ISO 3166-1 alpha-2 code with hyphen separated eg. hu-HU) in string array.
+		 */
+		_availableLanguages = ["en-US"];
+		/**
+		 * @property {string} _currentLanguage - The project's main language's (ISO 639-1 and ISO 3166-1 alpha-2 code with hyphen separated eg. hu-HU) code.
+		 */
+		_currentLanguage = "en-US";
+		/**
 		 * @desc Create class.
 		 * @param {object} sdkType - Reference to the associated SDK type class.
 		 * @param {object} inst - Reference to the IObjectInstance interface, or IWorldInstance interface for "world" type plugins, representing this instance in the editor. This allows access to Construct's built-in features for instances.
 		 */
 		constructor(sdkType, inst) {
 			super(sdkType, inst);
-
-			/**
-			 * @property {Array.<string>} _availableLanguages - Available languages' code (ISO 639-1 and ISO 3166-1 alpha-2 code with hyphen separated eg. hu-HU) in string array.
-			 */
-			this._availableLanguages = ["en-US"];
-			/**
-			 * @property {string} _currentLanguage - The project's main language's (ISO 639-1 and ISO 3166-1 alpha-2 code with hyphen separated eg. hu-HU) code.
-			 */
-			this._currentLanguage = "en-US";
 		}
 
 		/**

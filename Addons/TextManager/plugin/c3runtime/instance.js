@@ -1,6 +1,5 @@
 "use strict";
 {
-    // 1 UNDOCUMENTED FEATURE new C3.CompositeDisposable();
     const C3 = self.C3;
     const DOM_COMPONENT_ID = "RobotKaposzta_TextManager";
     let PLUGIN = null;

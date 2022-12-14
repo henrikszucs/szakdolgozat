@@ -3,12 +3,26 @@
     const C3 = self.C3;
     /** @namespace */
     C3.Plugins.RobotKaposzta_TextManager.Cnds = {
+        /**
+         * Called when setted language change
+         * @returns {boolean} true
+         */
         OnLanguageChange() {
             return true;
         },
+        /**
+         * Called when language change on the device
+         * @returns {boolean} true
+         */
         OnDeviceLanguageChange() {
             return true;
         },
+        /**
+         * Check language support. Return true if supported else false
+         * @param {number} type - 0 region and language supported, 1 only language supported, 2 not supported
+         * @param {string} lang - language identifier string
+         * @returns {boolean}
+         */
         IsLanguageSupport(type, lang) {
             const [check] = this._LanguageSupportCheck(lang);
             if (check === 2 && type === 0) {
@@ -21,13 +35,26 @@
             return false;
         },
 
+        /**
+         * Called when data loaded successfully
+         * @returns {boolean} true
+         */
         OnDataLoad() {
             return true;
         },
+        /**
+         * Called when data load failed
+         * @returns {boolean} true
+         */
         OnDataLoadError() {
             return true;
         },
 
+        /**
+         * Check text with parameter placeholders. If in correct format returns true, else false
+         * @param {string} text - text to check
+         * @returns {boolean} true
+         */
         IsParamValid(text, scheme="default") {
             if (typeof(this._paramSchemes[scheme]) === "undefined") return true;
             const startCharEscape = this._paramSchemes[scheme].startEscape;
