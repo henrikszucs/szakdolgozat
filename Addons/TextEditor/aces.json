@@ -1,0 +1,211 @@
+﻿{
+    "text-input": {
+        "actions": [
+            {
+                "id": "set-text",
+                "scriptName": "SetText",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "type",
+                        "type": "combo",
+                        "initialValue": "plain",
+                        "items": [
+                            "plain",
+                            "html"
+                        ]
+                    },
+                    {
+                        "id": "text",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    }
+                ],
+                "isAsync": false
+            },
+            {
+                "id": "set-placeholder",
+                "scriptName": "SetPlaceholder",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "text",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    }
+                ],
+                "isAsync": false
+            },
+            {
+                "id": "set-tooltip",
+                "scriptName": "SetTooltip",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "text",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    }
+                ],
+                "isAsync": false
+            },
+            {
+                "id": "set-read-only",
+                "scriptName": "SetReadOnly",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "mode",
+                        "type": "combo",
+                        "initialValue": "disable",
+                        "items": [
+                            "enable",
+                            "disable"
+                        ]
+                    }
+                ],
+                "isAsync": false
+            },
+            {
+                "id": "set-visible",
+                "scriptName": "SetVisible",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "mode",
+                        "type": "combo",
+                        "initialValue": "visible",
+                        "items": [
+                            "visible",
+                            "hidden",
+                            "toggle"
+                        ]
+                    }
+                ],
+                "isAsync": false
+            }
+        ],
+        "conditions": [
+            {
+                "id": "on-text-changed",
+                "scriptName": "OnTextChanged",
+                "isDeprecated": false,
+                "highlight": false,
+                "isTrigger": true,
+                "isFakeTrigger": false,
+                "isStatic": false,
+                "isLooping": false,
+                "isInvertible": false,
+                "isCompatibleWithTriggers": false
+            },
+            {
+                "id": "compare-text",
+                "scriptName": "CompareText",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "type",
+                        "type": "combo",
+                        "initialValue": "plain",
+                        "items": [
+                            "plain",
+                            "html"
+                        ]
+                    },
+                    {
+                        "id": "text",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    },
+                    {
+                        "id": "case",
+                        "type": "combo",
+                        "initialValue": "case-insensitive",
+                        "items": [
+                            "case-insensitive",
+                            "case-sensitive"
+                        ]
+                    }
+                ],
+                "isTrigger": false,
+                "isFakeTrigger": false,
+                "isStatic": false,
+                "isLooping": false,
+                "isInvertible": true,
+                "isCompatibleWithTriggers": true
+            },
+            {
+                "id": "is-read-only",
+                "scriptName": "IsReadOnly",
+                "isDeprecated": false,
+                "highlight": false,
+                "isTrigger": false,
+                "isFakeTrigger": false,
+                "isStatic": false,
+                "isLooping": false,
+                "isInvertible": true,
+                "isCompatibleWithTriggers": true
+            },
+            {
+                "id": "is-visible",
+                "scriptName": "IsVisible",
+                "isDeprecated": false,
+                "highlight": false,
+                "isTrigger": false,
+                "isFakeTrigger": false,
+                "isStatic": false,
+                "isLooping": false,
+                "isInvertible": true,
+                "isCompatibleWithTriggers": true
+            }
+        ],
+        "expressions": [
+            {
+                "id": "text",
+                "expressionName": "Text",
+                "isDeprecated": false,
+                "highlight": false,
+                "returnType": "string",
+                "isVariadicParameters": false
+            },
+            {
+                "id": "textHTML",
+                "expressionName": "TextHTML",
+                "isDeprecated": false,
+                "highlight": false,
+                "returnType": "string",
+                "isVariadicParameters": false
+            },
+            {
+                "id": "placeholder",
+                "expressionName": "Placeholder",
+                "isDeprecated": false,
+                "highlight": false,
+                "returnType": "string",
+                "isVariadicParameters": false
+            },
+            {
+                "id": "tooltip",
+                "expressionName": "Tooltip",
+                "isDeprecated": false,
+                "highlight": false,
+                "returnType": "string",
+                "isVariadicParameters": false
+            },
+            {
+                "id": "css-dependency",
+                "expressionName": "CSSDependency",
+                "isDeprecated": false,
+                "highlight": false,
+                "returnType": "string",
+                "isVariadicParameters": false
+            }
+        ]
+    }
+}

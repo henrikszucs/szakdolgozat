@@ -1,0 +1,36 @@
+﻿{
+    "is-c3-addon": true,
+    "type": "plugin",
+    "name": "Text editor",
+    "id": "RobotKaposzta_TextEditor",
+    "version": "1.0.0.1",
+    "author": "Henrik Szűcs",
+    "website": "https://www.epicsoft.hu",
+    "documentation": "https://www.epicsoft.hu",
+    "description": "Plugin for create text input with formatting tools.",
+    "editor-scripts": [
+        "plugin.js",
+        "type.js",
+        "instance.js"
+    ],
+    "file-list": [
+        "c3runtime/actions.js",
+        "c3runtime/conditions.js",
+        "c3runtime/expressions.js",
+
+        "c3runtime/plugin.js",
+        "c3runtime/type.js",
+        "c3runtime/instance.js",
+        "c3runtime/domSide.js",
+        "c3runtime/quill/quill.min.js",
+        "c3runtime/quill/quill.min.css",
+
+        "lang/en-US.json",
+        "aces.json",
+        "addon.json",
+        "icon.svg",
+        "plugin.js",
+        "type.js",
+        "instance.js"
+    ]
+}

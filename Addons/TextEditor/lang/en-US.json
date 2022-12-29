@@ -1,0 +1,191 @@
+﻿{
+    "languageTag": "en-US",
+    "fileDescription": "Strings for RobotKaposzta_TextEditor",
+    "text": {
+        "plugins": {
+            "robotkaposzta_texteditor": {
+                "name": "Text editor",
+                "description": "Text input field with built-in format editor.",
+                "help-url": "https://www.epicsoft.hu",
+                "properties": {
+                    "text": {
+                        "name": "Text",
+                        "desc": "The text of the field."
+                    },
+                    "text-html": {
+                        "name": "HTML text",
+                        "desc": "The HTML formatted text. Only use if normal text is empty."
+                    },
+                    "placeholder": {
+                        "name": "Placeholder",
+                        "desc": "A tip to display when the text input is empty."
+                    },
+                    "tooltip": {
+                        "name": "Tooltip",
+                        "desc": "The text to display on the button."
+                    },
+                    "read-only": {
+                        "name": "Read-only",
+                        "desc": "Whether the is enable or disable read-only mode."
+                    },
+                    "visible": {
+                        "name": "Visible",
+                        "desc": "Choose if the object is visible when the layout starts."
+                    }
+                },
+                "debugger": {
+                    "title": "Text editor",
+                    "text": "Text",
+                    "text-html": "HTML text",
+                    "placeholder": "Placeholder",
+                    "tooltip": "Tooltip",
+                    "enable": "Enable",
+                    "visible": "Visible"
+                },
+                "aceCategories": {
+                    "text-input": "Text input"
+                },
+                "actions": {
+                    "set-text": {
+                        "list-name": "Set text",
+                        "display-text": "Set text to [i]{1}[/i] ([i]{0}[/i])",
+                        "description": "Set the field text.",
+                        "params": {
+                            "type": {
+                                "name": "Type",
+                                "desc": "Choose whether set plain or HTML text.",
+                                "items": {
+                                    "plain": "plain text",
+                                    "html": "HTML text"
+                                }
+                            },
+                            "text": {
+                                "name": "Text",
+                                "desc": "The new text."
+                            }
+                        }
+                    },
+                    "set-placeholder": {
+                        "list-name": "Set placeholder",
+                        "display-text": "Set placeholder to [i]{0}[/i]",
+                        "description": "Set placeholder to field.",
+                        "params": {
+                            "text": {
+                                "name": "Placeholder",
+                                "desc": "The new placeholder."
+                            }
+                        }
+                    },
+                    "set-tooltip": {
+                        "list-name": "Set tooltip",
+                        "display-text": "Set tooltip to [i]{0}[/i]",
+                        "description": "Set tooltip to field.",
+                        "params": {
+                            "text": {
+                                "name": "Tooltip",
+                                "desc": "The new tooltip."
+                            }
+                        }
+                    },
+                    "set-read-only": {
+                        "list-name": "Set read-only",
+                        "display-text": "Set [b]{0}[/b] read-only",
+                        "description": "Enable or disable read only-mode to field.",
+                        "params": {
+                            "mode": {
+                                "name": "Mode",
+                                "desc": "Choose whether to enable or disable read-only mode.",
+                                "items": {
+                                    "enable": "enable",
+                                    "disable": "disable"
+                                }
+                            }
+                        }
+                    },
+                    "set-visible": {
+                        "list-name": "Set visible",
+                        "display-text": "Set visiblitiy [b]{0}[/b]",
+                        "description": "Set whether the object is hidden or shown.",
+                        "params": {
+                            "mode": {
+                                "name": "Mode",
+                                "desc": "Choose whether to object is hidden, shown, or toggled.",
+                                "items": {
+                                    "visible": "Visible",
+                                    "hidden": "Hidden",
+                                    "toggle": "Toggle"
+                                }
+                            }
+                        }
+                    }
+                },
+                "conditions": {
+                    "on-text-changed": {
+                        "list-name": "On text changed",
+                        "display-text": "On text changed",
+                        "description": "Triggered when the text is changed."
+                    },
+                    "compare-text": {
+                        "list-name": "Compare text",
+                        "display-text": "Text is [i]{1}[/i] ([i]{0}[/i], [i]{2}[/i])",
+                        "description": "Compare the text currently entered in to the text input.",
+                        "params": {
+                            "type": {
+                                "name": "Type",
+                                "desc": "Choose whether set plain or HTML text.",
+                                "items": {
+                                    "plain": "plain text",
+                                    "html": "HTML text"
+                                }
+                            },
+                            "text": {
+                                "name": "Text",
+                                "desc": "The text to compare the text input's text to."
+                            },
+                            "case": {
+                                "name": "Case",
+                                "desc": "Choose whether the comparasion is case sensitive (FOO different to Foo) or case insensitive (FOO same as Foo).",
+                                "items": {
+                                    "case-insensitive": "case insensitive",
+                                    "case-sensitive": "case sensitive"
+                                }
+                            }
+                        }
+                    },
+                    "is-read-only": {
+                        "list-name": "Is read-only",
+                        "display-text": "Is read-only",
+                        "description": "True if field is read-only"
+                    },
+                    "is-visible": {
+                        "list-name": "Is visible",
+                        "display-text": "Is visible",
+                        "description": "True if field is visible on layout."
+                    }
+                },
+                "expressions": {
+                    "text": {
+                        "translated-name": "Text",
+                        "description": "The field's text."
+                    },
+                    "textHTML": {
+                        "translated-name": "TextHTML",
+                        "description": "The field's text with HTML data."
+                    },
+                    "placeholder": {
+                        "translated-name": "Placeholder",
+                        "description": "The field's placeholder."
+                    },
+                    "tooltip": {
+                        "translated-name": "Tooltip",
+                        "description": "The field's tooltip."
+                    },
+                    "css-dependency": {
+                        "translated-name": "CSSDependency",
+                        "description": "Return the CSS style to format the text. Useful when export or send the formetted text."
+                    }
+                }
+            }
+        }
+    }
+}

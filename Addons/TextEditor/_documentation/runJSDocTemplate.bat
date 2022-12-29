@@ -1,0 +1,1 @@
+jsdoc ..\ --recurse --template %USERPROFILE%\AppData\Roaming\npm\node_modules\clean-jsdoc-theme --readme .\readme.md --destination .\JSDoc
