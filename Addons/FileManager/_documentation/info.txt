@@ -1,0 +1,74 @@
+[h1]Text Editor[/h1]
+Text input that allows text formating tools.
+
+[h2]Text Manager properties:[/h2]
+[dl sans-serif]
+	[dt]Text[/dt]
+	[dd]The text of the field.[/dd]
+
+	[dt]HTML text[/dt]
+	[dd]The HTML formatted text. Only use if normal text is empty.[/dd]
+	
+	[dt]Placeholder[/dt]
+	[dd]A tip to display when the text input is empty.[/dd]
+	
+	[dt]Tooltip[/dt]
+	[dd]The text to display on the button.[/dd]
+
+	[dt]Read-only[/dt]
+	[dd]Whether the is enable or disable read-only mode.[/dd]
+
+	[dt]Visible[/dt]
+	[dd]Choose if the object is visible when the layout starts.[/dd]
+[/dl]
+
+[h2]Text Manager actions:[/h2]
+[dl sans-serif]
+	[dt]Set text[/dt]
+	[dd]Set the field text.[/dd]
+
+	[dt]Set placeholder[/dt]
+	[dd]Set placeholder to field.[/dd]
+
+	[dt]Set tooltip[/dt]
+	[dd]Set tooltip to field.[/dd]
+
+	[dt]Set read-only[/dt]
+	[dd]Enable or disable read only-mode to field.[/dd]
+
+	[dt]Set visible[/dt]
+	[dd]Set whether the object is hidden or shown.[/dd]
+[/dl]
+
+[h2]Text Manager conditions:[/h2]
+[dl sans-serif]
+	[dt]On text changed[/dt]
+	[dd]Triggered when the text is changed.[/dd]
+
+	[dt]Compare text[/dt]
+	[dd]Compare the text currently entered in to the text input.[/dd]
+
+	[dt]Is read-only[/dt]
+	[dd]True if field is read-only[/dd]
+
+	[dt]Set text[/dt]
+	[dd]True if field is visible on layout.[/dd]
+[/dl]
+
+[h2]Text Manager expressions:[/h2]
+[dl sans-serif]
+	[dt]Text[/dt]
+	[dd]The field's text.[/dd]
+
+	[dt]TextHTML[/dt]
+	[dd]The field's text with HTML data.[/dd]
+
+	[dt]Placeholder[/dt]
+	[dd]The field's placeholder.[/dd]
+
+	[dt]Tooltip[/dt]
+	[dd]The field's tooltip.[/dd]
+
+	[dt]CSSDependency[/dt]
+	[dd]Return the CSS style to format the text. Useful when export or send the formetted text.[/dd]
+[/dl]

@@ -1,0 +1,824 @@
+﻿{
+    "languageTag": "en-US",
+    "fileDescription": "Strings for MyCustomPlugin.",
+    "text": {
+        "plugins": {
+            "robotkaposzta_filemanager": {
+                "name": "File Manager",
+                "description": "An example third-party plugin.",
+                "help-url": "https://epicsoft.hu",
+                "properties": {
+                    "drop-mode": {
+                        "name": "Drop mode",
+                        "desc": "Set drop funtion mode. If device not support read and write mode automatically set to read only mode.",
+                        "items": {
+                            "read": "Read",
+                            "read-and-write": "Read and write"
+                        }
+                    },
+                    "enable-drop": {
+                        "name": "Enable drop",
+                        "desc": "Enable to users to drag and drop text data into the projects."
+                    },
+                    "dialog-mode": {
+                        "name": "Dialog mode",
+                        "desc": "Set dialog funtion mode. If device not support read and write mode automatically set to read only mode.",
+                        "items": {
+                            "read": "Read",
+                            "read-and-write": "Read and write"
+                        }
+                    }
+                },
+                "debugger": {
+                    "name": "File Manager",
+                    "dialog-and-drop": {
+                        "name": "Dialog and drop",
+                        "write-support": "Write support",
+                        "drop-mode": "Drop write mode",
+                        "drop-enable": "Drop enable",
+                        "drag-x": "Drag X",
+                        "drag-y": "Drag Y",
+                        "dialog-mode": "Dialog write mode"
+                    },
+                    "enviroment": {
+                        "name": "Enviroment",
+                        "self": "Self path",
+                        "home": "Home path",
+                        "temp": "Temp path",
+                        "appid": "App ID",
+                        "sdcardid": "SDcard ID"
+                    }
+                },
+                "aceCategories": {
+                    "virtual-storage": "Virtual storage",
+                    "dialog-and-drop": "Dialog and drop",
+                    "read-and-write": "Read and write",
+                    "path": "Path"
+                },
+                "actions": {
+                    "set-drop-mode": {
+                        "list-name": "Set drop mode",
+                        "display-text": "Set drop to {0}",
+                        "description": "Which permission request for dropped files and folders.",
+                        "params": {
+                            "mode": {
+                                "name": "Mode",
+                                "desc": "Permission request when drop.",
+                                "items": {
+                                    "read": "Read",
+                                    "read-and-write": "Read and write"
+                                }
+                            }
+                        }
+                    },
+                    "enable-drop": {
+                        "list-name": "Enable drop",
+                        "display-text": "{0} drop",
+                        "description": "Enable or disable to user use drag and drop feature.",
+                        "params": {
+                            "mode": {
+                                "name": "Mode",
+                                "desc": "Enable or disable drag and drop feature.",
+                                "items": {
+                                    "enabled": "Enabled",
+                                    "disabled": "Disabled"
+                                }
+                            }
+                        }
+                    },
+                    "set-dialog-mode": {
+                        "list-name": "Set dialog mode",
+                        "display-text": "Set dialog to {0}",
+                        "description": "Which permission request for dialogs.",
+                        "params": {
+                            "mode": {
+                                "name": "Mode",
+                                "desc": "Permission request in dialog request.",
+                                "items": {
+                                    "read": "Read",
+                                    "read-and-write": "Read and write"
+                                }
+                            }
+                        }
+                    },
+                    "show-dialog": {
+                        "list-name": "Show dialog",
+                        "display-text": "Show [b]{0}[/b] dialog (accept: [i]{1}[/i], suggestion: [i]{2}[/i])",
+                        "description": "Show a file or folder choose dialog.",
+                        "params": {
+                            "type": {
+                                "name": "Type",
+                                "desc": "Type of the selection dialog. Note: save file dialog available in desktop, if not supported it will file dialog.",
+                                "items": {
+                                    "file": "File",
+                                    "multiple-files": "Multiple files",
+                                    "folder": "Folder",
+                                    "file-save": "File save"
+                                }
+                            },
+                            "accept": {
+                                "name": "Accept",
+                                "desc": "File extension types which want to select. Note: use double-comma separate for create category group eg. CustomGroup,,.doc,.docx ."
+                            },
+                            "suggest": {
+                                "name": "Suggest name",
+                                "desc": "Suggest name when show save dialog."
+                            }
+                        }
+                    },
+                    "set-virtual-path": {
+                        "list-name": "Set virtual path",
+                        "display-text": "Set [i]{0}[/i] virtual path to {1}",
+                        "description": "Set how handle the plugin the virtual file. Only support if [b]write mode[/b] supported.",
+                        "params": {
+                            "path": {
+                                "name": "Path",
+                                "desc": "Virtual path to prevent memory clean."
+                            },
+                            "type": {
+                                "name": "Type",
+                                "desc": "Set the virtual path type. In disk the path access will store after restart, memory stay until restart, release delete access.",
+                                "items": {
+                                    "release": "Release",
+                                    "memory": "Memory",
+                                    "disk": "Disk"
+                                }
+                            }
+                        }
+                    },
+
+                    "set-permission": {
+                        "list-name": "Set permisson",
+                        "display-text": "Set permisson to [i]{1}[/i] (tag: [i]{0}[/i], owner: [i]{2}[/i], group: [i]{3}[/i], world: [i]{4}[/i])",
+                        "description": "Set permission to read, write or execution for files and folders. Note: this work in desktop enviroment.",
+                        "params": {
+                            "tag": {
+                                "name": "Tag",
+                                "desc": "Tag of the permission set process."
+                            },
+                            "path": {
+                                "name": "Path",
+                                "desc": "Path of the file or folder to set permission."
+                            },
+                            "owner": {
+                                "name": "Owner",
+                                "desc": "Select the permissions for the owner.",
+                                "items": {
+                                    "no": "No permission",
+                                    "x": "Execute",
+                                    "w": "Write",
+                                    "wx": "Write, Execute",
+                                    "r": "Read",
+                                    "rx": "Read, Execute",
+                                    "rw": "Read, Write",
+                                    "rwx": "Read, Write, Execute"
+                                }
+                            },
+                            "group": {
+                                "name": "Group",
+                                "desc": "Select the permissions for the group.",
+                                "items": {
+                                    "no": "No permission",
+                                    "x": "Execute",
+                                    "w": "Write",
+                                    "wx": "Write, Execute",
+                                    "r": "Read",
+                                    "rx": "Read, Execute",
+                                    "rw": "Read, Write",
+                                    "rwx": "Read, Write, Execute"
+                                }
+                            },
+                            "world": {
+                                "name": "World",
+                                "desc": "Select the permissions for the world.",
+                                "items": {
+                                    "no": "No permission",
+                                    "x": "Execute",
+                                    "w": "Write",
+                                    "wx": "Write, Execute",
+                                    "r": "Read",
+                                    "rx": "Read, Execute",
+                                    "rw": "Read, Write",
+                                    "rwx": "Read, Write, Execute"
+                                }
+                            }
+                        }
+                    },
+                    "list": {
+                        "list-name": "List",
+                        "display-text": "List [i]{2}[/i] {1} (tag: [i]{0}[/i])",
+                        "description": "List folders or files.",
+                        "params": {
+                            "tag": {
+                                "name": "Tag",
+                                "desc": "Tag of the listing process."
+                            },
+                            "path": {
+                                "name": "Path",
+                                "desc": "Path to list files and folders."
+                            },
+                            "type": {
+                                "name": "Type",
+                                "desc": "Which items list from the path.",
+                                "items": {
+                                    "any": "Folders and files",
+                                    "folders": "Folders",
+                                    "files": "Files",
+                                    "all-any": "All folders and files",
+                                    "all-folders": "All folders",
+                                    "all-files": "All files"
+                                }
+                            }
+                        }
+                    },
+                    "check-path": {
+                        "list-name": "Check path",
+                        "display-text": "Check [i]{1}[/i] path (tag: [i]{0}[/i], type: [i]{2}[/i], end item: [i]{3}[/i])",
+                        "description": "Check that path exist or check the create path that will overwrite any exist item.",
+                        "params": {
+                            "tag": {
+                                "name": "Tag",
+                                "desc": "Tag of the check process."
+                            },
+                            "path": {
+                                "name": "Path",
+                                "desc": "Path to check."
+                            },
+                            "type": {
+                                "name": "Type",
+                                "desc": "Which test run when check path.",
+                                "items": {
+                                    "access": "Access test",
+                                    "overwrite": "Overwrite test"
+                                }
+                            },
+                            "end-item": {
+                                "name": "End item",
+                                "desc": "Which type will be the end item.",
+                                "items": {
+                                    "any": "Any",
+                                    "folder": "Folder",
+                                    "file": "File"
+                                }
+                            }
+                        }
+                    },
+                    "create-path": {
+                        "list-name": "Create path",
+                        "display-text": "Create [i]{1}[/i] (tag: [i]{0}[/i], end: [i]{2}[/i])",
+                        "description": "Create path.",
+                        "params": {
+                            "tag": {
+                                "name": "Tag",
+                                "desc": "Tag of the dictonary creation process."
+                            },
+                            "path": {
+                                "name": "Path",
+                                "desc": "Path to create."
+                            },
+                            "end-item": {
+                                "name": "End item",
+                                "desc": "Which type will be the end item.",
+                                "items": {
+                                    "folder": "folder",
+                                    "file": "file"
+                                }
+                            }
+                        }
+                    },
+                    "read-text-file": {
+                        "list-name": "Read text file",
+                        "display-text": "Read [i]{1}[/i] text file (tag: [i]{0}[/i], start: [i]{2}[/i], end: [i]{3}[/i], encoding: [i]{4}[/i])",
+                        "description": "Read text file from file system.",
+                        "params": {
+                            "tag": {
+                                "name": "Tag",
+                                "desc": "Tag of the text read process."
+                            },
+                            "path": {
+                                "name": "Path",
+                                "desc": "Path of the file to read."
+                            },
+                            "start": {
+                                "name": "Start",
+                                "desc": "Start character to read. Zero-based index."
+                            },
+                            "end": {
+                                "name": "End",
+                                "desc": "End byte to read. Zero-based index, leave -1 to end of the file."
+                            },
+                            "encoding": {
+                                "name": "Encoding",
+                                "desc": "The encode of the text file.",
+                                "items": {
+                                    "utf8": "utf-8"
+                                }
+                            }
+                        }
+                    },
+                    "read-binary-file": {
+                        "list-name": "Read binary file",
+                        "display-text": "Read [i]{1}[/i] text file to {4} (tag: [i]{0}[/i], start: [i]{2}[/i], end: [i]{3}[/i])",
+                        "description": "Read binary file from file system.",
+                        "params": {
+                            "tag": {
+                                "name": "Tag",
+                                "desc": "Tag of the binary read process."
+                            },
+                            "path": {
+                                "name": "Path",
+                                "desc": "Path of the file to read."
+                            },
+                            "start": {
+                                "name": "Start",
+                                "desc": "Start byte to read. Zero-based index."
+                            },
+                            "end": {
+                                "name": "End",
+                                "desc": "End byte to read. Zero-based index, leave -1 to end of the file."
+                            },
+                            "binary": {
+                                "name": "Binary array",
+                                "desc": "Binary array to insert read data."
+                            }
+                        }
+                    },
+                    "write-text-file": {
+                        "list-name": "Write text file",
+                        "display-text": "Write [i]{2}[/i] text to [i]{1}[/i] (tag: [i]{0}[/i], position: [i]{3}[/i], mode: [i]{4}[/i], encoding:[i]{5}[/i])",
+                        "description": "Write text data to file system.",
+                        "params": {
+                            "tag": {
+                                "name": "Tag",
+                                "desc": "Tag of the text write process."
+                            },
+                            "path": {
+                                "name": "Path",
+                                "desc": "Path of the file to write. Note: this delete exiting files and create paths."
+                            },
+                            "text": {
+                                "name": "Text",
+                                "desc": "Text data to write file."
+                            },
+                            "position": {
+                                "name": "Postition",
+                                "desc": "Zero-based start byte position to write. Note: after that byte anything will removed, use -1 to the last byte, if use larger number than file size it will fill with space chars."
+                            },
+                            "encoding": {
+                                "name": "Encoding",
+                                "desc": "The encode of the text file.",
+                                "items": {
+                                    "utf8": "utf-8"
+                                }
+                            },
+                            "mode": {
+                                "name": "Mode",
+                                "desc": "Mode when write. Note: write mode delete anything after end position.",
+                                "items": {
+                                    "write": "Write",
+                                    "append": "Append"
+                                }
+                            }
+                        }
+                    },
+                    "write-binary-file": {
+                        "list-name": "Write binary file",
+                        "display-text": "Write [i]{2}[/i] binary to [i]{1}[/i] (position: [i]{3}[/i], mode: [i]{4}[/i], tag: [i]{0}[/i])",
+                        "description": "Write binary data to file system.",
+                        "params": {
+                            "tag": {
+                                "name": "Tag",
+                                "desc": "Tag of the binary write process."
+                            },
+                            "path": {
+                                "name": "Path",
+                                "desc": "Path of the file to write."
+                            },
+                            "binary": {
+                                "name": "Binary array",
+                                "desc": "Binary data to write file."
+                            },
+                            "position": {
+                                "name": "Postition",
+                                "desc": "Zero-based start byte position to write. Note: after that byte anything will removed, use -1 to the last byte, if use larger number than file size it will fill with zeros."
+                            },
+                            "mode": {
+                                "name": "Mode",
+                                "desc": "Write mode to set. Note: write mode delete anything after end position.",
+                                "items": {
+                                    "write": "Write",
+                                    "append": "Append"
+                                }
+                            }
+                        }
+                    },
+                    "rename": {
+                        "list-name": "Rename",
+                        "display-text": "Rename [i]{1}[/i] to [i]{2}[/i] (tag: [i]{0}[/i])",
+                        "description": "Rename file or folder.",
+                        "params": {
+                            "tag": {
+                                "name": "Tag",
+                                "desc": "Tag of the rename process."
+                            },
+                            "src": {
+                                "name": "Source",
+                                "desc": "Path to rename."
+                            },
+                            "name": {
+                                "name": "New name",
+                                "desc": "New name of the file or folder."
+                            }
+                        }
+                    },
+                    "move": {
+                        "list-name": "Move",
+                        "display-text": "Move [i]{1}[/i] to [i]{2}[/i] (tag: [i]{0}[/i])",
+                        "description": "Move file to other destination.",
+                        "params": {
+                            "tag": {
+                                "name": "Tag",
+                                "desc": "Tag of the process."
+                            },
+                            "src": {
+                                "name": "Source",
+                                "desc": "Source path to move."
+                            },
+                            "dest": {
+                                "name": "Destination",
+                                "desc": "Destination path where move the source. Note: Use full path with filename and extension."
+                            }
+                        }
+                    },
+                    "copy": {
+                        "list-name": "Copy",
+                        "display-text": "Copy [i]{1}[/i] to [i]{2}[/i] (tag: [i]{0}[/i])",
+                        "description": "Copy file to destination.",
+                        "params": {
+                            "tag": {
+                                "name": "Tag",
+                                "desc": "Tag of the copy process."
+                            },
+                            "src": {
+                                "name": "Source",
+                                "desc": "Source path of the file to copy."
+                            },
+                            "dest": {
+                                "name": "Destination",
+                                "desc": "Destination path where the file will be copied. Note: Use full path with filename and extension."
+                            }
+                        }
+                    },
+                    "delete": {
+                        "list-name": "Delete",
+                        "display-text": "Delete [i]{1}[/i] (tag: [i]{0}[/i])",
+                        "description": "Delete file or folder.",
+                        "params": {
+                            "tag": {
+                                "name": "Tag",
+                                "desc": "Tag of the process."
+                            },
+                            "src": {
+                                "name": "Source",
+                                "desc": "File to delete item."
+                            }
+                        }
+                    },
+                    "manage-process": {
+                        "list-name": "Manage process",
+                        "display-text": "{0} [i]{1}[/i] process",
+                        "description": "Manage started processes.",
+                        "params": {
+                            "action": {
+                                "name": "Action",
+                                "desc": "Process tag to pause.",
+                                "items": {
+                                    "stop": "Stop",
+                                    "resume": "Resume",
+                                    "abort": "Abort",
+                                    "all-stop": "Stop all",
+                                    "all-resume": "Resume all",
+                                    "all-abort": "Abort all"
+                                }
+                            },
+                            "tag": {
+                                "name": "Tag",
+                                "desc": "Process tag to manage if not selected all processes."
+                            }
+                        }
+                    }
+                },
+                "conditions": {
+                    "is-write-supported": {
+                        "list-name": "Is write supported",
+                        "display-text": "Is write supported",
+                        "description": "Check if write mode supported in drop and dialog feature."
+                    },
+                    "is-drop-mode": {
+                        "list-name": "Is drop mode",
+                        "display-text": "Is {0} drop mode",
+                        "description": "Check the setted drop mode.",
+                        "params": {
+                            "mode": {
+                                "name": "Mode",
+                                "desc": "Drop mode to check.",
+                                "items": {
+                                    "read": "Read",
+                                    "read-and-write": "Read and write"
+                                }
+                            }
+                        }
+                    },
+                    "is-drop-enabled": {
+                        "list-name": "Is drop enabled",
+                        "display-text": "Is drop enabled",
+                        "description": "Check if drop features is enabled."
+                    },
+                    "on-drag-start": {
+                        "list-name": "On drag start",
+                        "display-text": "On drag start",
+                        "description": "Triggers when user start drag files with cursor above the project."
+                    },
+                    "on-drag": {
+                        "list-name": "On drag",
+                        "display-text": "On drag",
+                        "description": "Triggers when user move cursor whith dragged files above the project."
+                    },
+                    "on-drag-end": {
+                        "list-name": "On drag end",
+                        "display-text": "On drag end",
+                        "description": "Triggers when user end dragging above the project. Note: 'On drop' will trigger when drop is success."
+                    },
+                    "on-drop": {
+                        "list-name": "On drop",
+                        "display-text": "On drop",
+                        "description": "Triggers when user successfully drop files into the project."
+                    },
+                    "is-dialog-mode": {
+                        "list-name": "Is dialog mode",
+                        "display-text": "Is {0} dialog mode",
+                        "description": "Check the setted dialog mode.",
+                        "params": {
+                            "mode": {
+                                "name": "Mode",
+                                "desc": "Dialog mode to check.",
+                                "items": {
+                                    "read": "Read",
+                                    "read-and-write": "Read and write"
+                                }
+                            }
+                        }
+                    },
+                    "on-dialog-ok": {
+                        "list-name": "On dialog OK",
+                        "display-text": "On dialog OK",
+                        "description": "Triggers when user successfully select files in dialog."
+                    },
+                    "on-dialog-cancel": {
+                        "list-name": "On dialog failed",
+                        "display-text": "On dialog failed",
+                        "description": "Triggers when user cancel the dialog."
+                    },
+                    "is-virtual-path": {
+                        "list-name": "Is virtual path",
+                        "display-text": "Is [i]{0}[/i] virtual path (type: [i]{1}[/i])",
+                        "description": "Check if path is virtual path.",
+                        "params": {
+                            "path": {
+                                "name": "Path",
+                                "desc": "Path to check."
+                            },
+                            "type": {
+                                "name": "Type",
+                                "desc": "Virtual path type to check.",
+                                "items": {
+                                    "any": "Any",
+                                    "temporary": "Temporary",
+                                    "memory": "Memory",
+                                    "disk": "Disk"
+                                }
+                            }
+                        }
+                    },
+
+                    "on-process": {
+                        "list-name": "On process",
+                        "display-text": "On process",
+                        "description": "Triggers when process start, pause, resume, end or run into error."
+                    },
+                    "is-process-status": {
+                        "list-name": "Is process status",
+                        "display-text": "Is {0} process status",
+                        "description": "Check process status.",
+                        "params": {
+                            "status": {
+                                "name": "Status",
+                                "desc": "Which status check.",
+                                "items": {
+                                    "start": "start",
+                                    "progress": "progress",
+                                    "pause": "pause",
+                                    "resume": "resume",
+                                    "abort": "abort",
+                                    "error": "error",
+                                    "finish": "finish"
+                                }
+                            }
+                        }
+                    },
+                    "is-process-type": {
+                        "list-name": "Is process type",
+                        "display-text": "Is {0} process type",
+                        "description": "Check process type.",
+                        "params": {
+                            "type": {
+                                "name": "Type",
+                                "desc": "Process type to check.",
+                                "items": {
+                                    "permission": "permission",
+                                    "list": "list",
+                                    "check": "check",
+                                    "create-path": "create path",
+                                    "read": "read",
+                                    "write": "write",
+                                    "rename": "rename",
+                                    "move": "move",
+                                    "copy": "copy",
+                                    "delete": "delete"
+                                }
+                            }
+                        }
+                    },
+
+                    "is-path-absolute": {
+                        "list-name": "Is path absolute",
+                        "display-text": "Is [i]{0}[/i] absolute",
+                        "description": "Check if the path is in absolute format.",
+                        "params": {
+                            "path": {
+                                "name": "Path",
+                                "desc": "Path to check."
+                            }
+                        }
+                    }
+                },
+                "expressions": {
+                    "drag-position-x": {
+                        "translated-name": "DragPositionX",
+                        "description": "Get the drop x position in 'On drag', 'On drag start', 'On drag end' trigger."
+                    },
+                    "drag-position-y": {
+                        "translated-name": "DragPositionY",
+                        "description": "Get the drop y position in 'On drag', 'On drag start', 'On drag end' trigger."
+                    },
+
+                    "process-tag": {
+                        "translated-name": "ProcessTag",
+                        "description": "Get the process tag in 'On process' trigger."
+                    },
+                    "process-progress": {
+                        "translated-name": "ProccessProgress",
+                        "description": "Get the process progress in 'On process' trigger."
+                    },
+                    "path-count": {
+                        "translated-name": "PathCount",
+                        "description": "Get path count in 'On progress', 'On drop', 'On dialog OK' trigger."
+                    },
+                    "path-at": {
+                        "translated-name": "PathAt",
+                        "description": "Get the selected path at index in 'On progress', 'On drop', 'On dialog OK' trigger.",
+                        "params": {
+                            "at": {
+                                "name": "At",
+                                "desc": "Zero based index to get path."
+                            }
+                        }
+                    },
+                    "type-at": {
+                        "translated-name": "TypeAt",
+                        "description": "Get the selected path at index in 'On progress', 'On drop', 'On dialog OK' trigger.",
+                        "params": {
+                            "at": {
+                                "name": "At",
+                                "desc": "Zero based index to get type."
+                            }
+                        }
+                    },
+                    "size-at": {
+                        "translated-name": "SizeAt",
+                        "description": "Get the size in byte at index in 'On progress', 'On drop', 'On dialog OK' trigger.",
+                        "params": {
+                            "at": {
+                                "name": "At",
+                                "desc": "Zero based index to get size."
+                            }
+                        }
+                    },
+                    "modified-at": {
+                        "translated-name": "ModifiedAt",
+                        "description": "Get the last modify date in UNIX format at index in 'On progress', 'On drop', 'On dialog OK' trigger.",
+                        "params": {
+                            "at": {
+                                "name": "At",
+                                "desc": "Zero based index to get size."
+                            }
+                        }
+                    },
+                    "read-data": {
+                        "translated-name": "ReadData",
+                        "description": "Get the read text data when finished the read process."
+                    },
+                    "free-space": {
+                        "translated-name": "FreeSpace",
+                        "description": "Get the awailable free space."
+                    },
+
+                    "path-join": {
+                        "translated-name": "PathJoin",
+                        "description": "Join paths to single path."
+                    },
+                    "path-normalize": {
+                        "translated-name": "PathNormalize",
+                        "description": "Normalizes the given path, resolving '..' and '.' segments.",
+                        "params": {
+                            "path": {
+                                "name": "Path",
+                                "desc": "Path to normalize."
+                            }
+                        }
+                    },
+                    "path-dirname": {
+                        "translated-name": "PathDirname",
+                        "description": "Get the directory path of the file.",
+                        "params": {
+                            "path": {
+                                "name": "Path",
+                                "desc": "Path to get directory path."
+                            }
+                        }
+                    },
+                    "path-filename": {
+                        "translated-name": "PathFilename",
+                        "description": "Get the file name without extension.",
+                        "params": {
+                            "path": {
+                                "name": "Path",
+                                "desc": "Path to get filename."
+                            }
+                        }
+                    },
+                    "path-extname": {
+                        "translated-name": "PathExtname",
+                        "description": "Get the extension name of the file.",
+                        "params": {
+                            "path": {
+                                "name": "Path",
+                                "desc": "Path to get extension."
+                            }
+                        }
+                    },
+                    "get-mime-types": {
+                        "translated-name": "GetMIMEType",
+                        "description": "Get the comma separated MIME type name of the extension.",
+                        "params": {
+                            "extension": {
+                                "name": "Extension",
+                                "desc": "Extension to get MIME type."
+                            }
+                        }
+                    },
+                    "get-mime-extensions": {
+                        "translated-name": "GetMIMEExtensions",
+                        "description": "Get comma separated extensions of the MIME type.",
+                        "params": {
+                            "mime-type": {
+                                "name": "MIMEType",
+                                "desc": "MIME type to get extensions."
+                            }
+                        }
+                    },
+                    "directory-self": {
+                        "translated-name": "DirectorySelf",
+                        "description": "Get directory of the project. Note: empty if not available."
+                    },
+                    "directory-home": {
+                        "translated-name": "DirectoryHome",
+                        "description": "Get home directory of the device. Note: empty if not available."
+                    },
+                    "directory-temp": {
+                        "translated-name": "DirectoryTemp",
+                        "description": "Get temp directory of the device. Note: empty if not available."
+                    },
+                    "directory-appid": {
+                        "translated-name": "DirectoryAppID",
+                        "description": "Get App ID in mobile device. Note: empty if not available."
+                    },
+                    "directory-sdcard-id": {
+                        "translated-name": "DirectorySDcardID",
+                        "description": "Get SD card ID in mobile device. Note: empty if not available."
+                    }
+                }
+            }
+        }
+    }
+}
