@@ -47,12 +47,22 @@
                         "temp": "Temp path",
                         "appid": "App ID",
                         "sdcardid": "SDcard ID"
+                    },
+                    "processes": {
+                        "name": "Processes",
+                        "id": "Process id",
+                        "tag": "Tag",
+                        "status-active": "Current status",
+                        "status": "Next status",
+                        "pause": "Pause",
+                        "resume": "Resume",
+                        "abort": "Abort"
                     }
                 },
                 "aceCategories": {
                     "virtual-storage": "Virtual storage",
                     "dialog-and-drop": "Dialog and drop",
-                    "read-and-write": "Read and write",
+                    "file-handling": "File handling",
                     "path": "Path"
                 },
                 "actions": {
@@ -147,6 +157,92 @@
                         }
                     },
 
+                    "list": {
+                        "list-name": "List",
+                        "display-text": "List [i]{2}[/i] {1} (tag: [i]{0}[/i])",
+                        "description": "List folders or files.",
+                        "params": {
+                            "tag": {
+                                "name": "Tag",
+                                "desc": "Tag of the listing process."
+                            },
+                            "path": {
+                                "name": "Path",
+                                "desc": "Path to list files and folders."
+                            },
+                            "type": {
+                                "name": "Type",
+                                "desc": "Which items list from the path.",
+                                "items": {
+                                    "any": "Folders and files",
+                                    "folders": "Folders",
+                                    "files": "Files",
+                                    "all-any": "All folders and files",
+                                    "all-folders": "All folders",
+                                    "all-files": "All files"
+                                }
+                            }
+                        }
+                    },
+                    "check-path": {
+                        "list-name": "Check",
+                        "display-text": "Check [i]{1}[/i] (tag: [i]{0}[/i], type: [i]{2}[/i], end item: [i]{3}[/i])",
+                        "description": "Check that path exist or check the create path that will overwrite any exist item.",
+                        "params": {
+                            "tag": {
+                                "name": "Tag",
+                                "desc": "Tag of the check process."
+                            },
+                            "path": {
+                                "name": "Path",
+                                "desc": "Path to check."
+                            },
+                            "type": {
+                                "name": "Type",
+                                "desc": "Which test run when check path.",
+                                "items": {
+                                    "overwrite": "overwrite",
+                                    "exist": "exist",
+                                    "access-any": "any access",
+                                    "access-read": "read access",
+                                    "access-write": "write access",
+                                    "access-execute": "execute access"
+                                }
+                            },
+                            "end-item": {
+                                "name": "End item",
+                                "desc": "Which type will be the end item.",
+                                "items": {
+                                    "any": "Any",
+                                    "folder": "Folder",
+                                    "file": "File"
+                                }
+                            }
+                        }
+                    },
+                    "create-path": {
+                        "list-name": "Create",
+                        "display-text": "Create [i]{1}[/i] (tag: [i]{0}[/i], end: [i]{2}[/i])",
+                        "description": "Create path.",
+                        "params": {
+                            "tag": {
+                                "name": "Tag",
+                                "desc": "Tag of the dictonary creation process."
+                            },
+                            "path": {
+                                "name": "Path",
+                                "desc": "Path to create."
+                            },
+                            "end-item": {
+                                "name": "End item",
+                                "desc": "Which type will be the end item.",
+                                "items": {
+                                    "folder": "folder",
+                                    "file": "file"
+                                }
+                            }
+                        }
+                    },
                     "set-permission": {
                         "list-name": "Set permisson",
                         "display-text": "Set permisson to [i]{1}[/i] (tag: [i]{0}[/i], owner: [i]{2}[/i], group: [i]{3}[/i], world: [i]{4}[/i])",
@@ -200,88 +296,6 @@
                                     "rx": "Read, Execute",
                                     "rw": "Read, Write",
                                     "rwx": "Read, Write, Execute"
-                                }
-                            }
-                        }
-                    },
-                    "list": {
-                        "list-name": "List",
-                        "display-text": "List [i]{2}[/i] {1} (tag: [i]{0}[/i])",
-                        "description": "List folders or files.",
-                        "params": {
-                            "tag": {
-                                "name": "Tag",
-                                "desc": "Tag of the listing process."
-                            },
-                            "path": {
-                                "name": "Path",
-                                "desc": "Path to list files and folders."
-                            },
-                            "type": {
-                                "name": "Type",
-                                "desc": "Which items list from the path.",
-                                "items": {
-                                    "any": "Folders and files",
-                                    "folders": "Folders",
-                                    "files": "Files",
-                                    "all-any": "All folders and files",
-                                    "all-folders": "All folders",
-                                    "all-files": "All files"
-                                }
-                            }
-                        }
-                    },
-                    "check-path": {
-                        "list-name": "Check path",
-                        "display-text": "Check [i]{1}[/i] path (tag: [i]{0}[/i], type: [i]{2}[/i], end item: [i]{3}[/i])",
-                        "description": "Check that path exist or check the create path that will overwrite any exist item.",
-                        "params": {
-                            "tag": {
-                                "name": "Tag",
-                                "desc": "Tag of the check process."
-                            },
-                            "path": {
-                                "name": "Path",
-                                "desc": "Path to check."
-                            },
-                            "type": {
-                                "name": "Type",
-                                "desc": "Which test run when check path.",
-                                "items": {
-                                    "access": "Access test",
-                                    "overwrite": "Overwrite test"
-                                }
-                            },
-                            "end-item": {
-                                "name": "End item",
-                                "desc": "Which type will be the end item.",
-                                "items": {
-                                    "any": "Any",
-                                    "folder": "Folder",
-                                    "file": "File"
-                                }
-                            }
-                        }
-                    },
-                    "create-path": {
-                        "list-name": "Create path",
-                        "display-text": "Create [i]{1}[/i] (tag: [i]{0}[/i], end: [i]{2}[/i])",
-                        "description": "Create path.",
-                        "params": {
-                            "tag": {
-                                "name": "Tag",
-                                "desc": "Tag of the dictonary creation process."
-                            },
-                            "path": {
-                                "name": "Path",
-                                "desc": "Path to create."
-                            },
-                            "end-item": {
-                                "name": "End item",
-                                "desc": "Which type will be the end item.",
-                                "items": {
-                                    "folder": "folder",
-                                    "file": "file"
                                 }
                             }
                         }
@@ -364,19 +378,19 @@
                                 "name": "Postition",
                                 "desc": "Zero-based start byte position to write. Note: after that byte anything will removed, use -1 to the last byte, if use larger number than file size it will fill with space chars."
                             },
-                            "encoding": {
-                                "name": "Encoding",
-                                "desc": "The encode of the text file.",
-                                "items": {
-                                    "utf8": "utf-8"
-                                }
-                            },
                             "mode": {
                                 "name": "Mode",
                                 "desc": "Mode when write. Note: write mode delete anything after end position.",
                                 "items": {
                                     "write": "Write",
                                     "append": "Append"
+                                }
+                            },
+                            "encoding": {
+                                "name": "Encoding",
+                                "desc": "The encode of the text file.",
+                                "items": {
+                                    "utf8": "utf-8"
                                 }
                             }
                         }
@@ -491,12 +505,12 @@
                         "params": {
                             "action": {
                                 "name": "Action",
-                                "desc": "Process tag to pause.",
+                                "desc": "Process tag to manage.",
                                 "items": {
-                                    "stop": "Stop",
+                                    "pause": "Pause",
                                     "resume": "Resume",
                                     "abort": "Abort",
-                                    "all-stop": "Stop all",
+                                    "all-pause": "Pause all",
                                     "all-resume": "Resume all",
                                     "all-abort": "Abort all"
                                 }
@@ -601,53 +615,40 @@
                         }
                     },
 
-                    "on-process": {
-                        "list-name": "On process",
-                        "display-text": "On process",
-                        "description": "Triggers when process start, pause, resume, end or run into error."
+                    "on-start": {
+                        "list-name": "On start",
+                        "display-text": "On start",
+                        "description": "Triggers when process started."
                     },
-                    "is-process-status": {
-                        "list-name": "Is process status",
-                        "display-text": "Is {0} process status",
-                        "description": "Check process status.",
-                        "params": {
-                            "status": {
-                                "name": "Status",
-                                "desc": "Which status check.",
-                                "items": {
-                                    "start": "start",
-                                    "progress": "progress",
-                                    "pause": "pause",
-                                    "resume": "resume",
-                                    "abort": "abort",
-                                    "error": "error",
-                                    "finish": "finish"
-                                }
-                            }
-                        }
+                    "on-pause": {
+                        "list-name": "On pause",
+                        "display-text": "On pause",
+                        "description": "Triggers when process paused."
                     },
-                    "is-process-type": {
-                        "list-name": "Is process type",
-                        "display-text": "Is {0} process type",
-                        "description": "Check process type.",
-                        "params": {
-                            "type": {
-                                "name": "Type",
-                                "desc": "Process type to check.",
-                                "items": {
-                                    "permission": "permission",
-                                    "list": "list",
-                                    "check": "check",
-                                    "create-path": "create path",
-                                    "read": "read",
-                                    "write": "write",
-                                    "rename": "rename",
-                                    "move": "move",
-                                    "copy": "copy",
-                                    "delete": "delete"
-                                }
-                            }
-                        }
+                    "on-resume": {
+                        "list-name": "On resume",
+                        "display-text": "On resume",
+                        "description": "Triggers when process resume after pause."
+                    },
+                    "on-progress": {
+                        "list-name": "On progress",
+                        "display-text": "On progress",
+                        "description": "Triggers when process has a progress update."
+                    },
+                    "on-error": {
+                        "list-name": "On error",
+                        "display-text": "On error",
+                        "description": "Triggers when process run into error."
+                    },
+                    "on-abort": {
+                        "list-name": "On abort",
+                        "display-text": "On abort",
+                        "description": "Triggers when process aborted."
+                    },
+                    "on-completed": {
+                        "list-name": "On completed",
+                        "display-text": "On completed",
+                        "description": "Triggers when process completed."
                     },
 
                     "is-path-absolute": {
@@ -733,10 +734,6 @@
                         "description": "Get the awailable free space."
                     },
 
-                    "path-join": {
-                        "translated-name": "PathJoin",
-                        "description": "Join paths to single path."
-                    },
                     "path-normalize": {
                         "translated-name": "PathNormalize",
                         "description": "Normalizes the given path, resolving '..' and '.' segments.",
@@ -746,6 +743,10 @@
                                 "desc": "Path to normalize."
                             }
                         }
+                    },
+                    "path-join": {
+                        "translated-name": "PathJoin",
+                        "description": "Join paths to single path."
                     },
                     "path-dirname": {
                         "translated-name": "PathDirname",

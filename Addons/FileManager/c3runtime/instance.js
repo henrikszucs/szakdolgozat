@@ -32,20 +32,24 @@
             
         }
         function posixToWin32(path, type) {
-            if (path !== "/") {
-                if (type === 1) {
-                    path = path.replaceAll("/", "\\");
-                } else if (type === 2) {
-                    const split = path.split("/");
-                    split.splice(0, 1);
-                    split[0] = split[0] + ":";
-                    path = split.join("\\");
-                } else if (type === 3) {
-                    path = "\\" + path.replaceAll("/", "\\");
+            if (type !== 0) {
+                if (path !== "/") {
+                    if (type === 1) {
+                        path = path.replaceAll("/", "\\");
+                    } else if (type === 2) {
+                        const split = path.split("/");
+                        split.splice(0, 1);
+                        if (split[0][split[0].length-1] !== ":") split[0] = split[0] + ":";
+                        if (split[0]?.[split[0].length-2] === " ") split[0] = split[0].substring(0, split[0].length-2) + ": "; //virtual space
+                        path = split.join("\\");
+                    } else if (type === 3) {
+                        path = "\\" + path.replaceAll("/", "\\");
+                    }
+                } else {
+                    path = "";
                 }
-            } else {
-                path = "";
             }
+            
             return path;
         }
 
@@ -175,7 +179,7 @@
                         path = cwd;
                     }
 
-                    assertPath(path);
+                    //assertPath(path);
 
                     // Skip empty entries
                     if (path.length === 0) {
@@ -205,53 +209,62 @@
             },
 
             normalize: function normalize(path) {
-                assertPath(path);
+                //assertPath(path);
+                if (path === ".") path = "./"; //OWN hack
                 const convert = win32ToPosix(path); //OWN hack
                 path = convert[0]; //OWN hack
 
-                if (path.length === 0) return '.';
+                if (path.length === 0) return ""; //OWN change from "./" - "" mean root (windows systems)
 
                 let isAbsolute = path.charCodeAt(0) === 47 /*/*/ ;
                 let trailingSeparator = path.charCodeAt(path.length - 1) === 47 /*/*/ ;
+                let isRelative = (!isAbsolute && (path.startsWith("./"))) //OWN hack detect current relative indicator
 
                 // Normalize the path
                 path = normalizeStringPosix(path, !isAbsolute);
 
-                if (path.length === 0 && !isAbsolute) path = '.';
-                if (path.length > 0 && trailingSeparator) path += '/';
+                if (path.length === 0 && !isAbsolute) path = ".";
+                if (path.length > 0 && trailingSeparator) path += "/";
 
-                if (isAbsolute) path = '/' + path;
-                return posixToWin32(path, convert[1]);
+                if (isAbsolute) path = "/" + path;
+                if (path === ".") path = "./"; //OWN hack
+                if (isRelative && !path.startsWith("..") && !path.startsWith("./")) path = "./" + path; //OWN hack use relative indicator
+                if (path === "") path = "/"; //OWN hack
+
+                return posixToWin32(path, convert[1]); //OWN hack
             },
 
             isAbsolute: function isAbsolute(path) {
-                assertPath(path);
+                //assertPath(path);
                 path = win32ToPosix(path)[0]; //OWN hack
-                return path.length > 0 && path.charCodeAt(0) === 47 /*/*/ ;
+                return (path.length > 0 && path.charCodeAt(0) === 47 /*/*/)  || path.length === 0 ; //OWN hack
             },
 
             join: function join() {
                 if (arguments.length === 0)
-                    return '.';
+                    return "/";
                 let joined;
                 for (let i = 0, length = arguments.length; i < length; ++i) {
                     let arg = arguments[i];
-                    assertPath(arg);
+                    //assertPath(arg);
                     if (arg.length > 0) {
-                        if (joined === undefined)
+                        if (joined === undefined) {
                             joined = arg;
-                        else
-                            joined += '/' + arg;
+                        } else {
+                            joined += (joined?.[joined.length-1] !== "/" ? "/" : "") + arg; //OWN change to detect trails
+                        }
                     }
                 }
-                if (joined === undefined)
-                    return '.';
+                if (joined === undefined) {
+                    return ""; //OWN change from "/" to "" mean root (windows systems)
+                }
+                console.log(joined)
                 return posix.normalize(joined);
             },
 
             relative: function relative(from, to) {
-                assertPath(from);
-                assertPath(to);
+                //assertPath(from);
+                //assertPath(to);
 
                 if (from === to) return '';
 
@@ -344,7 +357,7 @@
             },
 
             dirname: function dirname(path) {
-                assertPath(path);
+                //assertPath(path);
                 const convert = win32ToPosix(path) //OWN hack
                 path = convert[0];
                 if (path.length === 0) return '.';
@@ -375,7 +388,7 @@
 
             basename: function basename(path, ext) {
                 if (ext !== undefined && typeof ext !== 'string') throw new TypeError('"ext" argument must be a string');
-                assertPath(path);
+                //assertPath(path);
                 path = win32ToPosix(path)[0] //OWN hack
 
                 let start = 0;
@@ -447,7 +460,7 @@
             },
 
             extname: function extname(path) {
-                assertPath(path);
+                //assertPath(path);
                 path = win32ToPosix(path)[0] //OWN hack
                 let startDot = -1;
                 let startPart = 0;
@@ -504,7 +517,7 @@
             },
 
             parse: function parse(path) {
-                assertPath(path);
+                //assertPath(path);
 
                 let ret = {
                     root: '',
@@ -588,8 +601,6 @@
                 return ret;
             },
 
-            
-
             sep: '/',
             delimiter: ':',
         };
@@ -603,222 +614,330 @@
         };
     };
     const pathLib = getPathLibrary();
-    //Disk space library
-    const getDiskSpaceCheckLibrary = function(dependencies) {
-        /*
-            MIT License
-
-            Copyright (c) 2017-2019 Alexandre Demode
-
-            Permission is hereby granted, free of charge, to any person obtaining a copy
-            of this software and associated documentation files (the "Software"), to deal
-            in the Software without restriction, including without limitation the rights
-            to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-            copies of the Software, and to permit persons to whom the Software is
-            furnished to do so, subject to the following conditions:
-
-            The above copyright notice and this permission notice shall be included in all
-            copies or substantial portions of the Software.
-
-            THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-            IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-            FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-            AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-            LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-            OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-            SOFTWARE.
-        */
-        if (typeof dependencies === "undefined") {
-            const { execFile, execFileSync } = require("child_process");
-            const { existsSync } = require("fs");
-            const { release } = require("os");
-            const { normalize, sep } = require("path");
-            dependencies = {
-                platform: process.platform,
-                release: release(),
-                fsExistsSync: existsSync,
-                pathNormalize: normalize,
-                pathSep: sep,
-                cpExecFile: execFile,
-                cpExecFileSync: execFileSync,
-            };
-        }
-        
-        function checkDiskSpace(directoryPath){
-            function getFirstExistingParentPath(directoryPath, dependencies) {
-                let parentDirectoryPath = directoryPath;
-                let parentDirectoryFound = dependencies.fsExistsSync(parentDirectoryPath);
-        
-                while (!parentDirectoryFound) {
-                    parentDirectoryPath = dependencies.pathNormalize(parentDirectoryPath + '/..');
-                    parentDirectoryFound = dependencies.fsExistsSync(parentDirectoryPath);
+    //Node library
+    const getNodeLibrarys = function() {
+        const libs = {};
+        try {
+            //OS
+            libs.os = {};
+            const os = require("os");
+            libs.os.platform = os["platform"];
+            //CMD
+            libs.cmd = {};
+            const cmd = require("node:child_process");
+            libs.cmd.execSync = cmd["execSync"];
+            //Path
+            libs.path = {};
+            libs.path.dirname = self.__dirname;
+            //File System
+            libs.fs = {};
+            libs.fs.constants = {};
+            const fs = require("node:fs/promises");
+            const fsSync = require("node:fs");
+            libs.fs.constants.F_OK = fs["constants"]["F_OK"];
+            libs.fs.constants.R_OK = fs["constants"]["R_OK"];
+            libs.fs.constants.W_OK = fs["constants"]["W_OK"];
+            libs.fs.constants.X_OK = fs["constants"]["X_OK"];
+            libs.fs.exists = fsSync["existsSync"];
+            libs.fs.access = fs["access"];
+            libs.fs.stat = fs["stat"];
+            libs.fs.chmod = fs["chmod"];
+            libs.fs.chown = fs["chown"];
+            libs.fs.opendir = fs["opendir"];
+            libs.fs.readdir = fs["readdir"];
+            libs.fs.open = fs["open"];
+            libs.fs.rename = fs["rename"];
+            libs.fs.cp = fs["cp"];
+            libs.fs.rm = fs["rm"];
+            //File System Custom
+            libs.fs.readroot = async () => {
+                /*
+                    win: wmic logicaldisk get freeSpace, name, size
+                    linux: 
+                */
+                if (libs.os.platform() === "win32") {
+                    const result = libs.cmd.execSync("wmic logicaldisk get name", {
+                        "encoding": "utf-8",
+                        "timeout": 4000,
+                        "windowsHide": true
+                    });
+                    const data = [];
+                    const arr = result.split("\n");
+                    for (let item of arr) {
+                        item = item.trim();
+                        if (item !== "") {
+                            data.push(item + "\\");
+                        }
+                    }
+                    data.shift();
+                    return data;
+                } else {
+                    const items = await libs.fs.readdir("/");
+                    const data = [];
+                    for (const item of items) {
+                        data.push(item);
+                    }
+                    return data;
                 }
-        
-                return parentDirectoryPath;
-            }
-        
-            function hasPowerShell3(dependencies) {
-                const major = parseInt(dependencies.release.split('.')[0], 10);
-        
-                if (major > 6) {
+            };
+            libs.fs.lspace = async (path) => {
+                const result = {
+                    capacity: -1,
+                    free: -1,
+                    used: -1
+                };
+                path = pathLib.normalize(path);
+                while (path !== "" && path !== "/") {
+                    //console.log(path);
+                    let isExist = true; 
                     try {
-                        dependencies.cpExecFileSync('powershell');
-                        return true;
-                    } catch (err) {
-                        return false;
+                        await libs.fs.stat(path);
+                    } catch (error) {
+                        isExist = false;   
+                    }
+                    if (isExist) break;
+                    path = pathLib.join(path, "..");
+                }
+                if (path === "") {
+                    return result;
+                }
+                /*
+                    win: wmic logicaldisk get freeSpace, name, size
+                    mac os/linux: df -Pk -- /path/to/item
+                */
+                if (libs.os.platform() === "win32") {
+                    const partition = path.replaceAll("/", "\\").split("\\")[0];
+                    const cmd = libs.cmd.execSync("wmic logicaldisk get freeSpace, name, size", {
+                        "encoding": "utf-8",
+                        "timeout": 4000,
+                        "windowsHide": true
+                    });
+                    const lines = cmd.split("\n");
+                    lines.shift();
+                    for (let line of lines) {
+                        const dataValid = [];
+                        const data = line.split(" ");
+                        for (let i = 0, length = data.length; i < length; i++) {
+                            data[i] = data[i].trim();
+                            if (data[i] !== "") {
+                                dataValid.push(data[i]);
+                            }
+                        }
+                        if (dataValid.length !== 0 && dataValid[1].toLowerCase() === partition.toLowerCase()) {
+                            result.capacity = parseInt(dataValid[2]);
+                            result.free = parseInt(dataValid[0]);
+                            result.used = parseInt(dataValid[2]) - parseInt(dataValid[0]);
+                            return result;
+                        }
                     }
                 } else {
-                    return false;
-                }
-            }
-            
-            /**
-             * Maps command output to a normalized object {diskPath, free, size}
-             *
-             * @param stdout - The command output
-             * @param filter - To filter drives (only used for win32)
-             * @param mapping - Map between column index and normalized column name
-             * @param coefficient - The size coefficient to get bytes instead of kB
-             */
-            function mapOutput(stdout, filter, mapping, coefficient){
-                const parsed = stdout.trim().split('\n').slice(1).map(line => {
-                    return line.trim().split(/\s+(?=[\d/])/);
-                })
-        
-                const filtered = parsed.filter(filter);
-        
-                if (filtered.length === 0) {
-                    throw new Error("No match");
-                }
-        
-                const diskData = filtered[0];
-        
-                return {
-                    diskPath: diskData[mapping.diskPath],
-                    free: parseInt(diskData[mapping.free], 10) * coefficient,
-                    size: parseInt(diskData[mapping.size], 10) * coefficient,
-                };
-            }
-        
-            /**
-             * Run the command and do common things between win32 and unix
-             *
-             * @param cmd - The command to execute
-             * @param filter - To filter drives (only used for win32)
-             * @param mapping - Map between column index and normalized column name
-             * @param coefficient - The size coefficient to get bytes instead of kB
-             */
-            function check(cmd, filter, mapping, coefficient = 1){
-                return new Promise((resolve, reject) => {
-                    const [file, ...args] = cmd;
-        
-                    /* istanbul ignore if */
-                    if (file === undefined) {
-                        return Promise.reject(new Error('cmd must contain at least one item'));
+                    const cmd = libs.cmd.execSync("df -Pk -- " + path, {
+                        "encoding": "utf-8",
+                        "timeout": 4000,
+                        "windowsHide": true
+                    });
+                    const line = cmd.split("\n")[1].trim();
+                    const dataValid = [];
+                    const data = line.split(" ");
+                    for (let i = 0, length = data.length; i < length; i++) {
+                        data[i] = data[i].trim();
+                        if (data[i] !== "") {
+                            dataValid.push(data[i]);
+                        }
                     }
-        
-                    dependencies.cpExecFile(file, args, (error, stdout) => {
-                        if (error) {
-                            reject(error);
-                        }
-        
-                        try {
-                            resolve(mapOutput(stdout, filter, mapping, coefficient));
-                        } catch (error2) {
-                            reject(error2);
-                        }
-                    })
-                })
-            }
-        
-            /**
-             * Build the check call for win32
-             *
-             * @param directoryPath - The file/folder path from where we want to know disk space
-             */
-            function checkWin32(directoryPath){
-                if (directoryPath.charAt(1) !== ':') {
-                    return new Promise((resolve, reject) => {
-                        reject(`The following path is invalid (should be X:\\...): ${directoryPath}`);
-                    })
+                    result.capacity = parseInt(dataValid[1]);
+                    result.free = parseInt(dataValid[3]);
+                    result.used = parseInt(dataValid[2]);
+                    return result;
+                    
                 }
-        
-                const powershellCmd = [
-                    'powershell',
-                    'Get-CimInstance -ClassName Win32_LogicalDisk | Select-Object Caption, FreeSpace, Size',
-                ];
-                const wmicCmd = [
-                    'wmic',
-                    'logicaldisk',
-                    'get',
-                    'size,freespace,caption',
-                ];
-                const cmd = hasPowerShell3(dependencies) ? powershellCmd : wmicCmd;
-        
-                return check(
-                    cmd,
-                    driveData => {
-                        // Only get the drive which match the path
-                        const driveLetter = driveData[0]
-                        return directoryPath.toUpperCase().startsWith(driveLetter.toUpperCase())
-                    }, {
-                        diskPath: 0,
-                        free: 1,
-                        size: 2,
-                    },
-                );
-            }
-        
-            /**
-             * Build the check call for unix
-             *
-             * @param directoryPath - The file/folder path from where we want to know disk space
-             */
-            function checkUnix(directoryPath){
-                if (!dependencies.pathNormalize(directoryPath).startsWith(dependencies.pathSep)) {
-                    return new Promise((resolve, reject) => {
-                        reject(`The following path is invalid (should start by ${dependencies.pathSep}): ${directoryPath}`);
-                    })
-                }
-        
-                const pathToCheck = getFirstExistingParentPath(directoryPath, dependencies);
-        
-                return check(
-                    [
-                        'df',
-                        '-Pk',
-                        '--',
-                        pathToCheck,
-                    ],
-                    () => true, // We should only get one line, so we did not need to filter
-                    {
-                        diskPath: 5,
-                        free: 3,
-                        size: 1,
-                    },
-                    1024, // We get sizes in kB, we need to convert that to bytes
-                )
-            }
-            
-            // Call the right check depending on the OS
-            if (dependencies.platform === 'win32') {
-                return checkWin32(directoryPath);
-            }
-        
-            return checkUnix(directoryPath);
-        };
-        return checkDiskSpace;
+                return result;
+            };
+        } catch (error) {
+            return {};
+        }
+        return libs;
     };
+    const node = getNodeLibrarys();
+    
+    /*
+    let getProcLib = function () {
+        const cmd = require("node:child_process");
+        let proc;
+        return () => {
+                let _data = 0;
+                proc = cmd.exec("dir /S /B", {
+                    "cwd": "C:\\",
+                    "shell": true,
+                    "encoding": "utf-8",
+                    "windowsHide": true,
+                    "maxBuffer": Number.MAX_SAFE_INTEGER
+                });
+                proc.stdout.on('data', (data) => {
+                    _data += data.split("\n").length;
+                });
+                proc.on('close', (code) => {
+                    console.log(_data);
+                    console.log(`child process close all stdio with code ${code}`);
+                });
+                
+                proc.on('exit', (code) => {
+                    console.log(`child process exited with code ${code}`);
+                });
+                setTimeout(() => {
+                    console.log(`Abort`);
+                    proc.kill('SIGINT');
+                }, 500);
+                setTimeout(() => {
+                    console.log(`Ctrl-s` + proc.pid);
+                    proc.stdin.cork();
+                    proc.stdin.write("\x03");
+                    proc.stdin.cork();
+                    proc.stdin.write("\n~^C");
+                    //proc.kill(String.fromCharCode(19));
+                    //cmd.exec("taskkill", ["/pid", proc.pid, '/F', '/T']);
+                }, 1);
+                return proc;
+            }
+    }
+    let proc = getProcLib();
+    //Disk root list library
+    const getRootLibrary = function(deps) {
+        if (typeof deps === "undefined") {
+            try {
+                const os = require("os");
+                const { readdirSync } = require("fs");
+                const { execSync } = require("child_process");
+                deps = {
+                    platform: os.platform(),
+                    readdirSync: readdirSync,
+                    execSync: execSync
+                };
+            } catch (error) {
+                return undefined;
+            }
+        }
+        
+        return async () => {
+            //win: wmic logicaldisk get freeSpace, name, size
+            if (deps.platform === "win32") {
+                const result = deps.execSync("wmic logicaldisk get name", {
+                    "encoding": "utf-8",
+                    "timeout": 4000,
+                    "windowsHide": true
+                });
+                const data = [];
+                const arr = result.split("\n");
+                for (let item of arr) {
+                    item = item.trim();
+                    if (item !== "") {
+                        data.push(item + "\\");
+                    }
+                }
+                data.shift();
+                return data;
+            } else {
+                const items = deps.readdirSync("/");
+                const data = [];
+                for (const item of items) {
+                    data.push("/" + item);
+                }
+                return data;
+            }
+        }
+    };
+    const getRoot = getRootLibrary();
+    //Space usage library
+    const getPathSpaceLibrary = function(deps) {
+        if (typeof deps === "undefined") {
+            try {
+                const os = require("os");
+                const { existsSync } = require("fs");
+                const { execSync } = require("child_process");
+                deps = {
+                    platform: os.platform(),
+                    join: pathLib.join,
+                    existsSync: existsSync,
+                    execSync: execSync
+                };
+            } catch (error) {
+                return undefined;
+            }
+        }
+        
+        return async (path) => {
+            const result = {
+                capacity: -1,
+                free: -1,
+                used: -1
+            };
+            while (path !== "" && path !== "/") {
+                console.log(path);
+                if (deps.existsSync(path)) {
+                    break;
+                }
+                path = deps.join(path, "..");
+            }
+            if (path === "") {
+                return result;
+            }
+            // win: wmic logicaldisk get freeSpace, name, size
+            // mac os/linux: df -Pk -- /path/to/item
+            if (deps.platform === "win32") {
+                const partition = path.replaceAll("/", "\\").split("\\")[0];
+                const cmd = deps.execSync("wmic logicaldisk get freeSpace, name, size", {
+                    "encoding": "utf-8",
+                    "timeout": 4000,
+                    "windowsHide": true
+                });
+                const lines = cmd.split("\n");
+                lines.shift();
+                for (let line of lines) {
+                    const dataValid = [];
+                    const data = line.split(" ");
+                    for (let i = 0, length = data.length; i < length; i++) {
+                        data[i] = data[i].trim();
+                        if (data[i] !== "") {
+                            dataValid.push(data[i]);
+                        }
+                    }
+                    if (dataValid.length !== 0 && dataValid[1].toLowerCase() === partition.toLowerCase()) {
+                        result.capacity = parseInt(dataValid[2]);
+                        result.free = parseInt(dataValid[0]);
+                        result.used = parseInt(dataValid[2]) - parseInt(dataValid[0]);
+                        return result;
+                    }
+                }
+            } else {
+                const cmd = deps.execSync("df -Pk -- " + path, {
+                    "encoding": "utf-8",
+                    "timeout": 4000,
+                    "windowsHide": true
+                });
+                const line = cmd.split("\n")[1].trim();
+                const dataValid = [];
+                const data = line.split(" ");
+                for (let i = 0, length = data.length; i < length; i++) {
+                    data[i] = data[i].trim();
+                    if (data[i] !== "") {
+                        dataValid.push(data[i]);
+                    }
+                }
+                result.capacity = parseInt(dataValid[1]);
+                result.free = parseInt(dataValid[3]);
+                result.used = parseInt(dataValid[2]);
+                return result;
+                
+            }
+            return result;
+        }
+    };
+    const getPathSpace = getPathSpaceLibrary();
+    */
     //MIME type DB
     const typeDB = {
         "application/andrew-inset":["ez"],"application/applixware":["aw"],"application/atom+xml":["atom"],"application/atomcat+xml":["atomcat"],"application/atomdeleted+xml":["atomdeleted"],"application/atomsvc+xml":["atomsvc"],"application/atsc-dwd+xml":["dwd"],"application/atsc-held+xml":["held"],"application/atsc-rsat+xml":["rsat"],"application/bdoc":["bdoc"],"application/calendar+xml":["xcs"],"application/ccxml+xml":["ccxml"],"application/cdfx+xml":["cdfx"],"application/cdmi-capability":["cdmia"],"application/cdmi-container":["cdmic"],"application/cdmi-domain":["cdmid"],"application/cdmi-object":["cdmio"],"application/cdmi-queue":["cdmiq"],"application/cpl+xml":["cpl"],"application/cu-seeme":["cu"],"application/cwl":["cwl"],"application/dash+xml":["mpd"],"application/dash-patch+xml":["mpp"],"application/davmount+xml":["davmount"],"application/docbook+xml":["dbk"],"application/dssc+der":["dssc"],"application/dssc+xml":["xdssc"],"application/ecmascript":["ecma"],"application/emma+xml":["emma"],"application/emotionml+xml":["emotionml"],"application/epub+zip":["epub"],"application/exi":["exi"],"application/express":["exp"],"application/fdf":["fdf"],"application/fdt+xml":["fdt"],"application/font-tdpfr":["pfr"],"application/geo+json":["geojson"],"application/gml+xml":["gml"],"application/gpx+xml":["gpx"],"application/gxf":["gxf"],"application/gzip":["gz"],"application/hjson":["hjson"],"application/hyperstudio":["stk"],"application/inkml+xml":["ink","inkml"],"application/ipfix":["ipfix"],"application/its+xml":["its"],"application/java-archive":["jar","war","ear"],"application/java-serialized-object":["ser"],"application/java-vm":["class"],"application/javascript":["js"],"application/json":["json","map"],"application/json5":["json5"],"application/jsonml+json":["jsonml"],"application/ld+json":["jsonld"],"application/lgr+xml":["lgr"],"application/lost+xml":["lostxml"],"application/mac-binhex40":["hqx"],"application/mac-compactpro":["cpt"],"application/mads+xml":["mads"],"application/manifest+json":["webmanifest"],"application/marc":["mrc"],"application/marcxml+xml":["mrcx"],"application/mathematica":["ma","nb","mb"],"application/mathml+xml":["mathml"],"application/mbox":["mbox"],"application/media-policy-dataset+xml":["mpf"],"application/mediaservercontrol+xml":["mscml"],"application/metalink+xml":["metalink"],"application/metalink4+xml":["meta4"],"application/mets+xml":["mets"],"application/mmt-aei+xml":["maei"],"application/mmt-usd+xml":["musd"],"application/mods+xml":["mods"],"application/mp21":["m21","mp21"],"application/mp4":["mp4s","m4p"],"application/msword":["doc","dot"],"application/mxf":["mxf"],"application/n-quads":["nq"],"application/n-triples":["nt"],"application/node":["cjs"],"application/octet-stream":["bin","dms","lrf","mar","so","dist","distz","pkg","bpk","dump","elc","deploy","exe","dll","deb","dmg","iso","img","msi","msp","msm","buffer"],"application/oda":["oda"],"application/oebps-package+xml":["opf"],"application/ogg":["ogx"],"application/omdoc+xml":["omdoc"],"application/onenote":["onetoc","onetoc2","onetmp","onepkg"],"application/oxps":["oxps"],"application/p2p-overlay+xml":["relo"],"application/patch-ops-error+xml":["xer"],"application/pdf":["pdf"],"application/pgp-encrypted":["pgp"],"application/pgp-keys":["asc"],"application/pgp-signature":["sig","asc"],"application/pics-rules":["prf"],"application/pkcs10":["p10"],"application/pkcs7-mime":["p7m","p7c"],"application/pkcs7-signature":["p7s"],"application/pkcs8":["p8"],"application/pkix-attr-cert":["ac"],"application/pkix-cert":["cer"],"application/pkix-crl":["crl"],"application/pkix-pkipath":["pkipath"],"application/pkixcmp":["pki"],"application/pls+xml":["pls"],"application/postscript":["ai","eps","ps"],"application/provenance+xml":["provx"],"application/prs.cww":["cww"],"application/prs.xsf+xml":["xsf"],"application/pskc+xml":["pskcxml"],"application/raml+yaml":["raml"],"application/rdf+xml":["rdf","owl"],"application/reginfo+xml":["rif"],"application/relax-ng-compact-syntax":["rnc"],"application/resource-lists+xml":["rl"],"application/resource-lists-diff+xml":["rld"],"application/rls-services+xml":["rs"],"application/route-apd+xml":["rapd"],"application/route-s-tsid+xml":["sls"],"application/route-usd+xml":["rusd"],"application/rpki-ghostbusters":["gbr"],"application/rpki-manifest":["mft"],"application/rpki-roa":["roa"],"application/rsd+xml":["rsd"],"application/rss+xml":["rss"],"application/rtf":["rtf"],"application/sbml+xml":["sbml"],"application/scvp-cv-request":["scq"],"application/scvp-cv-response":["scs"],"application/scvp-vp-request":["spq"],"application/scvp-vp-response":["spp"],"application/sdp":["sdp"],"application/senml+xml":["senmlx"],"application/sensml+xml":["sensmlx"],"application/set-payment-initiation":["setpay"],"application/set-registration-initiation":["setreg"],"application/shf+xml":["shf"],"application/sieve":["siv","sieve"],"application/smil+xml":["smi","smil"],"application/sparql-query":["rq"],"application/sparql-results+xml":["srx"],"application/srgs":["gram"],"application/srgs+xml":["grxml"],"application/sru+xml":["sru"],"application/ssdl+xml":["ssdl"],"application/ssml+xml":["ssml"],"application/swid+xml":["swidtag"],"application/tei+xml":["tei","teicorpus"],"application/thraud+xml":["tfi"],"application/timestamped-data":["tsd"],"application/toml":["toml"],"application/trig":["trig"],"application/ttml+xml":["ttml"],"application/ubjson":["ubj"],"application/urc-ressheet+xml":["rsheet"],"application/urc-targetdesc+xml":["td"],"application/vnd.1000minds.decision-model+xml":["1km"],"application/vnd.3gpp.pic-bw-large":["plb"],"application/vnd.3gpp.pic-bw-small":["psb"],"application/vnd.3gpp.pic-bw-var":["pvb"],"application/vnd.3gpp2.tcap":["tcap"],"application/vnd.3m.post-it-notes":["pwn"],"application/vnd.accpac.simply.aso":["aso"],"application/vnd.accpac.simply.imp":["imp"],"application/vnd.acucobol":["acu"],"application/vnd.acucorp":["atc","acutc"],"application/vnd.adobe.air-application-installer-package+zip":["air"],"application/vnd.adobe.formscentral.fcdt":["fcdt"],"application/vnd.adobe.fxp":["fxp","fxpl"],"application/vnd.adobe.xdp+xml":["xdp"],"application/vnd.adobe.xfdf":["xfdf"],"application/vnd.age":["age"],"application/vnd.ahead.space":["ahead"],"application/vnd.airzip.filesecure.azf":["azf"],"application/vnd.airzip.filesecure.azs":["azs"],"application/vnd.amazon.ebook":["azw"],"application/vnd.americandynamics.acc":["acc"],"application/vnd.amiga.ami":["ami"],"application/vnd.android.package-archive":["apk"],"application/vnd.anser-web-certificate-issue-initiation":["cii"],"application/vnd.anser-web-funds-transfer-initiation":["fti"],"application/vnd.antix.game-component":["atx"],"application/vnd.apple.installer+xml":["mpkg"],"application/vnd.apple.keynote":["key"],"application/vnd.apple.mpegurl":["m3u8"],"application/vnd.apple.numbers":["numbers"],"application/vnd.apple.pages":["pages"],"application/vnd.apple.pkpass":["pkpass"],"application/vnd.aristanetworks.swi":["swi"],"application/vnd.astraea-software.iota":["iota"],"application/vnd.audiograph":["aep"],"application/vnd.balsamiq.bmml+xml":["bmml"],"application/vnd.blueice.multipass":["mpm"],"application/vnd.bmi":["bmi"],"application/vnd.businessobjects":["rep"],"application/vnd.chemdraw+xml":["cdxml"],"application/vnd.chipnuts.karaoke-mmd":["mmd"],"application/vnd.cinderella":["cdy"],"application/vnd.citationstyles.style+xml":["csl"],"application/vnd.claymore":["cla"],"application/vnd.cloanto.rp9":["rp9"],"application/vnd.clonk.c4group":["c4g","c4d","c4f","c4p","c4u"],"application/vnd.cluetrust.cartomobile-config":["c11amc"],"application/vnd.cluetrust.cartomobile-config-pkg":["c11amz"],"application/vnd.commonspace":["csp"],"application/vnd.contact.cmsg":["cdbcmsg"],"application/vnd.cosmocaller":["cmc"],"application/vnd.crick.clicker":["clkx"],"application/vnd.crick.clicker.keyboard":["clkk"],"application/vnd.crick.clicker.palette":["clkp"],"application/vnd.crick.clicker.template":["clkt"],"application/vnd.crick.clicker.wordbank":["clkw"],"application/vnd.criticaltools.wbs+xml":["wbs"],"application/vnd.ctc-posml":["pml"],"application/vnd.cups-ppd":["ppd"],"application/vnd.curl.car":["car"],"application/vnd.curl.pcurl":["pcurl"],"application/vnd.dart":["dart"],"application/vnd.data-vision.rdz":["rdz"],"application/vnd.dbf":["dbf"],"application/vnd.dece.data":["uvf","uvvf","uvd","uvvd"],"application/vnd.dece.ttml+xml":["uvt","uvvt"],"application/vnd.dece.unspecified":["uvx","uvvx"],"application/vnd.dece.zip":["uvz","uvvz"],"application/vnd.denovo.fcselayout-link":["fe_launch"],"application/vnd.dna":["dna"],"application/vnd.dolby.mlp":["mlp"],"application/vnd.dpgraph":["dpg"],"application/vnd.dreamfactory":["dfac"],"application/vnd.ds-keypoint":["kpxx"],"application/vnd.dvb.ait":["ait"],"application/vnd.dvb.service":["svc"],"application/vnd.dynageo":["geo"],"application/vnd.ecowin.chart":["mag"],"application/vnd.enliven":["nml"],"application/vnd.epson.esf":["esf"],"application/vnd.epson.msf":["msf"],"application/vnd.epson.quickanime":["qam"],"application/vnd.epson.salt":["slt"],"application/vnd.epson.ssf":["ssf"],"application/vnd.eszigno3+xml":["es3","et3"],"application/vnd.ezpix-album":["ez2"],"application/vnd.ezpix-package":["ez3"],"application/vnd.fdf":["fdf"],"application/vnd.fdsn.mseed":["mseed"],"application/vnd.fdsn.seed":["seed","dataless"],"application/vnd.flographit":["gph"],"application/vnd.fluxtime.clip":["ftc"],"application/vnd.framemaker":["fm","frame","maker","book"],"application/vnd.frogans.fnc":["fnc"],"application/vnd.frogans.ltf":["ltf"],"application/vnd.fsc.weblaunch":["fsc"],"application/vnd.fujitsu.oasys":["oas"],"application/vnd.fujitsu.oasys2":["oa2"],"application/vnd.fujitsu.oasys3":["oa3"],"application/vnd.fujitsu.oasysgp":["fg5"],"application/vnd.fujitsu.oasysprs":["bh2"],"application/vnd.fujixerox.ddd":["ddd"],"application/vnd.fujixerox.docuworks":["xdw"],"application/vnd.fujixerox.docuworks.binder":["xbd"],"application/vnd.fuzzysheet":["fzs"],"application/vnd.genomatix.tuxedo":["txd"],"application/vnd.geogebra.file":["ggb"],"application/vnd.geogebra.tool":["ggt"],"application/vnd.geometry-explorer":["gex","gre"],"application/vnd.geonext":["gxt"],"application/vnd.geoplan":["g2w"],"application/vnd.geospace":["g3w"],"application/vnd.gmx":["gmx"],"application/vnd.google-apps.document":["gdoc"],"application/vnd.google-apps.presentation":["gslides"],"application/vnd.google-apps.spreadsheet":["gsheet"],"application/vnd.google-earth.kml+xml":["kml"],"application/vnd.google-earth.kmz":["kmz"],"application/vnd.grafeq":["gqf","gqs"],"application/vnd.groove-account":["gac"],"application/vnd.groove-help":["ghf"],"application/vnd.groove-identity-message":["gim"],"application/vnd.groove-injector":["grv"],"application/vnd.groove-tool-message":["gtm"],"application/vnd.groove-tool-template":["tpl"],"application/vnd.groove-vcard":["vcg"],"application/vnd.hal+xml":["hal"],"application/vnd.handheld-entertainment+xml":["zmm"],"application/vnd.hbci":["hbci"],"application/vnd.hhe.lesson-player":["les"],"application/vnd.hp-hpgl":["hpgl"],"application/vnd.hp-hpid":["hpid"],"application/vnd.hp-hps":["hps"],"application/vnd.hp-jlyt":["jlt"],"application/vnd.hp-pcl":["pcl"],"application/vnd.hp-pclxl":["pclxl"],"application/vnd.hydrostatix.sof-data":["sfd-hdstx"],"application/vnd.ibm.minipay":["mpy"],"application/vnd.ibm.modcap":["afp","listafp","list3820"],"application/vnd.ibm.rights-management":["irm"],"application/vnd.ibm.secure-container":["sc"],"application/vnd.iccprofile":["icc","icm"],"application/vnd.igloader":["igl"],"application/vnd.immervision-ivp":["ivp"],"application/vnd.immervision-ivu":["ivu"],"application/vnd.insors.igm":["igm"],"application/vnd.intercon.formnet":["xpw","xpx"],"application/vnd.intergeo":["i2g"],"application/vnd.intu.qbo":["qbo"],"application/vnd.intu.qfx":["qfx"],"application/vnd.ipunplugged.rcprofile":["rcprofile"],"application/vnd.irepository.package+xml":["irp"],"application/vnd.is-xpr":["xpr"],"application/vnd.isac.fcs":["fcs"],"application/vnd.jam":["jam"],"application/vnd.jcp.javame.midlet-rms":["rms"],"application/vnd.jisp":["jisp"],"application/vnd.joost.joda-archive":["joda"],"application/vnd.kahootz":["ktz","ktr"],"application/vnd.kde.karbon":["karbon"],"application/vnd.kde.kchart":["chrt"],"application/vnd.kde.kformula":["kfo"],"application/vnd.kde.kivio":["flw"],"application/vnd.kde.kontour":["kon"],"application/vnd.kde.kpresenter":["kpr","kpt"],"application/vnd.kde.kspread":["ksp"],"application/vnd.kde.kword":["kwd","kwt"],"application/vnd.kenameaapp":["htke"],"application/vnd.kidspiration":["kia"],"application/vnd.kinar":["kne","knp"],"application/vnd.koan":["skp","skd","skt","skm"],"application/vnd.kodak-descriptor":["sse"],"application/vnd.las.las+xml":["lasxml"],"application/vnd.llamagraphics.life-balance.desktop":["lbd"],"application/vnd.llamagraphics.life-balance.exchange+xml":["lbe"],"application/vnd.lotus-1-2-3":["123"],"application/vnd.lotus-approach":["apr"],"application/vnd.lotus-freelance":["pre"],"application/vnd.lotus-notes":["nsf"],"application/vnd.lotus-organizer":["org"],"application/vnd.lotus-screencam":["scm"],"application/vnd.lotus-wordpro":["lwp"],"application/vnd.macports.portpkg":["portpkg"],"application/vnd.mapbox-vector-tile":["mvt"],"application/vnd.mcd":["mcd"],"application/vnd.medcalcdata":["mc1"],"application/vnd.mediastation.cdkey":["cdkey"],"application/vnd.mfer":["mwf"],"application/vnd.mfmp":["mfm"],"application/vnd.micrografx.flo":["flo"],"application/vnd.micrografx.igx":["igx"],"application/vnd.mif":["mif"],"application/vnd.mobius.daf":["daf"],"application/vnd.mobius.dis":["dis"],"application/vnd.mobius.mbk":["mbk"],"application/vnd.mobius.mqy":["mqy"],"application/vnd.mobius.msl":["msl"],"application/vnd.mobius.plc":["plc"],"application/vnd.mobius.txf":["txf"],"application/vnd.mophun.application":["mpn"],"application/vnd.mophun.certificate":["mpc"],"application/vnd.mozilla.xul+xml":["xul"],"application/vnd.ms-artgalry":["cil"],"application/vnd.ms-cab-compressed":["cab"],"application/vnd.ms-excel":["xls","xlm","xla","xlc","xlt","xlw"],"application/vnd.ms-excel.addin.macroenabled.12":["xlam"],"application/vnd.ms-excel.sheet.binary.macroenabled.12":["xlsb"],"application/vnd.ms-excel.sheet.macroenabled.12":["xlsm"],"application/vnd.ms-excel.template.macroenabled.12":["xltm"],"application/vnd.ms-fontobject":["eot"],"application/vnd.ms-htmlhelp":["chm"],"application/vnd.ms-ims":["ims"],"application/vnd.ms-lrm":["lrm"],"application/vnd.ms-officetheme":["thmx"],"application/vnd.ms-outlook":["msg"],"application/vnd.ms-pki.seccat":["cat"],"application/vnd.ms-pki.stl":["stl"],"application/vnd.ms-powerpoint":["ppt","pps","pot"],"application/vnd.ms-powerpoint.addin.macroenabled.12":["ppam"],"application/vnd.ms-powerpoint.presentation.macroenabled.12":["pptm"],"application/vnd.ms-powerpoint.slide.macroenabled.12":["sldm"],"application/vnd.ms-powerpoint.slideshow.macroenabled.12":["ppsm"],"application/vnd.ms-powerpoint.template.macroenabled.12":["potm"],"application/vnd.ms-project":["mpp","mpt"],"application/vnd.ms-word.document.macroenabled.12":["docm"],"application/vnd.ms-word.template.macroenabled.12":["dotm"],"application/vnd.ms-works":["wps","wks","wcm","wdb"],"application/vnd.ms-wpl":["wpl"],"application/vnd.ms-xpsdocument":["xps"],"application/vnd.mseq":["mseq"],"application/vnd.musician":["mus"],"application/vnd.muvee.style":["msty"],"application/vnd.mynfc":["taglet"],"application/vnd.neurolanguage.nlu":["nlu"],"application/vnd.nitf":["ntf","nitf"],"application/vnd.noblenet-directory":["nnd"],"application/vnd.noblenet-sealer":["nns"],"application/vnd.noblenet-web":["nnw"],"application/vnd.nokia.n-gage.ac+xml":["ac"],"application/vnd.nokia.n-gage.data":["ngdat"],"application/vnd.nokia.n-gage.symbian.install":["n-gage"],"application/vnd.nokia.radio-preset":["rpst"],"application/vnd.nokia.radio-presets":["rpss"],"application/vnd.novadigm.edm":["edm"],"application/vnd.novadigm.edx":["edx"],"application/vnd.novadigm.ext":["ext"],"application/vnd.oasis.opendocument.chart":["odc"],"application/vnd.oasis.opendocument.chart-template":["otc"],"application/vnd.oasis.opendocument.database":["odb"],"application/vnd.oasis.opendocument.formula":["odf"],"application/vnd.oasis.opendocument.formula-template":["odft"],"application/vnd.oasis.opendocument.graphics":["odg"],"application/vnd.oasis.opendocument.graphics-template":["otg"],"application/vnd.oasis.opendocument.image":["odi"],"application/vnd.oasis.opendocument.image-template":["oti"],"application/vnd.oasis.opendocument.presentation":["odp"],"application/vnd.oasis.opendocument.presentation-template":["otp"],"application/vnd.oasis.opendocument.spreadsheet":["ods"],"application/vnd.oasis.opendocument.spreadsheet-template":["ots"],"application/vnd.oasis.opendocument.text":["odt"],"application/vnd.oasis.opendocument.text-master":["odm"],"application/vnd.oasis.opendocument.text-template":["ott"],"application/vnd.oasis.opendocument.text-web":["oth"],"application/vnd.olpc-sugar":["xo"],"application/vnd.oma.dd2+xml":["dd2"],"application/vnd.openblox.game+xml":["obgx"],"application/vnd.openofficeorg.extension":["oxt"],"application/vnd.openstreetmap.data+xml":["osm"],"application/vnd.openxmlformats-officedocument.presentationml.presentation":["pptx"],"application/vnd.openxmlformats-officedocument.presentationml.slide":["sldx"],"application/vnd.openxmlformats-officedocument.presentationml.slideshow":["ppsx"],"application/vnd.openxmlformats-officedocument.presentationml.template":["potx"],"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet":["xlsx"],"application/vnd.openxmlformats-officedocument.spreadsheetml.template":["xltx"],"application/vnd.openxmlformats-officedocument.wordprocessingml.document":["docx"],"application/vnd.openxmlformats-officedocument.wordprocessingml.template":["dotx"],"application/vnd.osgeo.mapguide.package":["mgp"],"application/vnd.osgi.dp":["dp"],"application/vnd.osgi.subsystem":["esa"],"application/vnd.palm":["pdb","pqa","oprc"],"application/vnd.pawaafile":["paw"],"application/vnd.pg.format":["str"],"application/vnd.pg.osasli":["ei6"],"application/vnd.picsel":["efif"],"application/vnd.pmi.widget":["wg"],"application/vnd.pocketlearn":["plf"],"application/vnd.powerbuilder6":["pbd"],"application/vnd.previewsystems.box":["box"],"application/vnd.proteus.magazine":["mgz"],"application/vnd.publishare-delta-tree":["qps"],"application/vnd.pvi.ptid1":["ptid"],"application/vnd.pwg-xhtml-print+xml":["xhtm"],"application/vnd.quark.quarkxpress":["qxd","qxt","qwd","qwt","qxl","qxb"],"application/vnd.rar":["rar"],"application/vnd.realvnc.bed":["bed"],"application/vnd.recordare.musicxml":["mxl"],"application/vnd.recordare.musicxml+xml":["musicxml"],"application/vnd.rig.cryptonote":["cryptonote"],"application/vnd.rim.cod":["cod"],"application/vnd.rn-realmedia":["rm"],"application/vnd.rn-realmedia-vbr":["rmvb"],"application/vnd.route66.link66+xml":["link66"],"application/vnd.sailingtracker.track":["st"],"application/vnd.seemail":["see"],"application/vnd.sema":["sema"],"application/vnd.semd":["semd"],"application/vnd.semf":["semf"],"application/vnd.shana.informed.formdata":["ifm"],"application/vnd.shana.informed.formtemplate":["itp"],"application/vnd.shana.informed.interchange":["iif"],"application/vnd.shana.informed.package":["ipk"],"application/vnd.simtech-mindmapper":["twd","twds"],"application/vnd.smaf":["mmf"],"application/vnd.smart.teacher":["teacher"],"application/vnd.software602.filler.form+xml":["fo"],"application/vnd.solent.sdkm+xml":["sdkm","sdkd"],"application/vnd.spotfire.dxp":["dxp"],"application/vnd.spotfire.sfs":["sfs"],"application/vnd.stardivision.calc":["sdc"],"application/vnd.stardivision.draw":["sda"],"application/vnd.stardivision.impress":["sdd"],"application/vnd.stardivision.math":["smf"],"application/vnd.stardivision.writer":["sdw","vor"],"application/vnd.stardivision.writer-global":["sgl"],"application/vnd.stepmania.package":["smzip"],"application/vnd.stepmania.stepchart":["sm"],"application/vnd.sun.wadl+xml":["wadl"],"application/vnd.sun.xml.calc":["sxc"],"application/vnd.sun.xml.calc.template":["stc"],"application/vnd.sun.xml.draw":["sxd"],"application/vnd.sun.xml.draw.template":["std"],"application/vnd.sun.xml.impress":["sxi"],"application/vnd.sun.xml.impress.template":["sti"],"application/vnd.sun.xml.math":["sxm"],"application/vnd.sun.xml.writer":["sxw"],"application/vnd.sun.xml.writer.global":["sxg"],"application/vnd.sun.xml.writer.template":["stw"],"application/vnd.sus-calendar":["sus","susp"],"application/vnd.svd":["svd"],"application/vnd.symbian.install":["sis","sisx"],"application/vnd.syncml+xml":["xsm"],"application/vnd.syncml.dm+wbxml":["bdm"],"application/vnd.syncml.dm+xml":["xdm"],"application/vnd.syncml.dmddf+xml":["ddf"],"application/vnd.tao.intent-module-archive":["tao"],"application/vnd.tcpdump.pcap":["pcap","cap","dmp"],"application/vnd.tmobile-livetv":["tmo"],"application/vnd.trid.tpt":["tpt"],"application/vnd.triscape.mxs":["mxs"],"application/vnd.trueapp":["tra"],"application/vnd.ufdl":["ufd","ufdl"],"application/vnd.uiq.theme":["utz"],"application/vnd.umajin":["umj"],"application/vnd.unity":["unityweb"],"application/vnd.uoml+xml":["uoml","uo"],"application/vnd.vcx":["vcx"],"application/vnd.visio":["vsd","vst","vss","vsw"],"application/vnd.visionary":["vis"],"application/vnd.vsf":["vsf"],"application/vnd.wap.wbxml":["wbxml"],"application/vnd.wap.wmlc":["wmlc"],"application/vnd.wap.wmlscriptc":["wmlsc"],"application/vnd.webturbo":["wtb"],"application/vnd.wolfram.player":["nbp"],"application/vnd.wordperfect":["wpd"],"application/vnd.wqd":["wqd"],"application/vnd.wt.stf":["stf"],"application/vnd.xara":["xar"],"application/vnd.xfdl":["xfdl"],"application/vnd.yamaha.hv-dic":["hvd"],"application/vnd.yamaha.hv-script":["hvs"],"application/vnd.yamaha.hv-voice":["hvp"],"application/vnd.yamaha.openscoreformat":["osf"],"application/vnd.yamaha.openscoreformat.osfpvg+xml":["osfpvg"],"application/vnd.yamaha.smaf-audio":["saf"],"application/vnd.yamaha.smaf-phrase":["spf"],"application/vnd.yellowriver-custom-menu":["cmp"],"application/vnd.zul":["zir","zirz"],"application/vnd.zzazz.deck+xml":["zaz"],"application/voicexml+xml":["vxml"],"application/wasm":["wasm"],"application/watcherinfo+xml":["wif"],"application/widget":["wgt"],"application/winhlp":["hlp"],"application/wsdl+xml":["wsdl"],"application/wspolicy+xml":["wspolicy"],"application/x-7z-compressed":["7z"],"application/x-abiword":["abw"],"application/x-ace-compressed":["ace"],"application/x-apple-diskimage":["dmg"],"application/x-arj":["arj"],"application/x-authorware-bin":["aab","x32","u32","vox"],"application/x-authorware-map":["aam"],"application/x-authorware-seg":["aas"],"application/x-bcpio":["bcpio"],"application/x-bdoc":["bdoc"],"application/x-bittorrent":["torrent"],"application/x-blorb":["blb","blorb"],"application/x-bzip":["bz"],"application/x-bzip2":["bz2","boz"],"application/x-cbr":["cbr","cba","cbt","cbz","cb7"],"application/x-cdlink":["vcd"],"application/x-cfs-compressed":["cfs"],"application/x-chat":["chat"],"application/x-chess-pgn":["pgn"],"application/x-chrome-extension":["crx"],"application/x-cocoa":["cco"],"application/x-conference":["nsc"],"application/x-cpio":["cpio"],"application/x-csh":["csh"],"application/x-debian-package":["deb","udeb"],"application/x-dgc-compressed":["dgc"],"application/x-director":["dir","dcr","dxr","cst","cct","cxt","w3d","fgd","swa"],"application/x-doom":["wad"],"application/x-dtbncx+xml":["ncx"],"application/x-dtbook+xml":["dtb"],"application/x-dtbresource+xml":["res"],"application/x-dvi":["dvi"],"application/x-envoy":["evy"],"application/x-eva":["eva"],"application/x-font-bdf":["bdf"],"application/x-font-ghostscript":["gsf"],"application/x-font-linux-psf":["psf"],"application/x-font-pcf":["pcf"],"application/x-font-snf":["snf"],"application/x-font-type1":["pfa","pfb","pfm","afm"],"application/x-freearc":["arc"],"application/x-futuresplash":["spl"],"application/x-gca-compressed":["gca"],"application/x-glulx":["ulx"],"application/x-gnumeric":["gnumeric"],"application/x-gramps-xml":["gramps"],"application/x-gtar":["gtar"],"application/x-hdf":["hdf"],"application/x-httpd-php":["php"],"application/x-install-instructions":["install"],"application/x-iso9660-image":["iso"],"application/x-iwork-keynote-sffkey":["key"],"application/x-iwork-numbers-sffnumbers":["numbers"],"application/x-iwork-pages-sffpages":["pages"],"application/x-java-archive-diff":["jardiff"],"application/x-java-jnlp-file":["jnlp"],"application/x-keepass2":["kdbx"],"application/x-latex":["latex"],"application/x-lua-bytecode":["luac"],"application/x-lzh-compressed":["lzh","lha"],"application/x-makeself":["run"],"application/x-mie":["mie"],"application/x-mobipocket-ebook":["prc","mobi"],"application/x-ms-application":["application"],"application/x-ms-shortcut":["lnk"],"application/x-ms-wmd":["wmd"],"application/x-ms-wmz":["wmz"],"application/x-ms-xbap":["xbap"],"application/x-msaccess":["mdb"],"application/x-msbinder":["obd"],"application/x-mscardfile":["crd"],"application/x-msclip":["clp"],"application/x-msdos-program":["exe"],"application/x-msdownload":["exe","dll","com","bat","msi"],"application/x-msmediaview":["mvb","m13","m14"],"application/x-msmetafile":["wmf","wmz","emf","emz"],"application/x-msmoney":["mny"],"application/x-mspublisher":["pub"],"application/x-msschedule":["scd"],"application/x-msterminal":["trm"],"application/x-mswrite":["wri"],"application/x-netcdf":["nc","cdf"],"application/x-ns-proxy-autoconfig":["pac"],"application/x-nzb":["nzb"],"application/x-perl":["pl","pm"],"application/x-pilot":["prc","pdb"],"application/x-pkcs12":["p12","pfx"],"application/x-pkcs7-certificates":["p7b","spc"],"application/x-pkcs7-certreqresp":["p7r"],"application/x-rar-compressed":["rar"],"application/x-redhat-package-manager":["rpm"],"application/x-research-info-systems":["ris"],"application/x-sea":["sea"],"application/x-sh":["sh"],"application/x-shar":["shar"],"application/x-shockwave-flash":["swf"],"application/x-silverlight-app":["xap"],"application/x-sql":["sql"],"application/x-stuffit":["sit"],"application/x-stuffitx":["sitx"],"application/x-subrip":["srt"],"application/x-sv4cpio":["sv4cpio"],"application/x-sv4crc":["sv4crc"],"application/x-t3vm-image":["t3"],"application/x-tads":["gam"],"application/x-tar":["tar"],"application/x-tcl":["tcl","tk"],"application/x-tex":["tex"],"application/x-tex-tfm":["tfm"],"application/x-texinfo":["texinfo","texi"],"application/x-tgif":["obj"],"application/x-ustar":["ustar"],"application/x-virtualbox-hdd":["hdd"],"application/x-virtualbox-ova":["ova"],"application/x-virtualbox-ovf":["ovf"],"application/x-virtualbox-vbox":["vbox"],"application/x-virtualbox-vbox-extpack":["vbox-extpack"],"application/x-virtualbox-vdi":["vdi"],"application/x-virtualbox-vhd":["vhd"],"application/x-virtualbox-vmdk":["vmdk"],"application/x-wais-source":["src"],"application/x-web-app-manifest+json":["webapp"],"application/x-x509-ca-cert":["der","crt","pem"],"application/x-xfig":["fig"],"application/x-xliff+xml":["xlf"],"application/x-xpinstall":["xpi"],"application/x-xz":["xz"],"application/x-zmachine":["z1","z2","z3","z4","z5","z6","z7","z8"],"application/xaml+xml":["xaml"],"application/xcap-att+xml":["xav"],"application/xcap-caps+xml":["xca"],"application/xcap-diff+xml":["xdf"],"application/xcap-el+xml":["xel"],"application/xcap-ns+xml":["xns"],"application/xenc+xml":["xenc"],"application/xfdf":["xfdf"],"application/xhtml+xml":["xhtml","xht"],"application/xliff+xml":["xlf"],"application/xml":["xml","xsl","xsd","rng"],"application/xml-dtd":["dtd"],"application/xop+xml":["xop"],"application/xproc+xml":["xpl"],"application/xslt+xml":["xsl","xslt"],"application/xspf+xml":["xspf"],"application/xv+xml":["mxml","xhvml","xvml","xvm"],"application/yang":["yang"],"application/yin+xml":["yin"],"application/zip":["zip"],"audio/3gpp":["3gpp"],"audio/aac":["adts","aac"],"audio/adpcm":["adp"],"audio/amr":["amr"],"audio/basic":["au","snd"],"audio/midi":["mid","midi","kar","rmi"],"audio/mobile-xmf":["mxmf"],"audio/mp3":["mp3"],"audio/mp4":["m4a","mp4a"],"audio/mpeg":["mpga","mp2","mp2a","mp3","m2a","m3a"],"audio/ogg":["oga","ogg","spx","opus"],"audio/s3m":["s3m"],"audio/silk":["sil"],"audio/vnd.dece.audio":["uva","uvva"],"audio/vnd.digital-winds":["eol"],"audio/vnd.dra":["dra"],"audio/vnd.dts":["dts"],"audio/vnd.dts.hd":["dtshd"],"audio/vnd.lucent.voice":["lvp"],"audio/vnd.ms-playready.media.pya":["pya"],"audio/vnd.nuera.ecelp4800":["ecelp4800"],"audio/vnd.nuera.ecelp7470":["ecelp7470"],"audio/vnd.nuera.ecelp9600":["ecelp9600"],"audio/vnd.rip":["rip"],"audio/wav":["wav"],"audio/wave":["wav"],"audio/webm":["weba"],"audio/x-aac":["aac"],"audio/x-aiff":["aif","aiff","aifc"],"audio/x-caf":["caf"],"audio/x-flac":["flac"],"audio/x-m4a":["m4a"],"audio/x-matroska":["mka"],"audio/x-mpegurl":["m3u"],"audio/x-ms-wax":["wax"],"audio/x-ms-wma":["wma"],"audio/x-pn-realaudio":["ram","ra"],"audio/x-pn-realaudio-plugin":["rmp"],"audio/x-realaudio":["ra"],"audio/x-wav":["wav"],"audio/xm":["xm"],"chemical/x-cdx":["cdx"],"chemical/x-cif":["cif"],"chemical/x-cmdf":["cmdf"],"chemical/x-cml":["cml"],"chemical/x-csml":["csml"],"chemical/x-xyz":["xyz"],"font/collection":["ttc"],"font/otf":["otf"],"font/ttf":["ttf"],"font/woff":["woff"],"font/woff2":["woff2"],"image/aces":["exr"],"image/apng":["apng"],"image/avci":["avci"],"image/avcs":["avcs"],"image/avif":["avif"],"image/bmp":["bmp","dib"],"image/cgm":["cgm"],"image/dicom-rle":["drle"],"image/emf":["emf"],"image/fits":["fits"],"image/g3fax":["g3"],"image/gif":["gif"],"image/heic":["heic"],"image/heic-sequence":["heics"],"image/heif":["heif"],"image/heif-sequence":["heifs"],"image/hej2k":["hej2"],"image/hsj2":["hsj2"],"image/ief":["ief"],"image/jls":["jls"],"image/jp2":["jp2","jpg2"],"image/jpeg":["jpeg","jpg","jpe"],"image/jph":["jph"],"image/jphc":["jhc"],"image/jpm":["jpm"],"image/jpx":["jpx","jpf"],"image/jxr":["jxr"],"image/jxra":["jxra"],"image/jxrs":["jxrs"],"image/jxs":["jxs"],"image/jxsc":["jxsc"],"image/jxsi":["jxsi"],"image/jxss":["jxss"],"image/ktx":["ktx"],"image/ktx2":["ktx2"],"image/png":["png"],"image/prs.btif":["btif","btf"],"image/prs.pti":["pti"],"image/sgi":["sgi"],"image/svg+xml":["svg","svgz"],"image/t38":["t38"],"image/tiff":["tif","tiff"],"image/tiff-fx":["tfx"],"image/vnd.adobe.photoshop":["psd"],"image/vnd.airzip.accelerator.azv":["azv"],"image/vnd.dece.graphic":["uvi","uvvi","uvg","uvvg"],"image/vnd.djvu":["djvu","djv"],"image/vnd.dvb.subtitle":["sub"],"image/vnd.dwg":["dwg"],"image/vnd.dxf":["dxf"],"image/vnd.fastbidsheet":["fbs"],"image/vnd.fpx":["fpx"],"image/vnd.fst":["fst"],"image/vnd.fujixerox.edmics-mmr":["mmr"],"image/vnd.fujixerox.edmics-rlc":["rlc"],"image/vnd.microsoft.icon":["ico"],"image/vnd.mozilla.apng":["apng"],"image/vnd.ms-dds":["dds"],"image/vnd.ms-modi":["mdi"],"image/vnd.ms-photo":["wdp"],"image/vnd.net-fpx":["npx"],"image/vnd.pco.b16":["b16"],"image/vnd.tencent.tap":["tap"],"image/vnd.valve.source.texture":["vtf"],"image/vnd.wap.wbmp":["wbmp"],"image/vnd.xiff":["xif"],"image/vnd.zbrush.pcx":["pcx"],"image/webp":["webp"],"image/wmf":["wmf"],"image/x-3ds":["3ds"],"image/x-cmu-raster":["ras"],"image/x-cmx":["cmx"],"image/x-freehand":["fh","fhc","fh4","fh5","fh7"],"image/x-icon":["ico"],"image/x-jng":["jng"],"image/x-mrsid-image":["sid"],"image/x-ms-bmp":["bmp"],"image/x-pcx":["pcx"],"image/x-pict":["pic","pct"],"image/x-portable-anymap":["pnm"],"image/x-portable-bitmap":["pbm"],"image/x-portable-graymap":["pgm"],"image/x-portable-pixmap":["ppm"],"image/x-rgb":["rgb"],"image/x-tga":["tga"],"image/x-xbitmap":["xbm"],"image/x-xpixmap":["xpm"],"image/x-xwindowdump":["xwd"],"message/disposition-notification":["disposition-notification"],"message/global":["u8msg"],"message/global-delivery-status":["u8dsn"],"message/global-disposition-notification":["u8mdn"],"message/global-headers":["u8hdr"],"message/rfc822":["eml","mime"],"message/vnd.wfa.wsc":["wsc"],"model/3mf":["3mf"],"model/gltf+json":["gltf"],"model/gltf-binary":["glb"],"model/iges":["igs","iges"],"model/mesh":["msh","mesh","silo"],"model/mtl":["mtl"],"model/obj":["obj"],"model/prc":["prc"],"model/step+xml":["stpx"],"model/step+zip":["stpz"],"model/step-xml+zip":["stpxz"],"model/stl":["stl"],"model/u3d":["u3d"],"model/vnd.collada+xml":["dae"],"model/vnd.dwf":["dwf"],"model/vnd.gdl":["gdl"],"model/vnd.gtw":["gtw"],"model/vnd.mts":["mts"],"model/vnd.opengex":["ogex"],"model/vnd.parasolid.transmit.binary":["x_b"],"model/vnd.parasolid.transmit.text":["x_t"],"model/vnd.pytha.pyox":["pyo","pyox"],"model/vnd.sap.vds":["vds"],"model/vnd.usdz+zip":["usdz"],"model/vnd.valve.source.compiled-map":["bsp"],"model/vnd.vtu":["vtu"],"model/vrml":["wrl","vrml"],"model/x3d+binary":["x3db","x3dbz"],"model/x3d+fastinfoset":["x3db"],"model/x3d+vrml":["x3dv","x3dvz"],"model/x3d+xml":["x3d","x3dz"],"model/x3d-vrml":["x3dv"],"text/cache-manifest":["appcache","manifest"],"text/calendar":["ics","ifb"],"text/coffeescript":["coffee","litcoffee"],"text/css":["css"],"text/csv":["csv"],"text/html":["html","htm","shtml"],"text/jade":["jade"],"text/javascript":["js","mjs"],"text/jsx":["jsx"],"text/less":["less"],"text/markdown":["md","markdown"],"text/mathml":["mml"],"text/mdx":["mdx"],"text/n3":["n3"],"text/plain":["txt","text","conf","def","list","log","in","ini"],"text/prs.lines.tag":["dsc"],"text/richtext":["rtx"],"text/rtf":["rtf"],"text/sgml":["sgml","sgm"],"text/shex":["shex"],"text/slim":["slim","slm"],"text/spdx":["spdx"],"text/stylus":["stylus","styl"],"text/tab-separated-values":["tsv"],"text/troff":["t","tr","roff","man","me","ms"],"text/turtle":["ttl"],"text/uri-list":["uri","uris","urls"],"text/vcard":["vcard"],"text/vnd.curl":["curl"],"text/vnd.curl.dcurl":["dcurl"],"text/vnd.curl.mcurl":["mcurl"],"text/vnd.curl.scurl":["scurl"],"text/vnd.dvb.subtitle":["sub"],"text/vnd.familysearch.gedcom":["ged"],"text/vnd.fly":["fly"],"text/vnd.fmi.flexstor":["flx"],"text/vnd.graphviz":["gv"],"text/vnd.in3d.3dml":["3dml"],"text/vnd.in3d.spot":["spot"],"text/vnd.sun.j2me.app-descriptor":["jad"],"text/vnd.wap.wml":["wml"],"text/vnd.wap.wmlscript":["wmls"],"text/vtt":["vtt"],"text/x-asm":["s","asm"],"text/x-c":["c","cc","cxx","cpp","h","hh","dic"],"text/x-component":["htc"],"text/x-fortran":["f","for","f77","f90"],"text/x-handlebars-template":["hbs"],"text/x-java-source":["java"],"text/x-lua":["lua"],"text/x-markdown":["mkd"],"text/x-nfo":["nfo"],"text/x-opml":["opml"],"text/x-org":["org"],"text/x-pascal":["p","pas"],"text/x-processing":["pde"],"text/x-sass":["sass"],"text/x-scss":["scss"],"text/x-setext":["etx"],"text/x-sfv":["sfv"],"text/x-suse-ymp":["ymp"],"text/x-uuencode":["uu"],"text/x-vcalendar":["vcs"],"text/x-vcard":["vcf"],"text/xml":["xml"],"text/yaml":["yaml","yml"],"video/3gpp":["3gp","3gpp"],"video/3gpp2":["3g2"],"video/h261":["h261"],"video/h263":["h263"],"video/h264":["h264"],"video/iso.segment":["m4s"],"video/jpeg":["jpgv"],"video/jpm":["jpm","jpgm"],"video/mj2":["mj2","mjp2"],"video/mp2t":["ts"],"video/mp4":["mp4","mp4v","mpg4"],"video/mpeg":["mpeg","mpg","mpe","m1v","m2v"],"video/ogg":["ogv"],"video/quicktime":["qt","mov"],"video/vnd.dece.hd":["uvh","uvvh"],"video/vnd.dece.mobile":["uvm","uvvm"],"video/vnd.dece.pd":["uvp","uvvp"],"video/vnd.dece.sd":["uvs","uvvs"],"video/vnd.dece.video":["uvv","uvvv"],"video/vnd.dvb.file":["dvb"],"video/vnd.fvt":["fvt"],"video/vnd.mpegurl":["mxu","m4u"],"video/vnd.ms-playready.media.pyv":["pyv"],"video/vnd.uvvu.mp4":["uvu","uvvu"],"video/vnd.vivo":["viv"],"video/webm":["webm"],"video/x-f4v":["f4v"],"video/x-fli":["fli"],"video/x-flv":["flv"],"video/x-m4v":["m4v"],"video/x-matroska":["mkv","mk3d","mks"],"video/x-mng":["mng"],"video/x-ms-asf":["asf","asx"],"video/x-ms-vob":["vob"],"video/x-ms-wm":["wm"],"video/x-ms-wmv":["wmv"],"video/x-ms-wmx":["wmx"],"video/x-ms-wvx":["wvx"],"video/x-msvideo":["avi"],"video/x-sgi-movie":["movie"],"video/x-smv":["smv"],"x-conference/x-cooltalk":["ice"]
     };
-
-    //node library test
-    let fs;
-    try {
-        fs = require("node:fs/promises");
-    } catch (e) {};
 
     const C3 = self.C3;
     const DOM_COMPONENT_ID = "RobotKaposzta_FileManager";
@@ -837,10 +956,10 @@
             super(inst, DOM_COMPONENT_ID);
 
             this._support = {
-                "isNWJS": false,
-                "isElectron": false,
-                "isCordova": false,
-                "isFileAccess": false
+                isNWJS: false,
+                isElectron: false,
+                isCordova: false,
+                isFileAccess: false
             };
 
             this._virtualQuota = 10;
@@ -857,22 +976,21 @@
             this._sizes = [];
             this._modifies = [];
 
-            this._readData = "";
-            this._freeSpace = 0;
-
             this._curTag = "";
             this._curProgress = 0;
-            this._curStatus = 0;
-            this._curType = 0;
-            this._curError = 0;
+            this._readData = "";
 
-            this._processStatus = new Map();
+            this._processes = new Map();
 
             this.AddDOMMessageHandlers([
                 ["on-drag-start", (e) => this._OnDragStart(e)],
                 ["on-drag", (e) => this._OnDrag(e)],
                 ["on-drag-end", (e) => this._OnDragEnd(e)],
-                ["on-drop",(e) => this._OnDrop(e)]
+                ["on-drop", (e) => this._OnDrop(e)],
+
+                ["on-process-pause", (e) => this._OnPauseProcess(...e)],
+                ["on-process-resume", (e) => this._OnResumeProcess(...e)],
+                ["on-process-progress", (e) => this._OnProgressProcess(...e)]
             ]);
             
             this._runtime.AddLoadPromise((async () => {
@@ -903,13 +1021,86 @@
         GetDebuggerProperties() {
             const prefix = "plugins.robotkaposzta_filemanager.debugger.dialog-and-drop";
             const prefix2 = "plugins.robotkaposzta_filemanager.debugger.enviroment";
+            const prefix3 = "plugins.robotkaposzta_filemanager.debugger.processes";
+            const processes = [];
+            const it = this._processes.entries();
+            for (const [key, value] of it) {
+                let status;
+                let isPausing;
+                let isResuming;
+                let isAborting;
+                if (value.status === 0) {
+                    status = "running";
+                    isPausing = false;
+                    isResuming = true;
+                    isAborting = false;
+                } else if (value.status === 1) {
+                    status = "pausing";
+                    isPausing = true;
+                    isResuming = false;
+                    isAborting = false;
+                } else {
+                    status = "aborting";
+                    isPausing = false;
+                    isResuming = false;
+                    isAborting = true;
+                }
+                let statusActive;
+                if (value.statusActive === 0) {
+                    statusActive = "run";
+                } else {
+                    statusActive = "pause";
+                }
+                processes.push({
+                    "title": prefix3 + ".name",
+                    "properties": [
+                        {
+                            "name": prefix3 + ".id",
+                            "value": key
+                        },
+                        {
+                            "name": prefix3 + ".tag",
+                            "value": value.tag
+                        },
+                        {
+                            "name": prefix3 + ".status-active",
+                            "value": statusActive
+                        },
+                        {
+                            "name": prefix3 + ".status",
+                            "value": status
+                        },
+                        {
+                            "name": prefix3 + ".pause",
+                            "value": isPausing,
+                            "onedit": (v) => {
+                                if (v === true) this._PauseProcess(key);
+                            }
+                        },
+                        {
+                            "name": prefix3 + ".resume",
+                            "value": isResuming,
+                            "onedit": (v) => {
+                                if (v === true) this._ResumeProcess(key);
+                            }
+                        },
+                        {
+                            "name": prefix3 + ".abort",
+                            "value": isAborting,
+                            "onedit": (v) => {
+                                if (v === true) this._AbortProcess(key);
+                            }
+                        }
+                    ]
+                });
+            }
             return [
                 {
                     "title": prefix + ".name",
                     "properties": [
                         {
                             "name": prefix + ".write-support",
-                            "value": this._support["isNWJS"] || this._support["isElectron"] || this._support["isFileAccess"]
+                            "value": this._support.isNWJS || this._support.isElectron || this._support.isFileAccess
                         },
                         {
                             "name": prefix + ".drop-mode",
@@ -960,7 +1151,8 @@
                             "value": this._Directory("sdcardid")
                         }
                     ]
-                }
+                },
+                ...processes
             ];
         }
         _CssToLayer(x, y, at) {
@@ -1054,12 +1246,35 @@
             
             return result;
         }
+        async _verifyPermission(fileHandle, withWrite) {
+            const opts = {};
+            if (withWrite) {
+                opts.mode = "readwrite";
+            }
+          
+            // Check if we already have permission, if so, return true.
+            if ((await fileHandle.queryPermission(opts)) === "granted") {
+                return true;
+            }
+          
+            // Request permission to the file, if the user grants permission, return true.
+            if ((await fileHandle.requestPermission(opts)) === "granted") {
+                return true;
+            }
+          
+            // The user did not grant permission, return false.
+            return false;
+        }
         async _SetEnviroment() {
             //get data
-            this._support = await this.PostToDOMAsync("get-platform");
+            const support = await this.PostToDOMAsync("get-platform");
+            this._support.isNWJS = support["isNWJS"];
+            this._support.isElectron = support["isElectron"];
+            this._support.isCordova = support["isCordova"];
+            this._support.isFileAccess = support["isFileAccess"];
             this._virtualStorage = await this.PostToDOMAsync("load-virtual-path");
             //set enviroment
-            if (this._support["isNWJS"] || this._support["isElectron"]) {
+            if (this._support.isNWJS || this._support.isElectron) {
                 this._Directory = (type) => {
                     if (type === "self") {
                         return self["__dirname"];
@@ -1073,12 +1288,15 @@
                         return "";
                     }
                 };
-            } else if (this._support["isCordova"]) {
+            } else if (this._support.isCordova) {
 
             }
         }
 
-
+        _isVirtalPathFormat(path) {
+            path = path.toLowerCase();
+            return path.startsWith("virtual: ") || path.startsWith("/virtual: ");
+        }
         _VirtualClean() {
             let tempCount = 0;
             const iterator = this._virtualStorage.entries();
@@ -1103,10 +1321,10 @@
             if (this._dropRW === isWrite) {
                 return;
             }
-            if (this._support["isNWJS"] || this._support["isElectron"]) {
+            if (this._support.isNWJS || this._support.isElectron) {
                 this._dropRW = isWrite;
                 this.PostToDOM("set-drop-handle", [2]);
-            } else if (isWrite === true && this._support["isFileAccess"]) {
+            } else if (isWrite === true && this._support.isFileAccess) {
                 this._dropRW = isWrite;
                 this.PostToDOM("set-drop-handle", [1]);
             } else {
@@ -1144,7 +1362,7 @@
             
             this._VirtualClean();
             for (const path of this._paths) {
-                if (path.split("/")[1] === "virtual:") {
+                if (path.split("/")[1] === "virtual: ") {
                     this._virtualStorage.set(path.split("/")[2], 0);
                 }
             }
@@ -1154,13 +1372,13 @@
             if (this._dialogRW === isWrite) {
                 return;
             }
-            if (this._support["isElectron"]) {
+            if (this._support.isElectron) {
                 this._dialogRW = isWrite;
                 this.PostToDOM("set-dialog-handle", [3]);
-            } else if (this._support["isNWJS"]) {
+            } else if (this._support.isNWJS) {
                 this._dialogRW = isWrite;
                 this.PostToDOM("set-dialog-handle", [2]);
-            } else if (isWrite === true && this._support["isFileAccess"]) {
+            } else if (isWrite === true && this._support.isFileAccess) {
                 this._dialogRW = isWrite;
                 this.PostToDOM("set-dialog-handle", [1]);
             } else {
@@ -1186,7 +1404,7 @@
 
             this._VirtualClean();
             for (const path of this._paths) {
-                if (path.split("/")[1] === "virtual:") {
+                if (path.split("/")[1] === "virtual: ") {
                     this._virtualStorage.set(path.split("/")[2], 0);
                 }
             }
@@ -1194,78 +1412,496 @@
             return true;
         }
 
-        
-        _SetupProgress(tag) {
+
+        _CreateProcess(tag) {
             //generate ID
             let newId = 0;
-            while (typeof this._processStatus.get(String(newId)) !== "undefined") {
+            while (typeof this._processes.get(String(newId)) !== "undefined") {
                 newId++;
             }
             newId = String(newId);
-            this._processStatus.set(newId, {
-                tag: tag,
-                isPause: false,
-                isAbort: false
-            });
+            //setup data
+            const obj = {
+                statusActive: 0, // 0-run, 1-pause
+                status: 0, // 0-running, 1-pausing, 2-aborting
+                tag: tag, // string
+                progress: 0
+                //type: type, // 0-permission, 1-list, 2-check, 3-create, 4-read, 5-read-binary, 6-write, 7-write-binary, 8-rename, 9-move, 10-copy, 11-delete
+                //lastEvent: 0, // 0-started, 1-paused, 2-resumed, 3-aborted, 4-error, 5-completed,
+            };
+            this._processes.set(newId, obj);
+            this._UpdateTriggerValues(obj);
+            this.Trigger(C3.Plugins.RobotKaposzta_FileManager.Cnds.OnStart)
             return newId;
-        } 
-        _SetProcess(tag, type) {
-            if (type === 0) {
-                const it = this._processStatus.entries();
-                for (let val of it) {
-                    if (val[1].tag === tag) {
-                        val[1].isPause = true;
-                        this._processStatus.set(val[0], val[1]);
-                    }
-                }
-            } else if (type === 1) {
-                const it = this._processStatus.entries();
-                for (let val of it) {
-                    if (val[1].tag === tag) {
-                        val[1].isPause = false;
-                        this._processStatus.set(val[0], val[1]);
-                    }
-                }
-            } else {
-                const it = this._processStatus.entries();
-                for (let val of it) {
-                    if (val[1].tag === tag) {
-                        val[1].isAbort = true;
-                        this._processStatus.set(val[0], val[1]);
-                    }
-                }
-            }
-            return;
         }
-        async _hasAbort(processId) {
+        _PauseProcess(id) {
+            const val = this._processes.get(id);
+            val.status = 1;
+            this._processes.set(id, val);
+            this.PostToDOM("pause-process", [id]);
+        }
+        _ResumeProcess(id) {
+            const val = this._processes.get(id);
+            val.status = 0;
+            this._processes.set(id, val);
+            this.PostToDOM("resume-process", [id]);
+        }
+        _AbortProcess(id) {
+            const val = this._processes.get(id);
+            val.status = 2;
+            this._processes.set(id, val);
+            this.PostToDOM("abort-process", [id]);
+        }
+
+        async _CheckProcess(id) {
             return new Promise((resolve) => {
-                //console.log("start")
-                const val = this._processStatus.get(processId);
-                if (!val) {
+                const val = this._processes.get(id);
+                if (val.status === 2) {
                     resolve(true);
-                } else if (val.isAbort) {
-                    this._processStatus.delete(processId);
-                    resolve(true);
-                } else if (!val.isPause) {
+                } else if (val.status === 0) {
                     resolve(false);
                 } else {
-                    const i = setInterval(function() {
-                        //console.log("a")
-                        const val = this._processStatus.get(processId);
-                        if (!val) {
-                            resolve(true);
-                        } else if (val.isAbort) {
-                            console.log("i" + i);
+                    val.statusActive = 1;
+                    this._processes.set(id, val);
+                    this._UpdateTriggerValues(val);
+                    this.Trigger(C3.Plugins.RobotKaposzta_FileManager.Cnds.OnPause)
+                    const i = setInterval(() => {
+                        const val = this._processes.get(id);
+                        if (val.status === 2) {
                             clearInterval(i);
-                            this._processStatus.delete(processId);
                             resolve(true);
-                        } else if (!val.isPause) {
+                        } else if (val.status === 0) {
+                            clearInterval(i);
+                            val.statusActive = 0;
+                            this._processes.set(id, val);
+                            this._UpdateTriggerValues(val);
+                            this.Trigger(C3.Plugins.RobotKaposzta_FileManager.Cnds.OnResume)
                             resolve(false);
                         }
-                        //console.log("b")
                     }, 1000);
                 }
             });
+        }
+        _ProgressProcess(id, progress) {
+            const val = this._processes.get(id);
+            val.progress = progress;
+            this._processes.set(id, val);
+            this._UpdateTriggerValues(val);
+            this.Trigger(C3.Plugins.RobotKaposzta_FileManager.Cnds.OnProgress);
+        }
+        _UpdateTriggerValues(val) {
+            console.log(val);
+            this._paths = [];
+            this._types = [];
+            this._sizes = [];
+            this._modifies = [];
+            this._curTag = val.tag;
+            this._curProgress = val.progress;
+            this._readData = "";
+        }
+
+        _EndProcess(id) {
+            this._processes.delete(id);
+        }
+
+        _OnPauseProcess(id) {
+            const val = this._processes.get(id);
+            val.statusActive = 1;
+            this._processes.set(id, val);
+            this._UpdateTriggerValues(val);
+            this.Trigger(C3.Plugins.RobotKaposzta_FileManager.Cnds.OnPause)
+        }
+        _OnResumeProcess(id) {
+            const val = this._processes.get(id);
+            val.statusActive = 0;
+            this._processes.set(id, val);
+            this._UpdateTriggerValues(val);
+            this.Trigger(C3.Plugins.RobotKaposzta_FileManager.Cnds.OnResume);
+        }
+        _OnProgressProcess(id, progress) {
+            const val = this._processes.get(id);
+            val.progress = progress;
+            this._processes.set(id, val);
+            this._UpdateTriggerValues(val);
+            this.Trigger(C3.Plugins.RobotKaposzta_FileManager.Cnds.OnProgress);
+        }
+
+
+        async _List(id, path, isFolderList=false, isFileList=false, isRecurse=false, isShowNormal=true, isShowHidden=true, orderBy="name|type|size|date") {
+            path = pathLib.normalize(path).replaceAll("\\", "/");
+            if (this._isVirtalPathFormat(path)) {
+                path = path.split("/");
+                if (path?.[0] === "") path.shift();
+                path.shift();
+                if (path?.[path.length-1] === "") path.pop();
+                path = path.join("/");
+                const result = await this.PostToDOMAsync("get-virtual-path", [path, isFolderList, isFileList, isRecurse, 0, id]);
+                //console.log(result);
+                if (result[0] === undefined) {
+                    return undefined;
+                } else if (result[0] === false) {
+                    return false;
+                } else {
+                    if (path !== "") path = "/" + path;
+                    result[1].shift();
+                    const paths = [];
+                    const types = [];
+                    const sizes = [];
+                    const modifies = [];
+                    for (const item of result[1]) {
+                        let file = item[0];
+                        if (file instanceof FileSystemFileHandle) {
+                            file = await file["getFile"]();
+                        }
+                        if (file instanceof File) {
+                            types.push(file["type"]);
+                            sizes.push(file["size"]);
+                            modifies.push(file["lastModified"]);
+                        } else {
+                            types.push("");
+                            sizes.push(0);
+                            modifies.push(0);
+                        }
+                        console.log(item[1]);
+                        paths.push(item[1]);
+                    }
+                    return [paths, types, sizes, modifies];
+                }
+            } else if (this._support.isNWJS || this._support.isElectron) {
+                const paths = [];
+                const types = [];
+                const sizes = [];
+                const modifies = [];
+                
+                //first level items
+                const startItems = [];
+                if (path === "") {
+                    const result = await node.fs.readroot();
+                    startItems.push(...result);
+                } else {
+                    if (pathLib.isAbsolute(path) === false) path = pathLib.join(node.path.dirname, path);
+                    if (path?.[path.length - 1] !== "/") path = path += "/";
+                    try {
+                        const check = await node.fs.stat(path);
+                        if (check["isFile"]()) {
+                            return false;
+                        }
+                    } catch (error) {
+                        return false;
+                    }
+                    try {
+                        const items = await node.fs.readdir(path);
+                        for (const item of items) {
+                            startItems.push(item);
+                            if (await this._CheckProcess(id)) return undefined;
+                        }
+                    } catch (error) {
+                        return false;
+                    }
+                    
+                }
+
+                //list items
+                if (isFolderList) {
+                    let waited = [];
+                    for (const item of startItems) {
+                        try {
+                            const stat = await node.fs.stat(path + item);
+                            if (stat["isDirectory"]()) {
+                                waited.push(item);
+                                //add result
+                                paths.push(item + "/");
+                                types.push("");
+                                sizes.push(stat["size"]);
+                                modifies.push(stat["mtimeMs"]);
+                            }
+                        } catch (error) {}
+                    }
+                    if(isRecurse) {
+                        while(waited.length !== 0) {
+                            const waitedNew = [];
+                            for (const folder of waited) {
+                                const items = await node.fs.readdir(path + folder);
+                                for (const item of items) {
+                                    try {
+                                        const stat = await node.fs.stat(path + folder + "/" + item);
+                                        if (stat["isDirectory"]()) {
+                                            waitedNew.push(folder + "/" + item);
+                                            //add result
+                                            paths.push(folder + item + "/");
+                                            types.push("");
+                                            sizes.push(stat["size"]);
+                                            modifies.push(stat["mtimeMs"]);
+                                        }
+                                    } catch (error) {}
+                                }
+                                waited = waitedNew;
+                                if (await this._CheckProcess(id)) return undefined;
+                            }
+                        }
+                    }
+                }
+                if (isFileList) {
+                    const getFileType = function (path) {
+                        const ext = pathLib.extname(path);
+                        for (const t in typeDB) {
+                            const check = typeDB[t].find((v) => {
+                                return ext === "." + v;
+                            });
+                            if (check !== undefined) {
+                                return t;
+                            }
+                        }
+                        return "";
+                    }
+                    let waited = [];
+                    for (const item of startItems) {
+                        try {
+                            const stat = await node.fs.stat(path + item);
+                            if (stat["isDirectory"]()) {
+                                waited.push(item);
+                            } else if (stat["isFile"]()) {
+                                //add result
+                                paths.push(item);
+                                types.push(getFileType(item));
+                                sizes.push(stat["size"]);
+                                modifies.push(stat["mtimeMs"]);
+                            }
+                        } catch (error) {}
+                    }
+                    if(isRecurse) {
+                        while(waited.length !== 0) {
+                            const waitedNew = [];
+                            for (const folder of waited) {
+                                const items = await node.fs.readdir(path + folder);
+                                for (const item of items) {
+                                    try {
+                                        const stat = await node.fs.stat(path + folder + "/" + item);
+                                        if (stat["isDirectory"]()) {
+                                            waitedNew.push(folder + "/" + item);
+                                        } else if (stat["isFile"]()) {
+                                            //add result
+                                            paths.push(folder + "/" + item);
+                                            types.push(getFileType(item));
+                                            sizes.push(stat["size"]);
+                                            modifies.push(stat["mtimeMs"]);
+                                        }
+                                    } catch (error) {
+                                        //add result
+                                        paths.push(folder + "/" + item);
+                                        types.push("");
+                                        sizes.push(0);
+                                        modifies.push(0);
+                                    }
+                                }
+                                waited = waitedNew;
+                                if (await this._CheckProcess(id)) return undefined;
+                            }
+                        }
+                    }
+                }
+
+                return [paths, types, sizes, modifies];
+            } else if (this._support.isCordova) {
+
+            }
+            return false;
+        }
+        async _Check(id, path, endItem, mode) {
+            //endItem - 0-any, 1-folder, 2-file
+            //mode - 0-overwrite, 1-exist, 2-access, 3-accessRead, 4-accessWrite, 5-accessExecute
+            path = pathLib.normalize(path).replaceAll("\\", "/");
+            if (this._isVirtalPathFormat(path)) {
+                //get data
+                path = path.split("/");
+                if (path?.[0] === "") path.shift();
+                path.shift();
+                if (path?.[path.length-1] === "") path.pop();
+                path = path.join("/");
+                const result = await this.PostToDOMAsync("get-virtual-path", [path, false, false, false, 0, id]);
+                if (result[0] === undefined) {
+                    return undefined;
+                }
+                const item = result[1][0][0];
+                
+                let isFolder;
+                let isAccess;
+                let type;
+                let size;
+                let modify;
+                if (typeof item === "string") {
+                    isFolder = true;
+                    isAccess = result[0] && (mode === 0 || mode === 1 || mode === 2 || mode === 3);
+                    type = "";
+                    size = 0;
+                    modify = 0;
+                } else if (item instanceof FileSystemDirectoryHandle) {
+                    isFolder = true;
+                    isAccess = result[0] && (mode === 0 || mode === 1 || ((mode === 2 || mode === 3 || mode === 4) && await this._verifyPermission(item, (mode === 4))));
+                    type = "";
+                    size = 0;
+                    modify = 0;
+                } else if (item instanceof File) {
+                    isFolder = false;
+                    isAccess = result[0] &&  (mode === 0 || mode === 1 || mode === 2 || mode === 3);
+                    type = item["type"];
+                    size = item["size"];
+                    modify = item["lastModified"];
+                } else if (item instanceof FileSystemFileHandle) {
+                    isFolder = false;
+                    isAccess = result[0] &&  (mode === 0 || mode === 1 || ((mode === 2 || mode === 3 || mode === 4) && await this._verifyPermission(item, (mode === 4))));
+                    try {
+                        const file = await item["getFile"]();
+                        type = file["type"];
+                        size = file["size"];
+                        modify = file["lastModified"];
+                    } catch (error) {
+                        type = "";
+                        size = 0;
+                        modify = 0;
+                    }
+                }
+                if (result[1][0][1] !== "") {
+                    path = result[1][0][1];
+                }
+                path = "/virtual: /" + path;
+                if (isFolder && path[path.length-1] !== "/") {
+                    path += "/";
+                }
+                console.log(item);
+                console.log(path);
+
+                //compare data
+                if (mode === 0) {
+                    if ((isAccess && endItem === 1 && isFolder) || (!isAccess && isFolder)) {
+                        return [true, [path, type, size, modify]];
+                    } else {
+                        return [false, [path, type, size, modify]];
+                    }
+                } else if (mode === 1 || mode === 2 || mode === 3 || mode === 4 || mode === 5) {
+                    if (isAccess && (endItem === 0 || (endItem === 1 && isFolder) || (endItem === 2 && !isFolder))) {
+                        return [true, [path, type, size, modify]];
+                    } else {
+                        return [false, [path, type, size, modify]];
+                    }
+                }
+            } else if (this._support.isNWJS || this._support.isElectron) {
+                path = path.split("/");
+                if (path?.[0] === "") path.shift();
+                if (path?.[path.length-1] === "") path.pop();
+                //search path
+                let isAccess = true;
+                let existPath = (node.os.platform() === "win32" ? "" : "/");
+                let testingPath = existPath + path[0];
+                if (await node.fs.exists(testingPath + (node.os.platform() === "win32" ? "/" : ""))) {
+                    existPath = testingPath;
+                    let i = 1;
+                    let length = path.length;
+                    while (i < length) {
+                        testingPath = testingPath + "/" + path[i];
+                        if (await node.fs.exists(testingPath)) {
+                            existPath = testingPath;
+                        } else {
+                            break;
+                        }
+                        i++;
+                    }
+                    if (i < length) {
+                        isAccess = false;
+                    }
+                } else {
+                    isAccess = false;
+                }
+
+                //get data
+                let isFolder = true;
+                path = existPath;
+                let type;
+                let size;
+                let modify;
+                const getFileType = function (path) {
+                    const ext = pathLib.extname(path);
+                    for (const t in typeDB) {
+                        const check = typeDB[t].find((v) => {
+                            return ext === "." + v;
+                        });
+                        if (check !== undefined) {
+                            return t;
+                        }
+                    }
+                    return "";
+                };
+                try {
+                    const stat = await node.fs.stat(path);
+                    isFolder = stat["isDirectory"]();
+                    if (isFolder) {
+                        type = getFileType(path);
+                    }  else {
+                        type = "";
+                    }
+                    size = stat["size"];
+                    modify = stat["mtimeMs"];
+                } catch (error) {
+                    console.log(error);
+                    type = getFileType(path);
+                    size = 0;
+                    modify = 0;
+                }
+                //console.log(existPath);
+                //console.log(isAccess);
+                //console.log(endItem);
+                //console.log(isFolder);
+                if (mode === 0) {
+                    if ((isAccess && endItem === 1 && isFolder) || (!isAccess && isFolder)) {
+                        return [true, [path, type, size, modify]];
+                    } else {
+                        return [false, [path, type, size, modify]];
+                    }
+                } else if (mode === 1 || mode === 2 || mode === 3 || mode === 4 || mode === 5){
+                    if (isAccess) {
+                        try {
+                            let accessMode;
+                            if (mode === 1) {
+                                accessMode = node.fs.constants.F_OK;
+                            } else if (mode === 2) {
+                                accessMode = node.fs.constants.R_OK;
+                            } else if (mode === 3) {
+                                accessMode = node.fs.constants.W_OK;
+                            } else if (mode === 4) {
+                                accessMode = node.fs.constants.X_OK;
+                            } else if (mode === 5) {
+                                accessMode = node.fs.constants.R_OK | node.fs.constants.W_OK | node.fs.constants.X_OK;
+                            }
+                            await node.fs.access(path, accessMode);
+                        } catch (error) {
+                            isAccess = false;
+                        }
+                    }
+                    if (isAccess && (endItem === 0 || (endItem === 1 && isFolder) || (endItem === 2 && !isFolder))) {
+                        return [true, [path, type, size, modify]];
+                    } else {
+                        return [false, [path, type, size, modify]];
+                    }
+                }
+            } else if (this._support.isCordova) {
+
+            }
+            return [false, ["", "", 0, 0]];
+        }
+        async _Read(id, path, start, end, type="utf-8") {
+            //
+        }
+        async _Write(id, path, data, position, mode, deleteCount) {
+            //this._support.isFileAccess;
+        }
+        async _Move(id, src, dest) {
+            //
+        }
+        async _Copy(id, src, dest) {
+            //
+        }
+        async _Delete(id, path) {
+            //
         }
 
         
@@ -1309,7 +1945,7 @@
         }
         _Directory(type) {
             if (type === "self") {
-                return "/virtual:/";
+                return "/virtual: /";
             } else if (type === "home") {
                 return "";
             } else if (type === "temp") {

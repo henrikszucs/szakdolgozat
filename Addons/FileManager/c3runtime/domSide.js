@@ -1,7 +1,7 @@
 "use strict";
 {
-    //IDB library
     //thrid-party library
+    //IDB library    
     const getIDBLibrary = function() {
         const DBName = "database";
         async function _loadDB() {
@@ -149,22 +149,27 @@
             this._isDropEnable = false;
             this._dropType = 1;
 
-            this._processStatus = new Map();
+            this._processes = new Map();
             
             this.AddRuntimeMessageHandlers([
                 ["get-platform", () => this._GetPlatform()],
 
-                ["load-virtual-path", (e) => this._LoadVirtualPath(e)],
-                ["set-virtual-path", (e) => this._SetVirtualPath(e)],
-                ["get-virtual-path", (e) => this._GetVirtualPath(e)],
-                ["set-process", (e) => this._SetProcess(e)],
+                ["pause-process", (e) => this._CreateProcess(...e)],
+                ["resume-process", (e) => this._ResumeProcess(...e)],
+                ["abort-process", (e) => this._AbortProcess(...e)],
 
-                ["set-drop-handle", (e) => this._SetDropHandle(e)],
-                ["enable-drop", (e) => this._EnableDrop(e)],
-                ["set-dialog-handle", (e) => this._SetDialogHandle(e)],
-                ["open-dialog", (e) => this._OpenDialog(e)],
+                ["load-virtual-path", () => this._LoadVirtualPath()],
+                ["set-virtual-path", (e) => this._SetVirtualPath(...e)],
+                ["get-virtual-path", (e) => this._GetVirtualPath(...e)],
 
-                ["cordova-plugin-file", (e) =>  this._CordovaPluginFile(e)]
+                ["set-drop-handle", (e) => this._SetDropHandle(...e)],
+                ["enable-drop", (e) => this._EnableDrop(...e)],
+                ["set-dialog-handle", (e) => this._SetDialogHandle(...e)],
+                ["open-dialog", (e) => this._OpenDialog(...e)],
+
+                ["list-cordova-path", (e) =>  this._CordovaList(...e)],
+                ["read-cordova-file", (e) =>  this._CordovaRead(...e)],
+                ["write-cordova-file", (e) =>  this._CordovaWrite(...e)]
             ]);
             const THIS = this;
             window.addEventListener("dragover", function (event) {
@@ -179,7 +184,7 @@
                     THIS._DropHandle(event);
                 }
             });
-            self.robotkaposzta = (e) => this._GetVirtualPath(e);
+            self.robotkaposzta = (e) => this._GetVirtualPath(...e);
         }
         _JoinStr() {
             let joinList = [];
@@ -241,7 +246,8 @@
                     } catch (error) {}
                 }
             } else {
-                if (typeof window["cordova"] !== "undefined" && typeof window["cordova"]["file"] !== "undefined" && window["cordova"]["file"] !== null) {
+                const cordova = window?.["cordova"]?.["file"];
+                if (typeof cordova !== "undefined" && cordova !== null) {
                     isCordova = true;
                 }
             }
@@ -255,6 +261,70 @@
                 "isCordova": isCordova,
                 "isFileAccess": isFileAccess
             };
+        }
+
+
+        _CreateProcess(id) {
+            this._processes.set(id, {
+                statusActive: 0, // 0-run, 1-pause
+                status: 0, // 0-running, 1-pausing, 2-aborting
+            });
+        } 
+        _PauseProcess(id) {
+            const val = this._processes.get(id);
+            if (!val) {
+                return;
+            }
+            val.status = 1;
+            this._processes.set(id, val);
+        }
+        _ResumeProcess(id) {
+            const val = this._processes.get(id);
+            if (!val) {
+                return;
+            }
+            val.status = 0;
+            this._processes.set(id, val);
+        } 
+        _AbortProcess(id) {
+            const val = this._processes.get(id);
+            if (!val) {
+                return;
+            }
+            val.status = 2;
+            this._processes.set(id, val);
+        }
+        async _CheckProcess(id) {
+            return new Promise((resolve) => {
+                const val = this._processes.get(id);
+                if (!val) {
+                    resolve(true);
+                } else if (val.status === 2) {
+                    resolve(true);
+                } else if (val.status === 0) {
+                    resolve(false);
+                } else {
+                    val.statusActive = 1;
+                    this._processes.set(id, val);
+                    this.PostToRuntime("on-process-pause", [id]);
+                    const i = setInterval(() => {
+                        const val = this._processes.get(id);
+                        if (val.status === 2) {
+                            clearInterval(i);
+                            resolve(true);
+                        } else if (val.status === 0) {
+                            clearInterval(i);
+                            val.statusActive = 0;
+                            this._processes.set(id, val);
+                            this.PostToRuntime("on-process-resume", [id]);
+                            resolve(false);
+                        }
+                    }, 1000);
+                }
+            });
+        }
+        _EndProcess(id) {
+            this._processes.delete(id);
         }
 
 
@@ -278,9 +348,9 @@
             this._virtualStorage.set(String(newId), storeObj);
             return String(newId);
         }
-        async _SetVirtualPath(e) {
-            const id = e[0];
-            const type = e[1]; //0-not saved, 1 memory saved, 2-disk saved
+        async _SetVirtualPath(id, type) {
+            //const id = e[0];
+            //const type = e[1]; 0-not saved, 1 memory saved, 2-disk saved
             const obj = this._virtualStorage.get(id);
             if (typeof obj === "undefined") {
                 return false;
@@ -298,30 +368,29 @@
             }
             return true;
         }
-        async _GetVirtualPath(e) {
+        async __GetVirtualPath(path, isFolderList, isFileList, isRecurse, create, id) {
+            /*
             const path = e[0].split("/"); //string - path/to/search
             const isFolderList = e[1]; //boolean - list folders (1st level)
             const isFileList = e[2]; //boolean - list files (1st level)
             const isRecurse = e[3]; //boolean - list in recursive (nth levels)
             const create = e[4]; //0 not create, 1-create folder, 2-create file
-            const tag = e[5]; //string tag of the process
-            let processId = e[6];
-            if (typeof processId === "undefined") {
-                processId = this._SetupProgress(tag);
-            }
-
+            const id = e[5]; //string id of the process
+            */
+            path = path.split("/");
             const data = [];
             const result = [false, data]; // [success, data[]]
 
             //zero level exception
             if (path[0] === "") {
                 result[0] = true;
+                data.push(["", ""]);
                 if (isFolderList) {
                     const stringFolders = new Set();
                     if (isRecurse) {
                         const it = this._virtualStorage.entries();
                         for (const [key, value] of it) {
-                            stringFolders.add(["", key + "/"]);
+                            stringFolders.add(key + "/");
                             for (const item of value) {
                                 if (item instanceof File && item["webkitRelativePath"] !== "") {
                                     const path = item["webkitRelativePath"].split("/");
@@ -337,7 +406,7 @@
                                             const handle = item[0];
                                             const root = item[1];
                                             const path = this._JoinStr(root, handle["name"]) + "/";
-                                            data.push([handle, path]);
+                                            data.push([handle, key + "/" + path]);
                                             for await (const item of handle.values()) {
                                                 if (item["kind"] === "directory") {
                                                     newWaited.push([item, path]);
@@ -345,6 +414,9 @@
                                             }
                                         }
                                         waited = newWaited;
+                                        if (await this._CheckProcess(id)) {
+                                            return [undefined, []];
+                                        }
                                     }
                                 } else if (item?.["isDirectory"]) {
                                     let waited = [[item, ""]];
@@ -354,7 +426,7 @@
                                             const entry = item[0];
                                             const root = item[1];
                                             const path = this._JoinStr(root, entry["name"]) + "/";
-                                            data.push([entry, path]);
+                                            data.push([entry, key + "/" + path]);
                                             const list = await this._ListEntry(entry);
                                             for (const entry of list) {
                                                 if (entry["isDirectory"]) {
@@ -363,14 +435,20 @@
                                             }
                                         }
                                         waited = newWaited;
+                                        if (await this._CheckProcess(id)) {
+                                            return [undefined, []];
+                                        }
                                     }
+                                }
+                                if (await this._CheckProcess(id)) {
+                                    return [undefined, []];
                                 }
                             }
                         }
                     } else {
                         const it = this._virtualStorage.keys();
                         for (const key of it) {
-                            stringFolders.add(["", key + "/"]);
+                            stringFolders.add(key + "/");
                         }
                     }
                     for (const folder of stringFolders) {
@@ -384,9 +462,9 @@
                             for (const item of value) {
                                 if (item instanceof File) {
                                     if (item["webkitRelativePath"] !== "") {
-                                        data.push([item, item["webkitRelativePath"] + "/"]);
+                                        data.push([item, key + "/" + item["webkitRelativePath"] + "/"]);
                                     } else {
-                                        data.push([item, item["name"]]);
+                                        data.push([item, key + "/" + item["name"]]);
                                     }
                                 } else if (item instanceof FileSystemHandle) {
                                     let waited = [[item, ""]];
@@ -401,12 +479,14 @@
                                                     newWaited.push([item, path + "/"]);
                                                 }
                                             } else {
-                                                data.push([handle, path]);
+                                                data.push([handle, key + "/" + path]);
                                             }
                                         }
                                         waited = newWaited;
+                                        if (await this._CheckProcess(id)) {
+                                            return [undefined, []];
+                                        }
                                     }
-                                    //await recurseHandle(item);
                                 } else if (item?.["isFile"] || item?.["isDirectory"]) {
                                     let waited = [[item, ""]];
                                     while (waited.length !== 0) {
@@ -421,12 +501,17 @@
                                                     newWaited.push([entry, path + "/"]);
                                                 }
                                             } else if (entry["isFile"]) {
-                                                data.push([await this._EntryToFile(entry), path]);
+                                                data.push([await this._EntryToFile(entry), key + "/" + path]);
                                             }
                                         }
                                         waited = newWaited;
+                                        if (await this._CheckProcess(id)) {
+                                            return [undefined, []];
+                                        }
                                     }
-                                    //await recurseEntry(item);
+                                }
+                                if (await this._CheckProcess(id)) {
+                                    return [undefined, []];
                                 }
                             }
                         }
@@ -439,10 +524,12 @@
             //first level exception
             let obj = this._virtualStorage.get(path[0]); // array<File,File(webkitRelativePath),FileHandler,DirectoryHandler,FileEntry,DirectoryEntry>   ||   File, FileHandler, FileEntry
             if (typeof obj === "undefined") {
+                data.push(["", ""]);
                 return result;
             }
 
             //search folder path
+            let objParentParent = ""; // string, DirectoryHandle, DirectoryEntry
             let objParent = ""; // string, DirectoryHandle, DirectoryEntry
             let searchIndex = 1;
             let searchLength = path.length;
@@ -487,20 +574,32 @@
                     obj = newObjParent;
                     break;
                 }
+                objParentParent = objParent;
                 objParent = newObjParent;
                 obj = newObj;
             }
 
             //undo if in wrong end
             if (searchIndex >= searchLength) {
-                if (create === 1 && !(objParent instanceof FileSystemDirectoryHandle)) {
+                /*console.log(objParentParent);
+                console.log(objParent);
+                console.log(obj);*/
+                if (create === 1 && obj instanceof FileSystemFileHandle) {
                     searchIndex--;
                 } else if (create === 2 && !(obj instanceof FileSystemFileHandle)) {
-                    searchIndex--;
+                    if (objParentParent !== "") {
+                        await objParentParent["removeEntry"](objParent["name"], {"recursive": true});
+                        objParent = objParentParent;
+                        obj = [];
+                        searchIndex--;
+                    } else {
+                        data.push(["", path.slice(0, searchIndex).join("/") + "/"]);
+                        return  result;
+                    }
                 }
             }
             
-            //return when not found, might create
+            //end when not found, might create
             if (searchIndex < searchLength) {
                 if (create === 0 || (create !== 0 && !(objParent instanceof FileSystemDirectoryHandle))) {
                     if (obj instanceof File || obj instanceof FileSystemFileHandle) {
@@ -509,29 +608,48 @@
                         data.push(["", path.slice(0, searchIndex).join("/") + "/"]);
                     }
                 } else {
+                    if (obj instanceof FileSystemFileHandle) {
+                        await objParent["removeEntry"](obj["name"], {"recursive": true});
+                        searchIndex--;
+                    }
+                    /*console.log(path);
+                    console.log("index: " + searchIndex);
+                    console.log(objParent);
+                    console.log(obj);*/
                     result[0] = true;
                     while (searchIndex < searchLength - 1) {
-                        objParent = objParent["getDirectoryHandle"](path[searchIndex], {create: true});
+                        objParent = await objParent["getDirectoryHandle"](path[searchIndex], {create: true});
                         searchIndex++;
                     }
+                    //console.log(objParent);
                     if (create === 1) {
-                        obj = await objParent["getDirectoryHandle"](path[searchIndex], {create: true});
+                        try {
+                            await objParent["removeEntry"](path[searchIndex], {"recursive": true});
+                            obj = await objParent["getDirectoryHandle"](path[searchIndex], {"create": true});
+                        } catch (error) {
+                            console.error(error);
+                        }
                     } else {
-                        obj = await objParent["getFileHandle"](path[searchIndex], {create: true});
+                        try {
+                            await objParent["removeEntry"](path[searchIndex], {"recursive": true});
+                            obj = await objParent["getFileHandle"](path[searchIndex], {"create": true});
+                        } catch (error) {
+                            console.error(error);
+                        }
                     }
                     data.push([obj, ""]);
                 }
                 return result;
             }
 
-            //return single data
+            //end if single data
             result[0] = true;
             if (obj instanceof File || obj instanceof FileSystemFileHandle || obj?.["isFile"]) {
                 data.push([obj, ""]);
                 return result;
             }
 
-            //return data list (with abort option)
+            //end data list (with abort option)
             if (objParent instanceof FileSystemDirectoryHandle) {
                 data.push([objParent, ""]);
             } else {
@@ -563,6 +681,9 @@
                                     }
                                 }
                                 waited = newWaited;
+                                if (await this._CheckProcess(id)) {
+                                    return [undefined, []];
+                                }
                             }
                         } else if (item?.["isDirectory"]) {
                             let waited = [[item, ""]];
@@ -581,7 +702,13 @@
                                     }
                                 }
                                 waited = newWaited;
+                                if (await this._CheckProcess(id)) {
+                                    return [undefined, []];
+                                }
                             }
+                        }
+                        if (await this._CheckProcess(id)) {
+                            return [undefined, []];
                         }
                     }
                 } else {
@@ -589,9 +716,9 @@
                         if (item instanceof File && item["webkitRelativePath"] !== "") {
                             stringFolders.add(item["webkitRelativePath"].split("/")[0] + "/");
                         } else if (item instanceof FileSystemDirectoryHandle) {
-                            data.push([item, ""]);
+                            data.push([item, item["name"] + "/"]);
                         } else if (item?.["isDirectory"]) {
-                            data.push(["", ""]);
+                            data.push(["", item["name"] + "/"]);
                         }
                     }
                 }
@@ -625,8 +752,10 @@
                                     }
                                 }
                                 waited = newWaited;
+                                if (await this._CheckProcess(id)) {
+                                    return [undefined, []];
+                                }
                             }
-                            //await recurseHandle(item);
                         } else if (item?.["isFile"] || item?.["isDirectory"]) {
                             let waited = [[item, ""]];
                             while (waited.length !== 0) {
@@ -645,8 +774,13 @@
                                     }
                                 }
                                 waited = newWaited;
+                                if (await this._CheckProcess(id)) {
+                                    return [undefined, []];
+                                }
                             }
-                            //await recurseEntry(item);
+                        }
+                        if (await this._CheckProcess(id)) {
+                            return [undefined, []];
                         }
                     }
                 } else {
@@ -654,7 +788,7 @@
                         if (item instanceof File && item["webkitRelativePath"] === "") {
                             data.push([item, item["name"]]);
                         } else if (item instanceof FileSystemFileHandle) {
-                            data.push([item, ""]);
+                            data.push([item, item["name"]]);
                         } else if (item?.["isFile"]) {
                             data.push([item, item["name"]]);
                         }
@@ -663,83 +797,21 @@
             }
             return result;
         }
-
-        _SetupProgress(tag) {
-            //generate ID
-            let newId = 0;
-            while (typeof this._processStatus.get(String(newId)) !== "undefined") {
-                newId++;
+        async _GetVirtualPath(path, isFolderList, isFileList, isRecurse, create, id) {
+            this._CreateProcess(id);
+            /*const it = this._processes.entries();
+            for (const [key, value] of it) {
+                console.log("key: " + key + " value:" + JSON.stringify(value));
             }
-            newId = String(newId);
-            this._processStatus.set(newId, {
-                tag: tag,
-                isPause: false,
-                isAbort: false
-            });
-            return newId;
-        } 
-        _SetProcess([tag, type]) {
-            if (type === 0) {
-                const it = this._processStatus.entries();
-                for (let val of it) {
-                    if (val[1].tag === tag) {
-                        val[1].isPause = true;
-                        this._processStatus.set(val[0], val[1]);
-                    }
-                }
-            } else if (type === 1) {
-                const it = this._processStatus.entries();
-                for (let val of it) {
-                    if (val[1].tag === tag) {
-                        val[1].isPause = false;
-                        this._processStatus.set(val[0], val[1]);
-                    }
-                }
-            } else {
-                const it = this._processStatus.entries();
-                for (let val of it) {
-                    if (val[1].tag === tag) {
-                        val[1].isAbort = true;
-                        this._processStatus.set(val[0], val[1]);
-                    }
-                }
-            }
-            return;
-        }
-        async _hasAbort(processId) {
-            return new Promise((resolve) => {
-                //console.log("start")
-                const val = this._processStatus.get(processId);
-                if (!val) {
-                    resolve(true);
-                } else if (val.isAbort) {
-                    this._processStatus.delete(processId);
-                    resolve(true);
-                } else if (!val.isPause) {
-                    resolve(false);
-                } else {
-                    const i = setInterval(function() {
-                        //console.log("a")
-                        const val = this._processStatus.get(processId);
-                        if (!val) {
-                            resolve(true);
-                        } else if (val.isAbort) {
-                            console.log("i" + i);
-                            clearInterval(i);
-                            this._processStatus.delete(processId);
-                            resolve(true);
-                        } else if (!val.isPause) {
-                            resolve(false);
-                        }
-                        //console.log("b")
-                    }, 1000);
-                }
-            });
+            console.log(await this._CheckProcess(id));*/
+            const result = await this.__GetVirtualPath(path, isFolderList, isFileList, isRecurse, create, id);
+            this._EndProcess(id);
+            return result;
         }
 
 
-        _SetDropHandle(e) {
-            const type = e[0]; //0-General, 1-FileAccess, 2-Desktop (NWJS/Electron)
+        _SetDropHandle(type) {
+            //const type = e[0]; //0-General, 1-FileAccess, 2-Desktop (NWJS/Electron)
             if (type === 0) {
                 this._DropHandle = this._DropGeneralHandle;
             } else if (type === 1) {
@@ -748,8 +820,8 @@
                 this._DropHandle = this._DropDesktopHandle;
             }
         }
-        _EnableDrop(e) {
-            this._isDropEnable = e[0];
+        _EnableDrop(isDropEnable) {
+            this._isDropEnable = isDropEnable;
         }
 
         _DragHandle(event) {
@@ -801,7 +873,7 @@
                 return;
             }
             //list data path
-            const root = "virtual:/" + this._AddVirtualPath(data);
+            const root = "virtual: /" + this._AddVirtualPath(data);
             const paths = [];
             const types = [];
             const sizes = [];
@@ -852,7 +924,7 @@
             }
             data = await Promise.all(data);
             //list data path
-            const root = "virtual:/" + this._AddVirtualPath(data);
+            const root = "virtual: /" + this._AddVirtualPath(data);
             const paths = [];
             const types = [];
             const sizes = [];
@@ -929,7 +1001,7 @@
 
             //list virtual data path
             if (dataVirtual.length !== 0) {
-                const root = "virtual:/" + this._AddVirtualPath(dataVirtual);
+                const root = "virtual: /" + this._AddVirtualPath(dataVirtual);
                 for (const file of dataVirtual) {
                     paths.push("/" + this._JoinStr(root, file["name"]));
                     types.push(file["type"]);
@@ -947,8 +1019,8 @@
         }
 
 
-        _SetDialogHandle(e) {
-            const type = e[0]; //0-General, 1-FileAccess, 2-NWJS, 3-Electron
+        _SetDialogHandle(type) {
+            //const type = e[0]; //0-General, 1-FileAccess, 2-NWJS, 3-Electron
             if (type === 0) {
                 this._OpenDialog = this._DialogGeneralHandle;
             } else if (type === 1) {
@@ -959,13 +1031,13 @@
                 this._OpenDialog = this._DialogElectronHandle;
             }
         }
-        async _OpenDialog(e) {
-            return await this._DialogGeneralHandle(e);
+        async _OpenDialog(type, accept, suggest) {
+            return await this._DialogGeneralHandle(type, accept, suggest);
         }
 
-        async _DialogGeneralHandle(e) {
-            const type = e[0]; //0-file, 1-multiple, 2-folder, 3-save(not handle)
-            const accept = e[1]; //string
+        async _DialogGeneralHandle(type, accept) {
+            //const type = e[0]; //0-file, 1-multiple, 2-folder, 3-save(same as file open)
+            //const accept = e[1]; //string
             const openPicker = () => {
                 return new Promise((resolve) => {
                     let fileInput = document.createElement("input");
@@ -1003,7 +1075,7 @@
                 return [paths, types, sizes, modifies];
             }
             //list data path
-            const root = "virtual:/" + this._AddVirtualPath(data);
+            const root = "virtual: /" + this._AddVirtualPath(data);
             if (data[0]["webkitRelativePath"] === "") {
                 for (const file of data) {
                     paths.push("/" + this._JoinStr(root, file["name"]));
@@ -1021,10 +1093,10 @@
             //send
             return [paths, types, sizes, modifies];
         }
-        async _DialogFileAccessHandle(e) {
-            const type = e[0]; //0-file, 1-multiple, 2-folder, 3-save
-            const accept = e[1]; //string
-            const suggest = e[2]; //string
+        async _DialogFileAccessHandle(type, accept, suggest) {
+            //const type = e[0]; //0-file, 1-multiple, 2-folder, 3-save
+            //const accept = e[1]; //string
+            //const suggest = e[2]; //string
             const options = {};
             let data = [];
             const paths = [];
@@ -1062,7 +1134,7 @@
                 return [paths, types, sizes, modifies];
             }
             //list data path
-            const root = "virtual:/" + this._AddVirtualPath(data);
+            const root = "virtual: /" + this._AddVirtualPath(data);
             for (let file of data) {
                 if (file["kind"] === "directory") {
                     paths.push("/" + this._JoinStr(root, file["name"]) + "/");
@@ -1071,7 +1143,7 @@
                     modifies.push(0);
                 } else {
                     file = await file.getFile();
-                    paths.push(file["name"]);
+                    paths.push("/" + this._JoinStr(root, file["name"]));
                     types.push(file["type"]);
                     sizes.push(file["size"]);
                     modifies.push(file["lastModified"]);
@@ -1080,10 +1152,10 @@
             //send
             return [paths, types, sizes, modifies];
         }
-        async _DialogNWJSHandle(e) {
-            const type = e[0]; //0-file, 1-multiple, 2-folder, 3-save
-            const accept = e[1]; //string
-            const suggest = e[2]; //string
+        async _DialogNWJSHandle(type, accept, suggest) {
+            //const type = e[0]; //0-file, 1-multiple, 2-folder, 3-save
+            //const accept = e[1]; //string
+            //const suggest = e[2]; //string
             const openPicker = () => {
                 return new Promise((resolve) => {
                     let fileInput = document.createElement("input");
@@ -1139,17 +1211,23 @@
             }
 
             //send
-            return [paths, types, sizes, modifies];;
+            return [paths, types, sizes, modifies];
         }
-        async _DialogElectronHandle(e) {
+        async _DialogElectronHandle(type, accept, suggest) {
             return [[],[],[],[]];
         }
 
 
-        _CordovaPluginFile(e) {
-            return null;
+        _CordovaList(id, path, isRootList, isFolderList=false, isFileList=false, isRecurse=false, isShowNormal=true, isShowHidden=true, orderBy="name|type|size|date", create=0) {
+            window.FileEntry;
+            window.DirectoryEntry;
         }
+        _CordovaRead(id, path, start, end) {
 
+        }
+        _CordovaWrite(id, path, data, position, mode="write|append|insert", deleteCount) {
+
+        }
     };
     self.RuntimeInterface.AddDOMHandlerClass(FileManagerRuntimeDOMHandler);
 };

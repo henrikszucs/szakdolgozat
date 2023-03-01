@@ -2,9 +2,9 @@
 {
     const C3 = self.C3;
 
-    self.C3.Plugins.RobotKaposzta_FileManager.Cnds = {
+    C3.Plugins.RobotKaposzta_FileManager.Cnds = {
         IsWriteSupported() {
-            return this._support["isNWJS"] || this._support["isElectron"] || this._support["isFileAccess"];
+            return this._support.isNWJS || this._support.isElectron || this._support.isFileAccess;
         },
         IsDropMode(mode) {
             const boolRW = mode === 1;
@@ -40,9 +40,9 @@
             if (path[0] === "/") {
                 path = path.substring(1);
             }
-            path = path.replaceAll("/", "\\");
-            path = path.split("\\");
-            if (path[0] !== "virtual:") {
+            path = path.replaceAll("\\", "/");
+            path = path.split("/");
+            if (path[0].toLowerCase() !== "virtual: ") {
                 return false;
             }
             const id = path[1];
@@ -62,14 +62,26 @@
         },
 
 
-        OnProcess() {
+        OnStart() {
             return true;
         },
-        IsProcessStatus(tag, status) {
-
+        OnPause() {
+            return true;
         },
-        IsProcessType(tag, type) {
-
+        OnResume() {
+            return true;
+        },
+        OnProgress() {
+            return true;
+        },
+        OnError() {
+            return true;
+        },
+        OnAbort() {
+            return true;
+        },
+        OnCompleted() {
+            return true;
         },
 		
 

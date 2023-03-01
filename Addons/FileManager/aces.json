@@ -303,8 +303,110 @@
             }
         ]
     },
-    "read-and-write": {
+    "file-handling": {
         "actions": [
+            {
+                "id": "list",
+                "scriptName": "List",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "tag",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    },
+                    {
+                        "id": "path",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    },
+                    {
+                        "id": "type",
+                        "type": "combo",
+                        "initialValue": "any",
+                        "items": [
+                            "any",
+                            "folders",
+                            "files",
+                            "all-any",
+                            "all-folders",
+                            "all-files"
+                        ]
+                    }
+                ],
+                "isAsync": true
+            },
+            {
+                "id": "check-path",
+                "scriptName": "CheckPath",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "tag",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    },
+                    {
+                        "id": "path",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    },
+                    {
+                        "id": "type",
+                        "type": "combo",
+                        "initialValue": "exist",
+                        "items": [
+                            "overwrite",
+                            "exist",
+                            "access-any",
+                            "access-read",
+                            "access-write",
+                            "access-execute"
+                        ]
+                    },
+                    {
+                        "id": "end-item",
+                        "type": "combo",
+                        "initialValue": "any",
+                        "items": [
+                            "any",
+                            "folder",
+                            "file"
+                        ]
+                    }
+                ],
+                "isAsync": true
+            },
+            {
+                "id": "create-path",
+                "scriptName": "CreatePath",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "tag",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    },
+                    {
+                        "id": "path",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    },
+                    {
+                        "id": "end-item",
+                        "type": "combo",
+                        "initialValue": "folder",
+                        "items": [
+                            "folder",
+                            "file"
+                        ]
+                    }
+                ],
+                "isAsync": true
+            },
             {
                 "id": "set-permission",
                 "scriptName": "SetPermission",
@@ -364,104 +466,6 @@
                             "rx",
                             "rw",
                             "rwx"
-                        ]
-                    }
-                ],
-                "isAsync": true
-            },
-            {
-                "id": "list",
-                "scriptName": "List",
-                "isDeprecated": false,
-                "highlight": false,
-                "params": [
-                    {
-                        "id": "tag",
-                        "type": "string",
-                        "initialValue": "\"\""
-                    },
-                    {
-                        "id": "path",
-                        "type": "string",
-                        "initialValue": "\"\""
-                    },
-                    {
-                        "id": "type",
-                        "type": "combo",
-                        "initialValue": "any",
-                        "items": [
-                            "any",
-                            "folders",
-                            "files",
-                            "all-any",
-                            "all-folders",
-                            "all-files"
-                        ]
-                    }
-                ],
-                "isAsync": true
-            },
-            {
-                "id": "check-path",
-                "scriptName": "CheckPath",
-                "isDeprecated": false,
-                "highlight": false,
-                "params": [
-                    {
-                        "id": "tag",
-                        "type": "string",
-                        "initialValue": "\"\""
-                    },
-                    {
-                        "id": "path",
-                        "type": "string",
-                        "initialValue": "\"\""
-                    },
-                    {
-                        "id": "type",
-                        "type": "combo",
-                        "initialValue": "access",
-                        "items": [
-                            "access",
-                            "overwrite"
-                        ]
-                    },
-                    {
-                        "id": "end-item",
-                        "type": "combo",
-                        "initialValue": "any",
-                        "items": [
-                            "any",
-                            "file",
-                            "folder"
-                        ]
-                    }
-                ],
-                "isAsync": true
-            },
-            {
-                "id": "create-path",
-                "scriptName": "CreatePath",
-                "isDeprecated": false,
-                "highlight": false,
-                "params": [
-                    {
-                        "id": "tag",
-                        "type": "string",
-                        "initialValue": "\"\""
-                    },
-                    {
-                        "id": "path",
-                        "type": "string",
-                        "initialValue": "\"\""
-                    },
-                    {
-                        "id": "end-item",
-                        "type": "combo",
-                        "initialValue": "folder",
-                        "items": [
-                            "folder",
-                            "file"
                         ]
                     }
                 ],
@@ -565,6 +569,14 @@
                         "id": "position",
                         "type": "number",
                         "initialValue": "0"
+                    },{
+                        "id": "mode",
+                        "type": "combo",
+                        "initialValue": "write",
+                        "items": [
+                            "write",
+                            "append"
+                        ]
                     },
                     {
                         "id": "encoding",
@@ -572,15 +584,6 @@
                         "initialValue": "utf8",
                         "items": [
                             "utf8"
-                        ]
-                    },
-                    {
-                        "id": "mode",
-                        "type": "combo",
-                        "initialValue": "write",
-                        "items": [
-                            "write",
-                            "append"
                         ]
                     }
                 ],
@@ -726,12 +729,12 @@
                     {
                         "id": "action",
                         "type": "combo",
-                        "initialValue": "stop",
+                        "initialValue": "pause",
                         "items": [
-                            "stop",
+                            "pause",
                             "resume",
                             "abort",
-                            "all-stop",
+                            "all-pause",
                             "all-resume",
                             "all-abort"
                         ]
@@ -742,13 +745,13 @@
                         "initialValue": "\"\""
                     }
                 ],
-                "isAsync": true
+                "isAsync": false
             }
         ],
         "conditions": [
             {
-                "id": "on-process",
-                "scriptName": "OnProcess",
+                "id": "on-start",
+                "scriptName": "OnStart",
                 "isDeprecated": false,
                 "highlight": false,
                 "isTrigger": true,
@@ -759,63 +762,76 @@
                 "isCompatibleWithTriggers": false
             },
             {
-                "id": "is-process-status",
-                "scriptName": "IsProcessStatus",
+                "id": "on-pause",
+                "scriptName": "OnPause",
                 "isDeprecated": false,
                 "highlight": false,
-                "params": [
-                    {
-                        "id": "status",
-                        "type": "combo",
-                        "initialValue": "start",
-                        "items": [
-                            "start",
-                            "progress",
-                            "pause",
-                            "resume",
-                            "abort",
-                            "error",
-                            "finish"
-                        ]
-                    }
-                ],
-                "isTrigger": false,
+                "isTrigger": true,
                 "isFakeTrigger": false,
                 "isStatic": false,
                 "isLooping": false,
-                "isInvertible": true,
-                "isCompatibleWithTriggers": true
+                "isInvertible": false,
+                "isCompatibleWithTriggers": false
             },
             {
-                "id": "is-process-type",
-                "scriptName": "IsProcessType",
+                "id": "on-resume",
+                "scriptName": "OnResume",
                 "isDeprecated": false,
                 "highlight": false,
-                "params": [
-                    {
-                        "id": "type",
-                        "type": "combo",
-                        "initialValue": "read",
-                        "items": [
-                            "permission",
-                            "list",
-                            "check",
-                            "create-path",
-                            "read",
-                            "write",
-                            "rename",
-                            "move",
-                            "copy",
-                            "delete"
-                        ]
-                    }
-                ],
-                "isTrigger": false,
+                "isTrigger": true,
                 "isFakeTrigger": false,
                 "isStatic": false,
                 "isLooping": false,
-                "isInvertible": true,
-                "isCompatibleWithTriggers": true
+                "isInvertible": false,
+                "isCompatibleWithTriggers": false
+            },
+            {
+                "id": "on-progress",
+                "scriptName": "OnProgress",
+                "isDeprecated": false,
+                "highlight": false,
+                "isTrigger": true,
+                "isFakeTrigger": false,
+                "isStatic": false,
+                "isLooping": false,
+                "isInvertible": false,
+                "isCompatibleWithTriggers": false
+            },
+            {
+                "id": "on-error",
+                "scriptName": "OnError",
+                "isDeprecated": false,
+                "highlight": false,
+                "isTrigger": true,
+                "isFakeTrigger": false,
+                "isStatic": false,
+                "isLooping": false,
+                "isInvertible": false,
+                "isCompatibleWithTriggers": false
+            },
+            {
+                "id": "on-abort",
+                "scriptName": "OnAbort",
+                "isDeprecated": false,
+                "highlight": false,
+                "isTrigger": true,
+                "isFakeTrigger": false,
+                "isStatic": false,
+                "isLooping": false,
+                "isInvertible": false,
+                "isCompatibleWithTriggers": false
+            },
+            {
+                "id": "on-completed",
+                "scriptName": "OnCompleted",
+                "isDeprecated": false,
+                "highlight": false,
+                "isTrigger": true,
+                "isFakeTrigger": false,
+                "isStatic": false,
+                "isLooping": false,
+                "isInvertible": false,
+                "isCompatibleWithTriggers": false
             }
         ],
         "expressions": [
@@ -824,7 +840,7 @@
                 "expressionName": "ProcessTag",
                 "isDeprecated": false,
                 "highlight": false,
-                "returnType": "number",
+                "returnType": "string",
                 "isVariadicParameters": false
             },
             {
@@ -910,14 +926,6 @@
                 "highlight": false,
                 "returnType": "string",
                 "isVariadicParameters": false
-            },
-            {
-                "id": "free-space",
-                "expressionName": "FreeSpace",
-                "isDeprecated": false,
-                "highlight": false,
-                "returnType": "number",
-                "isVariadicParameters": false
             }
         ]
     },
@@ -946,14 +954,6 @@
         ],
         "expressions": [
             {
-                "id": "path-join",
-                "expressionName": "PathJoin",
-                "isDeprecated": false,
-                "highlight": false,
-                "returnType": "string",
-                "isVariadicParameters": true
-            },
-            {
                 "id": "path-normalize",
                 "expressionName": "PathNormalize",
                 "isDeprecated": false,
@@ -967,6 +967,14 @@
                 ],
                 "returnType": "string",
                 "isVariadicParameters": false
+            },
+            {
+                "id": "path-join",
+                "expressionName": "PathJoin",
+                "isDeprecated": false,
+                "highlight": false,
+                "returnType": "string",
+                "isVariadicParameters": true
             },
             {
                 "id": "path-dirname",

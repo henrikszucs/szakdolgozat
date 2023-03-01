@@ -2,7 +2,7 @@
 {
     const C3 = self.C3;
 
-    self.C3.Plugins.RobotKaposzta_FileManager.Exps = {
+    C3.Plugins.RobotKaposzta_FileManager.Exps = {
 		DragPositionX(at=0) {
             return this._CssToLayer(this._dragX, this._dragY, at)[0];
         },
@@ -47,16 +47,13 @@
         ReadData() {
             return this._readData;
         },
-        FreeSpace() {
-            return this._freeSpace;
-        },
 
 
-        PathJoin() {
-            return this._Join(...arguments);
-        },
         PathNormalize(path) {
 			return this._Normalize(path);
+        },
+        PathJoin() {
+            return this._Join(...arguments);
         },
         PathDirname(path) {
 			return this._Dirname(path);
