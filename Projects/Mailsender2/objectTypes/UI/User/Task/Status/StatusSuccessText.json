@@ -1,0 +1,15 @@
+{
+	"name": "StatusSuccessText",
+	"plugin-id": "Text",
+	"sid": 239117599325965,
+	"isGlobal": false,
+	"instanceVariables": [],
+	"behaviorTypes": [
+		{
+			"behaviorId": "RobotKaposzta_TextManagerBehavior",
+			"name": "TextManager",
+			"sid": 531103873193384
+		}
+	],
+	"effectTypes": []
+}

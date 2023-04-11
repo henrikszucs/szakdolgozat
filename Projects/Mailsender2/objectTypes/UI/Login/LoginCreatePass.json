@@ -1,0 +1,14 @@
+{
+	"name": "LoginCreatePass",
+	"plugin-id": "TextBox",
+	"sid": 386257143758156,
+	"isGlobal": false,
+	"instanceVariables": [],
+	"behaviorTypes": [
+		{
+			"behaviorId": "RobotKaposzta_TextManagerBehavior",
+			"name": "TextManager",
+			"sid": 373396478217320
+		}
+	]
+}

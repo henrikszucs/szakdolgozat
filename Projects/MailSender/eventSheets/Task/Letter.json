@@ -1,0 +1,1168 @@
+{
+	"name": "Letter",
+	"events": [
+		{
+			"eventType": "include",
+			"includeSheet": "Global"
+		},
+		{
+			"eventType": "comment",
+			"text": "navigation"
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-clicked",
+					"objectClass": "Next",
+					"sid": 249120555421628
+				}
+			],
+			"actions": [
+				{
+					"callFunction": "LetterTextSave",
+					"sid": 272428678276715
+				},
+				{
+					"id": "wait-for-previous-actions",
+					"objectClass": "System",
+					"sid": 897603470723889
+				},
+				{
+					"id": "go-to-layout",
+					"objectClass": "System",
+					"sid": 372114789246216,
+					"parameters": {
+						"layout": "Status"
+					}
+				}
+			],
+			"sid": 118830890832227
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-clicked",
+					"objectClass": "Back",
+					"sid": 201754524038328
+				}
+			],
+			"actions": [
+				{
+					"callFunction": "LetterTextSave",
+					"sid": 508542637416624
+				},
+				{
+					"id": "wait-for-previous-actions",
+					"objectClass": "System",
+					"sid": 936539698055309
+				},
+				{
+					"id": "go-to-layout",
+					"objectClass": "System",
+					"sid": 358906774446528,
+					"parameters": {
+						"layout": "Address"
+					}
+				}
+			],
+			"sid": 470818526345386
+		},
+		{
+			"eventType": "comment",
+			"text": "Refresh UI"
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-start-of-layout",
+					"objectClass": "System",
+					"sid": 955867886557360
+				}
+			],
+			"actions": [],
+			"sid": 949472457965326,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [],
+					"actions": [
+						{
+							"id": "clear",
+							"objectClass": "LetterPriority",
+							"sid": 527813305134515
+						},
+						{
+							"id": "add-item",
+							"objectClass": "LetterPriority",
+							"sid": 567095169430907,
+							"parameters": {
+								"text": "TextManager.Translate(\"letter.priority.low\")"
+							}
+						},
+						{
+							"id": "add-item",
+							"objectClass": "LetterPriority",
+							"sid": 158432808567303,
+							"parameters": {
+								"text": "TextManager.Translate(\"letter.priority.normal\")"
+							}
+						},
+						{
+							"id": "add-item",
+							"objectClass": "LetterPriority",
+							"sid": 871515648728272,
+							"parameters": {
+								"text": "TextManager.Translate(\"letter.priority.high\")"
+							}
+						}
+					],
+					"sid": 332264761154803
+				},
+				{
+					"eventType": "block",
+					"conditions": [],
+					"actions": [
+						{
+							"callFunction": "LetterRefreshUI",
+							"sid": 834238626547199
+						}
+					],
+					"sid": 840287355713977
+				}
+			]
+		},
+		{
+			"functionName": "LetterRefreshUI",
+			"functionCopyPicked": false,
+			"functionDescription": "",
+			"functionCategory": "",
+			"functionReturnType": "none",
+			"functionIsAsync": true,
+			"functionParameters": [],
+			"eventType": "function-block",
+			"conditions": [],
+			"actions": [],
+			"sid": 849265857773824,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [],
+					"actions": [
+						{
+							"callFunction": "GetTask",
+							"sid": 489269059815729,
+							"parameters": [
+								"CurrentUserUID",
+								"CurrentPassword",
+								"CurrentTaskUID",
+								"\"subject\""
+							]
+						},
+						{
+							"id": "wait-for-previous-actions",
+							"objectClass": "System",
+							"sid": 566562891686219
+						},
+						{
+							"id": "set-value",
+							"objectClass": "Task",
+							"sid": 704727027465089,
+							"parameters": {
+								"path": "\"letter.subject\"",
+								"value": "APISuccess"
+							}
+						},
+						{
+							"callFunction": "GetTask",
+							"sid": 924180125499157,
+							"parameters": [
+								"CurrentUserUID",
+								"CurrentPassword",
+								"CurrentTaskUID",
+								"\"priority\""
+							]
+						},
+						{
+							"id": "wait-for-previous-actions",
+							"objectClass": "System",
+							"sid": 573030755195690
+						},
+						{
+							"id": "set-value",
+							"objectClass": "Task",
+							"sid": 874845607710507,
+							"parameters": {
+								"path": "\"letter.priority\"",
+								"value": "APISuccess"
+							}
+						},
+						{
+							"callFunction": "GetTask",
+							"sid": 844052163247331,
+							"parameters": [
+								"CurrentUserUID",
+								"CurrentPassword",
+								"CurrentTaskUID",
+								"\"text\""
+							]
+						},
+						{
+							"id": "wait-for-previous-actions",
+							"objectClass": "System",
+							"sid": 407497230914099
+						},
+						{
+							"id": "set-value",
+							"objectClass": "Task",
+							"sid": 966906962791457,
+							"parameters": {
+								"path": "\"letter.text\"",
+								"value": "APISuccess"
+							}
+						},
+						{
+							"callFunction": "GetTask",
+							"sid": 588092205505103,
+							"parameters": [
+								"CurrentUserUID",
+								"CurrentPassword",
+								"CurrentTaskUID",
+								"\"attachments\""
+							]
+						},
+						{
+							"id": "wait-for-previous-actions",
+							"objectClass": "System",
+							"sid": 864724911948982
+						},
+						{
+							"id": "set-json",
+							"objectClass": "Task",
+							"sid": 156056181836402,
+							"parameters": {
+								"path": "\"attachments\"",
+								"json": "APISuccess"
+							}
+						}
+					],
+					"sid": 620813338507474,
+					"children": [
+						{
+							"eventType": "comment",
+							"text": "set subject"
+						},
+						{
+							"eventType": "block",
+							"conditions": [],
+							"actions": [
+								{
+									"id": "set-text",
+									"objectClass": "LetterSubject",
+									"sid": 617187424090234,
+									"parameters": {
+										"text": "Task.Get(\"letter.subject\")"
+									}
+								}
+							],
+							"sid": 198930810920805
+						},
+						{
+							"eventType": "comment",
+							"text": "set priority"
+						},
+						{
+							"eventType": "block",
+							"conditions": [],
+							"actions": [
+								{
+									"id": "set-selection",
+									"objectClass": "LetterPriority",
+									"sid": 200186210433665,
+									"parameters": {
+										"index": "int(Task.Get(\"letter.priority\"))"
+									}
+								}
+							],
+							"sid": 789431856196434
+						},
+						{
+							"eventType": "comment",
+							"text": "set text"
+						},
+						{
+							"eventType": "block",
+							"conditions": [],
+							"actions": [
+								{
+									"id": "set-text",
+									"objectClass": "LetterText",
+									"sid": 964695297097380,
+									"parameters": {
+										"type": "html",
+										"text": "Task.Get(\"letter.text\")"
+									}
+								}
+							],
+							"sid": 863059039976579
+						},
+						{
+							"eventType": "comment",
+							"text": "list attachment"
+						},
+						{
+							"eventType": "block",
+							"conditions": [],
+							"actions": [
+								{
+									"id": "clear",
+									"objectClass": "LetterAttachments",
+									"sid": 290228914180366
+								}
+							],
+							"sid": 260153566525848
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "for-each",
+									"objectClass": "Task",
+									"sid": 681884792860743,
+									"parameters": {
+										"path": "\"attachments\""
+									}
+								}
+							],
+							"actions": [],
+							"sid": 412538138839272,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [],
+									"actions": [
+										{
+											"id": "add-item",
+											"objectClass": "LetterAttachments",
+											"sid": 924120765301557,
+											"parameters": {
+												"text": "Task.Get(\"attachments.\" & Task.CurrentKey & \".name\")"
+											}
+										}
+									],
+									"sid": 792030309790143
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"eventType": "comment",
+			"text": "Set text/subject"
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "LetterSave",
+			"description": "",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"eventType": "variable",
+					"name": "isNeedSubjectSave",
+					"type": "boolean",
+					"initialValue": "false",
+					"comment": "",
+					"isStatic": true,
+					"isConstant": false,
+					"sid": 979726193763926
+				},
+				{
+					"eventType": "variable",
+					"name": "isNeedTextSave",
+					"type": "boolean",
+					"initialValue": "false",
+					"comment": "",
+					"isStatic": true,
+					"isConstant": false,
+					"sid": 128307279344342
+				},
+				{
+					"functionName": "LetterTextSave",
+					"functionCopyPicked": false,
+					"functionDescription": "",
+					"functionCategory": "",
+					"functionReturnType": "none",
+					"functionIsAsync": true,
+					"functionParameters": [],
+					"eventType": "function-block",
+					"conditions": [],
+					"actions": [],
+					"sid": 855252389070780,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-boolean-eventvar",
+									"objectClass": "System",
+									"sid": 745304110880813,
+									"parameters": {
+										"variable": "isNeedSubjectSave"
+									}
+								}
+							],
+							"actions": [],
+							"sid": 727407587220996,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [],
+									"actions": [
+										{
+											"callFunction": "SetTask",
+											"sid": 535549931129104,
+											"parameters": [
+												"CurrentUserUID",
+												"CurrentPassword",
+												"CurrentTaskUID",
+												"\"subject\"",
+												"LetterSubject.Text"
+											]
+										},
+										{
+											"id": "wait-for-previous-actions",
+											"objectClass": "System",
+											"sid": 654858195959965
+										},
+										{
+											"id": "set-boolean-eventvar",
+											"objectClass": "System",
+											"sid": 907894699833513,
+											"parameters": {
+												"variable": "isNeedSubjectSave",
+												"value": "false"
+											}
+										}
+									],
+									"sid": 978571789033949
+								}
+							]
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-boolean-eventvar",
+									"objectClass": "System",
+									"sid": 708314575255272,
+									"parameters": {
+										"variable": "isNeedTextSave"
+									}
+								}
+							],
+							"actions": [],
+							"sid": 222924874623626,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [],
+									"actions": [
+										{
+											"callFunction": "SetTask",
+											"sid": 851742575081667,
+											"parameters": [
+												"CurrentUserUID",
+												"CurrentPassword",
+												"CurrentTaskUID",
+												"\"text\"",
+												"LetterText.TextHTML"
+											]
+										},
+										{
+											"id": "wait-for-previous-actions",
+											"objectClass": "System",
+											"sid": 580304444209184
+										},
+										{
+											"id": "set-boolean-eventvar",
+											"objectClass": "System",
+											"sid": 371022449312180,
+											"parameters": {
+												"variable": "isNeedTextSave",
+												"value": "false"
+											}
+										}
+									],
+									"sid": 401873931698156
+								}
+							]
+						}
+					]
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "every-x-seconds",
+							"objectClass": "System",
+							"sid": 589012011369722,
+							"parameters": {
+								"interval-seconds": "5"
+							}
+						}
+					],
+					"actions": [
+						{
+							"callFunction": "LetterTextSave",
+							"sid": 269820677966449
+						},
+						{
+							"id": "wait-for-previous-actions",
+							"objectClass": "System",
+							"sid": 705535148492898
+						}
+					],
+					"sid": 134261770724751
+				},
+				{
+					"eventType": "comment",
+					"text": "Set subject"
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-text-changed",
+							"objectClass": "LetterSubject",
+							"sid": 399784678456265
+						}
+					],
+					"actions": [
+						{
+							"id": "set-boolean-eventvar",
+							"objectClass": "System",
+							"sid": 930682307252100,
+							"parameters": {
+								"variable": "isNeedSubjectSave",
+								"value": "true"
+							}
+						}
+					],
+					"sid": 473841385868647
+				},
+				{
+					"eventType": "comment",
+					"text": "Set text"
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-text-changed",
+							"objectClass": "LetterText",
+							"sid": 432133822505444
+						}
+					],
+					"actions": [
+						{
+							"id": "set-boolean-eventvar",
+							"objectClass": "System",
+							"sid": 937368371695127,
+							"parameters": {
+								"variable": "isNeedTextSave",
+								"value": "true"
+							}
+						}
+					],
+					"sid": 323535379511696
+				}
+			],
+			"sid": 688447820218701
+		},
+		{
+			"eventType": "comment",
+			"text": "Set priority"
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-selection-changed",
+					"objectClass": "LetterPriority",
+					"sid": 319670039217581
+				}
+			],
+			"actions": [],
+			"sid": 658156924588880,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [],
+					"actions": [
+						{
+							"callFunction": "SetTask",
+							"sid": 875136816250055,
+							"parameters": [
+								"CurrentUserUID",
+								"CurrentPassword",
+								"CurrentTaskUID",
+								"\"priority\"",
+								"str(LetterPriority.SelectedIndex)"
+							]
+						},
+						{
+							"id": "wait-for-previous-actions",
+							"objectClass": "System",
+							"sid": 582678784466205
+						}
+					],
+					"sid": 118197759985039
+				}
+			]
+		},
+		{
+			"eventType": "comment",
+			"text": "Set attachments"
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-clicked",
+					"objectClass": "LetterAttachmentsAdd",
+					"sid": 436735311796220
+				}
+			],
+			"actions": [],
+			"sid": 935774363685439,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [],
+					"actions": [
+						{
+							"id": "click",
+							"objectClass": "LetterFileBrowser",
+							"sid": 326122706569567
+						}
+					],
+					"sid": 143688904518846
+				}
+			]
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-changed",
+					"objectClass": "LetterFileBrowser",
+					"sid": 741024809217010
+				}
+			],
+			"actions": [],
+			"sid": 274467691496508,
+			"children": [
+				{
+					"eventType": "variable",
+					"name": "maxsize",
+					"type": "number",
+					"initialValue": "25000000",
+					"comment": "",
+					"isStatic": true,
+					"isConstant": true,
+					"sid": 669706504928679
+				},
+				{
+					"eventType": "variable",
+					"name": "name",
+					"type": "string",
+					"initialValue": "",
+					"comment": "",
+					"isStatic": false,
+					"isConstant": false,
+					"sid": 624135324473793
+				},
+				{
+					"eventType": "variable",
+					"name": "type",
+					"type": "string",
+					"initialValue": "",
+					"comment": "",
+					"isStatic": false,
+					"isConstant": false,
+					"sid": 566060971146986
+				},
+				{
+					"eventType": "variable",
+					"name": "data",
+					"type": "string",
+					"initialValue": "",
+					"comment": "",
+					"isStatic": false,
+					"isConstant": false,
+					"sid": 108193733782035
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "compare-two-values",
+							"objectClass": "System",
+							"sid": 740028215397377,
+							"parameters": {
+								"first-value": "LetterFileBrowser.FileSizeAt(0)",
+								"comparison": 2,
+								"second-value": "maxsize"
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-eventvar-value",
+							"objectClass": "System",
+							"sid": 705024566439157,
+							"parameters": {
+								"variable": "name",
+								"value": "LetterFileBrowser.FileNameAt(0)"
+							}
+						},
+						{
+							"id": "set-eventvar-value",
+							"objectClass": "System",
+							"sid": 353107283611472,
+							"parameters": {
+								"variable": "type",
+								"value": "LetterFileBrowser.FileTypeAt(0)"
+							}
+						},
+						{
+							"id": "set-response-binary",
+							"objectClass": "AJAX",
+							"sid": 114118933784548,
+							"parameters": {
+								"destination": "BinaryData"
+							}
+						},
+						{
+							"id": "request-url",
+							"objectClass": "AJAX",
+							"sid": 536686229323785,
+							"parameters": {
+								"tag": "\"\"",
+								"url": "LetterFileBrowser.FileURLAt(0)"
+							}
+						},
+						{
+							"id": "wait-for-previous-actions",
+							"objectClass": "System",
+							"sid": 579621406660638
+						},
+						{
+							"id": "set-eventvar-value",
+							"objectClass": "System",
+							"sid": 844145571731370,
+							"parameters": {
+								"variable": "data",
+								"value": "BinaryData.GetBase64"
+							}
+						},
+						{
+							"id": "clear",
+							"objectClass": "LetterFileBrowser",
+							"sid": 512566287372931
+						}
+					],
+					"sid": 612862239937497,
+					"children": [
+						{
+							"eventType": "variable",
+							"name": "attachmentindex",
+							"type": "number",
+							"initialValue": "-1",
+							"comment": "",
+							"isStatic": false,
+							"isConstant": false,
+							"sid": 841260767463316
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "for-each",
+									"objectClass": "Task",
+									"sid": 122177833451075,
+									"parameters": {
+										"path": "\"attachments\""
+									}
+								}
+							],
+							"actions": [],
+							"sid": 349678853793972,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-value",
+											"objectClass": "Task",
+											"sid": 253728499374584,
+											"parameters": {
+												"path": "\"attachments.\" & Task.CurrentKey",
+												"cmp": 0,
+												"value": "name"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-eventvar-value",
+											"objectClass": "System",
+											"sid": 323262754916866,
+											"parameters": {
+												"variable": "attachmentindex",
+												"value": "Task.CurrentKey"
+											}
+										},
+										{
+											"id": "stop-loop",
+											"objectClass": "System",
+											"sid": 145564319380108
+										}
+									],
+									"sid": 239017020120462
+								}
+							]
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-eventvar",
+									"objectClass": "System",
+									"sid": 941246450490409,
+									"parameters": {
+										"variable": "attachmentindex",
+										"comparison": 0,
+										"value": "-1"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "insert-value",
+									"objectClass": "Task",
+									"sid": 609853850779917,
+									"parameters": {
+										"value": "\"\"",
+										"path": "\"attachments\"",
+										"index": "0"
+									}
+								},
+								{
+									"id": "set-object",
+									"objectClass": "Task",
+									"sid": 434403593268001,
+									"parameters": {
+										"path": "\"attachments.0\""
+									}
+								},
+								{
+									"id": "set-eventvar-value",
+									"objectClass": "System",
+									"sid": 790068130401316,
+									"parameters": {
+										"variable": "attachmentindex",
+										"value": "0"
+									}
+								}
+							],
+							"sid": 826438871387145
+						},
+						{
+							"eventType": "variable",
+							"name": "size",
+							"type": "number",
+							"initialValue": "0",
+							"comment": "",
+							"isStatic": false,
+							"isConstant": false,
+							"sid": 784579159291028
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "for-each",
+									"objectClass": "Task",
+									"sid": 968274571781232,
+									"parameters": {
+										"path": "\"attachments\""
+									}
+								}
+							],
+							"actions": [],
+							"sid": 569587538294197,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-two-values",
+											"objectClass": "System",
+											"sid": 956642060564001,
+											"parameters": {
+												"first-value": "Task.CurrentKey",
+												"comparison": 1,
+												"second-value": "str(attachmentindex)"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "add-to-eventvar",
+											"objectClass": "System",
+											"sid": 533750810041955,
+											"parameters": {
+												"variable": "size",
+												"value": "len(Task.Get(\"attachments.\" & Task.CurrentKey & \".data\"))"
+											}
+										}
+									],
+									"sid": 174257485540450
+								}
+							]
+						},
+						{
+							"eventType": "block",
+							"conditions": [],
+							"actions": [
+								{
+									"id": "add-to-eventvar",
+									"objectClass": "System",
+									"sid": 618845631385616,
+									"parameters": {
+										"variable": "size",
+										"value": "len(data)"
+									}
+								}
+							],
+							"sid": 572157281738352
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-eventvar",
+									"objectClass": "System",
+									"sid": 102729741067754,
+									"parameters": {
+										"variable": "size",
+										"comparison": 2,
+										"value": "maxsize"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-value",
+									"objectClass": "Task",
+									"sid": 479148447841129,
+									"parameters": {
+										"path": "\"attachments.\" & attachmentindex & \".name\"",
+										"value": "name"
+									}
+								},
+								{
+									"id": "set-value",
+									"objectClass": "Task",
+									"sid": 522422880402491,
+									"parameters": {
+										"path": "\"attachments.\" & attachmentindex & \".type\"",
+										"value": "type"
+									}
+								},
+								{
+									"id": "set-value",
+									"objectClass": "Task",
+									"sid": 898540440614664,
+									"parameters": {
+										"path": "\"attachments.\" & attachmentindex & \".data\"",
+										"value": "data"
+									}
+								},
+								{
+									"callFunction": "LetterAttachmentSave",
+									"sid": 755615401762608
+								}
+							],
+							"sid": 344045514749525
+						}
+					]
+				}
+			]
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-clicked",
+					"objectClass": "LetterAttachmentsRemove",
+					"sid": 715221538054741
+				}
+			],
+			"actions": [],
+			"sid": 782538669079986,
+			"children": [
+				{
+					"eventType": "variable",
+					"name": "deletecount",
+					"type": "number",
+					"initialValue": "0",
+					"comment": "",
+					"isStatic": false,
+					"isConstant": false,
+					"sid": 616938449883448
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "for",
+							"objectClass": "System",
+							"sid": 254189983254979,
+							"parameters": {
+								"name": "\"\"",
+								"start-index": "0",
+								"end-index": "LetterAttachments.SelectedCount - 1"
+							}
+						}
+					],
+					"actions": [],
+					"sid": 360536006817133,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [],
+							"actions": [
+								{
+									"id": "remove-values",
+									"objectClass": "Task",
+									"sid": 345496431106381,
+									"parameters": {
+										"count": "1",
+										"path": "\"attachments\"",
+										"index": "LetterAttachments.SelectedIndexAt(loopindex) - deletecount"
+									}
+								},
+								{
+									"id": "add-to-eventvar",
+									"objectClass": "System",
+									"sid": 275323526291562,
+									"parameters": {
+										"variable": "deletecount",
+										"value": "1"
+									}
+								}
+							],
+							"sid": 256012652394590
+						}
+					]
+				},
+				{
+					"eventType": "block",
+					"conditions": [],
+					"actions": [
+						{
+							"callFunction": "LetterAttachmentSave",
+							"sid": 263884831691644
+						}
+					],
+					"sid": 650230038166562
+				}
+			]
+		},
+		{
+			"functionName": "LetterAttachmentSave",
+			"functionCopyPicked": false,
+			"functionDescription": "",
+			"functionCategory": "",
+			"functionReturnType": "none",
+			"functionIsAsync": true,
+			"functionParameters": [],
+			"eventType": "function-block",
+			"conditions": [],
+			"actions": [],
+			"sid": 766266904301691,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [],
+					"actions": [
+						{
+							"callFunction": "SetTask",
+							"sid": 785662638256291,
+							"parameters": [
+								"CurrentUserUID",
+								"CurrentPassword",
+								"CurrentTaskUID",
+								"\"attachments\"",
+								"Task.GetAsCompactString(\"attachments\")"
+							]
+						},
+						{
+							"id": "wait-for-previous-actions",
+							"objectClass": "System",
+							"sid": 896192834958108
+						},
+						{
+							"id": "clear",
+							"objectClass": "LetterAttachments",
+							"sid": 895062606336972
+						}
+					],
+					"sid": 452452945394227,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "for-each",
+									"objectClass": "Task",
+									"sid": 240228474538464,
+									"parameters": {
+										"path": "\"attachments\""
+									}
+								}
+							],
+							"actions": [],
+							"sid": 521635243228069,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [],
+									"actions": [
+										{
+											"id": "add-item",
+											"objectClass": "LetterAttachments",
+											"sid": 341109246434956,
+											"parameters": {
+												"text": "Task.Get(\"attachments.\" & Task.CurrentKey & \".name\")"
+											}
+										}
+									],
+									"sid": 870287793963016
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	],
+	"sid": 813759488151962
+}

@@ -1,0 +1,10 @@
+{
+	"name": "CSV",
+	"plugin-id": "RobotKaposzta_CSV",
+	"sid": 633013457794804,
+	"singleglobal-inst": {
+		"type": "CSV",
+		"properties": {},
+		"uid": 3
+	}
+}

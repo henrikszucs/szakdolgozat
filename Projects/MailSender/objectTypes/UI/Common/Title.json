@@ -1,0 +1,15 @@
+{
+	"name": "Title",
+	"plugin-id": "Text",
+	"sid": 311718513109355,
+	"isGlobal": false,
+	"instanceVariables": [],
+	"behaviorTypes": [
+		{
+			"behaviorId": "RobotKaposzta_TextManagerBehavior",
+			"name": "TextManager",
+			"sid": 656706237266131
+		}
+	],
+	"effectTypes": []
+}

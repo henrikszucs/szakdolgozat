@@ -1,0 +1,15 @@
+{
+	"name": "StatusFailedText",
+	"plugin-id": "Text",
+	"sid": 631475987034707,
+	"isGlobal": false,
+	"instanceVariables": [],
+	"behaviorTypes": [
+		{
+			"behaviorId": "RobotKaposzta_TextManagerBehavior",
+			"name": "TextManager",
+			"sid": 126331580252856
+		}
+	],
+	"effectTypes": []
+}

@@ -1,0 +1,7695 @@
+{
+	"name": "Program",
+	"events": [
+		{
+			"eventType": "include",
+			"includeSheet": "Global"
+		},
+		{
+			"eventType": "variable",
+			"name": "CurrentUserUID",
+			"type": "string",
+			"initialValue": "",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 869516413331788
+		},
+		{
+			"eventType": "variable",
+			"name": "CurrentPassword",
+			"type": "string",
+			"initialValue": "",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 419994458045651
+		},
+		{
+			"eventType": "variable",
+			"name": "CurrentTaskUID",
+			"type": "string",
+			"initialValue": "",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 280098290271089
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "Login",
+			"description": "",
+			"isActiveOnStart": false,
+			"children": [
+				{
+					"eventType": "comment",
+					"text": "Select user"
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-selection-changed",
+							"objectClass": "LoginUsername",
+							"sid": 786501808442684
+						}
+					],
+					"actions": [],
+					"sid": 341014796057832,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-selection",
+									"objectClass": "LoginUsername",
+									"sid": 877084707577471,
+									"parameters": {
+										"comparison": 0,
+										"index": "0"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-value",
+									"objectClass": "Data",
+									"sid": 231667731210248,
+									"parameters": {
+										"path": "\"settings.lastUserUID\"",
+										"value": "\"\""
+									}
+								}
+							],
+							"sid": 723167798286938
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 137182081459230
+								}
+							],
+							"actions": [
+								{
+									"id": "set-value",
+									"objectClass": "Data",
+									"sid": 347605955607510,
+									"parameters": {
+										"path": "\"settings.lastUserUID\"",
+										"value": "LoginUserList.Get(LoginUsername.SelectedIndex-1 & \".UID\")"
+									}
+								}
+							],
+							"sid": 504263369237067
+						},
+						{
+							"eventType": "block",
+							"conditions": [],
+							"actions": [
+								{
+									"id": "set-item",
+									"objectClass": "LocalStorage",
+									"sid": 991506367234818,
+									"parameters": {
+										"key": "\"settings\"",
+										"value": "Data.GetAsCompactString(\"settings\")"
+									}
+								},
+								{
+									"callFunction": "LoginRefreshUI",
+									"sid": 166121972063787
+								}
+							],
+							"sid": 970640780433167
+						}
+					]
+				},
+				{
+					"functionName": "LoginRefreshUI",
+					"functionCopyPicked": false,
+					"functionDescription": "",
+					"functionCategory": "",
+					"functionReturnType": "none",
+					"functionIsAsync": true,
+					"functionParameters": [],
+					"eventType": "function-block",
+					"conditions": [],
+					"actions": [],
+					"sid": 715709044375298,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [],
+							"actions": [
+								{
+									"id": "set-text",
+									"objectClass": "Message",
+									"sid": 790552176460324,
+									"parameters": {
+										"text": "\"\""
+									}
+								},
+								{
+									"callFunction": "ListUsers",
+									"sid": 552900873354274
+								},
+								{
+									"id": "wait-for-previous-actions",
+									"objectClass": "System",
+									"sid": 702700476328107
+								}
+							],
+							"sid": 867368819891017,
+							"children": [
+								{
+									"eventType": "comment",
+									"text": "Refresh users"
+								},
+								{
+									"eventType": "block",
+									"conditions": [],
+									"actions": [
+										{
+											"id": "parse",
+											"objectClass": "LoginUserList",
+											"sid": 800416982546975,
+											"parameters": {
+												"data": "APISuccess"
+											}
+										},
+										{
+											"id": "clear",
+											"objectClass": "LoginUsername",
+											"sid": 284734914535616
+										},
+										{
+											"id": "add-item",
+											"objectClass": "LoginUsername",
+											"sid": 923827576078150,
+											"parameters": {
+												"text": "TextManager.Translate(\"login.new\")"
+											}
+										}
+									],
+									"sid": 538415610543349
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "for-each",
+											"objectClass": "LoginUserList",
+											"sid": 796583148504153,
+											"parameters": {
+												"path": "\"\""
+											}
+										}
+									],
+									"actions": [],
+									"sid": 284193480085331,
+									"children": [
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "compare-value",
+													"objectClass": "LoginUserList",
+													"sid": 187507216699426,
+													"parameters": {
+														"path": "LoginUserList.CurrentKey & \".isNeedLogin\"",
+														"cmp": 0,
+														"value": "0"
+													}
+												}
+											],
+											"actions": [
+												{
+													"id": "add-item",
+													"objectClass": "LoginUsername",
+													"sid": 383141595862113,
+													"parameters": {
+														"text": "LoginUserList.Get(LoginUserList.CurrentKey & \".name\")"
+													}
+												}
+											],
+											"sid": 631074642040642
+										},
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "else",
+													"objectClass": "System",
+													"sid": 926924567606325
+												}
+											],
+											"actions": [
+												{
+													"id": "add-item",
+													"objectClass": "LoginUsername",
+													"sid": 628417941400907,
+													"parameters": {
+														"text": "LoginUserList.Get(LoginUserList.CurrentKey & \".name\") & \" (\" & TextManager.Translate(\"login.need-login\") & \")\""
+													}
+												}
+											],
+											"sid": 734330987869779
+										}
+									]
+								},
+								{
+									"eventType": "comment",
+									"text": "Select last selected users"
+								},
+								{
+									"eventType": "variable",
+									"name": "lastUserIndex",
+									"type": "number",
+									"initialValue": "0",
+									"comment": "",
+									"isStatic": false,
+									"isConstant": false,
+									"sid": 570970175474042
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-value",
+											"objectClass": "Data",
+											"sid": 181365742284365,
+											"parameters": {
+												"path": "\"settings.lastUser\"",
+												"cmp": 1,
+												"value": "\"\""
+											}
+										}
+									],
+									"actions": [],
+									"sid": 171820397107731,
+									"children": [
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "for-each",
+													"objectClass": "LoginUserList",
+													"sid": 568981436468503,
+													"parameters": {
+														"path": "\"\""
+													}
+												}
+											],
+											"actions": [],
+											"sid": 362061098072886,
+											"children": [
+												{
+													"eventType": "block",
+													"conditions": [
+														{
+															"id": "compare-value",
+															"objectClass": "LoginUserList",
+															"sid": 926290056914834,
+															"parameters": {
+																"path": "LoginUserList.CurrentKey & \".UID\"",
+																"cmp": 0,
+																"value": "Data.Get(\"settings.lastUserUID\")"
+															}
+														}
+													],
+													"actions": [
+														{
+															"id": "set-eventvar-value",
+															"objectClass": "System",
+															"sid": 659286647895242,
+															"parameters": {
+																"variable": "lastUserIndex",
+																"value": "int(LoginUserList.CurrentKey) +1"
+															}
+														},
+														{
+															"id": "stop-loop",
+															"objectClass": "System",
+															"sid": 612226033184274
+														}
+													],
+													"sid": 569567116497088
+												}
+											]
+										}
+									]
+								},
+								{
+									"eventType": "block",
+									"conditions": [],
+									"actions": [
+										{
+											"id": "set-selection",
+											"objectClass": "LoginUsername",
+											"sid": 400050078889386,
+											"parameters": {
+												"index": "lastUserIndex"
+											}
+										}
+									],
+									"sid": 242506971470293
+								},
+								{
+									"eventType": "comment",
+									"text": "Display layout"
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-eventvar",
+											"objectClass": "System",
+											"sid": 539714593825732,
+											"parameters": {
+												"variable": "lastUserIndex",
+												"comparison": 0,
+												"value": "0"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-layer-visible",
+											"objectClass": "System",
+											"sid": 232615054200127,
+											"parameters": {
+												"layer": "\"Login_Sign\"",
+												"visibility": "visible"
+											}
+										},
+										{
+											"id": "set-layer-visible",
+											"objectClass": "System",
+											"sid": 250960827166466,
+											"parameters": {
+												"layer": "\"Login_Login\"",
+												"visibility": "invisible"
+											}
+										},
+										{
+											"id": "set-layer-visible",
+											"objectClass": "System",
+											"sid": 498539884947760,
+											"parameters": {
+												"layer": "\"Login_Login_Pass\"",
+												"visibility": "invisible"
+											}
+										}
+									],
+									"sid": 704680166020397
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "else",
+											"objectClass": "System",
+											"sid": 167380811774200
+										},
+										{
+											"id": "compare-value",
+											"objectClass": "LoginUserList",
+											"sid": 651321788585180,
+											"parameters": {
+												"path": "str(lastUserIndex-1) & \".isCrypted\"",
+												"cmp": 0,
+												"value": "0"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-layer-visible",
+											"objectClass": "System",
+											"sid": 204564645452272,
+											"parameters": {
+												"layer": "\"Login_Sign\"",
+												"visibility": "invisible"
+											}
+										},
+										{
+											"id": "set-layer-visible",
+											"objectClass": "System",
+											"sid": 220401386198699,
+											"parameters": {
+												"layer": "\"Login_Login\"",
+												"visibility": "visible"
+											}
+										},
+										{
+											"id": "set-layer-visible",
+											"objectClass": "System",
+											"sid": 677396410187026,
+											"parameters": {
+												"layer": "\"Login_Login_Pass\"",
+												"visibility": "invisible"
+											}
+										}
+									],
+									"sid": 825060057826133
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "else",
+											"objectClass": "System",
+											"sid": 519598442075257
+										}
+									],
+									"actions": [
+										{
+											"id": "set-layer-visible",
+											"objectClass": "System",
+											"sid": 955978934777391,
+											"parameters": {
+												"layer": "\"Login_Sign\"",
+												"visibility": "invisible"
+											}
+										},
+										{
+											"id": "set-layer-visible",
+											"objectClass": "System",
+											"sid": 100200500423818,
+											"parameters": {
+												"layer": "\"Login_Login\"",
+												"visibility": "invisible"
+											}
+										},
+										{
+											"id": "set-layer-visible",
+											"objectClass": "System",
+											"sid": 456056236156513,
+											"parameters": {
+												"layer": "\"Login_Login_Pass\"",
+												"visibility": "visible"
+											}
+										}
+									],
+									"sid": 368456411136661
+								},
+								{
+									"eventType": "block",
+									"conditions": [],
+									"actions": [
+										{
+											"id": "set-text",
+											"objectClass": "LoginPass",
+											"sid": 228956878273205,
+											"parameters": {
+												"text": "\"\""
+											}
+										},
+										{
+											"id": "set-text",
+											"objectClass": "LoginCreateUser",
+											"sid": 618597591086825,
+											"parameters": {
+												"text": "\"\""
+											}
+										},
+										{
+											"id": "set-text",
+											"objectClass": "LoginCreatePass",
+											"sid": 503717127823378,
+											"parameters": {
+												"text": "\"\""
+											}
+										},
+										{
+											"id": "set-text",
+											"objectClass": "LoginCreatePass2",
+											"sid": 972402064284764,
+											"parameters": {
+												"text": "\"\""
+											}
+										}
+									],
+									"sid": 948558121572072
+								}
+							]
+						}
+					]
+				},
+				{
+					"eventType": "comment",
+					"text": "Login/Create"
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-clicked",
+							"objectClass": "Next",
+							"sid": 454678174042956
+						}
+					],
+					"actions": [],
+					"sid": 146308157516181,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-selection",
+									"objectClass": "LoginUsername",
+									"sid": 123588386902830,
+									"parameters": {
+										"comparison": 0,
+										"index": "0"
+									}
+								}
+							],
+							"actions": [],
+							"sid": 835362527085447,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-two-values",
+											"objectClass": "System",
+											"sid": 488772536250253,
+											"parameters": {
+												"first-value": "trim(LoginCreateUser.Text)",
+												"comparison": 0,
+												"second-value": "\"\""
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-text",
+											"objectClass": "Message",
+											"sid": 370476112052718,
+											"parameters": {
+												"text": "TextManager.Translate(\"login.create-error3\")"
+											}
+										}
+									],
+									"sid": 276713256568106
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "else",
+											"objectClass": "System",
+											"sid": 519813173495688
+										},
+										{
+											"id": "compare-text",
+											"objectClass": "LoginCreatePass",
+											"sid": 169812343107011,
+											"parameters": {
+												"text": "LoginCreatePass2.Text",
+												"case": "case-sensitive"
+											},
+											"isInverted": true
+										}
+									],
+									"actions": [
+										{
+											"id": "set-text",
+											"objectClass": "Message",
+											"sid": 683623390963608,
+											"parameters": {
+												"text": "TextManager.Translate(\"login.create-error2\")"
+											}
+										}
+									],
+									"sid": 410838252549719
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "else",
+											"objectClass": "System",
+											"sid": 191303170145057
+										}
+									],
+									"actions": [
+										{
+											"callFunction": "CreateUser",
+											"sid": 164880108418629,
+											"parameters": [
+												"LoginCreateUser.Text",
+												"LoginCreatePass.Text"
+											]
+										},
+										{
+											"id": "wait-for-previous-actions",
+											"objectClass": "System",
+											"sid": 389518120638772
+										}
+									],
+									"sid": 427163146555679,
+									"children": [
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "compare-eventvar",
+													"objectClass": "System",
+													"sid": 491973604535061,
+													"parameters": {
+														"variable": "APIError",
+														"comparison": 1,
+														"value": "\"\""
+													}
+												}
+											],
+											"actions": [
+												{
+													"id": "set-text",
+													"objectClass": "Message",
+													"sid": 607933883510946,
+													"parameters": {
+														"text": "TextManager.Translate(\"login.create-error\")"
+													}
+												}
+											],
+											"sid": 256373595506467
+										},
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "else",
+													"objectClass": "System",
+													"sid": 685445302864526
+												}
+											],
+											"actions": [
+												{
+													"id": "set-eventvar-value",
+													"objectClass": "System",
+													"sid": 427966682858975,
+													"parameters": {
+														"variable": "CurrentUserUID",
+														"value": "APISuccess"
+													}
+												},
+												{
+													"id": "set-eventvar-value",
+													"objectClass": "System",
+													"sid": 848003956605734,
+													"parameters": {
+														"variable": "CurrentPassword",
+														"value": "LoginCreatePass.Text"
+													}
+												},
+												{
+													"id": "set-value",
+													"objectClass": "Data",
+													"sid": 751288077580886,
+													"parameters": {
+														"path": "\"settings.lastUserUID\"",
+														"value": "CurrentUserUID"
+													}
+												},
+												{
+													"id": "set-item",
+													"objectClass": "LocalStorage",
+													"sid": 669404057702677,
+													"parameters": {
+														"key": "\"settings\"",
+														"value": "Data.GetAsCompactString(\"settings\")"
+													}
+												},
+												{
+													"id": "wait-for-previous-actions",
+													"objectClass": "System",
+													"sid": 102780789036119
+												},
+												{
+													"callFunction": "SwitchLayout",
+													"sid": 401821538551410,
+													"parameters": [
+														"\"main\""
+													]
+												}
+											],
+											"sid": 533873311311254
+										}
+									]
+								}
+							]
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 890139625953772
+								}
+							],
+							"actions": [],
+							"sid": 994649988359735,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [],
+									"actions": [
+										{
+											"callFunction": "ListTasks",
+											"sid": 623761346837983,
+											"parameters": [
+												"LoginUserList.Get((LoginUsername.SelectedIndex-1)  & \".UID\")",
+												"LoginPass.Text"
+											]
+										},
+										{
+											"id": "wait-for-previous-actions",
+											"objectClass": "System",
+											"sid": 715689302873055
+										}
+									],
+									"sid": 599506678456983,
+									"children": [
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "compare-eventvar",
+													"objectClass": "System",
+													"sid": 853755750520814,
+													"parameters": {
+														"variable": "APIError",
+														"comparison": 1,
+														"value": "\"\""
+													}
+												}
+											],
+											"actions": [
+												{
+													"callFunction": "LoginRefreshUI",
+													"sid": 506836611626118
+												},
+												{
+													"id": "wait-for-previous-actions",
+													"objectClass": "System",
+													"sid": 409051509632503
+												},
+												{
+													"id": "set-text",
+													"objectClass": "Message",
+													"sid": 717975267976005,
+													"parameters": {
+														"text": "TextManager.Translate(\"login.login-error\")"
+													}
+												}
+											],
+											"sid": 204596994895219
+										},
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "else",
+													"objectClass": "System",
+													"sid": 482353053420175
+												}
+											],
+											"actions": [
+												{
+													"id": "set-eventvar-value",
+													"objectClass": "System",
+													"sid": 899648591459816,
+													"parameters": {
+														"variable": "CurrentUserUID",
+														"value": "LoginUserList.Get((LoginUsername.SelectedIndex-1)  & \".UID\")"
+													}
+												},
+												{
+													"id": "set-eventvar-value",
+													"objectClass": "System",
+													"sid": 312594282395715,
+													"parameters": {
+														"variable": "CurrentPassword",
+														"value": "LoginPass.Text"
+													}
+												},
+												{
+													"callFunction": "SwitchLayout",
+													"sid": 839896783150008,
+													"parameters": [
+														"\"main\""
+													]
+												}
+											],
+											"sid": 272321493864361
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"eventType": "comment",
+					"text": "Delete"
+				},
+				{
+					"eventType": "variable",
+					"name": "isDeleteClicked",
+					"type": "boolean",
+					"initialValue": "false",
+					"comment": "",
+					"isStatic": true,
+					"isConstant": false,
+					"sid": 819332928336254
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-clicked",
+							"objectClass": "LoginDelete",
+							"sid": 556449892332964
+						}
+					],
+					"actions": [],
+					"sid": 296239873748024,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-selection",
+									"objectClass": "LoginUsername",
+									"sid": 828312014650042,
+									"parameters": {
+										"comparison": 1,
+										"index": "0"
+									}
+								}
+							],
+							"actions": [],
+							"sid": 232224343167538,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-boolean-eventvar",
+											"objectClass": "System",
+											"sid": 374684016673066,
+											"parameters": {
+												"variable": "isDeleteClicked"
+											},
+											"isInverted": true
+										}
+									],
+									"actions": [
+										{
+											"id": "set-key-value",
+											"objectClass": "LoginDelete",
+											"sid": 342140709720153,
+											"behaviorType": "TextManager",
+											"parameters": {
+												"key-value": "\"login.delete-confirm\""
+											}
+										},
+										{
+											"id": "set-boolean-eventvar",
+											"objectClass": "System",
+											"sid": 548874197376133,
+											"parameters": {
+												"variable": "isDeleteClicked",
+												"value": "true"
+											}
+										}
+									],
+									"sid": 458442726980893
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "else",
+											"objectClass": "System",
+											"sid": 585757103882535
+										}
+									],
+									"actions": [],
+									"sid": 796848267580843,
+									"children": [
+										{
+											"eventType": "block",
+											"conditions": [],
+											"actions": [
+												{
+													"callFunction": "DeleteUser",
+													"sid": 976243831562929,
+													"parameters": [
+														"LoginUserList.Get((LoginUsername.SelectedIndex-1)  & \".UID\")"
+													]
+												},
+												{
+													"id": "wait-for-previous-actions",
+													"objectClass": "System",
+													"sid": 119152008862225
+												},
+												{
+													"callFunction": "LoginRefreshUI",
+													"sid": 426542756857334
+												},
+												{
+													"id": "wait-for-previous-actions",
+													"objectClass": "System",
+													"sid": 454494617078736
+												},
+												{
+													"id": "set-key-value",
+													"objectClass": "LoginDelete",
+													"sid": 121316353017329,
+													"behaviorType": "TextManager",
+													"parameters": {
+														"key-value": "\"login.delete\""
+													}
+												},
+												{
+													"id": "set-boolean-eventvar",
+													"objectClass": "System",
+													"sid": 194001771300627,
+													"parameters": {
+														"variable": "isDeleteClicked",
+														"value": "false"
+													}
+												}
+											],
+											"sid": 225367184261349
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-any-touch-end",
+							"objectClass": "Touch",
+							"sid": 882874689482040
+						},
+						{
+							"id": "on-any-click",
+							"objectClass": "Mouse",
+							"sid": 732865573243357
+						}
+					],
+					"actions": [],
+					"sid": 480009449460136,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "cursor-is-over-object",
+									"objectClass": "Mouse",
+									"sid": 996763706311038,
+									"parameters": {
+										"object": "LoginDelete"
+									},
+									"isInverted": true
+								},
+								{
+									"id": "is-touching-object",
+									"objectClass": "Touch",
+									"sid": 169859900659278,
+									"parameters": {
+										"object": "LoginDelete"
+									},
+									"isInverted": true
+								}
+							],
+							"actions": [
+								{
+									"id": "set-key-value",
+									"objectClass": "LoginDelete",
+									"sid": 357096121545806,
+									"behaviorType": "TextManager",
+									"parameters": {
+										"key-value": "\"login.delete\""
+									}
+								},
+								{
+									"id": "set-boolean-eventvar",
+									"objectClass": "System",
+									"sid": 815582701882485,
+									"parameters": {
+										"variable": "isDeleteClicked",
+										"value": "false"
+									}
+								}
+							],
+							"sid": 579061782095379
+						}
+					],
+					"isOrBlock": true
+				}
+			],
+			"sid": 615321508880269
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "Main",
+			"description": "",
+			"isActiveOnStart": false,
+			"children": [
+				{
+					"eventType": "comment",
+					"text": "Navigate"
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-clicked",
+							"objectClass": "Back",
+							"sid": 518387799981267
+						}
+					],
+					"actions": [],
+					"sid": 970008114908066,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [],
+							"actions": [
+								{
+									"callFunction": "SwitchLayout",
+									"sid": 860144098176980,
+									"parameters": [
+										"\"login\""
+									]
+								}
+							],
+							"sid": 116708441763191
+						}
+					]
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-clicked",
+							"objectClass": "MainSettings",
+							"sid": 728450999906915
+						}
+					],
+					"actions": [],
+					"sid": 318511883269539,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [],
+							"actions": [
+								{
+									"callFunction": "SwitchLayout",
+									"sid": 603959117368386,
+									"parameters": [
+										"\"settings\""
+									]
+								}
+							],
+							"sid": 858605106913763
+						}
+					]
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-clicked",
+							"objectClass": "MainServers",
+							"sid": 625908428386811
+						}
+					],
+					"actions": [],
+					"sid": 580707716371561,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [],
+							"actions": [
+								{
+									"id": "set-eventvar-value",
+									"objectClass": "System",
+									"sid": 276599543012947,
+									"parameters": {
+										"variable": "CurrentTaskUID",
+										"value": "\"\""
+									}
+								},
+								{
+									"callFunction": "SwitchLayout",
+									"sid": 602981251156102,
+									"parameters": [
+										"\"servers\""
+									]
+								}
+							],
+							"sid": 740529519196669
+						}
+					]
+				},
+				{
+					"eventType": "comment",
+					"text": "Select taks"
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-start-of-layout",
+							"objectClass": "System",
+							"sid": 771383889893889
+						}
+					],
+					"actions": [
+						{
+							"id": "set-eventvar-value",
+							"objectClass": "System",
+							"sid": 459284557518408,
+							"parameters": {
+								"variable": "CurrentTaskUID",
+								"value": "\"\""
+							}
+						},
+						{
+							"callFunction": "MainRefreshUI",
+							"sid": 589514676571257
+						}
+					],
+					"sid": 695558755878692
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-selection-changed",
+							"objectClass": "MainTaskList",
+							"sid": 710318206293314
+						}
+					],
+					"actions": [],
+					"sid": 189195996231639,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-selection",
+									"objectClass": "MainTaskList",
+									"sid": 308336148824445,
+									"parameters": {
+										"comparison": 0,
+										"index": "0"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-value",
+									"objectClass": "Data",
+									"sid": 190778795100560,
+									"parameters": {
+										"path": "\"settings.lastTaskUID\"",
+										"value": "\"\""
+									}
+								}
+							],
+							"sid": 533051563254997
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 377250845416853
+								}
+							],
+							"actions": [
+								{
+									"id": "set-value",
+									"objectClass": "Data",
+									"sid": 180680037402751,
+									"parameters": {
+										"path": "\"settings.lastTaskUID\"",
+										"value": "Tasks.Get(MainTaskList.SelectedIndex-1 & \".UID\")"
+									}
+								}
+							],
+							"sid": 635898211310722
+						},
+						{
+							"eventType": "block",
+							"conditions": [],
+							"actions": [
+								{
+									"id": "set-item",
+									"objectClass": "LocalStorage",
+									"sid": 109046134497584,
+									"parameters": {
+										"key": "\"settings\"",
+										"value": "Data.GetAsCompactString(\"settings\")"
+									}
+								},
+								{
+									"callFunction": "MainRefreshUI",
+									"sid": 635450177259335
+								}
+							],
+							"sid": 644728478118374
+						}
+					]
+				},
+				{
+					"functionName": "MainRefreshUI",
+					"functionCopyPicked": false,
+					"functionDescription": "",
+					"functionCategory": "",
+					"functionReturnType": "none",
+					"functionIsAsync": true,
+					"functionParameters": [],
+					"eventType": "function-block",
+					"conditions": [],
+					"actions": [],
+					"sid": 943011422779334,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [],
+							"actions": [
+								{
+									"id": "set-text",
+									"objectClass": "Message",
+									"sid": 760314851421289,
+									"parameters": {
+										"text": "\"\""
+									}
+								},
+								{
+									"callFunction": "ListTasks",
+									"sid": 427337850065786,
+									"parameters": [
+										"CurrentUserUID",
+										"CurrentPassword"
+									]
+								},
+								{
+									"id": "wait-for-previous-actions",
+									"objectClass": "System",
+									"sid": 120450222444455
+								}
+							],
+							"sid": 832120327778453,
+							"children": [
+								{
+									"eventType": "comment",
+									"text": "Refresh tasks"
+								},
+								{
+									"eventType": "block",
+									"conditions": [],
+									"actions": [
+										{
+											"id": "parse",
+											"objectClass": "Tasks",
+											"sid": 321278810756877,
+											"parameters": {
+												"data": "APISuccess"
+											}
+										},
+										{
+											"id": "clear",
+											"objectClass": "MainTaskList",
+											"sid": 760802079659822
+										},
+										{
+											"id": "add-item",
+											"objectClass": "MainTaskList",
+											"sid": 875695821799148,
+											"parameters": {
+												"text": "TextManager.Translate(\"main.new\")"
+											}
+										}
+									],
+									"sid": 336994980451120
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "for-each",
+											"objectClass": "Tasks",
+											"sid": 668072823103916,
+											"parameters": {
+												"path": "\"\""
+											}
+										}
+									],
+									"actions": [],
+									"sid": 396822738649242,
+									"children": [
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "compare-value",
+													"objectClass": "Tasks",
+													"sid": 161566223770370,
+													"parameters": {
+														"path": "Tasks.CurrentKey & \".state\"",
+														"cmp": 0,
+														"value": "\"finished\""
+													}
+												}
+											],
+											"actions": [
+												{
+													"id": "add-item",
+													"objectClass": "MainTaskList",
+													"sid": 231576603758346,
+													"parameters": {
+														"text": "Tasks.Get(Tasks.CurrentKey & \".name\")"
+													}
+												}
+											],
+											"sid": 875426882964646
+										},
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "else",
+													"objectClass": "System",
+													"sid": 436899660846897
+												},
+												{
+													"id": "compare-value",
+													"objectClass": "Tasks",
+													"sid": 250265697458622,
+													"parameters": {
+														"path": "Tasks.CurrentKey & \".state\"",
+														"cmp": 0,
+														"value": "\"running\""
+													}
+												}
+											],
+											"actions": [
+												{
+													"id": "add-item",
+													"objectClass": "MainTaskList",
+													"sid": 809350336458444,
+													"parameters": {
+														"text": "Tasks.Get(Tasks.CurrentKey & \".name\") & \" (\" & TextManager.Translate(\"main.state.running\") & \")\""
+													}
+												}
+											],
+											"sid": 819299990437431
+										},
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "else",
+													"objectClass": "System",
+													"sid": 477607723851744
+												},
+												{
+													"id": "compare-value",
+													"objectClass": "Tasks",
+													"sid": 998013454651206,
+													"parameters": {
+														"path": "Tasks.CurrentKey & \".state\"",
+														"cmp": 0,
+														"value": "\"paused\""
+													}
+												}
+											],
+											"actions": [
+												{
+													"id": "add-item",
+													"objectClass": "MainTaskList",
+													"sid": 756373293324829,
+													"parameters": {
+														"text": "Tasks.Get(Tasks.CurrentKey & \".name\") & \" (\" & TextManager.Translate(\"main.state.paused\") & \")\""
+													}
+												}
+											],
+											"sid": 886572303133058
+										}
+									]
+								},
+								{
+									"eventType": "comment",
+									"text": "Select last selected users"
+								},
+								{
+									"eventType": "variable",
+									"name": "lastTaskIndex",
+									"type": "number",
+									"initialValue": "0",
+									"comment": "",
+									"isStatic": false,
+									"isConstant": false,
+									"sid": 505695129265429
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "for-each",
+											"objectClass": "Tasks",
+											"sid": 120961080338010,
+											"parameters": {
+												"path": "\"\""
+											}
+										}
+									],
+									"actions": [],
+									"sid": 682350336518489,
+									"children": [
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "compare-value",
+													"objectClass": "Tasks",
+													"sid": 719393815267308,
+													"parameters": {
+														"path": "Tasks.CurrentKey & \".UID\"",
+														"cmp": 0,
+														"value": "Data.Get(\"settings.lastTaskUID\")"
+													}
+												}
+											],
+											"actions": [
+												{
+													"id": "set-eventvar-value",
+													"objectClass": "System",
+													"sid": 188623758127442,
+													"parameters": {
+														"variable": "lastTaskIndex",
+														"value": "int(Tasks.CurrentKey) +1"
+													}
+												},
+												{
+													"id": "stop-loop",
+													"objectClass": "System",
+													"sid": 487327255917200
+												}
+											],
+											"sid": 824348028896917
+										}
+									]
+								},
+								{
+									"eventType": "block",
+									"conditions": [],
+									"actions": [
+										{
+											"id": "set-selection",
+											"objectClass": "MainTaskList",
+											"sid": 902695972436987,
+											"parameters": {
+												"index": "lastTaskIndex"
+											}
+										}
+									],
+									"sid": 723368996334010
+								},
+								{
+									"eventType": "comment",
+									"text": "Display layout"
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-eventvar",
+											"objectClass": "System",
+											"sid": 350183139664246,
+											"parameters": {
+												"variable": "lastTaskIndex",
+												"comparison": 0,
+												"value": "0"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-layer-visible",
+											"objectClass": "System",
+											"sid": 294370556394392,
+											"parameters": {
+												"layer": "\"Main_Create\"",
+												"visibility": "visible"
+											}
+										},
+										{
+											"id": "set-layer-visible",
+											"objectClass": "System",
+											"sid": 317319198194507,
+											"parameters": {
+												"layer": "\"Main_Open\"",
+												"visibility": "invisible"
+											}
+										}
+									],
+									"sid": 658472025290039
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "else",
+											"objectClass": "System",
+											"sid": 632754508521554
+										}
+									],
+									"actions": [
+										{
+											"id": "set-layer-visible",
+											"objectClass": "System",
+											"sid": 497445332757905,
+											"parameters": {
+												"layer": "\"Main_Create\"",
+												"visibility": "invisible"
+											}
+										},
+										{
+											"id": "set-layer-visible",
+											"objectClass": "System",
+											"sid": 129186074417582,
+											"parameters": {
+												"layer": "\"Main_Open\"",
+												"visibility": "visible"
+											}
+										}
+									],
+									"sid": 195855544488236
+								},
+								{
+									"eventType": "block",
+									"conditions": [],
+									"actions": [
+										{
+											"id": "set-text",
+											"objectClass": "MainTaskName",
+											"sid": 432897075769643,
+											"parameters": {
+												"text": "\"\""
+											}
+										}
+									],
+									"sid": 504181209259175
+								}
+							]
+						}
+					]
+				},
+				{
+					"eventType": "comment",
+					"text": "Login/Create"
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-clicked",
+							"objectClass": "Next",
+							"sid": 322571212965232
+						}
+					],
+					"actions": [],
+					"sid": 253316261461772,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-selection",
+									"objectClass": "MainTaskList",
+									"sid": 173723527565322,
+									"parameters": {
+										"comparison": 0,
+										"index": "0"
+									}
+								}
+							],
+							"actions": [],
+							"sid": 649432187085418,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-two-values",
+											"objectClass": "System",
+											"sid": 671323444948497,
+											"parameters": {
+												"first-value": "trim(MainTaskName.Text)",
+												"comparison": 0,
+												"second-value": "\"\""
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-text",
+											"objectClass": "Message",
+											"sid": 695721060387324,
+											"parameters": {
+												"text": "TextManager.Translate(\"main.create-error\")"
+											}
+										}
+									],
+									"sid": 725560467150640
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "else",
+											"objectClass": "System",
+											"sid": 633968891624074
+										}
+									],
+									"actions": [
+										{
+											"callFunction": "CreateTask",
+											"sid": 831270738712697,
+											"parameters": [
+												"CurrentUserUID",
+												"CurrentPassword",
+												"trim(MainTaskName.Text)"
+											]
+										},
+										{
+											"id": "wait-for-previous-actions",
+											"objectClass": "System",
+											"sid": 268870268631054
+										}
+									],
+									"sid": 661009709894113,
+									"children": [
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "compare-eventvar",
+													"objectClass": "System",
+													"sid": 761125925483452,
+													"parameters": {
+														"variable": "APIError",
+														"comparison": 1,
+														"value": "\"\""
+													}
+												}
+											],
+											"actions": [
+												{
+													"id": "set-text",
+													"objectClass": "Message",
+													"sid": 782390196033204,
+													"parameters": {
+														"text": "TextManager.Translate(\"main.create-error2\")"
+													}
+												}
+											],
+											"sid": 265218653683171
+										},
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "else",
+													"objectClass": "System",
+													"sid": 949915487622572
+												}
+											],
+											"actions": [
+												{
+													"id": "set-eventvar-value",
+													"objectClass": "System",
+													"sid": 642450078869045,
+													"parameters": {
+														"variable": "CurrentTaskUID",
+														"value": "APISuccess"
+													}
+												},
+												{
+													"id": "set-value",
+													"objectClass": "Data",
+													"sid": 310832098944161,
+													"parameters": {
+														"path": "\"settings.lastTaskUID\"",
+														"value": "CurrentTaskUID"
+													}
+												},
+												{
+													"id": "set-item",
+													"objectClass": "LocalStorage",
+													"sid": 483045553586483,
+													"parameters": {
+														"key": "\"settings\"",
+														"value": "Data.GetAsCompactString(\"settings\")"
+													}
+												},
+												{
+													"id": "wait-for-previous-actions",
+													"objectClass": "System",
+													"sid": 332591409354793
+												},
+												{
+													"callFunction": "SwitchLayout",
+													"sid": 781232019881049,
+													"parameters": [
+														"\"sending\""
+													]
+												}
+											],
+											"sid": 992823287940470
+										}
+									]
+								}
+							]
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 722899904654781
+								}
+							],
+							"actions": [],
+							"sid": 720458010116663,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [],
+									"actions": [
+										{
+											"callFunction": "GetTask",
+											"sid": 475263127940299,
+											"parameters": [
+												"CurrentUserUID",
+												"CurrentPassword",
+												"Tasks.Get((MainTaskList.SelectedIndex-1)  & \".UID\")",
+												"\"\""
+											]
+										},
+										{
+											"id": "wait-for-previous-actions",
+											"objectClass": "System",
+											"sid": 236108488605572
+										}
+									],
+									"sid": 795613399833098,
+									"children": [
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "compare-eventvar",
+													"objectClass": "System",
+													"sid": 440260284430760,
+													"parameters": {
+														"variable": "APIError",
+														"comparison": 1,
+														"value": "\"\""
+													}
+												}
+											],
+											"actions": [
+												{
+													"callFunction": "MainRefreshUI",
+													"sid": 771592580259639
+												},
+												{
+													"id": "wait-for-previous-actions",
+													"objectClass": "System",
+													"sid": 886472101636037
+												}
+											],
+											"sid": 479106668628666
+										},
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "else",
+													"objectClass": "System",
+													"sid": 407813647307957
+												}
+											],
+											"actions": [
+												{
+													"id": "set-eventvar-value",
+													"objectClass": "System",
+													"sid": 990733608323564,
+													"parameters": {
+														"variable": "CurrentTaskUID",
+														"value": "Tasks.Get((MainTaskList.SelectedIndex-1)  & \".UID\")"
+													}
+												},
+												{
+													"id": "parse",
+													"objectClass": "Task",
+													"sid": 440088194340728,
+													"parameters": {
+														"data": "APISuccess"
+													}
+												}
+											],
+											"sid": 684218712024320,
+											"children": [
+												{
+													"eventType": "block",
+													"conditions": [
+														{
+															"id": "compare-value",
+															"objectClass": "Tasks",
+															"sid": 800681017136802,
+															"parameters": {
+																"path": "MainTaskList.SelectedIndex-1 & \".state\"",
+																"cmp": 0,
+																"value": "\"finished\""
+															}
+														}
+													],
+													"actions": [
+														{
+															"callFunction": "SwitchLayout",
+															"sid": 560466552358525,
+															"parameters": [
+																"\"sending\""
+															]
+														}
+													],
+													"sid": 399243358893223
+												},
+												{
+													"eventType": "block",
+													"conditions": [
+														{
+															"id": "else",
+															"objectClass": "System",
+															"sid": 331362014218787
+														}
+													],
+													"actions": [
+														{
+															"callFunction": "SwitchLayout",
+															"sid": 357962999085365,
+															"parameters": [
+																"\"status\""
+															]
+														}
+													],
+													"sid": 366786077225995
+												}
+											]
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"eventType": "comment",
+					"text": "Delete"
+				},
+				{
+					"eventType": "variable",
+					"name": "isDeleteClicked",
+					"type": "boolean",
+					"initialValue": "false",
+					"comment": "",
+					"isStatic": true,
+					"isConstant": false,
+					"sid": 769998405368046
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-clicked",
+							"objectClass": "MainDelete",
+							"sid": 327499234271294
+						}
+					],
+					"actions": [],
+					"sid": 691855863160991,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-selection",
+									"objectClass": "MainTaskList",
+									"sid": 926660775295893,
+									"parameters": {
+										"comparison": 1,
+										"index": "0"
+									}
+								}
+							],
+							"actions": [],
+							"sid": 575203044193120,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-boolean-eventvar",
+											"objectClass": "System",
+											"sid": 868083131160584,
+											"parameters": {
+												"variable": "isDeleteClicked"
+											},
+											"isInverted": true
+										}
+									],
+									"actions": [
+										{
+											"id": "set-key-value",
+											"objectClass": "MainDelete",
+											"sid": 610654417056194,
+											"behaviorType": "TextManager",
+											"parameters": {
+												"key-value": "\"main.delete-confirm\""
+											}
+										},
+										{
+											"id": "set-boolean-eventvar",
+											"objectClass": "System",
+											"sid": 455874647057412,
+											"parameters": {
+												"variable": "isDeleteClicked",
+												"value": "true"
+											}
+										}
+									],
+									"sid": 657063848344576
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "else",
+											"objectClass": "System",
+											"sid": 810144981401761
+										}
+									],
+									"actions": [],
+									"sid": 467901745010815,
+									"children": [
+										{
+											"eventType": "block",
+											"conditions": [],
+											"actions": [
+												{
+													"callFunction": "DeleteTask",
+													"sid": 818860594927109,
+													"parameters": [
+														"CurrentUserUID",
+														"CurrentPassword",
+														"Tasks.Get((MainTaskList.SelectedIndex-1)  & \".UID\")"
+													]
+												},
+												{
+													"id": "wait-for-previous-actions",
+													"objectClass": "System",
+													"sid": 126191740658359
+												},
+												{
+													"callFunction": "MainRefreshUI",
+													"sid": 666342903534977
+												},
+												{
+													"id": "wait-for-previous-actions",
+													"objectClass": "System",
+													"sid": 811122188738695
+												},
+												{
+													"id": "set-key-value",
+													"objectClass": "MainDelete",
+													"sid": 788400133973644,
+													"behaviorType": "TextManager",
+													"parameters": {
+														"key-value": "\"main.delete\""
+													}
+												},
+												{
+													"id": "set-boolean-eventvar",
+													"objectClass": "System",
+													"sid": 826705037924048,
+													"parameters": {
+														"variable": "isDeleteClicked",
+														"value": "false"
+													}
+												}
+											],
+											"sid": 923297642971934
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-any-touch-end",
+							"objectClass": "Touch",
+							"sid": 667657948194005
+						},
+						{
+							"id": "on-any-click",
+							"objectClass": "Mouse",
+							"sid": 678581830285055
+						}
+					],
+					"actions": [],
+					"sid": 650769366599972,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "cursor-is-over-object",
+									"objectClass": "Mouse",
+									"sid": 585353603982600,
+									"parameters": {
+										"object": "MainDelete"
+									},
+									"isInverted": true
+								},
+								{
+									"id": "is-touching-object",
+									"objectClass": "Touch",
+									"sid": 581132465061506,
+									"parameters": {
+										"object": "MainDelete"
+									},
+									"isInverted": true
+								}
+							],
+							"actions": [
+								{
+									"id": "set-key-value",
+									"objectClass": "MainDelete",
+									"sid": 844279377052954,
+									"behaviorType": "TextManager",
+									"parameters": {
+										"key-value": "\"main.delete\""
+									}
+								},
+								{
+									"id": "set-boolean-eventvar",
+									"objectClass": "System",
+									"sid": 336891418688133,
+									"parameters": {
+										"variable": "isDeleteClicked",
+										"value": "false"
+									}
+								}
+							],
+							"sid": 352165148760895
+						}
+					],
+					"isOrBlock": true
+				}
+			],
+			"sid": 120676053086646
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "Settings",
+			"description": "",
+			"isActiveOnStart": false,
+			"children": [
+				{
+					"eventType": "comment",
+					"text": "navigation"
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-clicked",
+							"objectClass": "Back",
+							"sid": 274449372951893
+						}
+					],
+					"actions": [
+						{
+							"callFunction": "SwitchLayout",
+							"sid": 629540670991648,
+							"parameters": [
+								"\"main\""
+							]
+						}
+					],
+					"sid": 675339662277097
+				},
+				{
+					"eventType": "comment",
+					"text": "UI load"
+				},
+				{
+					"functionName": "SettingsRefreshUI",
+					"functionCopyPicked": false,
+					"functionDescription": "",
+					"functionCategory": "",
+					"functionReturnType": "none",
+					"functionIsAsync": false,
+					"functionParameters": [],
+					"eventType": "function-block",
+					"conditions": [],
+					"actions": [],
+					"sid": 178344252777102,
+					"children": [
+						{
+							"eventType": "variable",
+							"name": "username",
+							"type": "string",
+							"initialValue": "",
+							"comment": "",
+							"isStatic": false,
+							"isConstant": false,
+							"sid": 300982718048743
+						},
+						{
+							"eventType": "block",
+							"conditions": [],
+							"actions": [
+								{
+									"callFunction": "ListUsers",
+									"sid": 748365589168029
+								},
+								{
+									"id": "wait-for-previous-actions",
+									"objectClass": "System",
+									"sid": 463751261695228
+								},
+								{
+									"id": "parse",
+									"objectClass": "JSON",
+									"sid": 695118136311522,
+									"parameters": {
+										"data": "\"{}\""
+									}
+								},
+								{
+									"id": "set-json",
+									"objectClass": "JSON",
+									"sid": 121405063158127,
+									"parameters": {
+										"path": "\"users\"",
+										"json": "APISuccess"
+									}
+								}
+							],
+							"sid": 592936801594574,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "for-each",
+											"objectClass": "JSON",
+											"sid": 406301624154950,
+											"parameters": {
+												"path": "\"users\""
+											}
+										}
+									],
+									"actions": [],
+									"sid": 325907958004977,
+									"children": [
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "compare-value",
+													"objectClass": "JSON",
+													"sid": 886276150917074,
+													"parameters": {
+														"path": "\"users.\" & JSON.CurrentKey & \".UID\"",
+														"cmp": 0,
+														"value": "CurrentUserUID"
+													}
+												}
+											],
+											"actions": [
+												{
+													"id": "set-eventvar-value",
+													"objectClass": "System",
+													"sid": 439075711843275,
+													"parameters": {
+														"variable": "username",
+														"value": "JSON.Get(\"users.\" & JSON.CurrentKey & \".name\")"
+													}
+												},
+												{
+													"id": "stop-loop",
+													"objectClass": "System",
+													"sid": 257133647292041
+												}
+											],
+											"sid": 806840112057983
+										}
+									]
+								},
+								{
+									"eventType": "block",
+									"conditions": [],
+									"actions": [
+										{
+											"id": "set-text",
+											"objectClass": "SettingsUser",
+											"sid": 125649400102260,
+											"parameters": {
+												"text": "username"
+											}
+										},
+										{
+											"id": "set-text",
+											"objectClass": "SettingsPass",
+											"sid": 148149939754526,
+											"parameters": {
+												"text": "CurrentPassword"
+											}
+										}
+									],
+									"sid": 657023815101009
+								}
+							]
+						}
+					]
+				},
+				{
+					"eventType": "comment",
+					"text": "change"
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-clicked",
+							"objectClass": "SettingsUserBtn",
+							"sid": 263869505145305
+						}
+					],
+					"actions": [],
+					"sid": 942854980350155,
+					"children": [
+						{
+							"eventType": "variable",
+							"name": "newusername",
+							"type": "string",
+							"initialValue": "",
+							"comment": "",
+							"isStatic": true,
+							"isConstant": false,
+							"sid": 887737979123969
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-two-values",
+									"objectClass": "System",
+									"sid": 122340204547054,
+									"parameters": {
+										"first-value": "trim(SettingsUser.Text)",
+										"comparison": 0,
+										"second-value": "CurrentUserUID"
+									}
+								}
+							],
+							"actions": [],
+							"sid": 836618201891137
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 829388538223766
+								},
+								{
+									"id": "compare-two-values",
+									"objectClass": "System",
+									"sid": 959287581268317,
+									"parameters": {
+										"first-value": "trim(SettingsUser.Text)",
+										"comparison": 0,
+										"second-value": "\"\""
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-text",
+									"objectClass": "Message",
+									"sid": 968925032252985,
+									"parameters": {
+										"text": "\"[color=#ff0000]\" & TextManager.Translate(\"settings.user-error1\") & \"[/color]\""
+									}
+								}
+							],
+							"sid": 126260848603388
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 698904248949358
+								}
+							],
+							"actions": [
+								{
+									"id": "set-eventvar-value",
+									"objectClass": "System",
+									"sid": 920275788040011,
+									"parameters": {
+										"variable": "newusername",
+										"value": "trim(SettingsUser.Text)"
+									}
+								},
+								{
+									"callFunction": "SetUsername",
+									"sid": 776430387273944,
+									"parameters": [
+										"CurrentUserUID",
+										"CurrentPassword",
+										"newusername"
+									]
+								},
+								{
+									"id": "wait-for-previous-actions",
+									"objectClass": "System",
+									"sid": 834474629990752
+								}
+							],
+							"sid": 249553334134780,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-eventvar",
+											"objectClass": "System",
+											"sid": 705119319932250,
+											"parameters": {
+												"variable": "APIError",
+												"comparison": 1,
+												"value": "\"\""
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-text",
+											"objectClass": "Message",
+											"sid": 469786617294634,
+											"parameters": {
+												"text": "\"[color=#ff0000]\" & TextManager.Translate(\"settings.user-error2\") & \"[/color]\""
+											}
+										}
+									],
+									"sid": 516181424584146
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "else",
+											"objectClass": "System",
+											"sid": 301074973435658
+										}
+									],
+									"actions": [
+										{
+											"id": "set-text",
+											"objectClass": "Message",
+											"sid": 457756328286394,
+											"parameters": {
+												"text": "\"[color=#00ff00]\" & TextManager.Translate(\"settings.user-success\") & \"[/color]\""
+											}
+										}
+									],
+									"sid": 394932121047604
+								}
+							]
+						}
+					]
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-clicked",
+							"objectClass": "SettingsPassBtn",
+							"sid": 755156706125695
+						}
+					],
+					"actions": [],
+					"sid": 184526237186783,
+					"children": [
+						{
+							"eventType": "variable",
+							"name": "newpass",
+							"type": "string",
+							"initialValue": "",
+							"comment": "",
+							"isStatic": true,
+							"isConstant": false,
+							"sid": 414486503591390
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-text",
+									"objectClass": "SettingsPass",
+									"sid": 129425105659013,
+									"parameters": {
+										"text": "SettingsPass2.Text",
+										"case": "case-sensitive"
+									},
+									"isInverted": true
+								}
+							],
+							"actions": [
+								{
+									"id": "set-text",
+									"objectClass": "Message",
+									"sid": 632757735338940,
+									"parameters": {
+										"text": "\"[color=#ff0000]\" & TextManager.Translate(\"settings.pass-error\") & \"[/color]\""
+									}
+								}
+							],
+							"sid": 615357077655215
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 130816304865203
+								}
+							],
+							"actions": [
+								{
+									"id": "set-eventvar-value",
+									"objectClass": "System",
+									"sid": 291781910548334,
+									"parameters": {
+										"variable": "newpass",
+										"value": "SettingsPass.Text"
+									}
+								},
+								{
+									"callFunction": "SetPassword",
+									"sid": 907433238936858,
+									"parameters": [
+										"CurrentUserUID",
+										"CurrentPassword",
+										"SettingsPass.Text"
+									]
+								},
+								{
+									"id": "wait-for-previous-actions",
+									"objectClass": "System",
+									"sid": 389508463093429
+								}
+							],
+							"sid": 625502068440572,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-eventvar",
+											"objectClass": "System",
+											"sid": 906193625909149,
+											"parameters": {
+												"variable": "APIError",
+												"comparison": 0,
+												"value": "\"\""
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-eventvar-value",
+											"objectClass": "System",
+											"sid": 878806980497454,
+											"parameters": {
+												"variable": "CurrentPassword",
+												"value": "newpass"
+											}
+										},
+										{
+											"id": "set-text",
+											"objectClass": "Message",
+											"sid": 589275173629621,
+											"parameters": {
+												"text": "\"[color=#00ff00]\" & TextManager.Translate(\"settings.pass-success\") & \"[/color]\""
+											}
+										}
+									],
+									"sid": 435202642038800
+								}
+							]
+						}
+					]
+				}
+			],
+			"sid": 662393892565096
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "Servers",
+			"description": "",
+			"isActiveOnStart": false,
+			"children": [
+				{
+					"eventType": "comment",
+					"text": "Navigation"
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-clicked",
+							"objectClass": "Back",
+							"sid": 156069735951554
+						}
+					],
+					"actions": [],
+					"sid": 770633544724384,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-eventvar",
+									"objectClass": "System",
+									"sid": 663284414704551,
+									"parameters": {
+										"variable": "CurrentTaskUID",
+										"comparison": 0,
+										"value": "\"\""
+									}
+								}
+							],
+							"actions": [
+								{
+									"callFunction": "SwitchLayout",
+									"sid": 386464773935826,
+									"parameters": [
+										"\"main\""
+									]
+								}
+							],
+							"sid": 195721619287603
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 445424492475574
+								}
+							],
+							"actions": [
+								{
+									"callFunction": "SwitchLayout",
+									"sid": 784783929308795,
+									"parameters": [
+										"\"sending\""
+									]
+								}
+							],
+							"sid": 622531105093193
+						}
+					]
+				},
+				{
+					"eventType": "comment",
+					"text": "UI refresh"
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-selection-changed",
+							"objectClass": "ServerList",
+							"sid": 165802667974470
+						}
+					],
+					"actions": [],
+					"sid": 980078365263698,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-selection",
+									"objectClass": "ServerList",
+									"sid": 461510996739455,
+									"parameters": {
+										"comparison": 0,
+										"index": "0"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-value",
+									"objectClass": "Data",
+									"sid": 593196555601923,
+									"parameters": {
+										"path": "\"settings.lastServerUID\"",
+										"value": "\"\""
+									}
+								}
+							],
+							"sid": 455494423617687
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 888420161287272
+								}
+							],
+							"actions": [
+								{
+									"id": "set-value",
+									"objectClass": "Data",
+									"sid": 927626798605226,
+									"parameters": {
+										"path": "\"settings.lastServerUID\"",
+										"value": "Servers.Get(ServerList.SelectedIndex-1 & \".UID\")"
+									}
+								}
+							],
+							"sid": 466859482893043
+						},
+						{
+							"eventType": "block",
+							"conditions": [],
+							"actions": [
+								{
+									"id": "set-item",
+									"objectClass": "LocalStorage",
+									"sid": 246243875196757,
+									"parameters": {
+										"key": "\"settings\"",
+										"value": "Data.GetAsCompactString(\"settings\")"
+									}
+								},
+								{
+									"callFunction": "ServersRefreshUI",
+									"sid": 752619639260301
+								}
+							],
+							"sid": 140919496924363
+						}
+					]
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-selection-changed",
+							"objectClass": "ServerDurationType",
+							"sid": 725026903113352
+						}
+					],
+					"actions": [],
+					"sid": 527171413075260,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-selection",
+									"objectClass": "ServerDurationType",
+									"sid": 819143156796695,
+									"parameters": {
+										"comparison": 0,
+										"index": "0"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-text",
+									"objectClass": "ServersDuration",
+									"sid": 845469582884700,
+									"parameters": {
+										"text": "int(ServersDuration.Text) / 24"
+									}
+								}
+							],
+							"sid": 433604896518147
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 889194442864443
+								}
+							],
+							"actions": [
+								{
+									"id": "set-text",
+									"objectClass": "ServersDuration",
+									"sid": 414925792964047,
+									"parameters": {
+										"text": "int(ServersDuration.Text) * 24"
+									}
+								}
+							],
+							"sid": 484478539582743
+						}
+					]
+				},
+				{
+					"functionName": "ServersRefreshUI",
+					"functionCopyPicked": false,
+					"functionDescription": "",
+					"functionCategory": "",
+					"functionReturnType": "none",
+					"functionIsAsync": true,
+					"functionParameters": [],
+					"eventType": "function-block",
+					"conditions": [],
+					"actions": [],
+					"sid": 454908829274304,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [],
+							"actions": [
+								{
+									"id": "set-text",
+									"objectClass": "Message",
+									"sid": 280707726750874,
+									"parameters": {
+										"text": "\"\""
+									}
+								},
+								{
+									"callFunction": "ListServers",
+									"sid": 755630391717358,
+									"parameters": [
+										"CurrentUserUID",
+										"CurrentPassword"
+									]
+								},
+								{
+									"id": "wait-for-previous-actions",
+									"objectClass": "System",
+									"sid": 259296562311283
+								}
+							],
+							"sid": 354383132247098,
+							"children": [
+								{
+									"eventType": "comment",
+									"text": "Refresh servers"
+								},
+								{
+									"eventType": "block",
+									"conditions": [],
+									"actions": [
+										{
+											"id": "parse",
+											"objectClass": "Servers",
+											"sid": 748578605230959,
+											"parameters": {
+												"data": "APISuccess"
+											}
+										},
+										{
+											"id": "clear",
+											"objectClass": "ServerList",
+											"sid": 112160248537917
+										},
+										{
+											"id": "add-item",
+											"objectClass": "ServerList",
+											"sid": 777946772762205,
+											"parameters": {
+												"text": "TextManager.Translate(\"servers.new\")"
+											}
+										},
+										{
+											"id": "clear",
+											"objectClass": "ServerDurationType",
+											"sid": 494457694914782
+										},
+										{
+											"id": "add-item",
+											"objectClass": "ServerDurationType",
+											"sid": 797146729002975,
+											"parameters": {
+												"text": "TextManager.Translate(\"servers.duration-type1\")"
+											}
+										},
+										{
+											"id": "add-item",
+											"objectClass": "ServerDurationType",
+											"sid": 603217506414850,
+											"parameters": {
+												"text": "TextManager.Translate(\"servers.duration-type2\")"
+											}
+										},
+										{
+											"id": "set-selection",
+											"objectClass": "ServerDurationType",
+											"sid": 147821521769864,
+											"parameters": {
+												"index": "0"
+											}
+										}
+									],
+									"sid": 230775992266762
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "for-each",
+											"objectClass": "Servers",
+											"sid": 591788036226834,
+											"parameters": {
+												"path": "\"\""
+											}
+										}
+									],
+									"actions": [],
+									"sid": 957122647419440,
+									"children": [
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "compare-value",
+													"objectClass": "Servers",
+													"sid": 547303712454087,
+													"parameters": {
+														"path": "Servers.CurrentKey & \".from\"",
+														"cmp": 1,
+														"value": "\"\""
+													}
+												}
+											],
+											"actions": [
+												{
+													"id": "add-item",
+													"objectClass": "ServerList",
+													"sid": 576485555366657,
+													"parameters": {
+														"text": "Servers.Get(Servers.CurrentKey & \".host\") & \" - \" & Servers.Get(Servers.CurrentKey & \".from\")"
+													}
+												}
+											],
+											"sid": 694882587660737
+										},
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "else",
+													"objectClass": "System",
+													"sid": 519503546412942
+												}
+											],
+											"actions": [
+												{
+													"id": "add-item",
+													"objectClass": "ServerList",
+													"sid": 565821862604383,
+													"parameters": {
+														"text": "Servers.Get(Servers.CurrentKey & \".host\") & \" - \" & Servers.Get(Servers.CurrentKey & \".user\")"
+													}
+												}
+											],
+											"sid": 166076480664458
+										}
+									]
+								},
+								{
+									"eventType": "comment",
+									"text": "Select last selected server"
+								},
+								{
+									"eventType": "variable",
+									"name": "lastServerIndex",
+									"type": "number",
+									"initialValue": "0",
+									"comment": "",
+									"isStatic": false,
+									"isConstant": false,
+									"sid": 583270421580066
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "for-each",
+											"objectClass": "Servers",
+											"sid": 442182851212530,
+											"parameters": {
+												"path": "\"\""
+											}
+										}
+									],
+									"actions": [],
+									"sid": 839379335727341,
+									"children": [
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "compare-value",
+													"objectClass": "Servers",
+													"sid": 930148247740082,
+													"parameters": {
+														"path": "Servers.CurrentKey & \".UID\"",
+														"cmp": 0,
+														"value": "Data.Get(\"settings.lastServerUID\")"
+													}
+												}
+											],
+											"actions": [
+												{
+													"id": "set-eventvar-value",
+													"objectClass": "System",
+													"sid": 876162492787685,
+													"parameters": {
+														"variable": "lastServerIndex",
+														"value": "int(Servers.CurrentKey) +1"
+													}
+												},
+												{
+													"id": "stop-loop",
+													"objectClass": "System",
+													"sid": 936177795809515
+												}
+											],
+											"sid": 407858138272174
+										}
+									]
+								},
+								{
+									"eventType": "block",
+									"conditions": [],
+									"actions": [
+										{
+											"id": "set-selection",
+											"objectClass": "ServerList",
+											"sid": 816383552900791,
+											"parameters": {
+												"index": "lastServerIndex"
+											}
+										}
+									],
+									"sid": 868847141021765
+								},
+								{
+									"eventType": "comment",
+									"text": "Display layout"
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-eventvar",
+											"objectClass": "System",
+											"sid": 226020094172921,
+											"parameters": {
+												"variable": "lastServerIndex",
+												"comparison": 0,
+												"value": "0"
+											}
+										}
+									],
+									"actions": [],
+									"sid": 658254371570329,
+									"children": [
+										{
+											"eventType": "block",
+											"conditions": [],
+											"actions": [
+												{
+													"id": "set-layer-visible",
+													"objectClass": "System",
+													"sid": 205182779770951,
+													"parameters": {
+														"layer": "\"Servers_Create\"",
+														"visibility": "visible"
+													}
+												},
+												{
+													"id": "set-layer-visible",
+													"objectClass": "System",
+													"sid": 605793058791951,
+													"parameters": {
+														"layer": "\"Servers_Edit\"",
+														"visibility": "invisible"
+													}
+												},
+												{
+													"id": "set-text",
+													"objectClass": "ServersHost",
+													"sid": 970861955294965,
+													"parameters": {
+														"text": "\"\""
+													}
+												},
+												{
+													"id": "set-text",
+													"objectClass": "ServersUser",
+													"sid": 921213558251253,
+													"parameters": {
+														"text": "\"\""
+													}
+												},
+												{
+													"id": "set-text",
+													"objectClass": "ServersPass",
+													"sid": 527252338365398,
+													"parameters": {
+														"text": "\"\""
+													}
+												},
+												{
+													"id": "set-text",
+													"objectClass": "ServersFrom",
+													"sid": 417950166106743,
+													"parameters": {
+														"text": "\"\""
+													}
+												},
+												{
+													"id": "set-text",
+													"objectClass": "ServersDuration",
+													"sid": 945260000139390,
+													"parameters": {
+														"text": "(1000 * 60 * 60) / 5000 "
+													}
+												}
+											],
+											"sid": 332237515128038
+										}
+									]
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "else",
+											"objectClass": "System",
+											"sid": 205403470213195
+										}
+									],
+									"actions": [],
+									"sid": 215882359768049,
+									"children": [
+										{
+											"eventType": "block",
+											"conditions": [],
+											"actions": [
+												{
+													"id": "set-layer-visible",
+													"objectClass": "System",
+													"sid": 302139228875386,
+													"parameters": {
+														"layer": "\"Servers_Create\"",
+														"visibility": "invisible"
+													}
+												},
+												{
+													"id": "set-layer-visible",
+													"objectClass": "System",
+													"sid": 694807895339601,
+													"parameters": {
+														"layer": "\"Servers_Edit\"",
+														"visibility": "visible"
+													}
+												},
+												{
+													"id": "set-text",
+													"objectClass": "ServersHost",
+													"sid": 208250661404033,
+													"parameters": {
+														"text": "Servers.Get(lastServerIndex - 1 & \".host\")"
+													}
+												},
+												{
+													"id": "set-text",
+													"objectClass": "ServersUser",
+													"sid": 927165231167831,
+													"parameters": {
+														"text": "Servers.Get(lastServerIndex - 1 & \".user\")"
+													}
+												},
+												{
+													"id": "set-text",
+													"objectClass": "ServersPass",
+													"sid": 179959822432423,
+													"parameters": {
+														"text": "Servers.Get(lastServerIndex - 1 & \".pass\")"
+													}
+												},
+												{
+													"id": "set-text",
+													"objectClass": "ServersFrom",
+													"sid": 985211872222830,
+													"parameters": {
+														"text": "Servers.Get(lastServerIndex - 1 & \".from\")"
+													}
+												},
+												{
+													"id": "set-text",
+													"objectClass": "ServersDuration",
+													"sid": 524277665094566,
+													"parameters": {
+														"text": "(1000 * 60 * 60) / int(Servers.Get(lastServerIndex - 1 & \".duration\")) "
+													}
+												}
+											],
+											"sid": 911775148420237
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"eventType": "comment",
+					"text": "Create"
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-clicked",
+							"objectClass": "ServerCreate",
+							"sid": 735698896285557
+						}
+					],
+					"actions": [],
+					"sid": 450558934687309,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [],
+							"actions": [
+								{
+									"id": "parse",
+									"objectClass": "JSON",
+									"sid": 328559369370603,
+									"parameters": {
+										"data": "\"{}\""
+									}
+								},
+								{
+									"id": "set-value",
+									"objectClass": "JSON",
+									"sid": 855619675092882,
+									"parameters": {
+										"path": "\"host\"",
+										"value": "ServersHost.Text"
+									}
+								},
+								{
+									"id": "set-value",
+									"objectClass": "JSON",
+									"sid": 724341528902137,
+									"parameters": {
+										"path": "\"user\"",
+										"value": "ServersUser.Text"
+									}
+								},
+								{
+									"id": "set-value",
+									"objectClass": "JSON",
+									"sid": 229351420891439,
+									"parameters": {
+										"path": "\"pass\"",
+										"value": "ServersPass.Text"
+									}
+								},
+								{
+									"id": "set-value",
+									"objectClass": "JSON",
+									"sid": 826582905117655,
+									"parameters": {
+										"path": "\"from\"",
+										"value": "ServersFrom.Text"
+									}
+								}
+							],
+							"sid": 734009695955075
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-selection",
+									"objectClass": "ServerDurationType",
+									"sid": 338051588306012,
+									"parameters": {
+										"comparison": 0,
+										"index": "0"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-value",
+									"objectClass": "JSON",
+									"sid": 846683682732101,
+									"parameters": {
+										"path": "\"duration\"",
+										"value": "(1000 * 60 * 60) / int(ServersDuration.Text)"
+									}
+								}
+							],
+							"sid": 582958860633090
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 246427210946741
+								}
+							],
+							"actions": [
+								{
+									"id": "set-value",
+									"objectClass": "JSON",
+									"sid": 773893363417128,
+									"parameters": {
+										"path": "\"duration\"",
+										"value": "(1000 * 60 * 60 * 24) / int(ServersDuration.Text)"
+									}
+								}
+							],
+							"sid": 405274059224442
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-value",
+									"objectClass": "JSON",
+									"sid": 857178081224752,
+									"parameters": {
+										"path": "\"host\"",
+										"cmp": 0,
+										"value": "\"\""
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-text",
+									"objectClass": "Message",
+									"sid": 489574374340359,
+									"parameters": {
+										"text": "TextManager.Translate(\"servers.error-host\")"
+									}
+								}
+							],
+							"sid": 805584401206985
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 603732919175872
+								},
+								{
+									"id": "compare-value",
+									"objectClass": "JSON",
+									"sid": 902564953264064,
+									"parameters": {
+										"path": "\"user\"",
+										"cmp": 0,
+										"value": "\"\""
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-text",
+									"objectClass": "Message",
+									"sid": 849185134442484,
+									"parameters": {
+										"text": "TextManager.Translate(\"servers.error-user\")"
+									}
+								}
+							],
+							"sid": 418403695973877
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 841039967827263
+								},
+								{
+									"id": "compare-value",
+									"objectClass": "JSON",
+									"sid": 344016915157757,
+									"parameters": {
+										"path": "\"duration\"",
+										"cmp": 3,
+										"value": "0"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-text",
+									"objectClass": "Message",
+									"sid": 584212857427271,
+									"parameters": {
+										"text": "TextManager.Translate(\"servers.error-duration\")"
+									}
+								}
+							],
+							"sid": 728812148623989
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 900010646303790
+								}
+							],
+							"actions": [],
+							"sid": 554167676270606,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [],
+									"actions": [
+										{
+											"callFunction": "CreateServer",
+											"sid": 171428730502859,
+											"parameters": [
+												"CurrentUserUID",
+												"CurrentPassword",
+												"JSON.GetAsCompactString(\"\")"
+											]
+										},
+										{
+											"id": "wait-for-previous-actions",
+											"objectClass": "System",
+											"sid": 728154347847501
+										}
+									],
+									"sid": 462271918994024,
+									"children": [
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "compare-eventvar",
+													"objectClass": "System",
+													"sid": 888340569389360,
+													"parameters": {
+														"variable": "APIError",
+														"comparison": 1,
+														"value": "\"\""
+													}
+												}
+											],
+											"actions": [
+												{
+													"id": "set-text",
+													"objectClass": "Message",
+													"sid": 801472627005644,
+													"parameters": {
+														"text": "TextManager.Translate(\"servers.error-exist\")"
+													}
+												}
+											],
+											"sid": 232224033082912
+										},
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "else",
+													"objectClass": "System",
+													"sid": 853755053754757
+												}
+											],
+											"actions": [
+												{
+													"id": "set-value",
+													"objectClass": "Data",
+													"sid": 635304779783081,
+													"parameters": {
+														"path": "\"settings.lastServerUID\"",
+														"value": "APISuccess"
+													}
+												},
+												{
+													"id": "set-item",
+													"objectClass": "LocalStorage",
+													"sid": 537555290488233,
+													"parameters": {
+														"key": "\"settings\"",
+														"value": "Data.GetAsCompactString(\"settings\")"
+													}
+												},
+												{
+													"callFunction": "ServersRefreshUI",
+													"sid": 563463826191284
+												}
+											],
+											"sid": 773470856808784
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"eventType": "comment",
+					"text": "Modify"
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-clicked",
+							"objectClass": "ServerEdit",
+							"sid": 605168627657012
+						}
+					],
+					"actions": [],
+					"sid": 612974104754866,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [],
+							"actions": [
+								{
+									"id": "parse",
+									"objectClass": "JSON",
+									"sid": 332327229153542,
+									"parameters": {
+										"data": "\"{}\""
+									}
+								},
+								{
+									"id": "set-value",
+									"objectClass": "JSON",
+									"sid": 277252834023800,
+									"parameters": {
+										"path": "\"host\"",
+										"value": "ServersHost.Text"
+									}
+								},
+								{
+									"id": "set-value",
+									"objectClass": "JSON",
+									"sid": 412599596638060,
+									"parameters": {
+										"path": "\"user\"",
+										"value": "ServersUser.Text"
+									}
+								},
+								{
+									"id": "set-value",
+									"objectClass": "JSON",
+									"sid": 558399594123717,
+									"parameters": {
+										"path": "\"pass\"",
+										"value": "ServersPass.Text"
+									}
+								},
+								{
+									"id": "set-value",
+									"objectClass": "JSON",
+									"sid": 355218708028927,
+									"parameters": {
+										"path": "\"from\"",
+										"value": "ServersFrom.Text"
+									}
+								}
+							],
+							"sid": 496784281896031
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-selection",
+									"objectClass": "ServerDurationType",
+									"sid": 687025673937871,
+									"parameters": {
+										"comparison": 0,
+										"index": "0"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-value",
+									"objectClass": "JSON",
+									"sid": 655342579488532,
+									"parameters": {
+										"path": "\"duration\"",
+										"value": "(1000 * 60 * 60) / int(ServersDuration.Text)"
+									}
+								}
+							],
+							"sid": 844853981716142
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 374852578666732
+								}
+							],
+							"actions": [
+								{
+									"id": "set-value",
+									"objectClass": "JSON",
+									"sid": 765333142978778,
+									"parameters": {
+										"path": "\"duration\"",
+										"value": "(1000 * 60 * 60 * 24) / int(ServersDuration.Text)"
+									}
+								}
+							],
+							"sid": 288216725878869
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-value",
+									"objectClass": "JSON",
+									"sid": 899346561046259,
+									"parameters": {
+										"path": "\"host\"",
+										"cmp": 0,
+										"value": "\"\""
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-text",
+									"objectClass": "Message",
+									"sid": 848219849322566,
+									"parameters": {
+										"text": "TextManager.Translate(\"servers.error-host\")"
+									}
+								}
+							],
+							"sid": 975331286909043
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 569247169760711
+								},
+								{
+									"id": "compare-value",
+									"objectClass": "JSON",
+									"sid": 313973917237415,
+									"parameters": {
+										"path": "\"user\"",
+										"cmp": 0,
+										"value": "\"\""
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-text",
+									"objectClass": "Message",
+									"sid": 495634146550886,
+									"parameters": {
+										"text": "TextManager.Translate(\"servers.error-user\")"
+									}
+								}
+							],
+							"sid": 371442751996371
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 317957141361506
+								},
+								{
+									"id": "compare-value",
+									"objectClass": "JSON",
+									"sid": 778751887686178,
+									"parameters": {
+										"path": "\"duration\"",
+										"cmp": 3,
+										"value": "0"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-text",
+									"objectClass": "Message",
+									"sid": 892972184351136,
+									"parameters": {
+										"text": "TextManager.Translate(\"servers.error-duration\")"
+									}
+								}
+							],
+							"sid": 995184276378647
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 494410765999846
+								}
+							],
+							"actions": [],
+							"sid": 311453897021248,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [],
+									"actions": [
+										{
+											"callFunction": "SetServer",
+											"sid": 527589008660626,
+											"parameters": [
+												"CurrentUserUID",
+												"CurrentPassword",
+												"Servers.Get(ServerList.SelectedIndex-1 & \".UID\")",
+												"JSON.GetAsCompactString(\"\")"
+											]
+										},
+										{
+											"id": "wait-for-previous-actions",
+											"objectClass": "System",
+											"sid": 544358057561608
+										}
+									],
+									"sid": 597155433814120,
+									"children": [
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "compare-eventvar",
+													"objectClass": "System",
+													"sid": 599516067145633,
+													"parameters": {
+														"variable": "APIError",
+														"comparison": 0,
+														"value": "\"exist\""
+													}
+												}
+											],
+											"actions": [
+												{
+													"id": "set-text",
+													"objectClass": "Message",
+													"sid": 983311481112729,
+													"parameters": {
+														"text": "TextManager.Translate(\"servers.error-exist\")"
+													}
+												}
+											],
+											"sid": 305083586502071
+										},
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "else",
+													"objectClass": "System",
+													"sid": 562342292411904
+												},
+												{
+													"id": "compare-eventvar",
+													"objectClass": "System",
+													"sid": 200266218712791,
+													"parameters": {
+														"variable": "APIError",
+														"comparison": 0,
+														"value": "\"forbidden\""
+													}
+												}
+											],
+											"actions": [
+												{
+													"id": "set-text",
+													"objectClass": "Message",
+													"sid": 189542041216477,
+													"parameters": {
+														"text": "TextManager.Translate(\"servers.error-forbidden\")"
+													}
+												}
+											],
+											"sid": 651444934284783
+										},
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "else",
+													"objectClass": "System",
+													"sid": 508123769156815
+												},
+												{
+													"id": "compare-eventvar",
+													"objectClass": "System",
+													"sid": 216990556905557,
+													"parameters": {
+														"variable": "APIError",
+														"comparison": 1,
+														"value": "\"\""
+													}
+												}
+											],
+											"actions": [
+												{
+													"id": "set-text",
+													"objectClass": "Message",
+													"sid": 823295305165879,
+													"parameters": {
+														"text": "TextManager.Translate(\"servers.error-exist\")"
+													}
+												}
+											],
+											"sid": 244336541133383
+										},
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "else",
+													"objectClass": "System",
+													"sid": 782816809011662
+												}
+											],
+											"actions": [
+												{
+													"id": "set-value",
+													"objectClass": "Data",
+													"sid": 333202184588635,
+													"parameters": {
+														"path": "\"settings.lastServerUID\"",
+														"value": "APISuccess"
+													}
+												},
+												{
+													"id": "set-item",
+													"objectClass": "LocalStorage",
+													"sid": 676915957168431,
+													"parameters": {
+														"key": "\"settings\"",
+														"value": "Data.GetAsCompactString(\"settings\")"
+													}
+												},
+												{
+													"callFunction": "ServersRefreshUI",
+													"sid": 436461154610802
+												}
+											],
+											"sid": 674497599073192
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"eventType": "comment",
+					"text": "Delete"
+				},
+				{
+					"eventType": "variable",
+					"name": "isDeleteClicked",
+					"type": "boolean",
+					"initialValue": "false",
+					"comment": "",
+					"isStatic": true,
+					"isConstant": false,
+					"sid": 106153700192444
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-clicked",
+							"objectClass": "ServerDel",
+							"sid": 260100185113409
+						}
+					],
+					"actions": [],
+					"sid": 901030606672353,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-selection",
+									"objectClass": "ServerList",
+									"sid": 990932226784423,
+									"parameters": {
+										"comparison": 1,
+										"index": "0"
+									}
+								}
+							],
+							"actions": [],
+							"sid": 802966910612194,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-boolean-eventvar",
+											"objectClass": "System",
+											"sid": 415618508275074,
+											"parameters": {
+												"variable": "isDeleteClicked"
+											},
+											"isInverted": true
+										}
+									],
+									"actions": [
+										{
+											"id": "set-key-value",
+											"objectClass": "ServerDel",
+											"sid": 413862552682744,
+											"behaviorType": "TextManager",
+											"parameters": {
+												"key-value": "\"servers.delete-confirm\""
+											}
+										},
+										{
+											"id": "set-boolean-eventvar",
+											"objectClass": "System",
+											"sid": 599251034761892,
+											"parameters": {
+												"variable": "isDeleteClicked",
+												"value": "true"
+											}
+										}
+									],
+									"sid": 943918761438421
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "else",
+											"objectClass": "System",
+											"sid": 774172085131462
+										}
+									],
+									"actions": [],
+									"sid": 894844330600830,
+									"children": [
+										{
+											"eventType": "block",
+											"conditions": [],
+											"actions": [
+												{
+													"callFunction": "DeleteServer",
+													"sid": 679967062489716,
+													"parameters": [
+														"CurrentUserUID",
+														"CurrentPassword",
+														"Servers.Get((ServerList.SelectedIndex-1)  & \".UID\")"
+													]
+												},
+												{
+													"id": "wait-for-previous-actions",
+													"objectClass": "System",
+													"sid": 667692106369135
+												},
+												{
+													"callFunction": "ServersRefreshUI",
+													"sid": 371466614855697
+												},
+												{
+													"id": "wait-for-previous-actions",
+													"objectClass": "System",
+													"sid": 502934272741694
+												},
+												{
+													"id": "set-key-value",
+													"objectClass": "ServerDel",
+													"sid": 357874003272098,
+													"behaviorType": "TextManager",
+													"parameters": {
+														"key-value": "\"servers.delete\""
+													}
+												},
+												{
+													"id": "set-boolean-eventvar",
+													"objectClass": "System",
+													"sid": 851628738853451,
+													"parameters": {
+														"variable": "isDeleteClicked",
+														"value": "false"
+													}
+												}
+											],
+											"sid": 477999189921600
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-any-touch-end",
+							"objectClass": "Touch",
+							"sid": 552695541913433
+						},
+						{
+							"id": "on-any-click",
+							"objectClass": "Mouse",
+							"sid": 346009886005533
+						}
+					],
+					"actions": [],
+					"sid": 510814147936130,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "cursor-is-over-object",
+									"objectClass": "Mouse",
+									"sid": 528443023197214,
+									"parameters": {
+										"object": "ServerDel"
+									},
+									"isInverted": true
+								},
+								{
+									"id": "is-touching-object",
+									"objectClass": "Touch",
+									"sid": 634867720410473,
+									"parameters": {
+										"object": "ServerDel"
+									},
+									"isInverted": true
+								}
+							],
+							"actions": [
+								{
+									"id": "set-key-value",
+									"objectClass": "ServerDel",
+									"sid": 466637401946712,
+									"behaviorType": "TextManager",
+									"parameters": {
+										"key-value": "\"servers.delete\""
+									}
+								},
+								{
+									"id": "set-boolean-eventvar",
+									"objectClass": "System",
+									"sid": 922487239677510,
+									"parameters": {
+										"variable": "isDeleteClicked",
+										"value": "false"
+									}
+								}
+							],
+							"sid": 838569118115664
+						}
+					],
+					"isOrBlock": true
+				}
+			],
+			"sid": 170514582247057
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "Sending",
+			"description": "",
+			"isActiveOnStart": false,
+			"children": [
+				{
+					"eventType": "comment",
+					"text": "navigation"
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-clicked",
+							"objectClass": "SendingBack",
+							"sid": 994064283415947
+						}
+					],
+					"actions": [
+						{
+							"callFunction": "SwitchLayout",
+							"sid": 571591902005012,
+							"parameters": [
+								"\"main\""
+							]
+						}
+					],
+					"sid": 348947498099889
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-clicked",
+							"objectClass": "SendingNext",
+							"sid": 184673452265515
+						}
+					],
+					"actions": [
+						{
+							"callFunction": "SwitchLayout",
+							"sid": 901129694272709,
+							"parameters": [
+								"\"address\""
+							]
+						}
+					],
+					"sid": 332043428811304
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-clicked",
+							"objectClass": "SendingServers",
+							"sid": 913920809528275
+						}
+					],
+					"actions": [
+						{
+							"callFunction": "SwitchLayout",
+							"sid": 682061860620890,
+							"parameters": [
+								"\"servers\""
+							]
+						}
+					],
+					"sid": 831973314222246
+				},
+				{
+					"eventType": "comment",
+					"text": "refresh UI"
+				},
+				{
+					"functionName": "SendingRefreshUI",
+					"functionCopyPicked": false,
+					"functionDescription": "",
+					"functionCategory": "",
+					"functionReturnType": "none",
+					"functionIsAsync": true,
+					"functionParameters": [],
+					"eventType": "function-block",
+					"conditions": [],
+					"actions": [],
+					"sid": 212781052192571,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [],
+							"actions": [
+								{
+									"callFunction": "GetTask",
+									"sid": 662118665024926,
+									"parameters": [
+										"CurrentUserUID",
+										"CurrentPassword",
+										"CurrentTaskUID",
+										"\"servers\""
+									]
+								},
+								{
+									"id": "wait-for-previous-actions",
+									"objectClass": "System",
+									"sid": 728406068625152
+								}
+							],
+							"sid": 973183859976966,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-eventvar",
+											"objectClass": "System",
+											"sid": 409916762057723,
+											"parameters": {
+												"variable": "APIError",
+												"comparison": 1,
+												"value": "\"\""
+											}
+										}
+									],
+									"actions": [],
+									"sid": 379155036502968
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "else",
+											"objectClass": "System",
+											"sid": 959939916911883
+										}
+									],
+									"actions": [
+										{
+											"id": "parse",
+											"objectClass": "JSON",
+											"sid": 578585591566304,
+											"parameters": {
+												"data": "APISuccess"
+											}
+										},
+										{
+											"id": "set-json",
+											"objectClass": "Task",
+											"sid": 306092358850079,
+											"parameters": {
+												"path": "\"serverUIDs\"",
+												"json": "JSON.GetAsCompactString(\"\")"
+											}
+										},
+										{
+											"callFunction": "ListServers",
+											"sid": 759721219442126,
+											"parameters": [
+												"CurrentUserUID",
+												"CurrentPassword"
+											]
+										},
+										{
+											"id": "wait-for-previous-actions",
+											"objectClass": "System",
+											"sid": 698325026830033
+										}
+									],
+									"sid": 762842910503651,
+									"children": [
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "compare-eventvar",
+													"objectClass": "System",
+													"sid": 452941356478397,
+													"parameters": {
+														"variable": "APIError",
+														"comparison": 1,
+														"value": "\"\""
+													}
+												}
+											],
+											"actions": [],
+											"sid": 728596802009776
+										},
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "else",
+													"objectClass": "System",
+													"sid": 210329601779228
+												}
+											],
+											"actions": [
+												{
+													"id": "parse",
+													"objectClass": "Servers",
+													"sid": 588180437879296,
+													"parameters": {
+														"data": "APISuccess"
+													}
+												}
+											],
+											"sid": 440575630487197,
+											"children": [
+												{
+													"eventType": "comment",
+													"text": "available list"
+												},
+												{
+													"eventType": "block",
+													"conditions": [],
+													"actions": [
+														{
+															"id": "clear",
+															"objectClass": "SendingAvailableList",
+															"sid": 809457065348492
+														}
+													],
+													"sid": 616496528199974
+												},
+												{
+													"eventType": "block",
+													"conditions": [
+														{
+															"id": "for-each",
+															"objectClass": "Servers",
+															"sid": 670101623850567,
+															"parameters": {
+																"path": "\"\""
+															}
+														}
+													],
+													"actions": [],
+													"sid": 569156818730338,
+													"children": [
+														{
+															"eventType": "block",
+															"conditions": [
+																{
+																	"id": "compare-value",
+																	"objectClass": "Servers",
+																	"sid": 672451949744185,
+																	"parameters": {
+																		"path": "Servers.CurrentKey & \".from\"",
+																		"cmp": 1,
+																		"value": "\"\""
+																	}
+																}
+															],
+															"actions": [
+																{
+																	"id": "add-item",
+																	"objectClass": "SendingAvailableList",
+																	"sid": 796565045338070,
+																	"parameters": {
+																		"text": "Servers.Get(Servers.CurrentKey & \".host\") & \" - \" & Servers.Get(Servers.CurrentKey & \".from\")"
+																	}
+																}
+															],
+															"sid": 454631176740708
+														},
+														{
+															"eventType": "block",
+															"conditions": [
+																{
+																	"id": "else",
+																	"objectClass": "System",
+																	"sid": 878009737384098
+																}
+															],
+															"actions": [
+																{
+																	"id": "add-item",
+																	"objectClass": "SendingAvailableList",
+																	"sid": 348203745016621,
+																	"parameters": {
+																		"text": "Servers.Get(Servers.CurrentKey & \".host\") & \" - \" & Servers.Get(Servers.CurrentKey & \".user\")"
+																	}
+																}
+															],
+															"sid": 847088124450256
+														}
+													]
+												},
+												{
+													"eventType": "block",
+													"conditions": [],
+													"actions": [
+														{
+															"id": "set-selection",
+															"objectClass": "SendingAvailableList",
+															"sid": 859584775760841,
+															"parameters": {
+																"index": "0"
+															}
+														}
+													],
+													"sid": 578868462484060
+												},
+												{
+													"eventType": "comment",
+													"text": "selected list"
+												},
+												{
+													"eventType": "block",
+													"conditions": [],
+													"actions": [
+														{
+															"id": "clear",
+															"objectClass": "SendingSelectedList",
+															"sid": 940043492389701
+														}
+													],
+													"sid": 467054988641442
+												},
+												{
+													"eventType": "block",
+													"conditions": [
+														{
+															"id": "for-each",
+															"objectClass": "Task",
+															"sid": 103131539232149,
+															"parameters": {
+																"path": "\"serverUIDs\""
+															}
+														}
+													],
+													"actions": [],
+													"sid": 450249445605218,
+													"children": [
+														{
+															"eventType": "block",
+															"conditions": [
+																{
+																	"id": "for-each",
+																	"objectClass": "Servers",
+																	"sid": 757032074784439,
+																	"parameters": {
+																		"path": "\"\""
+																	}
+																}
+															],
+															"actions": [],
+															"sid": 712958047180755,
+															"children": [
+																{
+																	"eventType": "block",
+																	"conditions": [
+																		{
+																			"id": "compare-value",
+																			"objectClass": "Servers",
+																			"sid": 110781125992381,
+																			"parameters": {
+																				"path": "Servers.CurrentKey & \".UID\"",
+																				"cmp": 0,
+																				"value": "Task.CurrentValue"
+																			}
+																		}
+																	],
+																	"actions": [],
+																	"sid": 463804907044736,
+																	"children": [
+																		{
+																			"eventType": "block",
+																			"conditions": [
+																				{
+																					"id": "compare-value",
+																					"objectClass": "Servers",
+																					"sid": 752220282595486,
+																					"parameters": {
+																						"path": "Servers.CurrentKey & \".from\"",
+																						"cmp": 1,
+																						"value": "\"\""
+																					}
+																				}
+																			],
+																			"actions": [
+																				{
+																					"id": "add-item",
+																					"objectClass": "SendingSelectedList",
+																					"sid": 487440592077603,
+																					"parameters": {
+																						"text": "Servers.Get(Servers.CurrentKey & \".host\") & \" - \" & Servers.Get(Servers.CurrentKey & \".from\")"
+																					}
+																				}
+																			],
+																			"sid": 452687124024648
+																		},
+																		{
+																			"eventType": "block",
+																			"conditions": [
+																				{
+																					"id": "else",
+																					"objectClass": "System",
+																					"sid": 549569341084975
+																				}
+																			],
+																			"actions": [
+																				{
+																					"id": "add-item",
+																					"objectClass": "SendingSelectedList",
+																					"sid": 482270531879170,
+																					"parameters": {
+																						"text": "Servers.Get(Servers.CurrentKey & \".host\") & \" - \" & Servers.Get(Servers.CurrentKey & \".user\")"
+																					}
+																				}
+																			],
+																			"sid": 848327949524550
+																		}
+																	]
+																}
+															]
+														}
+													]
+												},
+												{
+													"eventType": "block",
+													"conditions": [],
+													"actions": [
+														{
+															"id": "set-selection",
+															"objectClass": "SendingSelectedList",
+															"sid": 660608504804448,
+															"parameters": {
+																"index": "0"
+															}
+														}
+													],
+													"sid": 893698409115299
+												}
+											]
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"eventType": "comment",
+					"text": "add"
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-clicked",
+							"objectClass": "SendingAdd",
+							"sid": 543094404528636
+						}
+					],
+					"actions": [],
+					"sid": 219319583108706,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [],
+							"actions": [
+								{
+									"id": "insert-value",
+									"objectClass": "Task",
+									"sid": 816525519239967,
+									"parameters": {
+										"value": "Servers.Get(str(SendingAvailableList.SelectedIndex) & \".UID\")",
+										"path": "\"serverUIDs\"",
+										"index": "0"
+									}
+								}
+							],
+							"sid": 473860152264558
+						},
+						{
+							"eventType": "block",
+							"conditions": [],
+							"actions": [
+								{
+									"callFunction": "SetTask",
+									"sid": 621086928688440,
+									"parameters": [
+										"CurrentUserUID",
+										"CurrentPassword",
+										"CurrentTaskUID",
+										"\"servers\"",
+										"Task.GetAsCompactString(\"serverUIDs\")"
+									]
+								},
+								{
+									"id": "wait-for-previous-actions",
+									"objectClass": "System",
+									"sid": 694739574027801
+								},
+								{
+									"callFunction": "SendingRefreshUI",
+									"sid": 709304179187760
+								}
+							],
+							"sid": 390400130770556
+						}
+					]
+				},
+				{
+					"eventType": "comment",
+					"text": "remove"
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-clicked",
+							"objectClass": "SendingRemove",
+							"sid": 731164307636277
+						}
+					],
+					"actions": [],
+					"sid": 731936430605119,
+					"children": [
+						{
+							"eventType": "variable",
+							"name": "deletecount",
+							"type": "number",
+							"initialValue": "0",
+							"comment": "",
+							"isStatic": false,
+							"isConstant": false,
+							"sid": 688207667312296
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "for",
+									"objectClass": "System",
+									"sid": 428389081093919,
+									"parameters": {
+										"name": "\"\"",
+										"start-index": "0",
+										"end-index": "SendingSelectedList.SelectedCount - 1"
+									}
+								}
+							],
+							"actions": [],
+							"sid": 215079177976336,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [],
+									"actions": [
+										{
+											"id": "remove-values",
+											"objectClass": "Task",
+											"sid": 993404701102874,
+											"parameters": {
+												"count": "1",
+												"path": "\"serverUIDs\"",
+												"index": "SendingSelectedList.SelectedIndexAt(loopindex) - deletecount"
+											}
+										},
+										{
+											"id": "add-to-eventvar",
+											"objectClass": "System",
+											"sid": 972314543745685,
+											"parameters": {
+												"variable": "deletecount",
+												"value": "1"
+											}
+										}
+									],
+									"sid": 482903601723530
+								}
+							]
+						},
+						{
+							"eventType": "block",
+							"conditions": [],
+							"actions": [
+								{
+									"callFunction": "SetTask",
+									"sid": 748631969431807,
+									"parameters": [
+										"CurrentUserUID",
+										"CurrentPassword",
+										"CurrentTaskUID",
+										"\"servers\"",
+										"Task.GetAsCompactString(\"serverUIDs\")"
+									]
+								},
+								{
+									"id": "wait-for-previous-actions",
+									"objectClass": "System",
+									"sid": 354271539558912
+								},
+								{
+									"callFunction": "SendingRefreshUI",
+									"sid": 739554744507907
+								}
+							],
+							"sid": 213099950575188
+						}
+					]
+				}
+			],
+			"sid": 519686223061402
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "Address",
+			"description": "",
+			"isActiveOnStart": false,
+			"children": [
+				{
+					"eventType": "comment",
+					"text": "navigation"
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-clicked",
+							"objectClass": "AddressBack",
+							"sid": 829980760287010
+						}
+					],
+					"actions": [
+						{
+							"callFunction": "AddressUploadData2",
+							"sid": 421182297357808
+						},
+						{
+							"id": "wait-for-previous-actions",
+							"objectClass": "System",
+							"sid": 410942237265557
+						},
+						{
+							"callFunction": "SwitchLayout",
+							"sid": 637513180840372,
+							"parameters": [
+								"\"sending\""
+							]
+						}
+					],
+					"sid": 137596941102553
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-clicked",
+							"objectClass": "AddressNext",
+							"sid": 555783215995587
+						}
+					],
+					"actions": [
+						{
+							"callFunction": "AddressUploadData2",
+							"sid": 927162105648403
+						},
+						{
+							"id": "wait-for-previous-actions",
+							"objectClass": "System",
+							"sid": 427732177908152
+						},
+						{
+							"callFunction": "SwitchLayout",
+							"sid": 811034620688992,
+							"parameters": [
+								"\"letter\""
+							]
+						}
+					],
+					"sid": 403770609004819
+				},
+				{
+					"eventType": "comment",
+					"text": "Refresh UI"
+				},
+				{
+					"functionName": "AddressRefreshUI",
+					"functionCopyPicked": false,
+					"functionDescription": "",
+					"functionCategory": "",
+					"functionReturnType": "none",
+					"functionIsAsync": true,
+					"functionParameters": [],
+					"eventType": "function-block",
+					"conditions": [],
+					"actions": [],
+					"sid": 306724987209468,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [],
+							"actions": [
+								{
+									"callFunction": "GetTask",
+									"sid": 788703862984704,
+									"parameters": [
+										"CurrentUserUID",
+										"CurrentPassword",
+										"CurrentTaskUID",
+										"\"separator\""
+									]
+								},
+								{
+									"id": "wait-for-previous-actions",
+									"objectClass": "System",
+									"sid": 818816263767933
+								},
+								{
+									"id": "set-value",
+									"objectClass": "Task",
+									"sid": 559343906782653,
+									"parameters": {
+										"path": "\"letter.separator\"",
+										"value": "APISuccess"
+									}
+								},
+								{
+									"callFunction": "GetTask",
+									"sid": 903109922542880,
+									"parameters": [
+										"CurrentUserUID",
+										"CurrentPassword",
+										"CurrentTaskUID",
+										"\"useHeaders\""
+									]
+								},
+								{
+									"id": "wait-for-previous-actions",
+									"objectClass": "System",
+									"sid": 274008528456417
+								},
+								{
+									"id": "set-value",
+									"objectClass": "Task",
+									"sid": 444956593247390,
+									"parameters": {
+										"path": "\"letter.useHeaders\"",
+										"value": "APISuccess"
+									}
+								},
+								{
+									"callFunction": "GetTask",
+									"sid": 106121371071869,
+									"parameters": [
+										"CurrentUserUID",
+										"CurrentPassword",
+										"CurrentTaskUID",
+										"\"to\""
+									]
+								},
+								{
+									"id": "wait-for-previous-actions",
+									"objectClass": "System",
+									"sid": 413500867269136
+								},
+								{
+									"id": "set-json",
+									"objectClass": "Task",
+									"sid": 349646146442467,
+									"parameters": {
+										"path": "\"to\"",
+										"json": "APISuccess"
+									}
+								}
+							],
+							"sid": 483001937960861,
+							"children": [
+								{
+									"eventType": "comment",
+									"text": "address"
+								},
+								{
+									"eventType": "block",
+									"conditions": [],
+									"actions": [
+										{
+											"id": "load-json",
+											"objectClass": "CSV",
+											"sid": 818098806717083,
+											"parameters": {
+												"json": "Task.GetAsCompactString(\"to\")"
+											}
+										},
+										{
+											"id": "set-text",
+											"objectClass": "Address",
+											"sid": 518534738452705,
+											"parameters": {
+												"text": "CSV.AsText(Task.Get(\"letter.separator\"))"
+											}
+										}
+									],
+									"sid": 521054955813208
+								},
+								{
+									"eventType": "comment",
+									"text": "separator"
+								},
+								{
+									"eventType": "block",
+									"conditions": [],
+									"actions": [
+										{
+											"id": "set-text",
+											"objectClass": "AddressSep",
+											"sid": 709639025137728,
+											"parameters": {
+												"text": "Task.Get(\"letter.separator\")"
+											}
+										}
+									],
+									"sid": 497259334152730
+								},
+								{
+									"eventType": "comment",
+									"text": "useHeaders"
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-value",
+											"objectClass": "Task",
+											"sid": 204178469013789,
+											"parameters": {
+												"path": "\"letter.useHeaders\"",
+												"cmp": 0,
+												"value": "\"0\""
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-checked",
+											"objectClass": "AddressHeader",
+											"sid": 313592254794614,
+											"parameters": {
+												"state": "unchecked"
+											}
+										}
+									],
+									"sid": 681930590894857
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "else",
+											"objectClass": "System",
+											"sid": 479218452935888
+										}
+									],
+									"actions": [
+										{
+											"id": "set-checked",
+											"objectClass": "AddressHeader",
+											"sid": 887590814935705,
+											"parameters": {
+												"state": "checked"
+											}
+										}
+									],
+									"sid": 767574699036421
+								}
+							]
+						}
+					]
+				},
+				{
+					"eventType": "comment",
+					"text": "Set address"
+				},
+				{
+					"eventType": "variable",
+					"name": "isNeedSave",
+					"type": "boolean",
+					"initialValue": "false",
+					"comment": "",
+					"isStatic": true,
+					"isConstant": false,
+					"sid": 908992494044980
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-text-changed",
+							"objectClass": "Address",
+							"sid": 558205131974545
+						}
+					],
+					"actions": [],
+					"sid": 512091319507194,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [],
+							"actions": [
+								{
+									"id": "set-boolean-eventvar",
+									"objectClass": "System",
+									"sid": 649928158795913,
+									"parameters": {
+										"variable": "isNeedSave",
+										"value": "true"
+									}
+								}
+							],
+							"sid": 626289638816831
+						}
+					]
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-clicked",
+							"objectClass": "AddressFile",
+							"sid": 647810655830779
+						}
+					],
+					"actions": [],
+					"sid": 549390128506474,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [],
+							"actions": [
+								{
+									"id": "click",
+									"objectClass": "AddressFileChooser",
+									"sid": 959249722312949
+								}
+							],
+							"sid": 362273577980064
+						}
+					]
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-changed",
+							"objectClass": "AddressFileChooser",
+							"sid": 368702409379951
+						}
+					],
+					"actions": [],
+					"sid": 754216817727714,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [],
+							"actions": [
+								{
+									"id": "request-url",
+									"objectClass": "AJAX",
+									"sid": 294294528634863,
+									"parameters": {
+										"tag": "\"\"",
+										"url": "AddressFileChooser.FileURLAt(0)"
+									}
+								},
+								{
+									"id": "wait-for-previous-actions",
+									"objectClass": "System",
+									"sid": 130232347962260
+								},
+								{
+									"id": "set-text",
+									"objectClass": "Address",
+									"sid": 477546140134792,
+									"parameters": {
+										"text": "AJAX.LastData"
+									}
+								},
+								{
+									"id": "clear",
+									"objectClass": "AddressFileChooser",
+									"sid": 933100777947792
+								},
+								{
+									"id": "set-boolean-eventvar",
+									"objectClass": "System",
+									"sid": 530036136209266,
+									"parameters": {
+										"variable": "isNeedSave",
+										"value": "true"
+									}
+								}
+							],
+							"sid": 392188190811206
+						}
+					]
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-text-changed",
+							"objectClass": "AddressSep",
+							"sid": 513288180514533
+						}
+					],
+					"actions": [],
+					"sid": 893678789562654,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [],
+							"actions": [
+								{
+									"id": "set-boolean-eventvar",
+									"objectClass": "System",
+									"sid": 742990405785240,
+									"parameters": {
+										"variable": "isNeedSave",
+										"value": "true"
+									}
+								}
+							],
+							"sid": 830654819183787
+						}
+					]
+				},
+				{
+					"functionName": "AddressUploadData2",
+					"functionCopyPicked": false,
+					"functionDescription": "",
+					"functionCategory": "",
+					"functionReturnType": "none",
+					"functionIsAsync": true,
+					"functionParameters": [],
+					"eventType": "function-block",
+					"conditions": [],
+					"actions": [],
+					"sid": 765279802968769,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-boolean-eventvar",
+									"objectClass": "System",
+									"sid": 904424658677516,
+									"parameters": {
+										"variable": "isNeedSave"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "load-text",
+									"objectClass": "CSV",
+									"sid": 125477086033773,
+									"parameters": {
+										"text": "Address.Text",
+										"separator": "AddressSep.Text"
+									}
+								},
+								{
+									"callFunction": "SetTask",
+									"sid": 593778880122016,
+									"parameters": [
+										"CurrentUserUID",
+										"CurrentPassword",
+										"CurrentTaskUID",
+										"\"to\"",
+										"CSV.AsJSON"
+									]
+								},
+								{
+									"id": "wait-for-previous-actions",
+									"objectClass": "System",
+									"sid": 956665657456536
+								},
+								{
+									"callFunction": "SetTask",
+									"sid": 124826975356279,
+									"parameters": [
+										"CurrentUserUID",
+										"CurrentPassword",
+										"CurrentTaskUID",
+										"\"separator\"",
+										"AddressSep.Text"
+									]
+								},
+								{
+									"id": "wait-for-previous-actions",
+									"objectClass": "System",
+									"sid": 297671124081857
+								},
+								{
+									"id": "set-boolean-eventvar",
+									"objectClass": "System",
+									"sid": 672132938369333,
+									"parameters": {
+										"variable": "isNeedSave",
+										"value": "false"
+									}
+								}
+							],
+							"sid": 150717670738000
+						}
+					]
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "every-x-seconds",
+							"objectClass": "System",
+							"sid": 849570143893868,
+							"parameters": {
+								"interval-seconds": "5"
+							}
+						}
+					],
+					"actions": [
+						{
+							"callFunction": "AddressUploadData2",
+							"sid": 475205375694325
+						}
+					],
+					"sid": 166672391856061
+				},
+				{
+					"eventType": "comment",
+					"text": "set header"
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-clicked",
+							"objectClass": "AddressHeader",
+							"sid": 836482683860918
+						}
+					],
+					"actions": [],
+					"sid": 100463262558155,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "is-checked",
+									"objectClass": "AddressHeader",
+									"sid": 417600507935446
+								}
+							],
+							"actions": [
+								{
+									"callFunction": "SetTask",
+									"sid": 890929810597742,
+									"parameters": [
+										"CurrentUserUID",
+										"CurrentPassword",
+										"CurrentTaskUID",
+										"\"useHeaders\"",
+										"\"1\""
+									]
+								}
+							],
+							"sid": 351046766799944
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 324834655459568
+								}
+							],
+							"actions": [
+								{
+									"callFunction": "SetTask",
+									"sid": 511572383695389,
+									"parameters": [
+										"CurrentUserUID",
+										"CurrentPassword",
+										"CurrentTaskUID",
+										"\"useHeaders\"",
+										"\"0\""
+									]
+								}
+							],
+							"sid": 170215628717434
+						}
+					]
+				}
+			],
+			"sid": 265486726310164
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "Letter",
+			"description": "",
+			"isActiveOnStart": false,
+			"children": [
+				{
+					"eventType": "comment",
+					"text": "navigation"
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-clicked",
+							"objectClass": "LetterBack",
+							"sid": 471253282297653
+						}
+					],
+					"actions": [
+						{
+							"callFunction": "LetterTextSave",
+							"sid": 456707804298305
+						},
+						{
+							"id": "wait-for-previous-actions",
+							"objectClass": "System",
+							"sid": 325013976153243
+						},
+						{
+							"callFunction": "SwitchLayout",
+							"sid": 638837120806488,
+							"parameters": [
+								"\"address\""
+							]
+						}
+					],
+					"sid": 766490127621011
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-clicked",
+							"objectClass": "LetterNext",
+							"sid": 660669694378222
+						}
+					],
+					"actions": [
+						{
+							"callFunction": "LetterTextSave",
+							"sid": 561955860720907
+						},
+						{
+							"id": "wait-for-previous-actions",
+							"objectClass": "System",
+							"sid": 870920671186627
+						},
+						{
+							"callFunction": "SwitchLayout",
+							"sid": 695813753628352,
+							"parameters": [
+								"\"status\""
+							]
+						}
+					],
+					"sid": 548276814537939
+				},
+				{
+					"eventType": "comment",
+					"text": "Refresh UI"
+				},
+				{
+					"functionName": "LetterRefreshUI",
+					"functionCopyPicked": false,
+					"functionDescription": "",
+					"functionCategory": "",
+					"functionReturnType": "none",
+					"functionIsAsync": true,
+					"functionParameters": [],
+					"eventType": "function-block",
+					"conditions": [],
+					"actions": [],
+					"sid": 307644323010591,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [],
+							"actions": [
+								{
+									"callFunction": "GetTask",
+									"sid": 616990466610293,
+									"parameters": [
+										"CurrentUserUID",
+										"CurrentPassword",
+										"CurrentTaskUID",
+										"\"subject\""
+									]
+								},
+								{
+									"id": "wait-for-previous-actions",
+									"objectClass": "System",
+									"sid": 756533368923966
+								},
+								{
+									"id": "set-value",
+									"objectClass": "Task",
+									"sid": 236027262081080,
+									"parameters": {
+										"path": "\"letter.subject\"",
+										"value": "APISuccess"
+									}
+								},
+								{
+									"callFunction": "GetTask",
+									"sid": 729198917689421,
+									"parameters": [
+										"CurrentUserUID",
+										"CurrentPassword",
+										"CurrentTaskUID",
+										"\"priority\""
+									]
+								},
+								{
+									"id": "wait-for-previous-actions",
+									"objectClass": "System",
+									"sid": 184657227638469
+								},
+								{
+									"id": "set-value",
+									"objectClass": "Task",
+									"sid": 134591130024890,
+									"parameters": {
+										"path": "\"letter.priority\"",
+										"value": "APISuccess"
+									}
+								},
+								{
+									"callFunction": "GetTask",
+									"sid": 583613070338994,
+									"parameters": [
+										"CurrentUserUID",
+										"CurrentPassword",
+										"CurrentTaskUID",
+										"\"text\""
+									]
+								},
+								{
+									"id": "wait-for-previous-actions",
+									"objectClass": "System",
+									"sid": 227597922150283
+								},
+								{
+									"id": "set-value",
+									"objectClass": "Task",
+									"sid": 561767515291398,
+									"parameters": {
+										"path": "\"letter.text\"",
+										"value": "APISuccess"
+									}
+								},
+								{
+									"callFunction": "GetTask",
+									"sid": 386256089060723,
+									"parameters": [
+										"CurrentUserUID",
+										"CurrentPassword",
+										"CurrentTaskUID",
+										"\"attachments\""
+									]
+								},
+								{
+									"id": "wait-for-previous-actions",
+									"objectClass": "System",
+									"sid": 487483055886420
+								},
+								{
+									"id": "set-json",
+									"objectClass": "Task",
+									"sid": 193302266841132,
+									"parameters": {
+										"path": "\"attachments\"",
+										"json": "APISuccess"
+									}
+								}
+							],
+							"sid": 573007015779049,
+							"children": [
+								{
+									"eventType": "comment",
+									"text": "set subject"
+								},
+								{
+									"eventType": "block",
+									"conditions": [],
+									"actions": [
+										{
+											"id": "set-text",
+											"objectClass": "LetterSubject",
+											"sid": 895657086269019,
+											"parameters": {
+												"text": "Task.Get(\"letter.subject\")"
+											}
+										}
+									],
+									"sid": 351022255674340
+								},
+								{
+									"eventType": "comment",
+									"text": "set priority"
+								},
+								{
+									"eventType": "block",
+									"conditions": [],
+									"actions": [
+										{
+											"id": "set-selection",
+											"objectClass": "LetterPriority",
+											"sid": 447269368967925,
+											"parameters": {
+												"index": "int(Task.Get(\"letter.priority\"))"
+											}
+										}
+									],
+									"sid": 636111924069447
+								},
+								{
+									"eventType": "comment",
+									"text": "set text"
+								},
+								{
+									"eventType": "block",
+									"conditions": [],
+									"actions": [
+										{
+											"id": "set-text",
+											"objectClass": "LetterText",
+											"sid": 982843990225553,
+											"parameters": {
+												"type": "html",
+												"text": "Task.Get(\"letter.text\")"
+											}
+										}
+									],
+									"sid": 710798464449296
+								},
+								{
+									"eventType": "comment",
+									"text": "list attachment"
+								},
+								{
+									"eventType": "block",
+									"conditions": [],
+									"actions": [
+										{
+											"id": "clear",
+											"objectClass": "LetterAttachments",
+											"sid": 906210633503645
+										}
+									],
+									"sid": 209893928759924
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "for-each",
+											"objectClass": "Task",
+											"sid": 155668944918932,
+											"parameters": {
+												"path": "\"attachments\""
+											}
+										}
+									],
+									"actions": [],
+									"sid": 967487053420946,
+									"children": [
+										{
+											"eventType": "block",
+											"conditions": [],
+											"actions": [
+												{
+													"id": "add-item",
+													"objectClass": "LetterAttachments",
+													"sid": 935121046571783,
+													"parameters": {
+														"text": "Task.Get(\"attachments.\" & Task.CurrentKey & \".name\")"
+													}
+												}
+											],
+											"sid": 558099051869283
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"eventType": "comment",
+					"text": "Set text/subject"
+				},
+				{
+					"eventType": "variable",
+					"name": "isNeedSubjectSave",
+					"type": "boolean",
+					"initialValue": "false",
+					"comment": "",
+					"isStatic": true,
+					"isConstant": false,
+					"sid": 822329027537995
+				},
+				{
+					"eventType": "variable",
+					"name": "isNeedTextSave",
+					"type": "boolean",
+					"initialValue": "false",
+					"comment": "",
+					"isStatic": true,
+					"isConstant": false,
+					"sid": 288470182271866
+				},
+				{
+					"functionName": "LetterTextSave",
+					"functionCopyPicked": false,
+					"functionDescription": "",
+					"functionCategory": "",
+					"functionReturnType": "none",
+					"functionIsAsync": true,
+					"functionParameters": [],
+					"eventType": "function-block",
+					"conditions": [],
+					"actions": [],
+					"sid": 185040000238615,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-boolean-eventvar",
+									"objectClass": "System",
+									"sid": 184908754410156,
+									"parameters": {
+										"variable": "isNeedSubjectSave"
+									}
+								}
+							],
+							"actions": [],
+							"sid": 950504349388909,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [],
+									"actions": [
+										{
+											"callFunction": "SetTask",
+											"sid": 655122115871734,
+											"parameters": [
+												"CurrentUserUID",
+												"CurrentPassword",
+												"CurrentTaskUID",
+												"\"subject\"",
+												"LetterSubject.Text"
+											]
+										},
+										{
+											"id": "wait-for-previous-actions",
+											"objectClass": "System",
+											"sid": 631684019710202
+										},
+										{
+											"id": "set-boolean-eventvar",
+											"objectClass": "System",
+											"sid": 407648628431977,
+											"parameters": {
+												"variable": "isNeedSubjectSave",
+												"value": "false"
+											}
+										}
+									],
+									"sid": 799562269140864
+								}
+							]
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-boolean-eventvar",
+									"objectClass": "System",
+									"sid": 143774270345044,
+									"parameters": {
+										"variable": "isNeedTextSave"
+									}
+								}
+							],
+							"actions": [],
+							"sid": 976786108927891,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [],
+									"actions": [
+										{
+											"callFunction": "SetTask",
+											"sid": 265432572677827,
+											"parameters": [
+												"CurrentUserUID",
+												"CurrentPassword",
+												"CurrentTaskUID",
+												"\"text\"",
+												"LetterText.TextHTML"
+											]
+										},
+										{
+											"id": "wait-for-previous-actions",
+											"objectClass": "System",
+											"sid": 218107314366754
+										},
+										{
+											"id": "set-boolean-eventvar",
+											"objectClass": "System",
+											"sid": 508659074977715,
+											"parameters": {
+												"variable": "isNeedTextSave",
+												"value": "false"
+											}
+										}
+									],
+									"sid": 805551843898002
+								}
+							]
+						}
+					]
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "every-x-seconds",
+							"objectClass": "System",
+							"sid": 171464621812116,
+							"parameters": {
+								"interval-seconds": "5"
+							}
+						}
+					],
+					"actions": [
+						{
+							"callFunction": "LetterTextSave",
+							"sid": 813090990385509
+						}
+					],
+					"sid": 386031257552930
+				},
+				{
+					"eventType": "comment",
+					"text": "Set subject"
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-text-changed",
+							"objectClass": "LetterSubject",
+							"sid": 830281450606405
+						}
+					],
+					"actions": [
+						{
+							"id": "set-boolean-eventvar",
+							"objectClass": "System",
+							"sid": 771773030067586,
+							"parameters": {
+								"variable": "isNeedSubjectSave",
+								"value": "true"
+							}
+						}
+					],
+					"sid": 365172715581335
+				},
+				{
+					"eventType": "comment",
+					"text": "Set text"
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-text-changed",
+							"objectClass": "LetterText",
+							"sid": 772915088805514
+						}
+					],
+					"actions": [
+						{
+							"id": "set-boolean-eventvar",
+							"objectClass": "System",
+							"sid": 132533874541363,
+							"parameters": {
+								"variable": "isNeedTextSave",
+								"value": "true"
+							}
+						}
+					],
+					"sid": 317364703940152
+				},
+				{
+					"eventType": "comment",
+					"text": "Set priority"
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-selection-changed",
+							"objectClass": "LetterPriority",
+							"sid": 116198233612910
+						}
+					],
+					"actions": [],
+					"sid": 595911262055875,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [],
+							"actions": [
+								{
+									"callFunction": "SetTask",
+									"sid": 163716036793375,
+									"parameters": [
+										"CurrentUserUID",
+										"CurrentPassword",
+										"CurrentTaskUID",
+										"\"priority\"",
+										"str(LetterPriority.SelectedIndex)"
+									]
+								},
+								{
+									"id": "wait-for-previous-actions",
+									"objectClass": "System",
+									"sid": 619177467217967
+								}
+							],
+							"sid": 303109032092425
+						}
+					]
+				},
+				{
+					"eventType": "comment",
+					"text": "Set attachments"
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-clicked",
+							"objectClass": "LetterAttachmentsAdd",
+							"sid": 267457477700824
+						}
+					],
+					"actions": [],
+					"sid": 727676284010043,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [],
+							"actions": [
+								{
+									"id": "click",
+									"objectClass": "LetterFileBrowser",
+									"sid": 677078710313332
+								}
+							],
+							"sid": 978899631647443
+						}
+					]
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-changed",
+							"objectClass": "LetterFileBrowser",
+							"sid": 875804681582251
+						}
+					],
+					"actions": [],
+					"sid": 693202736228226,
+					"children": [
+						{
+							"eventType": "variable",
+							"name": "maxsize",
+							"type": "number",
+							"initialValue": "25000000",
+							"comment": "",
+							"isStatic": true,
+							"isConstant": true,
+							"sid": 247788999212640
+						},
+						{
+							"eventType": "variable",
+							"name": "name",
+							"type": "string",
+							"initialValue": "",
+							"comment": "",
+							"isStatic": false,
+							"isConstant": false,
+							"sid": 102407138726216
+						},
+						{
+							"eventType": "variable",
+							"name": "type",
+							"type": "string",
+							"initialValue": "",
+							"comment": "",
+							"isStatic": false,
+							"isConstant": false,
+							"sid": 703474834138631
+						},
+						{
+							"eventType": "variable",
+							"name": "data",
+							"type": "string",
+							"initialValue": "",
+							"comment": "",
+							"isStatic": false,
+							"isConstant": false,
+							"sid": 593684983303177
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-two-values",
+									"objectClass": "System",
+									"sid": 773252581294432,
+									"parameters": {
+										"first-value": "LetterFileBrowser.FileSizeAt(0)",
+										"comparison": 2,
+										"second-value": "maxsize"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-eventvar-value",
+									"objectClass": "System",
+									"sid": 821549767295480,
+									"parameters": {
+										"variable": "name",
+										"value": "LetterFileBrowser.FileNameAt(0)"
+									}
+								},
+								{
+									"id": "set-eventvar-value",
+									"objectClass": "System",
+									"sid": 152102458550358,
+									"parameters": {
+										"variable": "type",
+										"value": "LetterFileBrowser.FileTypeAt(0)"
+									}
+								},
+								{
+									"id": "set-response-binary",
+									"objectClass": "AJAX",
+									"sid": 310592408671717,
+									"parameters": {
+										"destination": "BinaryData"
+									}
+								},
+								{
+									"id": "request-url",
+									"objectClass": "AJAX",
+									"sid": 848142241583903,
+									"parameters": {
+										"tag": "\"\"",
+										"url": "LetterFileBrowser.FileURLAt(0)"
+									}
+								},
+								{
+									"id": "wait-for-previous-actions",
+									"objectClass": "System",
+									"sid": 173884436964061
+								},
+								{
+									"id": "set-eventvar-value",
+									"objectClass": "System",
+									"sid": 338624097101750,
+									"parameters": {
+										"variable": "data",
+										"value": "BinaryData.GetBase64"
+									}
+								},
+								{
+									"id": "clear",
+									"objectClass": "LetterFileBrowser",
+									"sid": 576373013856664
+								}
+							],
+							"sid": 193813781894921,
+							"children": [
+								{
+									"eventType": "variable",
+									"name": "attachmentindex",
+									"type": "number",
+									"initialValue": "-1",
+									"comment": "",
+									"isStatic": false,
+									"isConstant": false,
+									"sid": 907358152891149
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "for-each",
+											"objectClass": "Task",
+											"sid": 941678128770094,
+											"parameters": {
+												"path": "\"attachments\""
+											}
+										}
+									],
+									"actions": [],
+									"sid": 244810152821777,
+									"children": [
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "compare-value",
+													"objectClass": "Task",
+													"sid": 910293720126700,
+													"parameters": {
+														"path": "\"attachments.\" & Task.CurrentKey",
+														"cmp": 0,
+														"value": "name"
+													}
+												}
+											],
+											"actions": [
+												{
+													"id": "set-eventvar-value",
+													"objectClass": "System",
+													"sid": 425065539530792,
+													"parameters": {
+														"variable": "attachmentindex",
+														"value": "Task.CurrentKey"
+													}
+												},
+												{
+													"id": "stop-loop",
+													"objectClass": "System",
+													"sid": 631630162991942
+												}
+											],
+											"sid": 283422544544771
+										}
+									]
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-eventvar",
+											"objectClass": "System",
+											"sid": 663543288410059,
+											"parameters": {
+												"variable": "attachmentindex",
+												"comparison": 0,
+												"value": "-1"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "insert-value",
+											"objectClass": "Task",
+											"sid": 384989644766717,
+											"parameters": {
+												"value": "\"\"",
+												"path": "\"attachments\"",
+												"index": "0"
+											}
+										},
+										{
+											"id": "set-object",
+											"objectClass": "Task",
+											"sid": 638220250274915,
+											"parameters": {
+												"path": "\"attachments.0\""
+											}
+										},
+										{
+											"id": "set-eventvar-value",
+											"objectClass": "System",
+											"sid": 300133035547771,
+											"parameters": {
+												"variable": "attachmentindex",
+												"value": "0"
+											}
+										}
+									],
+									"sid": 255396830863996
+								},
+								{
+									"eventType": "variable",
+									"name": "size",
+									"type": "number",
+									"initialValue": "0",
+									"comment": "",
+									"isStatic": false,
+									"isConstant": false,
+									"sid": 449711732421405
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "for-each",
+											"objectClass": "Task",
+											"sid": 342021278723062,
+											"parameters": {
+												"path": "\"attachments\""
+											}
+										}
+									],
+									"actions": [],
+									"sid": 960757658200569,
+									"children": [
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "compare-two-values",
+													"objectClass": "System",
+													"sid": 389539452162375,
+													"parameters": {
+														"first-value": "Task.CurrentKey",
+														"comparison": 1,
+														"second-value": "str(attachmentindex)"
+													}
+												}
+											],
+											"actions": [
+												{
+													"id": "add-to-eventvar",
+													"objectClass": "System",
+													"sid": 457828466695785,
+													"parameters": {
+														"variable": "size",
+														"value": "len(Task.Get(\"attachments.\" & Task.CurrentKey & \".data\"))"
+													}
+												}
+											],
+											"sid": 547190807026902
+										}
+									]
+								},
+								{
+									"eventType": "block",
+									"conditions": [],
+									"actions": [
+										{
+											"id": "add-to-eventvar",
+											"objectClass": "System",
+											"sid": 780108486884437,
+											"parameters": {
+												"variable": "size",
+												"value": "len(data)"
+											}
+										}
+									],
+									"sid": 789151543263621
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-eventvar",
+											"objectClass": "System",
+											"sid": 518851123091410,
+											"parameters": {
+												"variable": "size",
+												"comparison": 2,
+												"value": "maxsize"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-value",
+											"objectClass": "Task",
+											"sid": 128363008831544,
+											"parameters": {
+												"path": "\"attachments.\" & attachmentindex & \".name\"",
+												"value": "name"
+											}
+										},
+										{
+											"id": "set-value",
+											"objectClass": "Task",
+											"sid": 552812462672398,
+											"parameters": {
+												"path": "\"attachments.\" & attachmentindex & \".type\"",
+												"value": "type"
+											}
+										},
+										{
+											"id": "set-value",
+											"objectClass": "Task",
+											"sid": 490223871421064,
+											"parameters": {
+												"path": "\"attachments.\" & attachmentindex & \".data\"",
+												"value": "data"
+											}
+										},
+										{
+											"callFunction": "LetterAttachmentSave",
+											"sid": 244262138626872
+										}
+									],
+									"sid": 610092005769273
+								}
+							]
+						}
+					]
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-clicked",
+							"objectClass": "LetterAttachmentsRemove",
+							"sid": 555115283841293
+						}
+					],
+					"actions": [],
+					"sid": 945609710674970,
+					"children": [
+						{
+							"eventType": "variable",
+							"name": "deletecount",
+							"type": "number",
+							"initialValue": "0",
+							"comment": "",
+							"isStatic": false,
+							"isConstant": false,
+							"sid": 934344603605142
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "for",
+									"objectClass": "System",
+									"sid": 839074054081617,
+									"parameters": {
+										"name": "\"\"",
+										"start-index": "0",
+										"end-index": "LetterAttachments.SelectedCount - 1"
+									}
+								}
+							],
+							"actions": [],
+							"sid": 497634435041782,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [],
+									"actions": [
+										{
+											"id": "remove-values",
+											"objectClass": "Task",
+											"sid": 935002620889549,
+											"parameters": {
+												"count": "1",
+												"path": "\"attachments\"",
+												"index": "LetterAttachments.SelectedIndexAt(loopindex) - deletecount"
+											}
+										},
+										{
+											"id": "add-to-eventvar",
+											"objectClass": "System",
+											"sid": 212487759931471,
+											"parameters": {
+												"variable": "deletecount",
+												"value": "1"
+											}
+										}
+									],
+									"sid": 900655556906190
+								}
+							]
+						},
+						{
+							"eventType": "block",
+							"conditions": [],
+							"actions": [
+								{
+									"callFunction": "LetterAttachmentSave",
+									"sid": 959437717852698
+								}
+							],
+							"sid": 713224858032702
+						}
+					]
+				},
+				{
+					"functionName": "LetterAttachmentSave",
+					"functionCopyPicked": false,
+					"functionDescription": "",
+					"functionCategory": "",
+					"functionReturnType": "none",
+					"functionIsAsync": true,
+					"functionParameters": [],
+					"eventType": "function-block",
+					"conditions": [],
+					"actions": [],
+					"sid": 898341143591229,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [],
+							"actions": [
+								{
+									"callFunction": "SetTask",
+									"sid": 757554465084514,
+									"parameters": [
+										"CurrentUserUID",
+										"CurrentPassword",
+										"CurrentTaskUID",
+										"\"attachments\"",
+										"Task.GetAsCompactString(\"attachments\")"
+									]
+								},
+								{
+									"id": "wait-for-previous-actions",
+									"objectClass": "System",
+									"sid": 573266902648221
+								},
+								{
+									"id": "clear",
+									"objectClass": "LetterAttachments",
+									"sid": 233664456307776
+								}
+							],
+							"sid": 915348998034345,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "for-each",
+											"objectClass": "Task",
+											"sid": 364588893120124,
+											"parameters": {
+												"path": "\"attachments\""
+											}
+										}
+									],
+									"actions": [],
+									"sid": 492297708041528,
+									"children": [
+										{
+											"eventType": "block",
+											"conditions": [],
+											"actions": [
+												{
+													"id": "add-item",
+													"objectClass": "LetterAttachments",
+													"sid": 174774810072385,
+													"parameters": {
+														"text": "Task.Get(\"attachments.\" & Task.CurrentKey & \".name\")"
+													}
+												}
+											],
+											"sid": 728787549398187
+										}
+									]
+								}
+							]
+						}
+					]
+				}
+			],
+			"sid": 933364731807274
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "Status",
+			"description": "",
+			"isActiveOnStart": false,
+			"children": [
+				{
+					"eventType": "comment",
+					"text": "navigation"
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-clicked",
+							"objectClass": "StatusBack",
+							"sid": 259947784540225
+						}
+					],
+					"actions": [
+						{
+							"callFunction": "StatusNameSave",
+							"sid": 672759003065446
+						},
+						{
+							"id": "wait-for-previous-actions",
+							"objectClass": "System",
+							"sid": 992100422631314
+						},
+						{
+							"callFunction": "SwitchLayout",
+							"sid": 997171288440691,
+							"parameters": [
+								"\"letter\""
+							]
+						}
+					],
+					"sid": 135575527986121
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-clicked",
+							"objectClass": "StatusNext",
+							"sid": 269972211712398
+						}
+					],
+					"actions": [
+						{
+							"callFunction": "StatusNameSave",
+							"sid": 584141658823174
+						},
+						{
+							"id": "wait-for-previous-actions",
+							"objectClass": "System",
+							"sid": 206147607533919
+						},
+						{
+							"callFunction": "SwitchLayout",
+							"sid": 868267825564211,
+							"parameters": [
+								"\"main\""
+							]
+						}
+					],
+					"sid": 322578081167424
+				},
+				{
+					"eventType": "comment",
+					"text": "refresh UI"
+				},
+				{
+					"functionName": "StatusRefreshUI",
+					"functionCopyPicked": false,
+					"functionDescription": "",
+					"functionCategory": "",
+					"functionReturnType": "none",
+					"functionIsAsync": true,
+					"functionParameters": [],
+					"eventType": "function-block",
+					"conditions": [],
+					"actions": [],
+					"sid": 292256560617054,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [],
+							"actions": [
+								{
+									"callFunction": "GetTask",
+									"sid": 859494700476376,
+									"parameters": [
+										"CurrentUserUID",
+										"CurrentPassword",
+										"CurrentTaskUID",
+										"\"name\""
+									]
+								},
+								{
+									"id": "wait-for-previous-actions",
+									"objectClass": "System",
+									"sid": 500108303410350
+								},
+								{
+									"id": "set-text",
+									"objectClass": "StatusName",
+									"sid": 543307435640805,
+									"parameters": {
+										"text": "APISuccess"
+									}
+								}
+							],
+							"sid": 524175656982047,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [],
+									"actions": [
+										{
+											"callFunction": "GetTask",
+											"sid": 625188151350669,
+											"parameters": [
+												"CurrentUserUID",
+												"CurrentPassword",
+												"CurrentTaskUID",
+												"\"state\""
+											]
+										},
+										{
+											"id": "wait-for-previous-actions",
+											"objectClass": "System",
+											"sid": 226680940767184
+										}
+									],
+									"sid": 150546131882313,
+									"children": [
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "compare-eventvar",
+													"objectClass": "System",
+													"sid": 290537329714339,
+													"parameters": {
+														"variable": "APISuccess",
+														"comparison": 0,
+														"value": "\"finished\""
+													}
+												}
+											],
+											"actions": [
+												{
+													"id": "set-text",
+													"objectClass": "Message",
+													"sid": 326348122829410,
+													"parameters": {
+														"text": "TextManager.Translate(\"status.finished-text\")"
+													}
+												},
+												{
+													"id": "set-visible",
+													"objectClass": "StatusProgressBar",
+													"sid": 485451098258619,
+													"parameters": {
+														"visibility": "invisible"
+													}
+												},
+												{
+													"id": "set-visible",
+													"objectClass": "StatusStart",
+													"sid": 727462638632227,
+													"parameters": {
+														"visibility": "visible"
+													}
+												},
+												{
+													"id": "set-text",
+													"objectClass": "StatusStart",
+													"sid": 859733332185747,
+													"parameters": {
+														"text": "TextManager.Translate(\"status.start\")"
+													}
+												},
+												{
+													"id": "set-visible",
+													"objectClass": "StatusAbort",
+													"sid": 590607516684437,
+													"parameters": {
+														"visibility": "invisible"
+													}
+												},
+												{
+													"id": "set-visible",
+													"objectClass": "StatusBack",
+													"sid": 997396553155240,
+													"parameters": {
+														"visibility": "visible"
+													}
+												}
+											],
+											"sid": 470483136318153
+										},
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "else",
+													"objectClass": "System",
+													"sid": 735521674031596
+												},
+												{
+													"id": "compare-eventvar",
+													"objectClass": "System",
+													"sid": 408831146500989,
+													"parameters": {
+														"variable": "APISuccess",
+														"comparison": 0,
+														"value": "\"running\""
+													}
+												}
+											],
+											"actions": [
+												{
+													"id": "set-text",
+													"objectClass": "Message",
+													"sid": 109200790020736,
+													"parameters": {
+														"text": "TextManager.Translate(\"status.running-text\")"
+													}
+												},
+												{
+													"id": "set-visible",
+													"objectClass": "StatusProgressBar",
+													"sid": 959631049501645,
+													"parameters": {
+														"visibility": "visible"
+													}
+												},
+												{
+													"id": "set-visible",
+													"objectClass": "StatusStart",
+													"sid": 971413448611253,
+													"parameters": {
+														"visibility": "visible"
+													}
+												},
+												{
+													"id": "set-text",
+													"objectClass": "StatusStart",
+													"sid": 265306354566075,
+													"parameters": {
+														"text": "TextManager.Translate(\"status.pause\")"
+													}
+												},
+												{
+													"id": "set-visible",
+													"objectClass": "StatusAbort",
+													"sid": 387042804296622,
+													"parameters": {
+														"visibility": "visible"
+													}
+												},
+												{
+													"id": "set-visible",
+													"objectClass": "StatusBack",
+													"sid": 852025290652815,
+													"parameters": {
+														"visibility": "invisible"
+													}
+												}
+											],
+											"sid": 567703731540649
+										},
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "else",
+													"objectClass": "System",
+													"sid": 638608701215256
+												},
+												{
+													"id": "compare-eventvar",
+													"objectClass": "System",
+													"sid": 620533391013558,
+													"parameters": {
+														"variable": "APISuccess",
+														"comparison": 0,
+														"value": "\"paused\""
+													}
+												}
+											],
+											"actions": [
+												{
+													"id": "set-text",
+													"objectClass": "Message",
+													"sid": 906801018092556,
+													"parameters": {
+														"text": "TextManager.Translate(\"status.running-text\")"
+													}
+												},
+												{
+													"id": "set-visible",
+													"objectClass": "StatusProgressBar",
+													"sid": 455165307911753,
+													"parameters": {
+														"visibility": "visible"
+													}
+												},
+												{
+													"id": "set-visible",
+													"objectClass": "StatusStart",
+													"sid": 553066657615444,
+													"parameters": {
+														"visibility": "visible"
+													}
+												},
+												{
+													"id": "set-text",
+													"objectClass": "StatusStart",
+													"sid": 229002506546271,
+													"parameters": {
+														"text": "TextManager.Translate(\"status.resume\")"
+													}
+												},
+												{
+													"id": "set-visible",
+													"objectClass": "StatusAbort",
+													"sid": 737426876046723,
+													"parameters": {
+														"visibility": "visible"
+													}
+												},
+												{
+													"id": "set-visible",
+													"objectClass": "StatusBack",
+													"sid": 915794145322395,
+													"parameters": {
+														"visibility": "invisible"
+													}
+												}
+											],
+											"sid": 127525727709478
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"eventType": "comment",
+					"text": "Change name"
+				},
+				{
+					"eventType": "variable",
+					"name": "isNeedSave",
+					"type": "boolean",
+					"initialValue": "false",
+					"comment": "",
+					"isStatic": true,
+					"isConstant": false,
+					"sid": 901137196979642
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-text-changed",
+							"objectClass": "StatusName",
+							"sid": 698742001802657
+						}
+					],
+					"actions": [
+						{
+							"id": "set-boolean-eventvar",
+							"objectClass": "System",
+							"sid": 514928064929379,
+							"parameters": {
+								"variable": "isNeedSave",
+								"value": "true"
+							}
+						}
+					],
+					"sid": 742355344626189
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "every-x-seconds",
+							"objectClass": "System",
+							"sid": 501023756848759,
+							"parameters": {
+								"interval-seconds": "5"
+							}
+						}
+					],
+					"actions": [
+						{
+							"callFunction": "StatusNameSave",
+							"sid": 637434882979532
+						}
+					],
+					"sid": 479208527248464
+				},
+				{
+					"functionName": "StatusNameSave",
+					"functionCopyPicked": false,
+					"functionDescription": "",
+					"functionCategory": "",
+					"functionReturnType": "none",
+					"functionIsAsync": true,
+					"functionParameters": [],
+					"eventType": "function-block",
+					"conditions": [],
+					"actions": [],
+					"sid": 155091497166931,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-boolean-eventvar",
+									"objectClass": "System",
+									"sid": 976724150435440,
+									"parameters": {
+										"variable": "isNeedSave"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-boolean-eventvar",
+									"objectClass": "System",
+									"sid": 279028382637107,
+									"parameters": {
+										"variable": "isNeedSave",
+										"value": "false"
+									}
+								},
+								{
+									"callFunction": "SetTask",
+									"sid": 591747949171625,
+									"parameters": [
+										"CurrentUserUID",
+										"CurrentPassword",
+										"CurrentTaskUID",
+										"\"name\"",
+										"trim(StatusName.Text)"
+									]
+								},
+								{
+									"id": "wait-for-previous-actions",
+									"objectClass": "System",
+									"sid": 381969898905851
+								}
+							],
+							"sid": 372960311228882
+						}
+					]
+				}
+			],
+			"sid": 332174146467116
+		},
+		{
+			"eventType": "comment",
+			"text": "startup and switch"
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-start-of-layout",
+					"objectClass": "System",
+					"sid": 381825367896886
+				}
+			],
+			"actions": [],
+			"sid": 265491060508962,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "compare-two-values",
+							"objectClass": "System",
+							"sid": 922849086333831,
+							"parameters": {
+								"first-value": "TextManager.Language",
+								"comparison": 0,
+								"second-value": "\"hu\""
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-selection",
+							"objectClass": "LanguageList",
+							"sid": 833222727424076,
+							"parameters": {
+								"index": "0"
+							}
+						}
+					],
+					"sid": 830905140752587
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "compare-two-values",
+							"objectClass": "System",
+							"sid": 884562472152211,
+							"parameters": {
+								"first-value": "TextManager.Language",
+								"comparison": 0,
+								"second-value": "\"en\""
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-selection",
+							"objectClass": "LanguageList",
+							"sid": 522501902241243,
+							"parameters": {
+								"index": "1"
+							}
+						}
+					],
+					"sid": 574304893865474
+				},
+				{
+					"eventType": "block",
+					"conditions": [],
+					"actions": [
+						{
+							"callFunction": "SwitchLayout",
+							"sid": 632192872395841,
+							"parameters": [
+								"\"login\""
+							]
+						}
+					],
+					"sid": 465421915026666
+				},
+				{
+					"eventType": "comment",
+					"text": "letter list update"
+				},
+				{
+					"eventType": "block",
+					"conditions": [],
+					"actions": [
+						{
+							"id": "clear",
+							"objectClass": "LetterPriority",
+							"sid": 542489129272357
+						},
+						{
+							"id": "add-item",
+							"objectClass": "LetterPriority",
+							"sid": 298324253177526,
+							"parameters": {
+								"text": "TextManager.Translate(\"letter.priority.low\")"
+							}
+						},
+						{
+							"id": "add-item",
+							"objectClass": "LetterPriority",
+							"sid": 665390996777645,
+							"parameters": {
+								"text": "TextManager.Translate(\"letter.priority.normal\")"
+							}
+						},
+						{
+							"id": "add-item",
+							"objectClass": "LetterPriority",
+							"sid": 602627524528737,
+							"parameters": {
+								"text": "TextManager.Translate(\"letter.priority.high\")"
+							}
+						}
+					],
+					"sid": 341482724238103
+				}
+			]
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-selection-changed",
+					"objectClass": "LanguageList",
+					"sid": 679873282495705
+				}
+			],
+			"actions": [],
+			"sid": 464465663099285,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "compare-selection",
+							"objectClass": "LanguageList",
+							"sid": 121904740463345,
+							"parameters": {
+								"comparison": 0,
+								"index": "0"
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-language",
+							"objectClass": "TextManager",
+							"sid": 550629556091076,
+							"parameters": {
+								"language": "\"hu\""
+							}
+						}
+					],
+					"sid": 417249308421060
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "else",
+							"objectClass": "System",
+							"sid": 950108468783083
+						},
+						{
+							"id": "compare-selection",
+							"objectClass": "LanguageList",
+							"sid": 539410695659423,
+							"parameters": {
+								"comparison": 0,
+								"index": "1"
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-language",
+							"objectClass": "TextManager",
+							"sid": 934048092391107,
+							"parameters": {
+								"language": "\"en\""
+							}
+						}
+					],
+					"sid": 948250591411808
+				},
+				{
+					"eventType": "block",
+					"conditions": [],
+					"actions": [
+						{
+							"callFunction": "LoginRefreshUI",
+							"sid": 329759949162736
+						}
+					],
+					"sid": 362526998454232
+				},
+				{
+					"eventType": "comment",
+					"text": "letter list update"
+				},
+				{
+					"eventType": "block",
+					"conditions": [],
+					"actions": [
+						{
+							"id": "clear",
+							"objectClass": "LetterPriority",
+							"sid": 642252294066522
+						},
+						{
+							"id": "add-item",
+							"objectClass": "LetterPriority",
+							"sid": 245341388921014,
+							"parameters": {
+								"text": "TextManager.Translate(\"letter.priority.low\")"
+							}
+						},
+						{
+							"id": "add-item",
+							"objectClass": "LetterPriority",
+							"sid": 118629515356258,
+							"parameters": {
+								"text": "TextManager.Translate(\"letter.priority.normal\")"
+							}
+						},
+						{
+							"id": "add-item",
+							"objectClass": "LetterPriority",
+							"sid": 243810548323353,
+							"parameters": {
+								"text": "TextManager.Translate(\"letter.priority.high\")"
+							}
+						}
+					],
+					"sid": 868072740846692
+				}
+			]
+		},
+		{
+			"functionName": "SwitchLayout",
+			"functionCopyPicked": false,
+			"functionDescription": "",
+			"functionCategory": "",
+			"functionReturnType": "none",
+			"functionIsAsync": true,
+			"functionParameters": [
+				{
+					"name": "name",
+					"type": "string",
+					"initialValue": "",
+					"comment": "",
+					"sid": 957055735596221
+				}
+			],
+			"eventType": "function-block",
+			"conditions": [],
+			"actions": [],
+			"sid": 796370523704679,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [],
+					"actions": [],
+					"sid": 203755258637252,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [],
+							"actions": [
+								{
+									"id": "set-group-active",
+									"objectClass": "System",
+									"sid": 942371043409031,
+									"parameters": {
+										"group-name": "\"Login\"",
+										"state": "deactivated"
+									}
+								},
+								{
+									"id": "set-layer-visible",
+									"objectClass": "System",
+									"sid": 389257726415903,
+									"parameters": {
+										"layer": "\"Login\"",
+										"visibility": "invisible"
+									}
+								},
+								{
+									"id": "set-group-active",
+									"objectClass": "System",
+									"sid": 228629141003030,
+									"parameters": {
+										"group-name": "\"Main\"",
+										"state": "deactivated"
+									}
+								},
+								{
+									"id": "set-layer-visible",
+									"objectClass": "System",
+									"sid": 210934145182846,
+									"parameters": {
+										"layer": "\"Main\"",
+										"visibility": "invisible"
+									}
+								},
+								{
+									"id": "set-group-active",
+									"objectClass": "System",
+									"sid": 249514570863322,
+									"parameters": {
+										"group-name": "\"Settings\"",
+										"state": "deactivated"
+									}
+								},
+								{
+									"id": "set-layer-visible",
+									"objectClass": "System",
+									"sid": 203096979026748,
+									"parameters": {
+										"layer": "\"Settings\"",
+										"visibility": "invisible"
+									}
+								},
+								{
+									"id": "set-group-active",
+									"objectClass": "System",
+									"sid": 336403522897133,
+									"parameters": {
+										"group-name": "\"Servers\"",
+										"state": "deactivated"
+									}
+								},
+								{
+									"id": "set-layer-visible",
+									"objectClass": "System",
+									"sid": 570025839868804,
+									"parameters": {
+										"layer": "\"Servers\"",
+										"visibility": "invisible"
+									}
+								},
+								{
+									"id": "set-group-active",
+									"objectClass": "System",
+									"sid": 538042869917264,
+									"parameters": {
+										"group-name": "\"Sending\"",
+										"state": "deactivated"
+									}
+								},
+								{
+									"id": "set-layer-visible",
+									"objectClass": "System",
+									"sid": 907762848811068,
+									"parameters": {
+										"layer": "\"Sending\"",
+										"visibility": "invisible"
+									}
+								},
+								{
+									"id": "set-group-active",
+									"objectClass": "System",
+									"sid": 907579089558074,
+									"parameters": {
+										"group-name": "\"Address\"",
+										"state": "deactivated"
+									}
+								},
+								{
+									"id": "set-layer-visible",
+									"objectClass": "System",
+									"sid": 143089544260507,
+									"parameters": {
+										"layer": "\"Address\"",
+										"visibility": "invisible"
+									}
+								},
+								{
+									"id": "set-group-active",
+									"objectClass": "System",
+									"sid": 782070110200754,
+									"parameters": {
+										"group-name": "\"Letter\"",
+										"state": "deactivated"
+									}
+								},
+								{
+									"id": "set-layer-visible",
+									"objectClass": "System",
+									"sid": 689885783365717,
+									"parameters": {
+										"layer": "\"Letter\"",
+										"visibility": "invisible"
+									}
+								},
+								{
+									"id": "set-group-active",
+									"objectClass": "System",
+									"sid": 851454668178050,
+									"parameters": {
+										"group-name": "\"Status\"",
+										"state": "deactivated"
+									}
+								},
+								{
+									"id": "set-layer-visible",
+									"objectClass": "System",
+									"sid": 924040596953010,
+									"parameters": {
+										"layer": "\"Status\"",
+										"visibility": "invisible"
+									}
+								}
+							],
+							"sid": 610438344243987
+						}
+					]
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "compare-eventvar",
+							"objectClass": "System",
+							"sid": 972341191140695,
+							"parameters": {
+								"variable": "name",
+								"comparison": 0,
+								"value": "\"login\""
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-group-active",
+							"objectClass": "System",
+							"sid": 883556055853702,
+							"parameters": {
+								"group-name": "\"Login\"",
+								"state": "activated"
+							}
+						},
+						{
+							"callFunction": "LoginRefreshUI",
+							"sid": 566623292617981
+						},
+						{
+							"id": "wait-for-previous-actions",
+							"objectClass": "System",
+							"sid": 239794121074395
+						},
+						{
+							"id": "set-layer-visible",
+							"objectClass": "System",
+							"sid": 655591616820594,
+							"parameters": {
+								"layer": "\"Login\"",
+								"visibility": "visible"
+							}
+						}
+					],
+					"sid": 863163550464182
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "else",
+							"objectClass": "System",
+							"sid": 634715509177093
+						},
+						{
+							"id": "compare-eventvar",
+							"objectClass": "System",
+							"sid": 344778171133418,
+							"parameters": {
+								"variable": "name",
+								"comparison": 0,
+								"value": "\"main\""
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-group-active",
+							"objectClass": "System",
+							"sid": 895540240617428,
+							"parameters": {
+								"group-name": "\"Main\"",
+								"state": "activated"
+							}
+						},
+						{
+							"callFunction": "MainRefreshUI",
+							"sid": 569778020616432
+						},
+						{
+							"id": "wait-for-previous-actions",
+							"objectClass": "System",
+							"sid": 813973626543562
+						},
+						{
+							"id": "set-layer-visible",
+							"objectClass": "System",
+							"sid": 452100391335742,
+							"parameters": {
+								"layer": "\"Main\"",
+								"visibility": "visible"
+							}
+						}
+					],
+					"sid": 320665588049225
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "else",
+							"objectClass": "System",
+							"sid": 710762990019563
+						},
+						{
+							"id": "compare-eventvar",
+							"objectClass": "System",
+							"sid": 730243218593995,
+							"parameters": {
+								"variable": "name",
+								"comparison": 0,
+								"value": "\"settings\""
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-group-active",
+							"objectClass": "System",
+							"sid": 137322887101842,
+							"parameters": {
+								"group-name": "\"Settings\"",
+								"state": "activated"
+							}
+						},
+						{
+							"callFunction": "SettingsRefreshUI",
+							"sid": 493585846750104
+						},
+						{
+							"id": "wait-for-previous-actions",
+							"objectClass": "System",
+							"sid": 917732245960725
+						},
+						{
+							"id": "set-layer-visible",
+							"objectClass": "System",
+							"sid": 993187841360297,
+							"parameters": {
+								"layer": "\"Settings\"",
+								"visibility": "visible"
+							}
+						}
+					],
+					"sid": 633582678985118
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "else",
+							"objectClass": "System",
+							"sid": 104296384437603
+						},
+						{
+							"id": "compare-eventvar",
+							"objectClass": "System",
+							"sid": 690634986424795,
+							"parameters": {
+								"variable": "name",
+								"comparison": 0,
+								"value": "\"servers\""
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-group-active",
+							"objectClass": "System",
+							"sid": 447763901390845,
+							"parameters": {
+								"group-name": "\"Servers\"",
+								"state": "activated"
+							}
+						},
+						{
+							"callFunction": "ServersRefreshUI",
+							"sid": 485031341401592
+						},
+						{
+							"id": "wait-for-previous-actions",
+							"objectClass": "System",
+							"sid": 368712094373227
+						},
+						{
+							"id": "set-layer-visible",
+							"objectClass": "System",
+							"sid": 861285708439677,
+							"parameters": {
+								"layer": "\"Servers\"",
+								"visibility": "visible"
+							}
+						}
+					],
+					"sid": 406162542588802
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "else",
+							"objectClass": "System",
+							"sid": 698590608617165
+						},
+						{
+							"id": "compare-eventvar",
+							"objectClass": "System",
+							"sid": 424777303978423,
+							"parameters": {
+								"variable": "name",
+								"comparison": 0,
+								"value": "\"sending\""
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-group-active",
+							"objectClass": "System",
+							"sid": 131181415942156,
+							"parameters": {
+								"group-name": "\"Sending\"",
+								"state": "activated"
+							}
+						},
+						{
+							"callFunction": "SendingRefreshUI",
+							"sid": 668699277699632
+						},
+						{
+							"id": "wait-for-previous-actions",
+							"objectClass": "System",
+							"sid": 354989042353463
+						},
+						{
+							"id": "set-layer-visible",
+							"objectClass": "System",
+							"sid": 205206445208415,
+							"parameters": {
+								"layer": "\"Sending\"",
+								"visibility": "visible"
+							}
+						}
+					],
+					"sid": 892525825342686
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "else",
+							"objectClass": "System",
+							"sid": 485486702684239
+						},
+						{
+							"id": "compare-eventvar",
+							"objectClass": "System",
+							"sid": 319213387972639,
+							"parameters": {
+								"variable": "name",
+								"comparison": 0,
+								"value": "\"address\""
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-group-active",
+							"objectClass": "System",
+							"sid": 766562366620282,
+							"parameters": {
+								"group-name": "\"Address\"",
+								"state": "activated"
+							}
+						},
+						{
+							"callFunction": "AddressRefreshUI",
+							"sid": 517128789457938
+						},
+						{
+							"id": "wait-for-previous-actions",
+							"objectClass": "System",
+							"sid": 311492240118951
+						},
+						{
+							"id": "set-layer-visible",
+							"objectClass": "System",
+							"sid": 520528910690832,
+							"parameters": {
+								"layer": "\"Address\"",
+								"visibility": "visible"
+							}
+						}
+					],
+					"sid": 317344753479772
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "else",
+							"objectClass": "System",
+							"sid": 986643300536247
+						},
+						{
+							"id": "compare-eventvar",
+							"objectClass": "System",
+							"sid": 703800912219380,
+							"parameters": {
+								"variable": "name",
+								"comparison": 0,
+								"value": "\"letter\""
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-group-active",
+							"objectClass": "System",
+							"sid": 640058155876044,
+							"parameters": {
+								"group-name": "\"Letter\"",
+								"state": "activated"
+							}
+						},
+						{
+							"callFunction": "LetterRefreshUI",
+							"sid": 246528493087603
+						},
+						{
+							"id": "wait-for-previous-actions",
+							"objectClass": "System",
+							"sid": 877031261899120
+						},
+						{
+							"id": "set-layer-visible",
+							"objectClass": "System",
+							"sid": 103824806677967,
+							"parameters": {
+								"layer": "\"Letter\"",
+								"visibility": "visible"
+							}
+						}
+					],
+					"sid": 964921198224668
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "else",
+							"objectClass": "System",
+							"sid": 587654309290121
+						},
+						{
+							"id": "compare-eventvar",
+							"objectClass": "System",
+							"sid": 160042140114810,
+							"parameters": {
+								"variable": "name",
+								"comparison": 0,
+								"value": "\"status\""
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-group-active",
+							"objectClass": "System",
+							"sid": 700065066914980,
+							"parameters": {
+								"group-name": "\"Status\"",
+								"state": "activated"
+							}
+						},
+						{
+							"callFunction": "StatusRefreshUI",
+							"sid": 963968942934987
+						},
+						{
+							"id": "wait-for-previous-actions",
+							"objectClass": "System",
+							"sid": 354600475897079
+						},
+						{
+							"id": "set-layer-visible",
+							"objectClass": "System",
+							"sid": 790699186724496,
+							"parameters": {
+								"layer": "\"Status\"",
+								"visibility": "visible"
+							}
+						}
+					],
+					"sid": 200191926016112
+				}
+			]
+		}
+	],
+	"sid": 187509397324495
+}

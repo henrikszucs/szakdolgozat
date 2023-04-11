@@ -1,0 +1,14 @@
+{
+	"name": "AddressBack",
+	"plugin-id": "Button",
+	"sid": 538849518083523,
+	"isGlobal": false,
+	"instanceVariables": [],
+	"behaviorTypes": [
+		{
+			"behaviorId": "RobotKaposzta_TextManagerBehavior",
+			"name": "TextManager",
+			"sid": 953264661962276
+		}
+	]
+}

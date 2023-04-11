@@ -1,0 +1,651 @@
+{
+	"name": "Address",
+	"events": [
+		{
+			"eventType": "include",
+			"includeSheet": "Global"
+		},
+		{
+			"eventType": "comment",
+			"text": "navigation"
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-clicked",
+					"objectClass": "Back",
+					"sid": 965551236825760
+				}
+			],
+			"actions": [
+				{
+					"callFunction": "AddressUploadData",
+					"sid": 368408532653244
+				},
+				{
+					"id": "wait-for-previous-actions",
+					"objectClass": "System",
+					"sid": 976821346719680
+				},
+				{
+					"id": "go-to-layout",
+					"objectClass": "System",
+					"sid": 148102911721579,
+					"parameters": {
+						"layout": "Sending"
+					}
+				}
+			],
+			"sid": 540689400310521
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-clicked",
+					"objectClass": "Next",
+					"sid": 155614974352869
+				}
+			],
+			"actions": [
+				{
+					"callFunction": "AddressUploadData",
+					"sid": 927450184507547
+				},
+				{
+					"id": "wait-for-previous-actions",
+					"objectClass": "System",
+					"sid": 892957175201840
+				},
+				{
+					"id": "go-to-layout",
+					"objectClass": "System",
+					"sid": 971947118868363,
+					"parameters": {
+						"layout": "Letter"
+					}
+				}
+			],
+			"sid": 310447921663598
+		},
+		{
+			"eventType": "comment",
+			"text": "Refresh UI"
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-start-of-layout",
+					"objectClass": "System",
+					"sid": 852310623383027
+				}
+			],
+			"actions": [
+				{
+					"callFunction": "AddressRefreshUI",
+					"sid": 676339746823771
+				}
+			],
+			"sid": 325728707704837
+		},
+		{
+			"functionName": "AddressRefreshUI",
+			"functionCopyPicked": false,
+			"functionDescription": "",
+			"functionCategory": "",
+			"functionReturnType": "none",
+			"functionIsAsync": true,
+			"functionParameters": [],
+			"eventType": "function-block",
+			"conditions": [],
+			"actions": [],
+			"sid": 310642950837638,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [],
+					"actions": [
+						{
+							"callFunction": "GetTask",
+							"sid": 531594114613896,
+							"parameters": [
+								"CurrentUserUID",
+								"CurrentPassword",
+								"CurrentTaskUID",
+								"\"separator\""
+							]
+						},
+						{
+							"id": "wait-for-previous-actions",
+							"objectClass": "System",
+							"sid": 488581636111204
+						},
+						{
+							"id": "set-value",
+							"objectClass": "Task",
+							"sid": 490967148082822,
+							"parameters": {
+								"path": "\"letter.separator\"",
+								"value": "APISuccess"
+							}
+						},
+						{
+							"callFunction": "GetTask",
+							"sid": 414680456478039,
+							"parameters": [
+								"CurrentUserUID",
+								"CurrentPassword",
+								"CurrentTaskUID",
+								"\"useHeaders\""
+							]
+						},
+						{
+							"id": "wait-for-previous-actions",
+							"objectClass": "System",
+							"sid": 227319037621551
+						},
+						{
+							"id": "set-value",
+							"objectClass": "Task",
+							"sid": 282435784801426,
+							"parameters": {
+								"path": "\"letter.useHeaders\"",
+								"value": "APISuccess"
+							}
+						},
+						{
+							"callFunction": "GetTask",
+							"sid": 215664212302788,
+							"parameters": [
+								"CurrentUserUID",
+								"CurrentPassword",
+								"CurrentTaskUID",
+								"\"to\""
+							]
+						},
+						{
+							"id": "wait-for-previous-actions",
+							"objectClass": "System",
+							"sid": 116006252916588
+						},
+						{
+							"id": "set-json",
+							"objectClass": "Task",
+							"sid": 832258936505528,
+							"parameters": {
+								"path": "\"to\"",
+								"json": "APISuccess"
+							}
+						}
+					],
+					"sid": 695656456168296,
+					"children": [
+						{
+							"eventType": "comment",
+							"text": "address"
+						},
+						{
+							"eventType": "block",
+							"conditions": [],
+							"actions": [
+								{
+									"id": "load-json",
+									"objectClass": "CSV",
+									"sid": 336816152850566,
+									"parameters": {
+										"json": "Task.GetAsCompactString(\"to\")"
+									}
+								},
+								{
+									"id": "log",
+									"objectClass": "Browser",
+									"sid": 884943248705301,
+									"parameters": {
+										"type": "log",
+										"message": "Task.GetAsCompactString(\"to\")",
+										"style": "\"\""
+									}
+								},
+								{
+									"id": "set-text",
+									"objectClass": "Address",
+									"sid": 694926828843217,
+									"parameters": {
+										"text": "CSV.AsText(Task.Get(\"letter.separator\"))"
+									}
+								}
+							],
+							"sid": 547636329545480
+						},
+						{
+							"eventType": "comment",
+							"text": "separator"
+						},
+						{
+							"eventType": "block",
+							"conditions": [],
+							"actions": [
+								{
+									"id": "set-text",
+									"objectClass": "AddressSep",
+									"sid": 776577442967520,
+									"parameters": {
+										"text": "Task.Get(\"letter.separator\")"
+									}
+								}
+							],
+							"sid": 186946982881316
+						},
+						{
+							"eventType": "comment",
+							"text": "useHeaders"
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-value",
+									"objectClass": "Task",
+									"sid": 784945245272030,
+									"parameters": {
+										"path": "\"letter.useHeaders\"",
+										"cmp": 0,
+										"value": "\"0\""
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-checked",
+									"objectClass": "AddressHeader",
+									"sid": 408251695385368,
+									"parameters": {
+										"state": "unchecked"
+									}
+								}
+							],
+							"sid": 234829826271105
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 405618228575018
+								}
+							],
+							"actions": [
+								{
+									"id": "set-checked",
+									"objectClass": "AddressHeader",
+									"sid": 120611455800315,
+									"parameters": {
+										"state": "checked"
+									}
+								}
+							],
+							"sid": 447370646993740
+						}
+					]
+				}
+			]
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "AddressSave",
+			"description": "",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"eventType": "variable",
+					"name": "isNeedSave",
+					"type": "boolean",
+					"initialValue": "false",
+					"comment": "",
+					"isStatic": true,
+					"isConstant": false,
+					"sid": 828595874238197
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-text-changed",
+							"objectClass": "Address",
+							"sid": 682454634962407
+						}
+					],
+					"actions": [],
+					"sid": 954759641267146,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [],
+							"actions": [
+								{
+									"id": "set-boolean-eventvar",
+									"objectClass": "System",
+									"sid": 988321009702613,
+									"parameters": {
+										"variable": "isNeedSave",
+										"value": "true"
+									}
+								}
+							],
+							"sid": 802725271114492
+						}
+					]
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-clicked",
+							"objectClass": "AddressFile",
+							"sid": 968178100781838
+						}
+					],
+					"actions": [],
+					"sid": 749517468506524,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [],
+							"actions": [
+								{
+									"id": "click",
+									"objectClass": "AddressFileChooser",
+									"sid": 262125704194890
+								}
+							],
+							"sid": 471971068619397
+						}
+					]
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-changed",
+							"objectClass": "AddressFileChooser",
+							"sid": 857356108769252
+						}
+					],
+					"actions": [],
+					"sid": 301284633501620,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [],
+							"actions": [
+								{
+									"id": "request-url",
+									"objectClass": "AJAX",
+									"sid": 319495059679371,
+									"parameters": {
+										"tag": "\"\"",
+										"url": "AddressFileChooser.FileURLAt(0)"
+									}
+								},
+								{
+									"id": "wait-for-previous-actions",
+									"objectClass": "System",
+									"sid": 883026049237028
+								},
+								{
+									"id": "set-text",
+									"objectClass": "Address",
+									"sid": 352269047951009,
+									"parameters": {
+										"text": "AJAX.LastData"
+									}
+								},
+								{
+									"id": "clear",
+									"objectClass": "AddressFileChooser",
+									"sid": 117269773476316
+								},
+								{
+									"id": "set-boolean-eventvar",
+									"objectClass": "System",
+									"sid": 913590375580535,
+									"parameters": {
+										"variable": "isNeedSave",
+										"value": "true"
+									}
+								}
+							],
+							"sid": 409538117780414
+						}
+					]
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-text-changed",
+							"objectClass": "AddressSep",
+							"sid": 810511029074239
+						}
+					],
+					"actions": [],
+					"sid": 698415096018219,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [],
+							"actions": [
+								{
+									"id": "set-boolean-eventvar",
+									"objectClass": "System",
+									"sid": 361420971741858,
+									"parameters": {
+										"variable": "isNeedSave",
+										"value": "true"
+									}
+								}
+							],
+							"sid": 624503042022804
+						}
+					]
+				},
+				{
+					"functionName": "AddressUploadData",
+					"functionCopyPicked": false,
+					"functionDescription": "",
+					"functionCategory": "",
+					"functionReturnType": "none",
+					"functionIsAsync": true,
+					"functionParameters": [],
+					"eventType": "function-block",
+					"conditions": [],
+					"actions": [],
+					"sid": 851745994739237,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-boolean-eventvar",
+									"objectClass": "System",
+									"sid": 169095818237938,
+									"parameters": {
+										"variable": "isNeedSave"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "load-text",
+									"objectClass": "CSV",
+									"sid": 176346726257853,
+									"parameters": {
+										"text": "Address.Text",
+										"separator": "AddressSep.Text"
+									}
+								},
+								{
+									"id": "log",
+									"objectClass": "Browser",
+									"sid": 396550957073419,
+									"parameters": {
+										"type": "log",
+										"message": "CSV.AsJSON",
+										"style": "\"\""
+									}
+								},
+								{
+									"callFunction": "SetTask",
+									"sid": 606989895646905,
+									"parameters": [
+										"CurrentUserUID",
+										"CurrentPassword",
+										"CurrentTaskUID",
+										"\"to\"",
+										"CSV.AsJSON"
+									]
+								},
+								{
+									"id": "wait-for-previous-actions",
+									"objectClass": "System",
+									"sid": 763117241629249
+								},
+								{
+									"callFunction": "SetTask",
+									"sid": 708601042054102,
+									"parameters": [
+										"CurrentUserUID",
+										"CurrentPassword",
+										"CurrentTaskUID",
+										"\"separator\"",
+										"AddressSep.Text"
+									]
+								},
+								{
+									"id": "wait-for-previous-actions",
+									"objectClass": "System",
+									"sid": 579174586320601
+								},
+								{
+									"id": "set-boolean-eventvar",
+									"objectClass": "System",
+									"sid": 702757069738201,
+									"parameters": {
+										"variable": "isNeedSave",
+										"value": "false"
+									}
+								}
+							],
+							"sid": 290104644599892
+						}
+					]
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "every-x-seconds",
+							"objectClass": "System",
+							"sid": 646545598160621,
+							"parameters": {
+								"interval-seconds": "5"
+							}
+						}
+					],
+					"actions": [],
+					"sid": 291298164264042,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [],
+							"actions": [
+								{
+									"callFunction": "AddressUploadData",
+									"sid": 730890277725104
+								},
+								{
+									"id": "wait-for-previous-actions",
+									"objectClass": "System",
+									"sid": 774942472220119
+								}
+							],
+							"sid": 208352898909443
+						}
+					]
+				},
+				{
+					"eventType": "comment",
+					"text": "set header"
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-clicked",
+							"objectClass": "AddressHeader",
+							"sid": 582252452204405
+						}
+					],
+					"actions": [],
+					"sid": 488424941253664,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "is-checked",
+									"objectClass": "AddressHeader",
+									"sid": 395927224417139
+								}
+							],
+							"actions": [
+								{
+									"callFunction": "SetTask",
+									"sid": 303610149071085,
+									"parameters": [
+										"CurrentUserUID",
+										"CurrentPassword",
+										"CurrentTaskUID",
+										"\"useHeaders\"",
+										"\"1\""
+									]
+								}
+							],
+							"sid": 943319162130165
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 550476529815242
+								}
+							],
+							"actions": [
+								{
+									"callFunction": "SetTask",
+									"sid": 678595082409827,
+									"parameters": [
+										"CurrentUserUID",
+										"CurrentPassword",
+										"CurrentTaskUID",
+										"\"useHeaders\"",
+										"\"0\""
+									]
+								}
+							],
+							"sid": 641285426173322
+						}
+					]
+				}
+			],
+			"sid": 716612027376222
+		}
+	],
+	"sid": 458604353212887
+}

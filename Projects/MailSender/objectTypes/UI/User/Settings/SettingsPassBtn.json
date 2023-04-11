@@ -1,0 +1,14 @@
+{
+	"name": "SettingsPassBtn",
+	"plugin-id": "Button",
+	"sid": 224226802723611,
+	"isGlobal": false,
+	"instanceVariables": [],
+	"behaviorTypes": [
+		{
+			"behaviorId": "RobotKaposzta_TextManagerBehavior",
+			"name": "TextManager",
+			"sid": 520892958742276
+		}
+	]
+}

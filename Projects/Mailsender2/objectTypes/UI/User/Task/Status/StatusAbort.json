@@ -1,0 +1,14 @@
+{
+	"name": "StatusAbort",
+	"plugin-id": "Button",
+	"sid": 439467499515027,
+	"isGlobal": false,
+	"instanceVariables": [],
+	"behaviorTypes": [
+		{
+			"behaviorId": "RobotKaposzta_TextManagerBehavior",
+			"name": "TextManager",
+			"sid": 809984686645406
+		}
+	]
+}

@@ -1,0 +1,386 @@
+{
+	"name": "Loading",
+	"events": [
+		{
+			"eventType": "include",
+			"includeSheet": "Global"
+		},
+		{
+			"eventType": "comment",
+			"text": "Try to initial data"
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-start-of-layout",
+					"objectClass": "System",
+					"sid": 665095944329892
+				}
+			],
+			"actions": [],
+			"sid": 739307263284182,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [],
+					"actions": [
+						{
+							"type": "comment",
+							"text": "temp settings"
+						},
+						{
+							"id": "set-object",
+							"objectClass": "Data",
+							"sid": 198553715816206,
+							"parameters": {
+								"path": "\"temp\""
+							}
+						},
+						{
+							"id": "set-array",
+							"objectClass": "Data",
+							"sid": 325398959982422,
+							"parameters": {
+								"path": "\"temp.lockedUIDs\"",
+								"size": "0"
+							}
+						},
+						{
+							"id": "set-array",
+							"objectClass": "Data",
+							"sid": 566477536055831,
+							"parameters": {
+								"path": "\"temp.groupedTasks\"",
+								"size": "0"
+							}
+						},
+						{
+							"type": "comment",
+							"text": "local settings"
+						},
+						{
+							"id": "set-object",
+							"objectClass": "Data",
+							"sid": 219353712273815,
+							"parameters": {
+								"path": "\"settings\""
+							}
+						},
+						{
+							"id": "set-value",
+							"objectClass": "Data",
+							"sid": 850909766426781,
+							"parameters": {
+								"path": "\"settings.lastUserUID\"",
+								"value": "\"\""
+							}
+						},
+						{
+							"id": "set-value",
+							"objectClass": "Data",
+							"sid": 324769230286188,
+							"parameters": {
+								"path": "\"settings.lastServerUID\"",
+								"value": "\"\""
+							}
+						},
+						{
+							"id": "set-value",
+							"objectClass": "Data",
+							"sid": 884127466857178,
+							"parameters": {
+								"path": "\"settings.lastTaskUID\"",
+								"value": "\"\""
+							}
+						},
+						{
+							"type": "comment",
+							"text": "empty user"
+						},
+						{
+							"id": "set-array",
+							"objectClass": "Data",
+							"sid": 667446084346602,
+							"parameters": {
+								"path": "\"users\"",
+								"size": "0"
+							}
+						}
+					],
+					"sid": 947918810650304
+				},
+				{
+					"eventType": "block",
+					"conditions": [],
+					"actions": [
+						{
+							"id": "clear-storage",
+							"objectClass": "LocalStorage",
+							"sid": 527856278617043,
+							"disabled": true
+						},
+						{
+							"id": "get-item",
+							"objectClass": "LocalStorage",
+							"sid": 107544406575063,
+							"parameters": {
+								"key": "\"settings\""
+							}
+						},
+						{
+							"id": "wait-for-previous-actions",
+							"objectClass": "System",
+							"sid": 257395491682524
+						},
+						{
+							"id": "get-item",
+							"objectClass": "LocalStorage",
+							"sid": 423687554402411,
+							"parameters": {
+								"key": "\"all-user-header\""
+							}
+						},
+						{
+							"id": "wait-for-previous-actions",
+							"objectClass": "System",
+							"sid": 855066865674933
+						},
+						{
+							"id": "go-to-layout",
+							"objectClass": "System",
+							"sid": 942277621587074,
+							"parameters": {
+								"layout": "Program"
+							}
+						},
+						{
+							"id": "go-to-layout",
+							"objectClass": "System",
+							"sid": 304099681859633,
+							"disabled": true,
+							"parameters": {
+								"layout": "Login"
+							}
+						}
+					],
+					"sid": 208315479356098
+				}
+			]
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-item-get",
+					"objectClass": "LocalStorage",
+					"sid": 482809786388595,
+					"parameters": {
+						"key": "\"settings\""
+					}
+				}
+			],
+			"actions": [],
+			"sid": 846695055987647,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "compare-value",
+							"objectClass": "LocalStorage",
+							"sid": 780417369036063,
+							"parameters": {
+								"comparison": 1,
+								"value": "\"\""
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-json",
+							"objectClass": "Data",
+							"sid": 509183304031795,
+							"parameters": {
+								"path": "\"settings\"",
+								"json": "LocalStorage.ItemValue"
+							}
+						}
+					],
+					"sid": 346294404295514
+				}
+			]
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-item-get",
+					"objectClass": "LocalStorage",
+					"sid": 596087690159894,
+					"parameters": {
+						"key": "\"all-user-header\""
+					}
+				}
+			],
+			"actions": [],
+			"sid": 529427765743742,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "compare-value",
+							"objectClass": "LocalStorage",
+							"sid": 924899595113121,
+							"parameters": {
+								"comparison": 1,
+								"value": "\"\""
+							}
+						}
+					],
+					"actions": [],
+					"sid": 736122209501422,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [],
+							"actions": [
+								{
+									"id": "parse",
+									"objectClass": "JSON",
+									"sid": 245659121649486,
+									"parameters": {
+										"data": "LocalStorage.ItemValue"
+									}
+								}
+							],
+							"sid": 417788036445412
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "for-each",
+									"objectClass": "JSON",
+									"sid": 212099103542990,
+									"parameters": {
+										"path": "\"\""
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "push-value",
+									"objectClass": "Data",
+									"sid": 549552421624865,
+									"parameters": {
+										"where": "back",
+										"path": "\"users\"",
+										"value": "\"\""
+									}
+								},
+								{
+									"id": "set-object",
+									"objectClass": "Data",
+									"sid": 245829646811927,
+									"parameters": {
+										"path": "\"users.\" & Data.ArraySize(\"users\")-1"
+									}
+								},
+								{
+									"id": "set-object",
+									"objectClass": "Data",
+									"sid": 538538501858936,
+									"parameters": {
+										"path": "\"users.\" & (Data.ArraySize(\"users\")-1) & \".header\""
+									}
+								},
+								{
+									"id": "set-json",
+									"objectClass": "Data",
+									"sid": 437110645659975,
+									"parameters": {
+										"path": "\"users.\" & (Data.ArraySize(\"users\")-1) & \".header\"",
+										"json": "JSON.GetAsCompactString(JSON.CurrentKey)"
+									}
+								},
+								{
+									"id": "set-object",
+									"objectClass": "Data",
+									"sid": 611474623799049,
+									"parameters": {
+										"path": "\"users.\" & (Data.ArraySize(\"users\")-1) & \".temp\""
+									}
+								},
+								{
+									"id": "set-value",
+									"objectClass": "Data",
+									"sid": 895292958998519,
+									"parameters": {
+										"path": "\"users.\" & (Data.ArraySize(\"users\")-1) & \".temp.key\"",
+										"value": "\"\""
+									}
+								},
+								{
+									"id": "set-value",
+									"objectClass": "Data",
+									"sid": 562759154439834,
+									"parameters": {
+										"path": "\"users.\" & (Data.ArraySize(\"users\")-1) & \".temp.isLocked\"",
+										"value": "0"
+									}
+								},
+								{
+									"id": "set-value",
+									"objectClass": "Data",
+									"sid": 161040306958035,
+									"parameters": {
+										"path": "\"users.\" & (Data.ArraySize(\"users\")-1) & \".temp.lastAction\"",
+										"value": "Date.Now"
+									}
+								}
+							],
+							"sid": 734943035294051
+						},
+						{
+							"eventType": "block",
+							"conditions": [],
+							"actions": [
+								{
+									"id": "go-to-layout",
+									"objectClass": "System",
+									"sid": 422635908844719,
+									"parameters": {
+										"layout": "Program"
+									}
+								},
+								{
+									"id": "go-to-layout",
+									"objectClass": "System",
+									"sid": 816961202773633,
+									"disabled": true,
+									"parameters": {
+										"layout": "Login"
+									}
+								}
+							],
+							"sid": 452680364573633
+						}
+					]
+				}
+			]
+		},
+		{
+			"eventType": "variable",
+			"name": "CSS_DEPENDENCY",
+			"type": "string",
+			"initialValue": ".ql-clipboard p,blockquote,h1,h2,h3,h4,h5,h6,ol,p,pre,ul{margin:0;padding:0}blockquote,h1,h2,h3,h4,h5,h6,ol,ol li,p,pre,ul{counter-reset:list-1 list-2 list-3 list-4 list-5 list-6 list-7 list-8 list-9}.ql-container{box-sizing:border-box;font-family:Helvetica,Arial,sans-serif;font-size:13px;height:100%;margin:0;position:relative}.ql-container.ql-disabled .ql-tooltip{visibility:hidden}.ql-container.ql-disabled ul[data-checked]>li::before,ul[data-checked=false],ul[data-checked=true]{pointer-events:none}.ql-clipboard{left:-100000px;height:1px;overflow-y:hidden;position:absolute;top:50%}ol,ol li:not(.ql-direction-rtl),ul,ul li:not(.ql-direction-rtl){padding-left:1.5em}ol>li,ul>li{list-style-type:none}ul>li::before{content:'\\2022'}ul[data-checked=false]>li *,ul[data-checked=true]>li *{pointer-events:all}ul[data-checked=false]>li::before,ul[data-checked=true]>li::before{color:#777;cursor:pointer;pointer-events:all}ul[data-checked=true]>li::before{content:'\\2611'}ul[data-checked=false]>li::before{content:'\\2610'}li::before{display:inline-block;white-space:nowrap;width:1.2em}li:not(.ql-direction-rtl)::before{margin-left:-1.5em;margin-right:.3em;text-align:right}li.ql-direction-rtl::before{margin-left:.3em;margin-right:-1.5em}ol li.ql-direction-rtl,ul li.ql-direction-rtl{padding-right:1.5em}ol li{counter-increment:list-0}ol li:before{content:counter(list-0,decimal) '. '}ol li.ql-indent-1{counter-increment:list-1;counter-reset:list-2 list-3 list-4 list-5 list-6 list-7 list-8 list-9}ol li.ql-indent-1:before{content:counter(list-1,lower-alpha) '. '}ol li.ql-indent-2{counter-increment:list-2;counter-reset:list-3 list-4 list-5 list-6 list-7 list-8 list-9}ol li.ql-indent-2:before{content:counter(list-2,lower-roman) '. '}ol li.ql-indent-3{counter-increment:list-3;counter-reset:list-4 list-5 list-6 list-7 list-8 list-9}ol li.ql-indent-3:before{content:counter(list-3,decimal) '. '}ol li.ql-indent-4{counter-increment:list-4;counter-reset:list-5 list-6 list-7 list-8 list-9}ol li.ql-indent-4:before{content:counter(list-4,lower-alpha) '. '}ol li.ql-indent-5{counter-increment:list-5;counter-reset:list-6 list-7 list-8 list-9}ol li.ql-indent-5:before{content:counter(list-5,lower-roman) '. '}ol li.ql-indent-6{counter-increment:list-6;counter-reset:list-7 list-8 list-9}ol li.ql-indent-6:before{content:counter(list-6,decimal) '. '}ol li.ql-indent-7{counter-increment:list-7;counter-reset:list-8 list-9}ol li.ql-indent-7:before{content:counter(list-7,lower-alpha) '. '}ol li.ql-indent-8{counter-increment:list-8;counter-reset:list-9}ol li.ql-indent-8:before{content:counter(list-8,lower-roman) '. '}ol li.ql-indent-9{counter-increment:list-9}ol li.ql-indent-9:before{content:counter(list-9,decimal) '. '}.ql-indent-1:not(.ql-direction-rtl){padding-left:3em}li.ql-indent-1:not(.ql-direction-rtl){padding-left:4.5em}.ql-indent-1.ql-direction-rtl.ql-align-right{padding-right:3em}li.ql-indent-1.ql-direction-rtl.ql-align-right{padding-right:4.5em}.ql-indent-2:not(.ql-direction-rtl){padding-left:6em}li.ql-indent-2:not(.ql-direction-rtl){padding-left:7.5em}.ql-indent-2.ql-direction-rtl.ql-align-right{padding-right:6em}li.ql-indent-2.ql-direction-rtl.ql-align-right{padding-right:7.5em}.ql-indent-3:not(.ql-direction-rtl){padding-left:9em}li.ql-indent-3:not(.ql-direction-rtl){padding-left:10.5em}.ql-indent-3.ql-direction-rtl.ql-align-right{padding-right:9em}li.ql-indent-3.ql-direction-rtl.ql-align-right{padding-right:10.5em}.ql-indent-4:not(.ql-direction-rtl){padding-left:12em}li.ql-indent-4:not(.ql-direction-rtl){padding-left:13.5em}.ql-indent-4.ql-direction-rtl.ql-align-right{padding-right:12em}li.ql-indent-4.ql-direction-rtl.ql-align-right{padding-right:13.5em}.ql-indent-5:not(.ql-direction-rtl){padding-left:15em}li.ql-indent-5:not(.ql-direction-rtl){padding-left:16.5em}.ql-indent-5.ql-direction-rtl.ql-align-right{padding-right:15em}li.ql-indent-5.ql-direction-rtl.ql-align-right{padding-right:16.5em}.ql-indent-6:not(.ql-direction-rtl){padding-left:18em}li.ql-indent-6:not(.ql-direction-rtl){padding-left:19.5em}.ql-indent-6.ql-direction-rtl.ql-align-right{padding-right:18em}li.ql-indent-6.ql-direction-rtl.ql-align-right{padding-right:19.5em}.ql-indent-7:not(.ql-direction-rtl){padding-left:21em}li.ql-indent-7:not(.ql-direction-rtl){padding-left:22.5em}.ql-indent-7.ql-direction-rtl.ql-align-right{padding-right:21em}li.ql-indent-7.ql-direction-rtl.ql-align-right{padding-right:22.5em}.ql-indent-8:not(.ql-direction-rtl){padding-left:24em}li.ql-indent-8:not(.ql-direction-rtl){padding-left:25.5em}.ql-indent-8.ql-direction-rtl.ql-align-right{padding-right:24em}li.ql-indent-8.ql-direction-rtl.ql-align-right{padding-right:25.5em}.ql-indent-9:not(.ql-direction-rtl){padding-left:27em}li.ql-indent-9:not(.ql-direction-rtl){padding-left:28.5em}.ql-indent-9.ql-direction-rtl.ql-align-right{padding-right:27em}li.ql-indent-9.ql-direction-rtl.ql-align-right{padding-right:28.5em}.ql-video{display:block;max-width:100%}.ql-video.ql-align-center{margin:0 auto}.ql-video.ql-align-right{margin:0 0 0 auto}.ql-bg-black{background-color:#000}.ql-bg-red{background-color:#e60000}.ql-bg-orange{background-color:#f90}.ql-bg-yellow{background-color:#ff0}.ql-bg-green{background-color:#008a00}.ql-bg-blue{background-color:#06c}.ql-bg-purple{background-color:#93f}.ql-color-white{color:#fff}.ql-color-red{color:#e60000}.ql-color-orange{color:#f90}.ql-color-yellow{color:#ff0}.ql-color-green{color:#008a00}.ql-color-blue{color:#06c}.ql-color-purple{color:#93f}.ql-font-serif{font-family:Georgia,Times New Roman,serif}.ql-font-monospace{font-family:Monaco,Courier New,monospace}.ql-size-small{font-size:.75em}.ql-size-large{font-size:1.5em}.ql-size-huge{font-size:2.5em}.ql-direction-rtl{direction:rtl;text-align:inherit}.ql-align-center{text-align:center}.ql-align-justify{text-align:justify}.ql-align-right{text-align:right}.ql-blank::before{color:rgba(0,0,0,.6);content:attr(data-placeholder);font-style:italic;left:15px;pointer-events:none;position:absolute;right:15px}",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 285166700541802
+		}
+	],
+	"sid": 991874993349666
+}

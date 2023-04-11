@@ -1,0 +1,621 @@
+{
+	"projectFormatVersion": 1,
+	"savedWithRelease": 33600,
+	"name": "Email sender",
+	"runtime": "c3",
+	"useWorker": "auto",
+	"bundleAddons": true,
+	"usedAddons": [
+		{
+			"type": "plugin",
+			"id": "AJAX",
+			"name": "AJAX",
+			"author": "Scirra",
+			"bundled": false
+		},
+		{
+			"type": "plugin",
+			"id": "BinaryData",
+			"name": "Binary Data",
+			"author": "Scirra",
+			"bundled": false
+		},
+		{
+			"type": "plugin",
+			"id": "Button",
+			"name": "Button",
+			"author": "Scirra",
+			"bundled": false
+		},
+		{
+			"type": "plugin",
+			"id": "Date",
+			"name": "Date",
+			"author": "Scirra",
+			"bundled": false
+		},
+		{
+			"type": "plugin",
+			"id": "Json",
+			"name": "JSON",
+			"author": "Scirra",
+			"bundled": false
+		},
+		{
+			"type": "plugin",
+			"id": "Keyboard",
+			"name": "Keyboard",
+			"author": "Scirra",
+			"bundled": false
+		},
+		{
+			"type": "plugin",
+			"id": "List",
+			"name": "List",
+			"author": "Scirra",
+			"bundled": false
+		},
+		{
+			"type": "plugin",
+			"id": "LocalStorage",
+			"name": "Local storage",
+			"author": "Scirra",
+			"bundled": false
+		},
+		{
+			"type": "plugin",
+			"id": "Mouse",
+			"name": "Mouse",
+			"author": "Scirra",
+			"bundled": false
+		},
+		{
+			"type": "plugin",
+			"id": "RobotKaposzta_Browser2",
+			"name": "Browser",
+			"author": "Szűcs Henrik",
+			"bundled": true,
+			"version": "0.6.0.1"
+		},
+		{
+			"type": "plugin",
+			"id": "RobotKaposzta_CSV",
+			"name": "CSV",
+			"author": "Henrik Szűcs",
+			"bundled": true,
+			"version": "0.0.0.2"
+		},
+		{
+			"type": "plugin",
+			"id": "RobotKaposzta_Crypto",
+			"name": "Crypto",
+			"author": "Szűcs Henrik",
+			"bundled": true,
+			"version": "0.0.1.0"
+		},
+		{
+			"type": "plugin",
+			"id": "RobotKaposzta_Mail",
+			"name": "Mail",
+			"author": "Szűcs Henrik",
+			"bundled": true,
+			"version": "0.0.0.1"
+		},
+		{
+			"type": "plugin",
+			"id": "RobotKaposzta_TextEditor",
+			"name": "Text editor",
+			"author": "Henrik Szűcs",
+			"bundled": true,
+			"version": "1.0.0.3"
+		},
+		{
+			"type": "plugin",
+			"id": "RobotKaposzta_TextManager",
+			"name": "Text Manager",
+			"author": "Szűcs Henrik",
+			"bundled": true,
+			"version": "0.0.1.0"
+		},
+		{
+			"type": "plugin",
+			"id": "Sprite",
+			"name": "Sprite",
+			"author": "Scirra",
+			"bundled": false
+		},
+		{
+			"type": "plugin",
+			"id": "Text",
+			"name": "Text",
+			"author": "Scirra",
+			"bundled": false
+		},
+		{
+			"type": "plugin",
+			"id": "TextBox",
+			"name": "Text input",
+			"author": "Scirra",
+			"bundled": false
+		},
+		{
+			"type": "plugin",
+			"id": "Touch",
+			"name": "Touch",
+			"author": "Scirra",
+			"bundled": false
+		},
+		{
+			"type": "plugin",
+			"id": "filechooser",
+			"name": "File chooser",
+			"author": "Scirra",
+			"bundled": false
+		},
+		{
+			"type": "plugin",
+			"id": "progressbar",
+			"name": "Progress bar",
+			"author": "Scirra",
+			"bundled": false
+		},
+		{
+			"type": "behavior",
+			"id": "RobotKaposzta_TextManagerBehavior",
+			"name": "Text Manager",
+			"author": "Szűcs Henrik",
+			"bundled": true,
+			"version": "0.0.1.0"
+		}
+	],
+	"uniqueId": "osd1h8ebtgb",
+	"objectTypes": {
+		"items": [
+			"Data"
+		],
+		"subfolders": [
+			{
+				"items": [
+					"CSV",
+					"LocalStorage",
+					"BinaryData",
+					"Crypto",
+					"Mail",
+					"TextManager",
+					"Browser",
+					"JSON",
+					"Date",
+					"AJAX"
+				],
+				"subfolders": [
+					{
+						"items": [
+							"Mouse",
+							"Touch",
+							"Keyboard"
+						],
+						"subfolders": [],
+						"name": "Input"
+					}
+				],
+				"name": "System"
+			},
+			{
+				"items": [],
+				"subfolders": [
+					{
+						"items": [
+							"LoadingAnim"
+						],
+						"subfolders": [],
+						"name": "Loading"
+					},
+					{
+						"items": [
+							"LoginUsername",
+							"LanguageList",
+							"LoginPass",
+							"LoginCreatePass",
+							"LoginCreatePass2",
+							"LoginCreateUser",
+							"LoginUserList",
+							"LoginDelete"
+						],
+						"subfolders": [],
+						"name": "Login"
+					},
+					{
+						"items": [
+							"Title",
+							"Message",
+							"Next",
+							"Back"
+						],
+						"subfolders": [],
+						"name": "Common"
+					},
+					{
+						"items": [
+							"Tasks",
+							"Servers"
+						],
+						"subfolders": [
+							{
+								"items": [
+									"MainTaskList",
+									"MainSettings",
+									"MainServers",
+									"MainTaskName",
+									"MainDelete"
+								],
+								"subfolders": [],
+								"name": "Main"
+							},
+							{
+								"items": [
+									"SettingsUser",
+									"SettingsPass",
+									"SettingsPass2",
+									"SettingsUserBtn",
+									"SettingsPassBtn"
+								],
+								"subfolders": [],
+								"name": "Settings"
+							},
+							{
+								"items": [
+									"ServersHost",
+									"ServersUser",
+									"ServersPass",
+									"ServersFrom",
+									"ServersDuration",
+									"ServerList",
+									"ServerDurationType",
+									"ServerEdit",
+									"ServerDel",
+									"ServerCreate"
+								],
+								"subfolders": [],
+								"name": "Servers"
+							},
+							{
+								"items": [
+									"Task"
+								],
+								"subfolders": [
+									{
+										"items": [
+											"LetterFileBrowser",
+											"LetterText",
+											"LetterAttachments",
+											"LetterAttachmentsAdd",
+											"LetterAttachmentsRemove",
+											"LetterSubject",
+											"LetterPriority",
+											"LetterBack",
+											"LetterNext"
+										],
+										"subfolders": [],
+										"name": "Letter"
+									},
+									{
+										"items": [
+											"SendingAvailableList",
+											"SendingSelectedList",
+											"SendingAdd",
+											"SendingRemove",
+											"SendingServers",
+											"SendingBack",
+											"SendingNext"
+										],
+										"subfolders": [],
+										"name": "Sending"
+									},
+									{
+										"items": [
+											"AddressSepText",
+											"AddressSep",
+											"AddressHeader",
+											"Address",
+											"AddressFileChooser",
+											"AddressFile",
+											"AddressNext",
+											"AddressBack"
+										],
+										"subfolders": [],
+										"name": "Address"
+									},
+									{
+										"items": [
+											"StatusSuccess",
+											"StatusFailed",
+											"StatusStart",
+											"StatusAbort",
+											"StatusRetry",
+											"StatusProgressBar",
+											"StatusName",
+											"StatusSuccessText",
+											"StatusFailedText",
+											"StatusBack",
+											"StatusNext"
+										],
+										"subfolders": [],
+										"name": "Status"
+									}
+								],
+								"name": "Task"
+							}
+						],
+						"name": "User"
+					}
+				],
+				"name": "UI"
+			}
+		]
+	},
+	"autosaveData": null,
+	"containers": [],
+	"families": {
+		"items": [],
+		"subfolders": []
+	},
+	"layouts": {
+		"items": [
+			"Loading",
+			"Program",
+			"Login"
+		],
+		"subfolders": [
+			{
+				"items": [
+					"Main",
+					"Settings",
+					"Servers"
+				],
+				"subfolders": [
+					{
+						"items": [
+							"Sending",
+							"Address",
+							"Letter",
+							"Status"
+						],
+						"subfolders": [],
+						"name": "Task"
+					}
+				],
+				"name": "User"
+			}
+		]
+	},
+	"eventSheets": {
+		"items": [
+			"Login",
+			"Loading",
+			"Program"
+		],
+		"subfolders": [
+			{
+				"items": [
+					"Global"
+				],
+				"subfolders": [],
+				"name": "Global"
+			},
+			{
+				"items": [
+					"Main",
+					"Settings",
+					"Servers"
+				],
+				"subfolders": [],
+				"name": "User"
+			},
+			{
+				"items": [
+					"Address",
+					"Letter",
+					"Sending",
+					"Status"
+				],
+				"subfolders": [],
+				"name": "Task"
+			}
+		]
+	},
+	"rootFileFolders": {
+		"script": {
+			"items": [],
+			"subfolders": []
+		},
+		"sound": {
+			"items": [],
+			"subfolders": []
+		},
+		"music": {
+			"items": [],
+			"subfolders": []
+		},
+		"video": {
+			"items": [],
+			"subfolders": []
+		},
+		"font": {
+			"items": [],
+			"subfolders": []
+		},
+		"icon": {
+			"items": [
+				{
+					"name": "icon-64.png",
+					"type": "image/png",
+					"sid": 753605928131023,
+					"icon-info": {
+						"purpose": "app-icon"
+					}
+				},
+				{
+					"name": "loading-logo.png",
+					"type": "image/png",
+					"sid": 919402347388849,
+					"icon-info": {
+						"purpose": "loading-logo"
+					}
+				},
+				{
+					"name": "icon-16.png",
+					"type": "image/png",
+					"sid": 986469931139392,
+					"icon-info": {
+						"purpose": "app-icon"
+					}
+				},
+				{
+					"name": "icon-32.png",
+					"type": "image/png",
+					"sid": 428801716246742,
+					"icon-info": {
+						"purpose": "app-icon"
+					}
+				},
+				{
+					"name": "icon-128.png",
+					"type": "image/png",
+					"sid": 346673030525020,
+					"icon-info": {
+						"purpose": "app-icon"
+					}
+				},
+				{
+					"name": "icon-256.png",
+					"type": "image/png",
+					"sid": 976975878595986,
+					"icon-info": {
+						"purpose": "app-icon"
+					}
+				},
+				{
+					"name": "icon-512.png",
+					"type": "image/png",
+					"sid": 992234624964189,
+					"icon-info": {
+						"purpose": "app-icon"
+					}
+				}
+			],
+			"subfolders": []
+		},
+		"general": {
+			"items": [
+				{
+					"name": "memoryScheme.json",
+					"type": "application/json",
+					"sid": 155803597066208,
+					"file-info": {
+						"purpose": "none"
+					}
+				},
+				{
+					"name": "localization.json",
+					"type": "application/json",
+					"sid": 979330505948970,
+					"file-info": {
+						"purpose": "none"
+					}
+				},
+				{
+					"name": "diskScheme.json",
+					"type": "application/json",
+					"sid": 137718142898208,
+					"file-info": {
+						"purpose": "none"
+					}
+				},
+				{
+					"name": "apiScheme.json",
+					"type": "application/json",
+					"sid": 101579319704757,
+					"file-info": {
+						"purpose": "none"
+					}
+				},
+				{
+					"name": "file.json",
+					"type": "application/json",
+					"sid": 777310079217082,
+					"file-info": {
+						"purpose": "none"
+					}
+				}
+			],
+			"subfolders": []
+		}
+	},
+	"timelines": {
+		"items": [
+			"Timeline 1"
+		],
+		"subfolders": [
+			{
+				"items": [],
+				"subfolders": []
+			}
+		]
+	},
+	"properties": {
+		"description": "",
+		"version": "0.0.0.1",
+		"author": "",
+		"authorEmail": "",
+		"authorWebsite": "",
+		"appId": "",
+		"pixelRounding": false,
+		"zAxisScale": "normalized",
+		"fov": 0.7853981633974483,
+		"useLoaderLayout": false,
+		"fullscreenMode": "letterbox-scale",
+		"fullscreenQuality": "high",
+		"viewportFit": "auto",
+		"backgroundColor": [
+			0.9254901960784314,
+			0.9137254901960784,
+			0.8470588235294118,
+			0
+		],
+		"splashColor": [
+			0.9254901960784314,
+			0.9137254901960784,
+			0.8470588235294118,
+			0
+		],
+		"useThemeColor": true,
+		"themeColor": [
+			0.5568627450980392,
+			0.7568627450980392,
+			0.4235294117647059,
+			0
+		],
+		"orientations": "landscape",
+		"webgpu": "auto",
+		"gpuPreference": "high-performance",
+		"scriptsType": "module",
+		"framerateMode": "vsync",
+		"compositingMode": "standard",
+		"sampling": "trilinear",
+		"downscaling": "medium",
+		"renderingMode": "auto",
+		"anisotropicFiltering": "auto",
+		"zNear": 1,
+		"zFar": 10000,
+		"maxSpriteSheetSize": 2048,
+		"loaderStyle": "progress-logo",
+		"preloadSounds": true,
+		"cordovaiOSScheme": "app",
+		"cordovaAndroidScheme": "https",
+		"autoReloadScriptsOnPreview": false,
+		"exportFileStructure": "folders"
+	},
+	"viewportWidth": 720,
+	"viewportHeight": 1280,
+	"firstLayout": "Loading"
+}

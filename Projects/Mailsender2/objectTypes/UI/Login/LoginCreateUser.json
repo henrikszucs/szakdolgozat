@@ -1,0 +1,14 @@
+{
+	"name": "LoginCreateUser",
+	"plugin-id": "TextBox",
+	"sid": 670548715668725,
+	"isGlobal": false,
+	"instanceVariables": [],
+	"behaviorTypes": [
+		{
+			"behaviorId": "RobotKaposzta_TextManagerBehavior",
+			"name": "TextManager",
+			"sid": 758766221140955
+		}
+	]
+}

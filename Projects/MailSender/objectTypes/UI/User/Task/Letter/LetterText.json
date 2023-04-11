@@ -1,0 +1,14 @@
+{
+	"name": "LetterText",
+	"plugin-id": "RobotKaposzta_TextEditor",
+	"sid": 604583976714440,
+	"isGlobal": false,
+	"instanceVariables": [],
+	"behaviorTypes": [
+		{
+			"behaviorId": "RobotKaposzta_TextManagerBehavior",
+			"name": "TextManager",
+			"sid": 700154610453995
+		}
+	]
+}

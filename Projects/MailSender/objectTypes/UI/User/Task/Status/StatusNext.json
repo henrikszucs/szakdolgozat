@@ -1,0 +1,14 @@
+{
+	"name": "StatusNext",
+	"plugin-id": "Button",
+	"sid": 508271355656824,
+	"isGlobal": false,
+	"instanceVariables": [],
+	"behaviorTypes": [
+		{
+			"behaviorId": "RobotKaposzta_TextManagerBehavior",
+			"name": "TextManager",
+			"sid": 214318791876798
+		}
+	]
+}

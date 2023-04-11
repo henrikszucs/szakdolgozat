@@ -1,0 +1,14 @@
+{
+	"name": "LetterAttachmentsRemove",
+	"plugin-id": "Button",
+	"sid": 438909049225314,
+	"isGlobal": false,
+	"instanceVariables": [],
+	"behaviorTypes": [
+		{
+			"behaviorId": "RobotKaposzta_TextManagerBehavior",
+			"name": "TextManager",
+			"sid": 218570746761938
+		}
+	]
+}

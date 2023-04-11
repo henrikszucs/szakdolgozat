@@ -1,0 +1,14 @@
+{
+	"name": "LoginDelete",
+	"plugin-id": "Button",
+	"sid": 726768469437249,
+	"isGlobal": false,
+	"instanceVariables": [],
+	"behaviorTypes": [
+		{
+			"behaviorId": "RobotKaposzta_TextManagerBehavior",
+			"name": "TextManager",
+			"sid": 838145906371929
+		}
+	]
+}

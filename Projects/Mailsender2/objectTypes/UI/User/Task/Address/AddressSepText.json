@@ -1,0 +1,15 @@
+{
+	"name": "AddressSepText",
+	"plugin-id": "Text",
+	"sid": 673284388245386,
+	"isGlobal": false,
+	"instanceVariables": [],
+	"behaviorTypes": [
+		{
+			"behaviorId": "RobotKaposzta_TextManagerBehavior",
+			"name": "TextManager",
+			"sid": 915269060564661
+		}
+	],
+	"effectTypes": []
+}

@@ -1,0 +1,14 @@
+{
+	"name": "StatusBack",
+	"plugin-id": "Button",
+	"sid": 751110400757104,
+	"isGlobal": false,
+	"instanceVariables": [],
+	"behaviorTypes": [
+		{
+			"behaviorId": "RobotKaposzta_TextManagerBehavior",
+			"name": "TextManager",
+			"sid": 613595748060291
+		}
+	]
+}

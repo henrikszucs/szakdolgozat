@@ -1,0 +1,25 @@
+{
+	"name": "TextManager",
+	"plugin-id": "RobotKaposzta_TextManager",
+	"sid": 213360033418117,
+	"singleglobal-inst": {
+		"type": "TextManager",
+		"properties": {
+			"all-language": "hu\nen",
+			"default-language": "en",
+			"save-language": true,
+			"save-state": false,
+			"import-format": "json-multiple",
+			"import-mode": "file",
+			"import-source": "localization.json",
+			"import-language": "",
+			"import-tag": "",
+			"convert-input-format": "array",
+			"convert-input-source": "",
+			"convert-input-language": "",
+			"convert-output-format": "array",
+			"convert-output-source": ""
+		},
+		"uid": 11
+	}
+}

@@ -1,0 +1,14 @@
+{
+	"name": "ServerDel",
+	"plugin-id": "Button",
+	"sid": 845974071423366,
+	"isGlobal": false,
+	"instanceVariables": [],
+	"behaviorTypes": [
+		{
+			"behaviorId": "RobotKaposzta_TextManagerBehavior",
+			"name": "TextManager",
+			"sid": 296656012301529
+		}
+	]
+}

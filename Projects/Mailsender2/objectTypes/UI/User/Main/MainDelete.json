@@ -1,0 +1,14 @@
+{
+	"name": "MainDelete",
+	"plugin-id": "Button",
+	"sid": 519327989122693,
+	"isGlobal": false,
+	"instanceVariables": [],
+	"behaviorTypes": [
+		{
+			"behaviorId": "RobotKaposzta_TextManagerBehavior",
+			"name": "TextManager",
+			"sid": 200303475258918
+		}
+	]
+}

@@ -1,0 +1,123 @@
+{
+	"name": "Loading",
+	"layers": [
+		{
+			"name": "Layer 0",
+			"overriden": 0,
+			"subLayers": [],
+			"instances": [
+				{
+					"type": "LoadingAnim",
+					"properties": {
+						"initially-visible": true,
+						"initial-animation": "Animation 1",
+						"initial-frame": 0,
+						"enable-collisions": true,
+						"live-preview": false
+					},
+					"uid": 13,
+					"instanceVariables": {},
+					"behaviors": {},
+					"world": {
+						"x": 360,
+						"y": 640,
+						"width": 200,
+						"height": 200,
+						"originX": 0.5,
+						"originY": 0.5,
+						"color": [
+							1,
+							1,
+							1,
+							1
+						],
+						"angle": 0,
+						"zElevation": 0
+					}
+				}
+			],
+			"sid": 223684059470023,
+			"effectTypes": [],
+			"isInitiallyVisible": true,
+			"isInitiallyInteractive": true,
+			"color": [
+				1,
+				1,
+				1,
+				1
+			],
+			"backgroundColor": [
+				0.9254901960784314,
+				0.9137254901960784,
+				0.8470588235294118,
+				1
+			],
+			"isTransparent": false,
+			"parallaxX": 1,
+			"parallaxY": 1,
+			"scaleRate": 1,
+			"forceOwnTexture": false,
+			"renderingMode": "3d",
+			"drawOrder": "z-order",
+			"useRenderCells": false,
+			"blendMode": "normal",
+			"zElevation": 0,
+			"global": false
+		}
+	],
+	"sid": 525721139946988,
+	"nonworld-instances": [
+		{
+			"type": "Data",
+			"properties": {},
+			"uid": 2,
+			"instanceVariables": {}
+		},
+		{
+			"type": "BinaryData",
+			"properties": {
+				"endian": "big"
+			},
+			"uid": 5,
+			"instanceVariables": {}
+		},
+		{
+			"type": "JSON",
+			"properties": {},
+			"uid": 14,
+			"instanceVariables": {}
+		},
+		{
+			"type": "LoginUserList",
+			"properties": {},
+			"uid": 25,
+			"instanceVariables": {}
+		},
+		{
+			"type": "Task",
+			"properties": {},
+			"uid": 26,
+			"instanceVariables": {}
+		},
+		{
+			"type": "Tasks",
+			"properties": {},
+			"uid": 36,
+			"instanceVariables": {}
+		},
+		{
+			"type": "Servers",
+			"properties": {},
+			"uid": 63,
+			"instanceVariables": {}
+		}
+	],
+	"effectTypes": [],
+	"width": 720,
+	"height": 1280,
+	"unboundedScrolling": false,
+	"vpX": 0.5,
+	"vpY": 0.5,
+	"projection": "perspective",
+	"eventSheet": "Loading"
+}

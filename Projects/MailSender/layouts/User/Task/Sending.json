@@ -1,0 +1,357 @@
+{
+	"name": "Sending",
+	"layers": [
+		{
+			"name": "Layer 0",
+			"overriden": 0,
+			"subLayers": [],
+			"instances": [
+				{
+					"type": "SendingAvailableList",
+					"properties": {
+						"items": "",
+						"tooltip": "",
+						"initially-visible": true,
+						"enabled": true,
+						"type": "dropdown-list",
+						"multi-select": false,
+						"auto-font-size": false,
+						"id": "",
+						"class": ""
+					},
+					"uid": 62,
+					"instanceVariables": {},
+					"behaviors": {},
+					"world": {
+						"x": 160.5,
+						"y": 217,
+						"width": 400,
+						"height": 100,
+						"originX": 0,
+						"originY": 0,
+						"color": [
+							1,
+							1,
+							1,
+							1
+						]
+					}
+				},
+				{
+					"type": "SendingSelectedList",
+					"properties": {
+						"items": "",
+						"tooltip": "",
+						"initially-visible": true,
+						"enabled": true,
+						"type": "list-box",
+						"multi-select": true,
+						"auto-font-size": false,
+						"id": "",
+						"class": ""
+					},
+					"uid": 64,
+					"instanceVariables": {},
+					"behaviors": {},
+					"world": {
+						"x": 85,
+						"y": 487,
+						"width": 550,
+						"height": 360,
+						"originX": 0,
+						"originY": 0,
+						"color": [
+							1,
+							1,
+							1,
+							1
+						]
+					}
+				},
+				{
+					"type": "SendingAdd",
+					"properties": {
+						"type": "button",
+						"text": "OK",
+						"tooltip": "",
+						"initially-visible": true,
+						"enabled": true,
+						"auto-font-size": false,
+						"checked": false,
+						"id": "",
+						"class": ""
+					},
+					"uid": 65,
+					"instanceVariables": {},
+					"behaviors": {
+						"TextManager": {
+							"properties": {
+								"key": "sending.add",
+								"lang": "",
+								"enabled": true
+							}
+						}
+					},
+					"world": {
+						"x": 160,
+						"y": 370,
+						"width": 170,
+						"height": 60,
+						"originX": 0,
+						"originY": 0,
+						"color": [
+							1,
+							1,
+							1,
+							1
+						]
+					}
+				},
+				{
+					"type": "SendingRemove",
+					"properties": {
+						"type": "button",
+						"text": "OK",
+						"tooltip": "",
+						"initially-visible": true,
+						"enabled": true,
+						"auto-font-size": false,
+						"checked": false,
+						"id": "",
+						"class": ""
+					},
+					"uid": 66,
+					"instanceVariables": {},
+					"behaviors": {
+						"TextManager": {
+							"properties": {
+								"key": "sending.remove",
+								"lang": "",
+								"enabled": true
+							}
+						}
+					},
+					"world": {
+						"x": 400,
+						"y": 370,
+						"width": 170,
+						"height": 60,
+						"originX": 0,
+						"originY": 0,
+						"color": [
+							1,
+							1,
+							1,
+							1
+						]
+					}
+				},
+				{
+					"type": "Title",
+					"properties": {
+						"text": "Text",
+						"enable-bbcode": true,
+						"font": "Arial",
+						"size": 36,
+						"line-height": 0,
+						"bold": false,
+						"italic": false,
+						"color": [
+							0,
+							0,
+							0,
+							1
+						],
+						"horizontal-alignment": "center",
+						"vertical-alignment": "top",
+						"wrapping": "word",
+						"initially-visible": true,
+						"origin": "top",
+						"read-aloud": false
+					},
+					"uid": 67,
+					"instanceVariables": {},
+					"behaviors": {
+						"TextManager": {
+							"properties": {
+								"key": "sending.title",
+								"lang": "",
+								"enabled": true
+							}
+						}
+					},
+					"world": {
+						"x": 360,
+						"y": 16,
+						"width": 493,
+						"height": 80,
+						"originX": 0.5,
+						"originY": 0,
+						"color": [
+							1,
+							1,
+							1,
+							1
+						],
+						"angle": 0,
+						"zElevation": 0
+					}
+				},
+				{
+					"type": "Back",
+					"properties": {
+						"type": "button",
+						"text": "Kijelentkezés",
+						"tooltip": "",
+						"initially-visible": true,
+						"enabled": true,
+						"auto-font-size": false,
+						"checked": false,
+						"id": "",
+						"class": ""
+					},
+					"uid": 68,
+					"instanceVariables": {},
+					"behaviors": {
+						"TextManager": {
+							"properties": {
+								"key": "sending.back",
+								"lang": "",
+								"enabled": true
+							}
+						}
+					},
+					"world": {
+						"x": 25,
+						"y": 1155,
+						"width": 300,
+						"height": 100,
+						"originX": 0,
+						"originY": 0,
+						"color": [
+							1,
+							1,
+							1,
+							1
+						]
+					}
+				},
+				{
+					"type": "Next",
+					"properties": {
+						"type": "button",
+						"text": "Szerkesztés",
+						"tooltip": "",
+						"initially-visible": true,
+						"enabled": true,
+						"auto-font-size": false,
+						"checked": false,
+						"id": "",
+						"class": ""
+					},
+					"uid": 69,
+					"instanceVariables": {},
+					"behaviors": {
+						"TextManager": {
+							"properties": {
+								"key": "sending.next",
+								"lang": "",
+								"enabled": true
+							}
+						}
+					},
+					"world": {
+						"x": 395,
+						"y": 1155,
+						"width": 300,
+						"height": 100,
+						"originX": 0,
+						"originY": 0,
+						"color": [
+							1,
+							1,
+							1,
+							1
+						]
+					}
+				},
+				{
+					"type": "SendingServers",
+					"properties": {
+						"type": "button",
+						"text": "OK",
+						"tooltip": "",
+						"initially-visible": true,
+						"enabled": true,
+						"auto-font-size": false,
+						"checked": false,
+						"id": "",
+						"class": ""
+					},
+					"uid": 96,
+					"instanceVariables": {},
+					"behaviors": {
+						"TextManager": {
+							"properties": {
+								"key": "sending.edit",
+								"lang": "",
+								"enabled": true
+							}
+						}
+					},
+					"world": {
+						"x": 160,
+						"y": 128,
+						"width": 400,
+						"height": 60,
+						"originX": 0,
+						"originY": 0,
+						"color": [
+							1,
+							1,
+							1,
+							1
+						]
+					}
+				}
+			],
+			"sid": 808975421021588,
+			"effectTypes": [],
+			"isInitiallyVisible": true,
+			"isInitiallyInteractive": true,
+			"color": [
+				1,
+				1,
+				1,
+				1
+			],
+			"backgroundColor": [
+				0.9254901960784314,
+				0.9137254901960784,
+				0.8470588235294118,
+				1
+			],
+			"isTransparent": false,
+			"parallaxX": 1,
+			"parallaxY": 1,
+			"scaleRate": 1,
+			"forceOwnTexture": false,
+			"renderingMode": "3d",
+			"drawOrder": "z-order",
+			"useRenderCells": false,
+			"blendMode": "normal",
+			"zElevation": 0,
+			"global": false
+		}
+	],
+	"sid": 848510487504887,
+	"nonworld-instances": [],
+	"effectTypes": [],
+	"width": 720,
+	"height": 1280,
+	"unboundedScrolling": false,
+	"vpX": 0.5,
+	"vpY": 0.5,
+	"projection": "perspective",
+	"eventSheet": "Sending"
+}

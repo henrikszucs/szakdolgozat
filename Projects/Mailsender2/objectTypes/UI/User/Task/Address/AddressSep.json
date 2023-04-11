@@ -1,0 +1,14 @@
+{
+	"name": "AddressSep",
+	"plugin-id": "TextBox",
+	"sid": 670125329489936,
+	"isGlobal": false,
+	"instanceVariables": [],
+	"behaviorTypes": [
+		{
+			"behaviorId": "RobotKaposzta_TextManagerBehavior",
+			"name": "TextManager",
+			"sid": 760074926315866
+		}
+	]
+}

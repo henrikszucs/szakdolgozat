@@ -1,0 +1,14 @@
+{
+	"name": "ServersPass",
+	"plugin-id": "TextBox",
+	"sid": 265822751735763,
+	"isGlobal": false,
+	"instanceVariables": [],
+	"behaviorTypes": [
+		{
+			"behaviorId": "RobotKaposzta_TextManagerBehavior",
+			"name": "TextManager",
+			"sid": 793606475090289
+		}
+	]
+}

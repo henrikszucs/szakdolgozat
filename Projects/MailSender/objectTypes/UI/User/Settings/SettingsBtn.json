@@ -1,0 +1,14 @@
+{
+	"name": "SettingsBtn",
+	"plugin-id": "Button",
+	"sid": 279015269793769,
+	"isGlobal": false,
+	"instanceVariables": [],
+	"behaviorTypes": [
+		{
+			"behaviorId": "RobotKaposzta_TextManagerBehavior",
+			"name": "TextManager",
+			"sid": 361339728017574
+		}
+	]
+}

@@ -1,0 +1,14 @@
+{
+	"name": "Address",
+	"plugin-id": "TextBox",
+	"sid": 271783626689654,
+	"isGlobal": false,
+	"instanceVariables": [],
+	"behaviorTypes": [
+		{
+			"behaviorId": "RobotKaposzta_TextManagerBehavior",
+			"name": "TextManager",
+			"sid": 839990589301801
+		}
+	]
+}

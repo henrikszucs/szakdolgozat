@@ -1,0 +1,14 @@
+{
+	"name": "MainTaskName",
+	"plugin-id": "TextBox",
+	"sid": 883134045010053,
+	"isGlobal": false,
+	"instanceVariables": [],
+	"behaviorTypes": [
+		{
+			"behaviorId": "RobotKaposzta_TextManagerBehavior",
+			"name": "TextManager",
+			"sid": 476649982157530
+		}
+	]
+}

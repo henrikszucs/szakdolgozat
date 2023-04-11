@@ -1,0 +1,14 @@
+{
+	"name": "LetterAttachmentsAdd",
+	"plugin-id": "Button",
+	"sid": 899536419094770,
+	"isGlobal": false,
+	"instanceVariables": [],
+	"behaviorTypes": [
+		{
+			"behaviorId": "RobotKaposzta_TextManagerBehavior",
+			"name": "TextManager",
+			"sid": 427351208490669
+		}
+	]
+}

@@ -1,0 +1,14 @@
+{
+	"name": "StatusStart",
+	"plugin-id": "Button",
+	"sid": 818522221153518,
+	"isGlobal": false,
+	"instanceVariables": [],
+	"behaviorTypes": [
+		{
+			"behaviorId": "RobotKaposzta_TextManagerBehavior",
+			"name": "TextManager",
+			"sid": 576151116759494
+		}
+	]
+}

@@ -1,0 +1,10 @@
+{
+	"name": "Crypto",
+	"plugin-id": "RobotKaposzta_Crypto",
+	"sid": 696387830958008,
+	"singleglobal-inst": {
+		"type": "Crypto",
+		"properties": {},
+		"uid": 6
+	}
+}

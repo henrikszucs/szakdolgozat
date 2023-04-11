@@ -1,0 +1,14 @@
+{
+	"name": "AddressHeader",
+	"plugin-id": "Button",
+	"sid": 659991223004882,
+	"isGlobal": false,
+	"instanceVariables": [],
+	"behaviorTypes": [
+		{
+			"behaviorId": "RobotKaposzta_TextManagerBehavior",
+			"name": "TextManager",
+			"sid": 267414074067271
+		}
+	]
+}

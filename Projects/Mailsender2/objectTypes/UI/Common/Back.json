@@ -1,0 +1,14 @@
+{
+	"name": "Back",
+	"plugin-id": "Button",
+	"sid": 505374891082035,
+	"isGlobal": false,
+	"instanceVariables": [],
+	"behaviorTypes": [
+		{
+			"behaviorId": "RobotKaposzta_TextManagerBehavior",
+			"name": "TextManager",
+			"sid": 560184116868570
+		}
+	]
+}

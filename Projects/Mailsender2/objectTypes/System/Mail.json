@@ -1,0 +1,10 @@
+{
+	"name": "Mail",
+	"plugin-id": "RobotKaposzta_Mail",
+	"sid": 145615635984626,
+	"singleglobal-inst": {
+		"type": "Mail",
+		"properties": {},
+		"uid": 7
+	}
+}
