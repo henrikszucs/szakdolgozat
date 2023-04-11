@@ -1,0 +1,212 @@
+﻿{
+    "load": {
+        "actions": [
+			{
+                "id": "load-text",
+                "scriptName": "LoadText",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "text",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    },
+					{
+                        "id": "separator",
+                        "type": "string",
+                        "initialValue": "\",\""
+                    }
+                ],
+                "isAsync": false
+            },
+            {
+                "id": "load-json",
+                "scriptName": "LoadJSON",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "json",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    }
+                ],
+                "isAsync": false
+            },
+            {
+                "id": "load-array",
+                "scriptName": "LoadArray",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "array",
+                        "type": "object",
+                        "allowedPluginIds": ["Arr"]
+                    },
+					{
+                        "id": "axis",
+                        "type": "combo",
+                        "initialValue": "z",
+                        "items": [
+                            "x",
+                            "y",
+                            "z"
+                        ]
+                    },
+					{
+                        "id": "index",
+                        "type": "number",
+                        "initialValue": "0"
+                    }
+                ],
+                "isAsync": false
+            }
+        ],
+        "conditions": [
+            
+        ],
+        "expressions": [
+			
+        ]
+    },
+	"save": {
+		"actions": [
+			{
+                "id": "set-array",
+                "scriptName": "SetArray",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "array",
+                        "type": "object",
+                        "allowedPluginIds": ["Arr"]
+                    },
+					{
+                        "id": "axis",
+                        "type": "combo",
+                        "initialValue": "z",
+                        "items": [
+                            "x",
+                            "y",
+                            "z"
+                        ]
+                    },
+					{
+                        "id": "index",
+                        "type": "number",
+                        "initialValue": "0"
+                    },
+                    {
+                        "id": "resize",
+                        "type": "boolean",
+                        "initialValue": "true"
+                    }
+                ],
+                "isAsync": false
+            }
+        ],
+        "conditions": [
+            
+        ],
+        "expressions": [
+			{
+                "id": "as-text",
+                "expressionName": "AsText",
+                "isDeprecated": false,
+                "highlight": false,
+                "returnType": "string",
+                "isVariadicParameters": true
+            },
+			{
+                "id": "as-json",
+                "expressionName": "AsJSON",
+                "isDeprecated": false,
+                "highlight": false,
+                "returnType": "string",
+                "isVariadicParameters": false
+            }
+        ]
+	},
+	"data": {
+		"actions": [
+			{
+                "id": "transpose",
+                "scriptName": "Transpose",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "type",
+                        "type": "combo",
+                        "initialValue": "toggle",
+                        "items": [
+                            "original",
+                            "reverse",
+                            "toggle"
+                        ]
+                    }
+                ],
+                "isAsync": false
+            },
+            {
+                "id": "clear",
+                "scriptName": "Clear",
+                "isDeprecated": false,
+                "highlight": false,
+                "isAsync": false
+            }
+        ],
+        "conditions": [
+            
+        ],
+        "expressions": [
+			{
+                "id": "separator",
+                "expressionName": "Separator",
+                "isDeprecated": false,
+                "highlight": false,
+                "returnType": "string",
+                "isVariadicParameters": false
+            },
+            {
+                "id": "width",
+                "expressionName": "Width",
+                "isDeprecated": false,
+                "highlight": false,
+                "returnType": "number",
+                "isVariadicParameters": false
+            },
+            {
+                "id": "height",
+                "expressionName": "Height",
+                "isDeprecated": false,
+                "highlight": false,
+                "returnType": "number",
+                "isVariadicParameters": false
+            },
+            {
+                "id": "at",
+                "expressionName": "At",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "x",
+                        "type": "number",
+                        "initialValue": "0"
+                    },
+                    {
+                        "id": "y",
+                        "type": "number",
+                        "initialValue": "0"
+                    }
+                ],
+                "returnType": "string",
+                "isVariadicParameters": false
+            }
+        ]
+	}
+}

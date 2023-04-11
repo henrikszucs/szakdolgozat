@@ -2,7 +2,7 @@
 {
     const SDK = self.SDK;
     const PLUGIN_ID = "RobotKaposzta_TextEditor";
-    const PLUGIN_VERSION = "1.0.0.1";
+    const PLUGIN_VERSION = "1.0.0.3";
 
     /**
      * @external IPluginBase

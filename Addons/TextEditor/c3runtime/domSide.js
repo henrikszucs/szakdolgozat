@@ -57,6 +57,7 @@
             elem2.style.display = "table";
             elem2.style.borderCollapse = "collapse";
             elem2.style.color = "black";
+            elem2.style.backgroundColor = "white";
 
             this._editor = new self["Quill"](elem3, {
                 "modules": {

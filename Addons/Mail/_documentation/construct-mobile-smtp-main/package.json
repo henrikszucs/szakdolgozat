@@ -1,0 +1,39 @@
+{
+    "name": "construct-mobile-smtp",
+    "version": "2.3.8",
+    "description": "Basic SMTP client for editing and sending email messages",
+    "cordova": {
+        "id": "construct-mobile-smtp",
+        "platforms": [
+            "android",
+            "ios"
+        ]
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/henrikszucs/construct-mobile-smtp.git"
+    },
+    "keywords": [
+        "cordova",
+        "smtp",
+        "email",
+        "ecosystem:cordova",
+        "cordova-android",
+        "cordova-ios"
+    ],
+    "author": "Henrik Szűcs and others (see README.MD)",
+    "license": "Apache-2.0",
+    "engines": [{
+            "name": "cordova",
+            "version": ">=6.0.0"
+        },
+        {
+            "name": "cordova-android",
+            "version": ">=6.2.0"
+        },
+        {
+            "name": "cordova-ios",
+            "version": ">=4.0.0"
+        }
+    ]
+}

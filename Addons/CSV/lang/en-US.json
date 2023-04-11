@@ -1,0 +1,170 @@
+﻿{
+    "languageTag": "en-US",
+    "fileDescription": "Strings for CSV plugin.",
+    "text": {
+        "plugins": {
+            "robotkaposzta_csv": {
+                "name": "CSV",
+                "description": "Plugin to handle CSV text.",
+                "help-url": "https://epicsoft.hu",
+                "properties": {
+
+                },
+                "debugger": {
+                    "name": "CSV",
+                    "data": {
+                        "name": "Data"
+                    }
+                },
+                "aceCategories": {
+                    "load": "Load",
+                    "save": "Save",
+                    "data": "Data"
+                },
+                "actions": {
+                    "load-text": {
+                        "list-name": "Load text",
+                        "display-text": "Load [i]{0}[/i] text (separator: [i]{1}[/i])",
+                        "description": "Load and parse CSV text to memory.",
+                        "params": {
+                            "text": {
+                                "name": "Text",
+                                "desc": "CSV text to load."
+                            },
+                            "separator": {
+                                "name": "Separator",
+                                "desc": "CSV separator character"
+                            }
+                        }
+                    },
+                    "load-json": {
+                        "list-name": "Load JSON",
+                        "display-text": "Load [i]{0}[/i] JSON",
+                        "description": "Load and parse JSON 2D array to memory.",
+                        "params": {
+                            "json": {
+                                "name": "JSON",
+                                "desc": "JSON text to load."
+                            }
+                        }
+                    },
+                    "load-array": {
+                        "list-name": "Load array",
+                        "display-text": "Load [i]{0}[/i] array (direction: [i]{1}[/i], index: [i]{2}[/i])",
+                        "description": "Copy array data.",
+                        "params": {
+                            "array": {
+                                "name": "Array",
+                                "desc": "Array to load."
+                            },
+                            "axis": {
+                                "name": "Axis",
+                                "desc": "Main axis to load.",
+                                "items": {
+                                    "x": "X",
+                                    "y": "Y",
+                                    "z": "Z"
+                                }
+                            },
+                            "index": {
+                                "name": "Index",
+                                "desc": "Index to load."
+                            }
+                        }
+                    },
+
+                    "set-array": {
+                        "list-name": "Set array",
+                        "display-text": "Set [i]{0}[/i] array (direction: [i]{1}[/i], index: [i]{2}[/i], resize: [i]{3}[/i])",
+                        "description": "Copy loaded data to array.",
+                        "params": {
+                            "array": {
+                                "name": "Array",
+                                "desc": "Array to set."
+                            },
+                            "axis": {
+                                "name": "Axis",
+                                "desc": "Main axis to set.",
+                                "items": {
+                                    "x": "X",
+                                    "y": "Y",
+                                    "z": "Z"
+                                }
+                            },
+                            "index": {
+                                "name": "Index",
+                                "desc": "Index to set."
+                            },
+                            "resize": {
+                                "name": "Resize",
+                                "desc": "Resize array if need."
+                            }
+                        }
+                    },
+
+                    "transpose": {
+                        "list-name": "Transpose",
+                        "display-text": "Transpose (direction: [i]{0}[/i])",
+                        "description": "Transpose swap width (X) and height (Y) columns",
+                        "params": {
+                            "type": {
+                                "name": "Type",
+                                "desc": "Transpose type to set.",
+                                "items": {
+                                    "original": "original",
+                                    "reverse": "reverse",
+                                    "toggle": "toggle"
+                                }
+                            }
+                        }
+                    },
+                    "clear": {
+                        "list-name": "Clear",
+                        "display-text": "Clear",
+                        "description": "Clear current data from memory."
+                    }
+                },
+                "conditions": {
+
+                },
+                "expressions": {
+                    "as-text": {
+                        "translated-name": "AsText",
+                        "description": "Get data as CSV text data. Override separator charater in first parameter."
+                    },
+                    "as-json": {
+                        "translated-name": "AsJSON",
+                        "description": "Get data as JSON array."
+                    },
+
+                    "separator": {
+                        "translated-name": "Separator",
+                        "description": "Get the loaded data's CSV separator."
+                    },
+                    "width": {
+                        "translated-name": "Width",
+                        "description": "Get loaded data width."
+                    },
+                    "height": {
+                        "translated-name": "Height",
+                        "description": "Get loaded data height."
+                    },
+                    "at": {
+                        "translated-name": "At",
+                        "description": "Get the data at index",
+                        "params": {
+                            "x": {
+                                "name": "X",
+                                "desc": "Zero based X index to get."
+                            },
+                            "y": {
+                                "name": "Y",
+                                "desc": "Zero based Y index to get."
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -333,7 +333,7 @@
          * @returns {string} CSS dependency
          */
         _GetCSSDependency() {
-            return "<style>" + CSS_DEPEMDENCY + "</style>";
+            return CSS_DEPEMDENCY;
         }
     };
     C3.Plugins.RobotKaposzta_TextEditor.Instance = TextEditorRuntimeInstance;

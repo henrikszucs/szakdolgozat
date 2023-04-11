@@ -3,7 +3,7 @@
     "type": "plugin",
     "name": "Text editor",
     "id": "RobotKaposzta_TextEditor",
-    "version": "1.0.0.1",
+    "version": "1.0.0.3",
     "author": "Henrik Szűcs",
     "website": "https://www.epicsoft.hu",
     "documentation": "https://www.epicsoft.hu",

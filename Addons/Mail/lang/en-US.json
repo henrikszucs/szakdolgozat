@@ -1,0 +1,133 @@
+﻿{
+    "languageTag": "en-US",
+    "fileDescription": "Strings for Mail plugin.",
+    "text": {
+        "plugins": {
+            "robotkaposzta_mail": {
+                "name": "Mail",
+                "description": "Mail plugin to send email messages via SMTP protocoll.",
+                "help-url": "http://epicsoft.hu",
+                "properties": {
+
+                },
+                "debugger": {
+
+                },
+                "aceCategories": {
+                    "send": "Send",
+                    "recive": "Recive",
+                    "server": "Server"
+                },
+                "actions": {
+                    "send": {
+                        "list-name": "Send mail",
+                        "display-text": "Send [i]{0}[/i] mail (host: [i]{1}[/i], user: [i]{2}[/i], password: [i]{3}[/i], from: [i]{4}[/i], to: [i]{5}[/i], cc: [i]{6}[/i], bcc: [i]{7}[/i], subject: [i]{8}[/i], text: [i]{9}[/i], priority: [i]{10}[/i])",
+                        "description": "Send an e-mail via SMTP protocoll.",
+                        "params": {
+                            "tag": {
+                                "name": "Tag",
+                                "desc": "Tag of the sending process."
+                            },
+                            "host": {
+                                "name": "Host",
+                                "desc": "Address of the SMTP server with port. e.g. smtp.gmail.com:465"
+                            },
+                            "user": {
+                                "name": "Username",
+                                "desc": "Username to autentication."
+                            },
+                            "password": {
+                                "name": "Password",
+                                "desc": "Username's password to connect."
+                            },
+                            "from": {
+                                "name": "From",
+                                "desc": "Comma seperated email lits on the 'From' field. e.g. \"My Name\" <myemail@example.com>"
+                            },
+                            "to": {
+                                "name": "To",
+                                "desc": "Comma seperated email lits on the 'To' field. e.g. \"John Doe\" <john.doe@example.com>, \"Peter Griffin\" <peter.griffin@example.com>"
+                            },
+                            "cc": {
+                                "name": "Cc",
+                                "desc": "Comma seperated email lits on the 'Cc' field. e.g. \"John Doe\" <john.doe@example.com>, \"Peter Griffin\" <peter.griffin@example.com>"
+                            },
+                            "bcc": {
+                                "name": "Bcc",
+                                "desc": "Comma seperated email lits on the 'Bcc' field. e.g. \"John Doe\" <john.doe@example.com>, \"Peter Griffin\" <peter.griffin@example.com>"
+                            },
+                            "subject": {
+                                "name": "Subject",
+                                "desc": "Subject of the email."
+                            },
+                            "message": {
+                                "name": "Message",
+                                "desc": "Email content. HTML format useful for visually formatted emails."
+                            },
+                            "priority": {
+                                "name": "Priority",
+                                "desc": "Email priority when send email.",
+                                "items": {
+                                    "low": "low",
+                                    "normal": "normal",
+                                    "high": "high"
+                                }
+                            }
+                        }
+                    },
+                    "add-attachment": {
+                        "list-name": "Add attachment",
+                        "display-text": "Add [i]{0}[/i] attachment (role:[i]{1}[/i], type: [i]{2}[/i], data: [i]{3}[/i])",
+                        "description": "Add attachment to the next sendig action.",
+                        "params": {
+                            "name": {
+                                "name": "Name",
+                                "desc": "Name of the attachment with file extension."
+                            },
+                            "role": {
+                                "name": "Role",
+                                "desc": "Which role has an attechment. If has content role the in email you can link it e.g. src=\"cid:image.png\"",
+                                "items": {
+                                    "attachment": "Attachment",
+                                    "content": "Content",
+                                    "attachment-content": "Attachment and Content"
+                                }
+                            },
+                            "type": {
+                                "name": "MIME type",
+                                "desc": "MIME type of the attachment."
+                            },
+                            "data": {
+                                "name": "Data",
+                                "desc": "Content data of the attachment."
+                            }
+                        }
+                    }
+                },
+                "conditions": {
+                    "is-send-supported": {
+                        "list-name": "Is send supported",
+                        "display-text": "Is send supported",
+                        "description": "True if system supports sending email."
+                    },
+                    "on-send-error": {
+                        "list-name": "On send error",
+                        "display-text": "On send error",
+                        "description": "Triggers when send run into error."
+                    },
+                    "on-send-completed": {
+                        "list-name": "On send completed",
+                        "display-text": "On send completed",
+                        "description": "Triggers when send completed."
+                    }
+                },
+                "expressions": {
+                    "tag": {
+                        "translated-name": "Tag",
+                        "description": "Get current tag in trigger."
+                    }
+                }
+            }
+        }
+    }
+}

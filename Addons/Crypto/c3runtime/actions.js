@@ -934,6 +934,7 @@
                 this.Trigger(C3.Plugins.RobotKaposzta_Crypto.Cnds.OnKeyGenerateError);
                 return false;
             }
+			this._keys.set(key, memoryKeyObj);
             this._generateKeyName = key;
             this._generateKeyError = "";
             this.Trigger(C3.Plugins.RobotKaposzta_Crypto.Cnds.OnKeyGenerate);
@@ -998,6 +999,7 @@
                 this.Trigger(C3.Plugins.RobotKaposzta_Crypto.Cnds.OnKeyGenerateError);
                 return false;
             }
+			this._keys.set(key, memoryKeyObj);
             this._generateKeyName = key;
             this._generateKeyError = "";
             this.Trigger(C3.Plugins.RobotKaposzta_Crypto.Cnds.OnKeyGenerate);
@@ -1062,6 +1064,7 @@
                 this.Trigger(C3.Plugins.RobotKaposzta_Crypto.Cnds.OnKeyGenerateError);
                 return false;
             }
+			this._keys.set(key, memoryKeyObj);
             this._generateKeyName = key;
             this._generateKeyError = "";
             this.Trigger(C3.Plugins.RobotKaposzta_Crypto.Cnds.OnKeyGenerate);
@@ -1118,6 +1121,7 @@
                 this.Trigger(C3.Plugins.RobotKaposzta_Crypto.Cnds.OnKeyGenerateError);
                 return false;
             }
+			this._keys.set(key, memoryKeyObj);
             this._generateKeyName = key;
             this._generateKeyError = "";
             this.Trigger(C3.Plugins.RobotKaposzta_Crypto.Cnds.OnKeyGenerate);
@@ -1183,6 +1187,7 @@
                 this.Trigger(C3.Plugins.RobotKaposzta_Crypto.Cnds.OnKeyGenerateError);
                 return false;
             }
+			this._keys.set(key, memoryKeyObj);
             this._generateKeyName = key;
             this._generateKeyError = "";
             this.Trigger(C3.Plugins.RobotKaposzta_Crypto.Cnds.OnKeyGenerate);
@@ -1248,6 +1253,7 @@
                 this.Trigger(C3.Plugins.RobotKaposzta_Crypto.Cnds.OnKeyGenerateError);
                 return false;
             }
+			this._keys.set(key, memoryKeyObj);
             this._generateKeyName = key;
             this._generateKeyError = "";
             this.Trigger(C3.Plugins.RobotKaposzta_Crypto.Cnds.OnKeyGenerate);

@@ -1,0 +1,169 @@
+﻿{
+    "recive": {
+        "actions": [],
+        "conditions": [],
+        "expressions": []
+    },
+    "send": {
+        "actions": [
+            {
+                "id": "send",
+                "scriptName": "Send",
+                "isDeprecated": false,
+                "highlight": true,
+                "params": [
+                    {
+                        "id": "tag",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    },
+                    {
+                        "id": "host",
+                        "type": "string",
+                        "initialValue": "\"smtp.gmail.com:465\""
+                    },
+                    {
+                        "id": "user",
+                        "type": "string",
+                        "initialValue": "\"test@example.com\""
+                    },
+                    {
+                        "id": "password",
+                        "type": "string",
+                        "initialValue": "\"password\""
+                    },
+                    {
+                        "id": "from",
+                        "type": "string",
+                        "initialValue": "\"\"\"John Doe\"\" <john.doe@example.com>\""
+                    },
+                    {
+                        "id": "to",
+                        "type": "string",
+                        "initialValue": "\"\"\"John Doe\"\" <john.doe@example.com>\""
+                    },
+                    {
+                        "id": "cc",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    },
+                    {
+                        "id": "bcc",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    },
+                    {
+                        "id": "subject",
+                        "type": "string",
+                        "initialValue": "\"subject\""
+                    },
+                    {
+                        "id": "message",
+                        "type": "string",
+                        "initialValue": "\"<b>Hello world<\/b>\""
+                    },
+                    {
+                        "id": "priority",
+                        "type": "combo",
+                        "initialValue": "normal",
+                        "items": [
+                            "low",
+                            "normal",
+                            "high"
+                        ]
+                    }
+                ],
+                "isAsync": false
+            },
+            {
+                "id": "add-attachment",
+                "scriptName": "AddAttachment",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "name",
+                        "type": "string",
+                        "initialValue": "\"attachment.jpg\""
+                    },
+                    {
+                        "id": "role",
+                        "type": "combo",
+                        "initialValue": "attachment",
+                        "items": [
+                            "attachment",
+                            "content",
+                            "attachment-content"
+                        ]
+                    },
+                    {
+                        "id": "type",
+                        "type": "string",
+                        "initialValue": "\"image/jpeg\""
+                    },
+                    {
+                        "id": "data",
+                        "type": "object",
+                        "allowedPluginIds": [
+                            "BinaryData"
+                        ]
+                    }
+                ],
+                "isAsync": false
+            }
+        ],
+        "conditions": [
+            {
+                "id": "is-send-supported",
+                "scriptName": "IsSendSupported",
+                "isDeprecated": false,
+                "highlight": false,
+                "isTrigger": false,
+                "isFakeTrigger": false,
+                "isStatic": false,
+                "isLooping": false,
+                "isInvertible": true,
+                "isCompatibleWithTriggers": true
+            },
+            {
+                "id": "on-send-completed",
+                "scriptName": "OnSendCompleted",
+                "isDeprecated": false,
+                "highlight": false,
+                "isTrigger": true,
+                "isFakeTrigger": false,
+                "isStatic": false,
+                "isLooping": false,
+                "isInvertible": false,
+                "isCompatibleWithTriggers": false
+            },
+            {
+                "id": "on-send-error",
+                "scriptName": "OnSendError",
+                "isDeprecated": false,
+                "highlight": false,
+                "isTrigger": true,
+                "isFakeTrigger": false,
+                "isStatic": false,
+                "isLooping": false,
+                "isInvertible": false,
+                "isCompatibleWithTriggers": false
+            }
+        ],
+        "expressions": [
+            {
+                "id": "tag",
+                "expressionName": "Tag",
+                "isDeprecated": false,
+                "highlight": false,
+                "returnType": "string",
+                "isVariadicParameters": false
+            }
+        ]
+    },
+    "server": {
+        "actions": [],
+        "conditions": [],
+        "expressions": []
+    }
+}
