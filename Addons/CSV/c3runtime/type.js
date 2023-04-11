@@ -18,13 +18,6 @@
 		constructor(objectClass) {
 			super(objectClass);
 		}
-
-		/**
-		 * @desc Functon that handle create event. It must create this method.
-		 */
-		OnCreate() {
-
-		}
 	};
 	C3.Plugins.RobotKaposzta_CSV.Type = CSVRuntimeType;
 };

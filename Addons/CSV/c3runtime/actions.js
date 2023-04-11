@@ -1,8 +1,15 @@
 "use strict";
 {
     const C3 = self.C3;
-
+    /**
+     * @namespace
+    */
     C3.Plugins.RobotKaposzta_CSV.Acts = {
+        /**
+         * Load CSV data.
+         * @param {string} text - CSV text data to load.
+         * @param {string} sep - CSV separator character.
+         */
         LoadText(text, sep) {
             if (sep === "" || sep === "\"" || sep === "\n") {
                 sep = this._sep;
@@ -12,6 +19,10 @@
             this._data = this._ArrayToBlock(this._CSVToArray(text, sep));
             this._transposed = false;
         },
+        /**
+         * Load 2D array in JSON string data.
+         * @param {string} JSON - CSV text data to load.
+         */
         LoadJSON(json) {
             let data;
             try {
@@ -23,6 +34,12 @@
                 this._data = data;
             }
         },
+        /**
+         * Load Construct array.
+         * @param {array} array - Construct 3 array intace to load.
+         * @param {number} axis - array axis to load 0-X, 1-Y, 3-Z
+         * @param {number} index - non negative integer axis index to load.
+         */
         LoadArray(array, axis, index) {
             array = array.GetFirstPicked(this._inst);
             array = array.GetSdkInstance();
@@ -79,6 +96,14 @@
             this._transposed = false;
         },
 
+
+        /**
+         * Set Construct array.
+         * @param {array} array - Construct 3 array intace to load.
+         * @param {number} axis - array axis to load 0-X, 1-Y, 3-Z
+         * @param {number} index - non negative integer axis index to load.
+         * @param {boolean} isResize - boolean that indicate to resize array to fit data or not.
+         */
         SetArray(array, axis, index, isResize) {
             array = array.GetFirstPicked(this._inst);
             array = array.GetSdkInstance();
@@ -149,6 +174,10 @@
             }
         },
 
+        /**
+         * Transpose loaded data.
+         * @param {inteder} type - 0-restore the original data, 1-transpose the original data, 2-toggle transpose
+         */
         Transpose(type) {
             if (type === 0 && this._transposed === true) {
                 this._data = this._Transpose(this._data);
@@ -163,6 +192,9 @@
                 this._transposed = !this._transposed;
             }
         },
+        /**
+         * Clear currently loaded data.
+         */
         Clear() {
             this._data = [[]];
             this._transposed = false;
