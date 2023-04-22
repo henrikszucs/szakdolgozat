@@ -120,7 +120,7 @@
 									}
 								},
 								{
-									"callFunction": "LoginRefreshUI2",
+									"callFunction": "LoginRefreshUI",
 									"sid": 166121972063787
 								}
 							],
@@ -129,7 +129,7 @@
 					]
 				},
 				{
-					"functionName": "LoginRefreshUI2",
+					"functionName": "LoginRefreshUI",
 					"functionCopyPicked": false,
 					"functionDescription": "",
 					"functionCategory": "",
@@ -794,7 +794,7 @@
 											],
 											"actions": [
 												{
-													"callFunction": "LoginRefreshUI2",
+													"callFunction": "LoginRefreshUI",
 													"sid": 506836611626118
 												},
 												{
@@ -951,16 +951,6 @@
 											"conditions": [],
 											"actions": [
 												{
-													"id": "log",
-													"objectClass": "Browser",
-													"sid": 709588748321758,
-													"parameters": {
-														"type": "log",
-														"message": "\"a\"",
-														"style": "\"\""
-													}
-												},
-												{
 													"callFunction": "DeleteUser",
 													"sid": 976243831562929,
 													"parameters": [
@@ -973,33 +963,13 @@
 													"sid": 119152008862225
 												},
 												{
-													"id": "log",
-													"objectClass": "Browser",
-													"sid": 557508767441987,
-													"parameters": {
-														"type": "log",
-														"message": "\"aa\"",
-														"style": "\"\""
-													}
-												},
-												{
-													"callFunction": "LoginRefreshUI2",
+													"callFunction": "LoginRefreshUI",
 													"sid": 426542756857334
 												},
 												{
 													"id": "wait-for-previous-actions",
 													"objectClass": "System",
 													"sid": 454494617078736
-												},
-												{
-													"id": "log",
-													"objectClass": "Browser",
-													"sid": 613128562459540,
-													"parameters": {
-														"type": "log",
-														"message": "\"aaa\"",
-														"style": "\"\""
-													}
 												},
 												{
 													"id": "set-key-value",
@@ -1223,7 +1193,7 @@
 							}
 						},
 						{
-							"callFunction": "MainRefreshUI2",
+							"callFunction": "MainRefreshUI",
 							"sid": 589514676571257
 						}
 					],
@@ -1303,7 +1273,7 @@
 									}
 								},
 								{
-									"callFunction": "MainRefreshUI2",
+									"callFunction": "MainRefreshUI",
 									"sid": 635450177259335
 								}
 							],
@@ -1312,7 +1282,7 @@
 					]
 				},
 				{
-					"functionName": "MainRefreshUI2",
+					"functionName": "MainRefreshUI",
 					"functionCopyPicked": false,
 					"functionDescription": "",
 					"functionCategory": "",
@@ -1874,7 +1844,7 @@
 											],
 											"actions": [
 												{
-													"callFunction": "MainRefreshUI2",
+													"callFunction": "MainRefreshUI",
 													"sid": 771592580259639
 												},
 												{
@@ -2076,7 +2046,7 @@
 													"sid": 126191740658359
 												},
 												{
-													"callFunction": "MainRefreshUI2",
+													"callFunction": "MainRefreshUI",
 													"sid": 666342903534977
 												},
 												{
@@ -2219,7 +2189,7 @@
 					"functionDescription": "",
 					"functionCategory": "",
 					"functionReturnType": "none",
-					"functionIsAsync": false,
+					"functionIsAsync": true,
 					"functionParameters": [],
 					"eventType": "function-block",
 					"conditions": [],
@@ -2780,7 +2750,7 @@
 									}
 								},
 								{
-									"callFunction": "ServersRefreshUI2",
+									"callFunction": "ServersRefreshUI",
 									"sid": 752619639260301
 								}
 							],
@@ -2849,7 +2819,7 @@
 					]
 				},
 				{
-					"functionName": "ServersRefreshUI2",
+					"functionName": "ServersRefreshUI",
 					"functionCopyPicked": false,
 					"functionDescription": "",
 					"functionCategory": "",
@@ -3554,7 +3524,7 @@
 													}
 												},
 												{
-													"callFunction": "ServersRefreshUI2",
+													"callFunction": "ServersRefreshUI",
 													"sid": 563463826191284
 												}
 											],
@@ -3920,7 +3890,7 @@
 													}
 												},
 												{
-													"callFunction": "ServersRefreshUI2",
+													"callFunction": "ServersRefreshUI",
 													"sid": 436461154610802
 												}
 											],
@@ -4040,7 +4010,7 @@
 													"sid": 667692106369135
 												},
 												{
-													"callFunction": "ServersRefreshUI2",
+													"callFunction": "ServersRefreshUI",
 													"sid": 371466614855697
 												},
 												{
@@ -4218,7 +4188,7 @@
 					"text": "refresh UI"
 				},
 				{
-					"functionName": "SendingRefreshUI2",
+					"functionName": "SendingRefreshUI",
 					"functionCopyPicked": false,
 					"functionDescription": "",
 					"functionCategory": "",
@@ -4638,7 +4608,7 @@
 									"sid": 694739574027801
 								},
 								{
-									"callFunction": "SendingRefreshUI2",
+									"callFunction": "SendingRefreshUI",
 									"sid": 709304179187760
 								}
 							],
@@ -4738,7 +4708,7 @@
 									"sid": 354271539558912
 								},
 								{
-									"callFunction": "SendingRefreshUI2",
+									"callFunction": "SendingRefreshUI",
 									"sid": 739554744507907
 								}
 							],
@@ -4823,7 +4793,7 @@
 					"text": "Refresh UI"
 				},
 				{
-					"functionName": "AddressRefreshUI2",
+					"functionName": "AddressRefreshUI",
 					"functionCopyPicked": false,
 					"functionDescription": "",
 					"functionCategory": "",
@@ -4920,7 +4890,18 @@
 								},
 								{
 									"eventType": "block",
-									"conditions": [],
+									"conditions": [
+										{
+											"id": "compare-two-values",
+											"objectClass": "System",
+											"sid": 509895130826569,
+											"parameters": {
+												"first-value": "Task.ArraySize(\"to\")",
+												"comparison": 1,
+												"second-value": "0"
+											}
+										}
+									],
 									"actions": [
 										{
 											"id": "load-json",
@@ -4928,16 +4909,6 @@
 											"sid": 818098806717083,
 											"parameters": {
 												"json": "Task.GetAsCompactString(\"to\")"
-											}
-										},
-										{
-											"id": "log",
-											"objectClass": "Browser",
-											"sid": 232520109463833,
-											"parameters": {
-												"type": "log",
-												"message": "Task.GetAsCompactString(\"to\")",
-												"style": "\"\""
 											}
 										},
 										{
@@ -4950,6 +4921,27 @@
 										}
 									],
 									"sid": 521054955813208
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "else",
+											"objectClass": "System",
+											"sid": 337114041425886
+										}
+									],
+									"actions": [
+										{
+											"id": "set-text",
+											"objectClass": "Address",
+											"sid": 530308399837185,
+											"parameters": {
+												"text": "\"\""
+											}
+										}
+									],
+									"sid": 990964568193175
 								},
 								{
 									"eventType": "comment",
@@ -5207,89 +5199,126 @@
 									}
 								}
 							],
-							"actions": [
+							"actions": [],
+							"sid": 150717670738000,
+							"children": [
 								{
-									"id": "load-text",
-									"objectClass": "CSV",
-									"sid": 125477086033773,
-									"parameters": {
-										"text": "Address.Text",
-										"separator": "AddressSep.Text"
-									}
+									"eventType": "variable",
+									"name": "data",
+									"type": "string",
+									"initialValue": "",
+									"comment": "",
+									"isStatic": false,
+									"isConstant": false,
+									"sid": 202144671969176
 								},
 								{
-									"id": "log",
-									"objectClass": "Browser",
-									"sid": 401258988356405,
-									"parameters": {
-										"type": "log",
-										"message": "CSV.AsJSON",
-										"style": "\"\""
-									}
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-text",
+											"objectClass": "Address",
+											"sid": 122677375812723,
+											"parameters": {
+												"text": "\"\"",
+												"case": "case-insensitive"
+											},
+											"isInverted": true
+										}
+									],
+									"actions": [
+										{
+											"id": "load-text",
+											"objectClass": "CSV",
+											"sid": 341942658528136,
+											"parameters": {
+												"text": "Address.Text",
+												"separator": "AddressSep.Text"
+											}
+										},
+										{
+											"id": "set-eventvar-value",
+											"objectClass": "System",
+											"sid": 772011667132449,
+											"parameters": {
+												"variable": "data",
+												"value": "CSV.AsJSON"
+											}
+										}
+									],
+									"sid": 351451181991248
 								},
 								{
-									"callFunction": "SetTask",
-									"sid": 593778880122016,
-									"parameters": [
-										"CurrentUserUID",
-										"CurrentPassword",
-										"CurrentTaskUID",
-										"\"to\"",
-										"CSV.AsJSON"
-									]
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "else",
+											"objectClass": "System",
+											"sid": 143623115263032
+										}
+									],
+									"actions": [
+										{
+											"id": "set-eventvar-value",
+											"objectClass": "System",
+											"sid": 507735407253981,
+											"parameters": {
+												"variable": "data",
+												"value": "\"[[\"\"]]\""
+											}
+										}
+									],
+									"sid": 852000239154504
 								},
 								{
-									"id": "wait-for-previous-actions",
-									"objectClass": "System",
-									"sid": 956665657456536
-								},
-								{
-									"id": "log",
-									"objectClass": "Browser",
-									"sid": 427661190349378,
-									"parameters": {
-										"type": "log",
-										"message": "\"a\"",
-										"style": "\"\""
-									}
-								},
-								{
-									"callFunction": "SetTask",
-									"sid": 124826975356279,
-									"parameters": [
-										"CurrentUserUID",
-										"CurrentPassword",
-										"CurrentTaskUID",
-										"\"separator\"",
-										"AddressSep.Text"
-									]
-								},
-								{
-									"id": "wait-for-previous-actions",
-									"objectClass": "System",
-									"sid": 297671124081857
-								},
-								{
-									"id": "log",
-									"objectClass": "Browser",
-									"sid": 639273474370773,
-									"parameters": {
-										"type": "log",
-										"message": "\"aaa\"",
-										"style": "\"\""
-									}
-								},
-								{
-									"id": "set-boolean-eventvar",
-									"objectClass": "System",
-									"sid": 672132938369333,
-									"parameters": {
-										"variable": "isNeedSave",
-										"value": "false"
-									}
+									"eventType": "block",
+									"conditions": [],
+									"actions": [
+										{
+											"callFunction": "SetTask",
+											"sid": 684563889181515,
+											"parameters": [
+												"CurrentUserUID",
+												"CurrentPassword",
+												"CurrentTaskUID",
+												"\"to\"",
+												"data"
+											]
+										},
+										{
+											"id": "wait-for-previous-actions",
+											"objectClass": "System",
+											"sid": 899929847891497
+										},
+										{
+											"callFunction": "SetTask",
+											"sid": 504287999718701,
+											"parameters": [
+												"CurrentUserUID",
+												"CurrentPassword",
+												"CurrentTaskUID",
+												"\"separator\"",
+												"AddressSep.Text"
+											]
+										},
+										{
+											"id": "wait-for-previous-actions",
+											"objectClass": "System",
+											"sid": 135705458898121
+										},
+										{
+											"id": "set-boolean-eventvar",
+											"objectClass": "System",
+											"sid": 316662900686766,
+											"parameters": {
+												"variable": "isNeedSave",
+												"value": "false"
+											}
+										}
+									],
+									"sid": 569231298121358
 								}
-							],
-							"sid": 150717670738000
+							]
 						}
 					]
 				},
@@ -5404,7 +5433,7 @@
 					],
 					"actions": [
 						{
-							"callFunction": "LetterTextSave2",
+							"callFunction": "LetterTextSave",
 							"sid": 456707804298305
 						},
 						{
@@ -5433,7 +5462,7 @@
 					],
 					"actions": [
 						{
-							"callFunction": "LetterTextSave2",
+							"callFunction": "LetterTextSave",
 							"sid": 561955860720907
 						},
 						{
@@ -5456,7 +5485,7 @@
 					"text": "Refresh UI"
 				},
 				{
-					"functionName": "LetterRefreshUI2",
+					"functionName": "LetterRefreshUI",
 					"functionCopyPicked": false,
 					"functionDescription": "",
 					"functionCategory": "",
@@ -5706,7 +5735,7 @@
 					"sid": 288470182271866
 				},
 				{
-					"functionName": "LetterTextSave2",
+					"functionName": "LetterTextSave",
 					"functionCopyPicked": false,
 					"functionDescription": "",
 					"functionCategory": "",
@@ -5832,7 +5861,7 @@
 					],
 					"actions": [
 						{
-							"callFunction": "LetterTextSave2",
+							"callFunction": "LetterTextSave",
 							"sid": 813090990385509
 						}
 					],
@@ -6302,8 +6331,13 @@
 											}
 										},
 										{
-											"callFunction": "LetterAttachmentSave2",
+											"callFunction": "LetterAttachmentSave",
 											"sid": 244262138626872
+										},
+										{
+											"id": "wait-for-previous-actions",
+											"objectClass": "System",
+											"sid": 252886996783159
 										}
 									],
 									"sid": 610092005769273
@@ -6384,7 +6418,7 @@
 							"conditions": [],
 							"actions": [
 								{
-									"callFunction": "LetterAttachmentSave2",
+									"callFunction": "LetterAttachmentSave",
 									"sid": 959437717852698
 								}
 							],
@@ -6393,7 +6427,7 @@
 					]
 				},
 				{
-					"functionName": "LetterAttachmentSave2",
+					"functionName": "LetterAttachmentSave",
 					"functionCopyPicked": false,
 					"functionDescription": "",
 					"functionCategory": "",
@@ -6494,7 +6528,7 @@
 					],
 					"actions": [
 						{
-							"callFunction": "StatusNameSave2",
+							"callFunction": "StatusNameSave",
 							"sid": 672759003065446
 						},
 						{
@@ -6523,7 +6557,7 @@
 					],
 					"actions": [
 						{
-							"callFunction": "StatusNameSave2",
+							"callFunction": "StatusNameSave",
 							"sid": 584141658823174
 						},
 						{
@@ -6546,7 +6580,7 @@
 					"text": "refresh UI"
 				},
 				{
-					"functionName": "StatusRefreshUI2",
+					"functionName": "StatusRefreshUI",
 					"functionCopyPicked": false,
 					"functionDescription": "",
 					"functionCategory": "",
@@ -6558,6 +6592,10 @@
 					"actions": [],
 					"sid": 292256560617054,
 					"children": [
+						{
+							"eventType": "comment",
+							"text": "get name"
+						},
 						{
 							"eventType": "block",
 							"conditions": [],
@@ -6589,6 +6627,10 @@
 							"sid": 524175656982047,
 							"children": [
 								{
+									"eventType": "comment",
+									"text": "get state"
+								},
+								{
 									"eventType": "block",
 									"conditions": [],
 									"actions": [
@@ -6606,6 +6648,15 @@
 											"id": "wait-for-previous-actions",
 											"objectClass": "System",
 											"sid": 226680940767184
+										},
+										{
+											"id": "set-value",
+											"objectClass": "Task",
+											"sid": 752816873783313,
+											"parameters": {
+												"path": "\"state\"",
+												"value": "APISuccess"
+											}
 										}
 									],
 									"sid": 150546131882313,
@@ -6614,12 +6665,12 @@
 											"eventType": "block",
 											"conditions": [
 												{
-													"id": "compare-eventvar",
-													"objectClass": "System",
-													"sid": 290537329714339,
+													"id": "compare-value",
+													"objectClass": "Task",
+													"sid": 709923571956670,
 													"parameters": {
-														"variable": "APISuccess",
-														"comparison": 0,
+														"path": "\"state\"",
+														"cmp": 0,
 														"value": "\"finished\""
 													}
 												}
@@ -6627,8 +6678,8 @@
 											"actions": [
 												{
 													"id": "set-text",
-													"objectClass": "Message",
-													"sid": 326348122829410,
+													"objectClass": "StatusMessage",
+													"sid": 128513535881484,
 													"parameters": {
 														"text": "TextManager.Translate(\"status.finished-text\")"
 													}
@@ -6685,12 +6736,12 @@
 													"sid": 735521674031596
 												},
 												{
-													"id": "compare-eventvar",
-													"objectClass": "System",
-													"sid": 408831146500989,
+													"id": "compare-value",
+													"objectClass": "Task",
+													"sid": 684961077441895,
 													"parameters": {
-														"variable": "APISuccess",
-														"comparison": 0,
+														"path": "\"state\"",
+														"cmp": 0,
 														"value": "\"running\""
 													}
 												}
@@ -6698,8 +6749,8 @@
 											"actions": [
 												{
 													"id": "set-text",
-													"objectClass": "Message",
-													"sid": 109200790020736,
+													"objectClass": "StatusMessage",
+													"sid": 637569498788682,
 													"parameters": {
 														"text": "TextManager.Translate(\"status.running-text\")"
 													}
@@ -6756,12 +6807,12 @@
 													"sid": 638608701215256
 												},
 												{
-													"id": "compare-eventvar",
-													"objectClass": "System",
-													"sid": 620533391013558,
+													"id": "compare-value",
+													"objectClass": "Task",
+													"sid": 328598313521829,
 													"parameters": {
-														"variable": "APISuccess",
-														"comparison": 0,
+														"path": "\"state\"",
+														"cmp": 0,
 														"value": "\"paused\""
 													}
 												}
@@ -6769,8 +6820,8 @@
 											"actions": [
 												{
 													"id": "set-text",
-													"objectClass": "Message",
-													"sid": 906801018092556,
+													"objectClass": "StatusMessage",
+													"sid": 599690403916107,
 													"parameters": {
 														"text": "TextManager.Translate(\"status.running-text\")"
 													}
@@ -6817,6 +6868,288 @@
 												}
 											],
 											"sid": 127525727709478
+										},
+										{
+											"eventType": "comment",
+											"text": "get remain time"
+										},
+										{
+											"eventType": "block",
+											"conditions": [],
+											"actions": [
+												{
+													"callFunction": "GetTask",
+													"sid": 783019581933998,
+													"parameters": [
+														"CurrentUserUID",
+														"CurrentPassword",
+														"CurrentTaskUID",
+														"\"remainTime\""
+													]
+												},
+												{
+													"id": "wait-for-previous-actions",
+													"objectClass": "System",
+													"sid": 445499107330960
+												}
+											],
+											"sid": 952540179105460,
+											"children": [
+												{
+													"eventType": "block",
+													"conditions": [
+														{
+															"id": "compare-two-values",
+															"objectClass": "System",
+															"sid": 963757113725635,
+															"parameters": {
+																"first-value": "int(APISuccess)",
+																"comparison": 2,
+																"second-value": "0"
+															}
+														}
+													],
+													"actions": [
+														{
+															"id": "set-visible",
+															"objectClass": "StatusStart",
+															"sid": 221023533557736,
+															"parameters": {
+																"visibility": "invisible"
+															}
+														},
+														{
+															"id": "set-text",
+															"objectClass": "StatusMessage",
+															"sid": 377588244885276,
+															"parameters": {
+																"text": "\"[color=#ff0000]\" & TextManager.Translate(\"status.start-error\") & \"[/color]\""
+															}
+														}
+													],
+													"sid": 745502199385617
+												},
+												{
+													"eventType": "block",
+													"conditions": [
+														{
+															"id": "else",
+															"objectClass": "System",
+															"sid": 838392969215609
+														}
+													],
+													"actions": [
+														{
+															"id": "set-text",
+															"objectClass": "StatusMessage",
+															"sid": 982730899240984,
+															"parameters": {
+																"text": "TextManager.ParamTextNum(TextManager.Translate(\"status.remain\"), 1, 0, ceil(float(APISuccess)))"
+															}
+														}
+													],
+													"sid": 274527402753091
+												},
+												{
+													"eventType": "comment",
+													"text": "get progress"
+												},
+												{
+													"eventType": "block",
+													"conditions": [],
+													"actions": [
+														{
+															"callFunction": "GetTask",
+															"sid": 451442165009667,
+															"parameters": [
+																"CurrentUserUID",
+																"CurrentPassword",
+																"CurrentTaskUID",
+																"\"remainPercent\""
+															]
+														},
+														{
+															"id": "wait-for-previous-actions",
+															"objectClass": "System",
+															"sid": 276751799598266
+														},
+														{
+															"id": "set-progress",
+															"objectClass": "StatusProgressBar",
+															"sid": 593513934267200,
+															"parameters": {
+																"value": "100 - int(APISuccess)"
+															}
+														}
+													],
+													"sid": 111764958395814,
+													"children": [
+														{
+															"eventType": "comment",
+															"text": "get success"
+														},
+														{
+															"eventType": "block",
+															"conditions": [],
+															"actions": [
+																{
+																	"callFunction": "GetTask",
+																	"sid": 524879060059149,
+																	"parameters": [
+																		"CurrentUserUID",
+																		"CurrentPassword",
+																		"CurrentTaskUID",
+																		"\"toSuccess\""
+																	]
+																},
+																{
+																	"id": "wait-for-previous-actions",
+																	"objectClass": "System",
+																	"sid": 745696266649644
+																},
+																{
+																	"id": "clear",
+																	"objectClass": "StatusSuccess",
+																	"sid": 941856651291532
+																},
+																{
+																	"id": "set-json",
+																	"objectClass": "JSON",
+																	"sid": 265901976694989,
+																	"parameters": {
+																		"path": "\"toSuccess\"",
+																		"json": "APISuccess"
+																	}
+																}
+															],
+															"sid": 656746584041560,
+															"children": [
+																{
+																	"eventType": "block",
+																	"conditions": [
+																		{
+																			"id": "for-each",
+																			"objectClass": "JSON",
+																			"sid": 168258798777822,
+																			"parameters": {
+																				"path": "\"toSuccess\""
+																			}
+																		}
+																	],
+																	"actions": [
+																		{
+																			"id": "load-json",
+																			"objectClass": "CSV",
+																			"sid": 736725983063040,
+																			"parameters": {
+																				"json": "\"[\" & JSON.GetAsCompactString(\"toSuccess.\" & JSON.CurrentKey) &\"]\""
+																			}
+																		},
+																		{
+																			"id": "add-item",
+																			"objectClass": "StatusSuccess",
+																			"sid": 848292570758987,
+																			"parameters": {
+																				"text": "CSV.AsText"
+																			}
+																		}
+																	],
+																	"sid": 875788923054273
+																},
+																{
+																	"eventType": "comment",
+																	"text": "get failed"
+																},
+																{
+																	"eventType": "block",
+																	"conditions": [],
+																	"actions": [
+																		{
+																			"callFunction": "GetTask",
+																			"sid": 224213268236455,
+																			"parameters": [
+																				"CurrentUserUID",
+																				"CurrentPassword",
+																				"CurrentTaskUID",
+																				"\"toFailed\""
+																			]
+																		},
+																		{
+																			"id": "wait-for-previous-actions",
+																			"objectClass": "System",
+																			"sid": 153667490049838
+																		},
+																		{
+																			"id": "clear",
+																			"objectClass": "StatusFailed",
+																			"sid": 633769400336256
+																		},
+																		{
+																			"id": "set-json",
+																			"objectClass": "JSON",
+																			"sid": 546204411077060,
+																			"parameters": {
+																				"path": "\"toFailed\"",
+																				"json": "APISuccess"
+																			}
+																		}
+																	],
+																	"sid": 816848965201739,
+																	"children": [
+																		{
+																			"eventType": "block",
+																			"conditions": [
+																				{
+																					"id": "for-each",
+																					"objectClass": "JSON",
+																					"sid": 109910611576005,
+																					"parameters": {
+																						"path": "\"toFailed\""
+																					}
+																				}
+																			],
+																			"actions": [
+																				{
+																					"id": "load-json",
+																					"objectClass": "CSV",
+																					"sid": 979047992887502,
+																					"parameters": {
+																						"json": "\"[\" & JSON.GetAsCompactString(\"toFailed.\" & JSON.CurrentKey) &\"]\""
+																					}
+																				},
+																				{
+																					"id": "add-item",
+																					"objectClass": "StatusFailed",
+																					"sid": 588060373864966,
+																					"parameters": {
+																						"text": "CSV.AsText"
+																					}
+																				}
+																			],
+																			"sid": 129510757532337
+																		},
+																		{
+																			"eventType": "block",
+																			"conditions": [],
+																			"actions": [
+																				{
+																					"id": "parse",
+																					"objectClass": "JSON",
+																					"sid": 152839524913733,
+																					"parameters": {
+																						"data": "\"{}\""
+																					}
+																				}
+																			],
+																			"sid": 774932284532720
+																		}
+																	]
+																}
+															]
+														}
+													]
+												}
+											]
 										}
 									]
 								}
@@ -6825,8 +7158,28 @@
 					]
 				},
 				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "every-x-seconds",
+							"objectClass": "System",
+							"sid": 373528202897861,
+							"parameters": {
+								"interval-seconds": "3"
+							}
+						}
+					],
+					"actions": [
+						{
+							"callFunction": "StatusRefreshUI",
+							"sid": 511047231798207
+						}
+					],
+					"sid": 166408047398015
+				},
+				{
 					"eventType": "comment",
-					"text": "Change name"
+					"text": "change name"
 				},
 				{
 					"eventType": "variable",
@@ -6836,7 +7189,7 @@
 					"comment": "",
 					"isStatic": true,
 					"isConstant": false,
-					"sid": 901137196979642
+					"sid": 803019570201743
 				},
 				{
 					"eventType": "block",
@@ -6844,21 +7197,21 @@
 						{
 							"id": "on-text-changed",
 							"objectClass": "StatusName",
-							"sid": 698742001802657
+							"sid": 324235872876455
 						}
 					],
 					"actions": [
 						{
 							"id": "set-boolean-eventvar",
 							"objectClass": "System",
-							"sid": 514928064929379,
+							"sid": 821441564527993,
 							"parameters": {
 								"variable": "isNeedSave",
 								"value": "true"
 							}
 						}
 					],
-					"sid": 742355344626189
+					"sid": 250949022589203
 				},
 				{
 					"eventType": "block",
@@ -6866,7 +7219,7 @@
 						{
 							"id": "every-x-seconds",
 							"objectClass": "System",
-							"sid": 501023756848759,
+							"sid": 830495508374802,
 							"parameters": {
 								"interval-seconds": "5"
 							}
@@ -6874,14 +7227,14 @@
 					],
 					"actions": [
 						{
-							"callFunction": "StatusNameSave2",
-							"sid": 637434882979532
+							"callFunction": "StatusNameSave",
+							"sid": 660918200117979
 						}
 					],
-					"sid": 479208527248464
+					"sid": 402531592027819
 				},
 				{
-					"functionName": "StatusNameSave2",
+					"functionName": "StatusNameSave",
 					"functionCopyPicked": false,
 					"functionDescription": "",
 					"functionCategory": "",
@@ -6891,7 +7244,7 @@
 					"eventType": "function-block",
 					"conditions": [],
 					"actions": [],
-					"sid": 155091497166931,
+					"sid": 341420154118380,
 					"children": [
 						{
 							"eventType": "block",
@@ -6899,7 +7252,7 @@
 								{
 									"id": "compare-boolean-eventvar",
 									"objectClass": "System",
-									"sid": 976724150435440,
+									"sid": 350560539801319,
 									"parameters": {
 										"variable": "isNeedSave"
 									}
@@ -6909,7 +7262,7 @@
 								{
 									"id": "set-boolean-eventvar",
 									"objectClass": "System",
-									"sid": 279028382637107,
+									"sid": 279992125584444,
 									"parameters": {
 										"variable": "isNeedSave",
 										"value": "false"
@@ -6917,7 +7270,7 @@
 								},
 								{
 									"callFunction": "SetTask",
-									"sid": 591747949171625,
+									"sid": 807342277994767,
 									"parameters": [
 										"CurrentUserUID",
 										"CurrentPassword",
@@ -6929,10 +7282,284 @@
 								{
 									"id": "wait-for-previous-actions",
 									"objectClass": "System",
-									"sid": 381969898905851
+									"sid": 334119725153835
 								}
 							],
-							"sid": 372960311228882
+							"sid": 956685770860053
+						}
+					]
+				},
+				{
+					"eventType": "comment",
+					"text": "start/pause"
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-clicked",
+							"objectClass": "StatusStart",
+							"sid": 882524216730555
+						}
+					],
+					"actions": [],
+					"sid": 401923822362217,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-value",
+									"objectClass": "Task",
+									"sid": 154560136106966,
+									"parameters": {
+										"path": "\"state\"",
+										"cmp": 0,
+										"value": "\"finished\""
+									}
+								},
+								{
+									"id": "compare-value",
+									"objectClass": "Task",
+									"sid": 311165321405274,
+									"parameters": {
+										"path": "\"state\"",
+										"cmp": 0,
+										"value": "\"paused\""
+									}
+								}
+							],
+							"actions": [
+								{
+									"callFunction": "StartTask",
+									"sid": 693499833783895,
+									"parameters": [
+										"CurrentUserUID",
+										"CurrentPassword",
+										"CurrentTaskUID"
+									]
+								},
+								{
+									"id": "wait-for-previous-actions",
+									"objectClass": "System",
+									"sid": 962607012167615
+								}
+							],
+							"sid": 223041717742438,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-eventvar",
+											"objectClass": "System",
+											"sid": 252035401839255,
+											"parameters": {
+												"variable": "APIError",
+												"comparison": 1,
+												"value": "\"\""
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-text",
+											"objectClass": "StatusMessage",
+											"sid": 793732127829269,
+											"parameters": {
+												"text": "\"[color=#ff0000]\" & TextManager.Translate(\"status.start-error\") & \"[/color]\""
+											}
+										}
+									],
+									"sid": 333090138152630
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "else",
+											"objectClass": "System",
+											"sid": 966034545392229
+										}
+									],
+									"actions": [
+										{
+											"callFunction": "StatusRefreshUI",
+											"sid": 126708786539606
+										}
+									],
+									"sid": 247161148263369
+								}
+							],
+							"isOrBlock": true
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 946290624949314
+								},
+								{
+									"id": "compare-value",
+									"objectClass": "Task",
+									"sid": 379662265450900,
+									"parameters": {
+										"path": "\"state\"",
+										"cmp": 0,
+										"value": "\"running\""
+									}
+								}
+							],
+							"actions": [
+								{
+									"callFunction": "PauseTask",
+									"sid": 649286010492305,
+									"parameters": [
+										"CurrentUserUID",
+										"CurrentPassword",
+										"CurrentTaskUID"
+									]
+								},
+								{
+									"id": "wait-for-previous-actions",
+									"objectClass": "System",
+									"sid": 830013555046829
+								}
+							],
+							"sid": 699690193946599,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-eventvar",
+											"objectClass": "System",
+											"sid": 982062200485616,
+											"parameters": {
+												"variable": "APIError",
+												"comparison": 1,
+												"value": "\"\""
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-text",
+											"objectClass": "StatusMessage",
+											"sid": 970194354480025,
+											"parameters": {
+												"text": "\"[color=#ff0000]\" & TextManager.Translate(\"status.start-error\") & \"[/color]\""
+											}
+										}
+									],
+									"sid": 933297752795578
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "else",
+											"objectClass": "System",
+											"sid": 348920253146651
+										}
+									],
+									"actions": [
+										{
+											"callFunction": "StatusRefreshUI",
+											"sid": 749150693906179
+										}
+									],
+									"sid": 525149177340300
+								}
+							]
+						}
+					]
+				},
+				{
+					"eventType": "comment",
+					"text": "abort"
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-clicked",
+							"objectClass": "StatusAbort",
+							"sid": 202957548102373
+						}
+					],
+					"actions": [],
+					"sid": 821185369978014,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [],
+							"actions": [
+								{
+									"callFunction": "AbortTask",
+									"sid": 730950466039932,
+									"parameters": [
+										"CurrentUserUID",
+										"CurrentPassword",
+										"CurrentTaskUID"
+									]
+								},
+								{
+									"id": "wait-for-previous-actions",
+									"objectClass": "System",
+									"sid": 471491390252582
+								},
+								{
+									"callFunction": "StatusRefreshUI",
+									"sid": 554498058995953
+								}
+							],
+							"sid": 587452187593569
+						}
+					]
+				},
+				{
+					"eventType": "comment",
+					"text": "retry"
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-clicked",
+							"objectClass": "StatusRetry",
+							"sid": 960770973893598
+						}
+					],
+					"actions": [],
+					"sid": 972188714725709,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [],
+							"actions": [
+								{
+									"callFunction": "RetryTask",
+									"sid": 967159239492420,
+									"parameters": [
+										"CurrentUserUID",
+										"CurrentPassword",
+										"CurrentTaskUID"
+									]
+								},
+								{
+									"id": "wait-for-previous-actions",
+									"objectClass": "System",
+									"sid": 357497381128295
+								},
+								{
+									"callFunction": "StatusRefreshUI",
+									"sid": 455814273508004
+								}
+							],
+							"sid": 460520746303378
 						}
 					]
 				}
@@ -7017,6 +7644,10 @@
 							"parameters": [
 								"\"login\""
 							]
+						},
+						{
+							"callFunction": "AutoLoad",
+							"sid": 647149360644610
 						}
 					],
 					"sid": 465421915026666
@@ -7135,7 +7766,7 @@
 					"conditions": [],
 					"actions": [
 						{
-							"callFunction": "LoginRefreshUI2",
+							"callFunction": "LoginRefreshUI",
 							"sid": 329759949162736
 						}
 					],
@@ -7388,7 +8019,7 @@
 							}
 						},
 						{
-							"callFunction": "LoginRefreshUI2",
+							"callFunction": "LoginRefreshUI",
 							"sid": 566623292617981
 						},
 						{
@@ -7438,7 +8069,7 @@
 							}
 						},
 						{
-							"callFunction": "MainRefreshUI2",
+							"callFunction": "MainRefreshUI",
 							"sid": 569778020616432
 						},
 						{
@@ -7538,7 +8169,7 @@
 							}
 						},
 						{
-							"callFunction": "ServersRefreshUI2",
+							"callFunction": "ServersRefreshUI",
 							"sid": 485031341401592
 						},
 						{
@@ -7588,7 +8219,7 @@
 							}
 						},
 						{
-							"callFunction": "SendingRefreshUI2",
+							"callFunction": "SendingRefreshUI",
 							"sid": 668699277699632
 						},
 						{
@@ -7638,7 +8269,7 @@
 							}
 						},
 						{
-							"callFunction": "AddressRefreshUI2",
+							"callFunction": "AddressRefreshUI",
 							"sid": 517128789457938
 						},
 						{
@@ -7688,7 +8319,7 @@
 							}
 						},
 						{
-							"callFunction": "LetterRefreshUI2",
+							"callFunction": "LetterRefreshUI",
 							"sid": 246528493087603
 						},
 						{
@@ -7738,7 +8369,7 @@
 							}
 						},
 						{
-							"callFunction": "StatusRefreshUI2",
+							"callFunction": "StatusRefreshUI",
 							"sid": 963968942934987
 						},
 						{
@@ -7757,6 +8388,83 @@
 						}
 					],
 					"sid": 200191926016112
+				}
+			]
+		},
+		{
+			"functionName": "AutoLoad",
+			"functionCopyPicked": false,
+			"functionDescription": "",
+			"functionCategory": "",
+			"functionReturnType": "none",
+			"functionIsAsync": true,
+			"functionParameters": [],
+			"eventType": "function-block",
+			"conditions": [],
+			"actions": [],
+			"sid": 686580347976970,
+			"children": [
+				{
+					"eventType": "comment",
+					"text": "login users"
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "for-each",
+							"objectClass": "Data",
+							"sid": 568307564143031,
+							"parameters": {
+								"path": "\"users\""
+							}
+						}
+					],
+					"actions": [],
+					"sid": 854920819249786,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-value",
+									"objectClass": "Data",
+									"sid": 401809831629789,
+									"parameters": {
+										"path": "\"users.\" & Data.CurrentKey & \".header.isNeedRun\"",
+										"cmp": 0,
+										"value": "1"
+									}
+								},
+								{
+									"id": "compare-value",
+									"objectClass": "Data",
+									"sid": 595167647405923,
+									"parameters": {
+										"path": "\"users.\" & Data.CurrentKey & \".header.isCrypted\"",
+										"cmp": 0,
+										"value": "0"
+									}
+								}
+							],
+							"actions": [
+								{
+									"callFunction": "BListTasks",
+									"sid": 198495945167948,
+									"parameters": [
+										"Data.Get(\"users.\" & Data.CurrentKey & \".header.UID\")",
+										"\"\""
+									]
+								},
+								{
+									"id": "wait-for-previous-actions",
+									"objectClass": "System",
+									"sid": 987609099717538
+								}
+							],
+							"sid": 274886149624708
+						}
+					]
 				}
 			]
 		}

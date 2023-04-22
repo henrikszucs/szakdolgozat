@@ -386,13 +386,25 @@
 			"en": "Start",
 			"hu": "Indítás"
 		},
+		"start-error": {
+			"en": "No servers",
+			"hu": "Nincsenek szerverek"
+		},
 		"pause": {
 			"en": "Pause",
 			"hu": "Szünet"
 		},
+		"resume": {
+			"en": "Resume",
+			"hu": "Folytatás"
+		},
 		"abort": {
 			"en": "Abort",
 			"hu": "Leállít"
+		},
+		"remain": {
+			"en": "Remain time: {0} minute(s)",
+			"hu": "Hátralévő idő: {0} perc"
 		},
 		"back": {
 			"en": "Back",

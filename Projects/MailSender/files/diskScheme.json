@@ -41,7 +41,6 @@
 					"serverUIDs": [
 						"008"
 					],
-					"lastrun": 231012,
 					"letterUID": "003",
 					"attachmentsUID": "004",
 					"toUID": "005",
@@ -52,9 +51,10 @@
 		]
 	},
 	"storage-<letterUID>": {
-		"priority": 1,
+		"priority": "1",
 		"subject": "",
-		"useHeaders": 0,
+		"useHeaders": "0",
+		"separator": ",",
 		"text": ""
 	},
 	"storage-<attachmentsUID>": [

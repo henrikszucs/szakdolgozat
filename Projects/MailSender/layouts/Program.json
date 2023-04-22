@@ -1112,49 +1112,6 @@
 											}
 										},
 										{
-											"type": "Message",
-											"properties": {
-												"text": "Progress:",
-												"enable-bbcode": true,
-												"font": "Arial",
-												"size": 26,
-												"line-height": 0,
-												"bold": false,
-												"italic": false,
-												"color": [
-													0,
-													0,
-													0,
-													1
-												],
-												"horizontal-alignment": "center",
-												"vertical-alignment": "top",
-												"wrapping": "word",
-												"initially-visible": true,
-												"origin": "top",
-												"read-aloud": false
-											},
-											"uid": 188,
-											"instanceVariables": {},
-											"behaviors": {},
-											"world": {
-												"x": 360,
-												"y": 146,
-												"width": 504,
-												"height": 55,
-												"originX": 0.5,
-												"originY": 0,
-												"color": [
-													1,
-													1,
-													1,
-													1
-												],
-												"angle": 0,
-												"zElevation": 0
-											}
-										},
-										{
 											"type": "StatusName",
 											"properties": {
 												"text": "",
@@ -1405,6 +1362,49 @@
 											1
 										]
 									}
+								},
+								{
+									"type": "StatusMessage",
+									"properties": {
+										"text": "Message",
+										"enable-bbcode": true,
+										"font": "Arial",
+										"size": 26,
+										"line-height": 0,
+										"bold": false,
+										"italic": false,
+										"color": [
+											0,
+											0,
+											0,
+											1
+										],
+										"horizontal-alignment": "center",
+										"vertical-alignment": "top",
+										"wrapping": "word",
+										"initially-visible": true,
+										"origin": "top",
+										"read-aloud": false
+									},
+									"uid": 15,
+									"instanceVariables": {},
+									"behaviors": {},
+									"world": {
+										"x": 360,
+										"y": 146,
+										"width": 504,
+										"height": 55,
+										"originX": 0.5,
+										"originY": 0,
+										"color": [
+											1,
+											1,
+											1,
+											1
+										],
+										"angle": 0,
+										"zElevation": 0
+									}
 								}
 							],
 							"sid": 839345291916125,
@@ -1497,9 +1497,9 @@
 											"instanceVariables": {},
 											"behaviors": {},
 											"world": {
-												"x": 160.5,
+												"x": 105,
 												"y": 720,
-												"width": 400,
+												"width": 510,
 												"height": 110,
 												"originX": 0,
 												"originY": 0,

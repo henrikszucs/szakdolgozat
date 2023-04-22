@@ -43,6 +43,22 @@
 		"deleteTask": {
 			"error": "auth|not-found-user|not-found-task",
 			"success": "taskUID"
+		},
+		"startTask": {
+			"error": "auth|not-found-user|not-found-task|not-found-server",
+			"success": ""
+		},
+		"pauseTask": {
+			"error": "auth|not-found-user|not-found-task|not-found-server",
+			"success": ""
+		},
+		"abortTask": {
+			"error": "auth|not-found-user|not-found-task",
+			"success": ""
+		},
+		"remainingTime": {
+			"error": "not-found-user|not-found-task",
+			"success": ""
 		}
 	},
 	"getter": {
@@ -81,7 +97,7 @@
 			]
 		},
 		"getTask": {
-			"parts": "name|servers|priority|subject|useHeaders|separator|text|attachments|to|toSuccess|toFailed",
+			"parts": "name|servers|priority|subject|useHeaders|separator|text|attachments|to|toSuccess|toFailed|remainTime|remainPercent",
 			"error": "auth|not-found-user|not-found-task",
 			"success": {
 				"state": "finished|running|paused",
@@ -105,7 +121,9 @@
 				],
 				"to": [],
 				"toSuccess": [],
-				"toFailed": []
+				"toFailed": [],
+				"remainTime": 23,
+				"remainPercent": 20
 			}
 		}
 	}

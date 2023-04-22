@@ -1,40 +1,58 @@
 {
 	"temp": {
 		"lockedUIDs": [],
-		"groupedTasks": []
+		"sending": [
+			{
+				"sender": "a",
+				"duration": 5000,
+				"isLocked": 0,
+				"lastRun": 1681728074214,
+				"lastIndex": 0,
+				"users": [
+					{
+						"userUID": "558131809432997",
+						"serverUID": "523623857787227",
+						"lastIndex": 0,
+						"tasks": [
+							"010136261220538"
+						]
+					}
+				]
+			}
+		]
 	},
 	"settings": {
-		"lastUserUID": "367761507569705",
-		"lastServerUID": "",
-		"lastTaskUID": "049753131653539"
+		"lastUserUID": "558131809432997",
+		"lastServerUID": "523623857787227",
+		"lastTaskUID": "010136261220538"
 	},
 	"users": [
 		{
 			"header": {
-				"UID": "367761507569705",
-				"name": "henrik22",
+				"UID": "558131809432997",
+				"name": "Henrik",
 				"isCrypted": 0,
-				"isNeedRun": 0,
-				"dataUID": "738238838605522",
+				"isNeedRun": 1,
+				"dataUID": "782113838973355",
 				"storageUIDs": [
-					"879822935449253",
-					"297806131717338",
-					"083170846604531",
-					"483358375249708",
-					"208092370648205"
+					"243495124423809",
+					"586113977777329",
+					"003869879677323",
+					"565665425050178",
+					"878697208612102"
 				]
 			},
 			"temp": {
 				"key": "",
 				"isLocked": 0,
-				"lastAction": 1681126299011
+				"lastAction": 1681728072618
 			},
 			"data": {
 				"servers": [
 					{
-						"UID": "364553883052850",
+						"UID": "523623857787227",
 						"host": "a",
-						"user": "aa",
+						"user": "a",
 						"pass": "a",
 						"from": "",
 						"duration": 5000
@@ -43,18 +61,53 @@
 				"tasks": [
 					{
 						"header": {
-							"UID": "049753131653539",
-							"name": "asd",
-							"state": "finished",
+							"UID": "010136261220538",
+							"name": "Test",
+							"state": "running",
 							"serverUIDs": [
-								"364553883052850"
+								"523623857787227"
 							],
-							"lastrun": 1681126270180,
-							"letterUID": "879822935449253",
-							"attachmentsUID": "297806131717338",
-							"toUID": "083170846604531",
-							"toSuccessUID": "483358375249708",
-							"toFailedUID": "208092370648205"
+							"lastrun": 1681655604164,
+							"letterUID": "243495124423809",
+							"attachmentsUID": "586113977777329",
+							"toUID": "003869879677323",
+							"toSuccessUID": "565665425050178",
+							"toFailedUID": "878697208612102"
+						},
+						"temp": {
+							"isLocked": 0,
+							"lastAction": 1681728072627,
+							"runCount": 3
+						},
+						"data": {
+							"letter": {
+								"priority": "2",
+								"subject": "név: {Név}",
+								"useHeaders": "1",
+								"separator": ",",
+								"text": "<p>tes</p>"
+							},
+							"attachments": [],
+							"to": [
+								[
+									"Email",
+									"Név"
+								],
+								[
+									"cím1",
+									"név1"
+								],
+								[
+									"cím2",
+									"név2"
+								],
+								[
+									"cím3",
+									"név3"
+								]
+							],
+							"toSuccess": [],
+							"toFailed": []
 						}
 					}
 				]

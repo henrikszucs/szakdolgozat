@@ -98,6 +98,18 @@
 			"properties": {},
 			"uid": 26,
 			"instanceVariables": {}
+		},
+		{
+			"type": "Tasks",
+			"properties": {},
+			"uid": 36,
+			"instanceVariables": {}
+		},
+		{
+			"type": "Servers",
+			"properties": {},
+			"uid": 63,
+			"instanceVariables": {}
 		}
 	],
 	"effectTypes": [],

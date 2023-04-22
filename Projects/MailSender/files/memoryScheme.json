@@ -3,17 +3,16 @@
 		"lockedUIDs": [],
 		"sending": [
 			{
-				"serverData": {
-					"host": "smtp.forpsi.com",
-					"from": "example@forpsi.com",
-					"duration": 1000
-				},
+				"sender": "example@forpsi.com",
+				"duration": 1000,
+				"isLocked": 0,
 				"lastRun": 23213,
-				"lastindex": 0,
+				"lastIndex": 0,
 				"users": [
 					{
 						"userUID": "001",
-						"lastindex": 0,
+						"serverUID": "008",
+						"lastIndex": 0,
 						"tasks": [
 							"009"
 						]
@@ -68,7 +67,6 @@
 							"serverUIDs": [
 								"008"
 							],
-							"lastrun": 231012,
 							"letterUID": "003",
 							"attachmentsUID": "004",
 							"toUID": "005",
@@ -77,7 +75,8 @@
 						},
 						"temp": {
 							"isLocked": 0,
-							"lastAction": 2302
+							"lastAction": 2302,
+							"runCount": 0
 						},
 						"data": {
 							"letter": {

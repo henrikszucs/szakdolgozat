@@ -99,7 +99,7 @@
 			"name": "Mail",
 			"author": "Szűcs Henrik",
 			"bundled": true,
-			"version": "0.0.0.1"
+			"version": "0.0.0.4"
 		},
 		{
 			"type": "plugin",
@@ -337,7 +337,8 @@
 											"StatusSuccessText",
 											"StatusFailedText",
 											"StatusBack",
-											"StatusNext"
+											"StatusNext",
+											"StatusMessage"
 										],
 										"subfolders": [],
 										"name": "Status"
@@ -362,70 +363,30 @@
 	"layouts": {
 		"items": [
 			"Loading",
-			"Program",
-			"Login"
+			"Program"
 		],
-		"subfolders": [
-			{
-				"items": [
-					"Main",
-					"Settings",
-					"Servers"
-				],
-				"subfolders": [
-					{
-						"items": [
-							"Sending",
-							"Address",
-							"Letter",
-							"Status"
-						],
-						"subfolders": [],
-						"name": "Task"
-					}
-				],
-				"name": "User"
-			}
-		]
+		"subfolders": []
 	},
 	"eventSheets": {
 		"items": [
-			"Login",
 			"Loading",
-			"Program"
+			"Program",
+			"Global"
 		],
-		"subfolders": [
-			{
-				"items": [
-					"Global"
-				],
-				"subfolders": [],
-				"name": "Global"
-			},
-			{
-				"items": [
-					"Main",
-					"Settings",
-					"Servers"
-				],
-				"subfolders": [],
-				"name": "User"
-			},
-			{
-				"items": [
-					"Address",
-					"Letter",
-					"Sending",
-					"Status"
-				],
-				"subfolders": [],
-				"name": "Task"
-			}
-		]
+		"subfolders": []
 	},
 	"rootFileFolders": {
 		"script": {
-			"items": [],
+			"items": [
+				{
+					"name": "main.js",
+					"type": "application/javascript",
+					"sid": 265048558298143,
+					"script-info": {
+						"purpose": "main"
+					}
+				}
+			],
 			"subfolders": []
 		},
 		"sound": {
@@ -564,7 +525,7 @@
 	},
 	"properties": {
 		"description": "",
-		"version": "0.0.0.1",
+		"version": "0.1.0.1",
 		"author": "",
 		"authorEmail": "",
 		"authorWebsite": "",

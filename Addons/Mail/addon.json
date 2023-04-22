@@ -3,7 +3,7 @@
     "type": "plugin",
     "name": "Mail",
     "id": "RobotKaposzta_Mail",
-    "version": "0.0.0.1",
+    "version": "0.0.0.4",
     "author": "Henrik Szűcs",
     "website": "http://epicsoft.hu",
     "documentation": "http://epicsoft.hu",

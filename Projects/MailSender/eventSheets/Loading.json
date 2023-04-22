@@ -49,9 +49,9 @@
 						{
 							"id": "set-array",
 							"objectClass": "Data",
-							"sid": 566477536055831,
+							"sid": 917402934562406,
 							"parameters": {
-								"path": "\"temp.groupedTasks\"",
+								"path": "\"temp.sending\"",
 								"size": "0"
 							}
 						},
@@ -147,20 +147,20 @@
 							"sid": 855066865674933
 						},
 						{
+							"callFunction": "AutoLoad",
+							"sid": 248984752330933
+						},
+						{
+							"id": "wait-for-previous-actions",
+							"objectClass": "System",
+							"sid": 547782427348189
+						},
+						{
 							"id": "go-to-layout",
 							"objectClass": "System",
 							"sid": 942277621587074,
 							"parameters": {
 								"layout": "Program"
-							}
-						},
-						{
-							"id": "go-to-layout",
-							"objectClass": "System",
-							"sid": 304099681859633,
-							"disabled": true,
-							"parameters": {
-								"layout": "Login"
 							}
 						}
 					],
@@ -344,27 +344,13 @@
 							"sid": 734943035294051
 						},
 						{
+							"eventType": "comment",
+							"text": "auto-load"
+						},
+						{
 							"eventType": "block",
 							"conditions": [],
-							"actions": [
-								{
-									"id": "go-to-layout",
-									"objectClass": "System",
-									"sid": 422635908844719,
-									"parameters": {
-										"layout": "Program"
-									}
-								},
-								{
-									"id": "go-to-layout",
-									"objectClass": "System",
-									"sid": 816961202773633,
-									"disabled": true,
-									"parameters": {
-										"layout": "Login"
-									}
-								}
-							],
+							"actions": [],
 							"sid": 452680364573633
 						}
 					]

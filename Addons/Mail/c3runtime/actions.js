@@ -5,8 +5,8 @@
     self.C3.Plugins.RobotKaposzta_Mail.Acts = {
         async Send(tag, host, user, pass, from, to, cc, bcc, sub, text, priority) {
             //prevent empty
-            if (host === "" || user  === "" || pass === "" || (to === "" || cc === "" || bcc === "")) {
-                this.curTag = tag;
+            if (host === "" || user  === "" || pass === "" || (to === "" && cc === "" && bcc === "")) {
+                this._curTag = tag;
                 this.Trigger(C3.Plugins.RobotKaposzta_Mail.Cnds.OnSendError);
                 return;
             }
@@ -46,11 +46,10 @@
             //default from
             if (from === "") from = user;
             const result = await this._Send(host, user, pass, from, to, cc, bcc, sub, text, priority);
+            this._curTag = tag;
             if (result) {
-                this.curTag = tag;
                 this.Trigger(C3.Plugins.RobotKaposzta_Mail.Cnds.OnSendCompleted);
             } else {
-                this.curTag = tag;
                 this.Trigger(C3.Plugins.RobotKaposzta_Mail.Cnds.OnSendError);
             }
         },

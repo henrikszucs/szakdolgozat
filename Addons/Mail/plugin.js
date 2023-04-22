@@ -2,7 +2,7 @@
 {
     const SDK = self.SDK;
     const PLUGIN_ID = "RobotKaposzta_Mail";
-    const PLUGIN_VERSION = "0.0.0.1";
+    const PLUGIN_VERSION = "0.0.0.4";
 
     /**
      * @external IPluginBase
