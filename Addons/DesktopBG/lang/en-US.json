@@ -1,0 +1,73 @@
+﻿{
+    "languageTag": "en-US",
+    "fileDescription": "Strings for DesktopBG plugin.",
+    "text": {
+        "plugins": {
+            "robotkaposzta_desktopbg": {
+                "name": "Desktop BG",
+                "description": "Plugin that allow to run desktop project in background.",
+                "help-url": "http://epicsoft.hu",
+                "properties": {
+                    "text": {
+                        "name": "Text",
+                        "desc": "Text that shown in tray icon.",
+                        "value": "Exit"
+                    },
+                    "is-enabled": {
+                        "name": "Enable",
+                        "desc": "Enable or disable the background run."
+                    }
+                },
+                "debugger": {
+                    "title": "Desktop BG",
+                    "text": "Text",
+                    "is-enabled": "Is enabled"
+                },
+                "aceCategories": {
+                    "": ""
+                },
+                "actions": {
+                    "set-text": {
+                        "list-name": "Set text",
+                        "display-text": "Set text to [i]{0}[/i]",
+                        "description": "Set the exit text that shown in tray icon.",
+                        "params": {
+                            "text": {
+                                "name": "Text",
+                                "desc": "The text that shown in exit tray icon."
+                            }
+                        }
+                    },
+                    "set-enabled": {
+                        "list-name": "Set enabled",
+                        "display-text": "Set {0}",
+                        "description": "Enable or disable the background run.",
+                        "params": {
+                            "status": {
+                                "name": "Status",
+                                "desc": "Enable or disable the background run.",
+                                "items": {
+                                    "enable": "Enable",
+                                    "disable": "Disable"
+                                }
+                            }
+                        }
+                    }
+                },
+                "conditions": {
+                    "is-enabled": {
+                        "list-name": "Is enabled",
+                        "display-text": "Is enabled",
+                        "description": "True if background run is enabled."
+                    }
+                },
+                "expressions": {
+                    "text": {
+                        "translated-name": "Text",
+                        "description": "Get exit tray icon's text."
+                    }
+                }
+            }
+        }
+    }
+}

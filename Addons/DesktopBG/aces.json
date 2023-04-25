@@ -1,0 +1,62 @@
+﻿{
+    "": {
+        "actions": [
+            {
+                "id": "set-text",
+                "scriptName": "SetText",
+                "isDeprecated": false,
+                "highlight": true,
+                "params": [
+                    {
+                        "id": "text",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    }
+                ],
+                "isAsync": false
+            },
+            {
+                "id": "set-enabled",
+                "scriptName": "SetEnabled",
+                "isDeprecated": false,
+                "highlight": false,
+                "params": [
+                    {
+                        "id": "status",
+                        "type": "combo",
+                        "initialValue": "enable",
+                        "items": [
+                            "enable",
+                            "disable"
+                        ]
+                    }
+                ],
+                "isAsync": false
+            }
+        ],
+        "conditions": [
+            {
+                "id": "is-enabled",
+                "scriptName": "IsEnabled",
+                "isDeprecated": false,
+                "highlight": false,
+                "isTrigger": false,
+                "isFakeTrigger": false,
+                "isStatic": false,
+                "isLooping": false,
+                "isInvertible": true,
+                "isCompatibleWithTriggers": true
+            }
+        ],
+        "expressions": [
+            {
+                "id": "text",
+                "expressionName": "Text",
+                "isDeprecated": false,
+                "highlight": false,
+                "returnType": "string",
+                "isVariadicParameters": false
+            }
+        ]
+    }
+}

@@ -1,0 +1,13 @@
+{
+	"name": "DesktopBG",
+	"plugin-id": "RobotKaposzta_DesktopBG",
+	"sid": 914324661979665,
+	"singleglobal-inst": {
+		"type": "DesktopBG",
+		"properties": {
+			"text": "Exit",
+			"is-enabled": true
+		},
+		"uid": 16
+	}
+}

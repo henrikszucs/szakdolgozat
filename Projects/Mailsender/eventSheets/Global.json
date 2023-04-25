@@ -15485,10 +15485,10 @@
 												{
 													"id": "compare-value",
 													"objectClass": "Data",
-													"sid": 368974634197750,
+													"sid": 100086029179448,
 													"parameters": {
 														"path": "\"temp.sending.\" & jobserverindex & \".duration\"",
-														"cmp": 2,
+														"cmp": 4,
 														"value": "senderduration"
 													}
 												}
@@ -18947,10 +18947,10 @@
 																								{
 																									"id": "set-eventvar-value",
 																									"objectClass": "System",
-																									"sid": 275305411340372,
+																									"sid": 647893380219182,
 																									"parameters": {
 																										"variable": "replaceParam",
-																										"value": "replaceParam & replace(JSON.CurrentKey, \",\", \"\\,\") & \",\" & replace(JSON.CurrentValue, \",\", \"\\,\") & \",\""
+																										"value": "replaceParam & replace(str(int(JSON.CurrentKey)+1), \",\", \"\\,\") & \",\" & replace(JSON.CurrentValue, \",\", \"\\,\") & \",\""
 																									}
 																								}
 																							],

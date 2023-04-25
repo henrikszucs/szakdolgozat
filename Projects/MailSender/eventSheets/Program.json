@@ -7691,6 +7691,25 @@
 						}
 					],
 					"sid": 341482724238103
+				},
+				{
+					"eventType": "comment",
+					"text": "exit text"
+				},
+				{
+					"eventType": "block",
+					"conditions": [],
+					"actions": [
+						{
+							"id": "set-text",
+							"objectClass": "DesktopBG",
+							"sid": 968434044899630,
+							"parameters": {
+								"text": "TextManager.Translate(\"login.exit\")"
+							}
+						}
+					],
+					"sid": 797598835745513
 				}
 			]
 		},
@@ -7811,6 +7830,25 @@
 						}
 					],
 					"sid": 868072740846692
+				},
+				{
+					"eventType": "comment",
+					"text": "exit text"
+				},
+				{
+					"eventType": "block",
+					"conditions": [],
+					"actions": [
+						{
+							"id": "set-text",
+							"objectClass": "DesktopBG",
+							"sid": 455266542448771,
+							"parameters": {
+								"text": "TextManager.Translate(\"login.exit\")"
+							}
+						}
+					],
+					"sid": 238824436735432
 				}
 			]
 		},

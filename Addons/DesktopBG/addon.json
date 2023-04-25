@@ -1,0 +1,34 @@
+﻿{
+    "is-c3-addon": true,
+    "type": "plugin",
+    "name": "Desktop BG",
+    "id": "RobotKaposzta_DesktopBG",
+    "version": "0.0.0.1",
+    "author": "Henrik Szűcs",
+    "website": "http://epicsoft.hu",
+    "documentation": "http://epicsoft.hu",
+    "description": "Plugin that allow to run desktop application in background.",
+    "editor-scripts": [
+        "plugin.js",
+        "type.js",
+        "instance.js"
+    ],
+    "file-list": [
+        "lang/en-US.json",
+        "aces.json",
+        "addon.json",
+        "icon.svg",
+        "instance.js",
+        "plugin.js",
+        "type.js",
+
+        "c3runtime/actions.js",
+        "c3runtime/conditions.js",
+        "c3runtime/expressions.js",
+
+        "c3runtime/plugin.js",
+        "c3runtime/type.js",
+        "c3runtime/instance.js",
+        "c3runtime/domSide.js"
+    ]
+}

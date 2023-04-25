@@ -10,5 +10,5 @@ async function OnBeforeProjectStart(runtime)
 {
 	setInterval(() => {
 		runtime.callFunction("BSend");
-	}, 1000);
+	}, 100);
 }

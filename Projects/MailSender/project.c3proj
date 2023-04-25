@@ -95,6 +95,14 @@
 		},
 		{
 			"type": "plugin",
+			"id": "RobotKaposzta_DesktopBG",
+			"name": "Desktop BG",
+			"author": "Szűcs Henrik",
+			"bundled": true,
+			"version": "0.0.0.1"
+		},
+		{
+			"type": "plugin",
 			"id": "RobotKaposzta_Mail",
 			"name": "Mail",
 			"author": "Szűcs Henrik",
@@ -115,7 +123,7 @@
 			"name": "Text Manager",
 			"author": "Szűcs Henrik",
 			"bundled": true,
-			"version": "0.0.1.0"
+			"version": "0.0.1.1"
 		},
 		{
 			"type": "plugin",
@@ -185,7 +193,8 @@
 					"Browser",
 					"JSON",
 					"Date",
-					"AJAX"
+					"AJAX",
+					"DesktopBG"
 				],
 				"subfolders": [
 					{
